@@ -197,4 +197,14 @@ $(function () {
     // 初始化头像上传
     var avatarUp = new $WebUpload("avatar");
     avatarUp.init();
+
+    $(".float-e-margins").find("label").each(function(){
+        $(this).remove();
+    });
+    $(".form-group").children().attr("class","col-sm-12");
+
+    $("#oldPwd").attr("placeholder","原密码").addClass("forget-password");
+    $("#newPwd").attr("placeholder","新密码").addClass("forget-password");
+    $("#rePwd").attr("placeholder","新密码验证").addClass("forget-password");
+
 });

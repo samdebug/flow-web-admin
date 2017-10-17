@@ -91,6 +91,7 @@ $(function () {
         }
     });
 
+    //双击table事件
     $('table').on('dbl-click-row.bs.table', function (e, row, element){  
         var hrefTag = element.find("a");
         if (hrefTag.length){
@@ -98,5 +99,56 @@ $(function () {
         }
     }); 
 
-    //console.log($("table").height());
+    let newButton = $(".columns-right").find("button");
+    newButton.each(function(){
+        let that = $(this);
+        if (that.attr("title") == "刷新"){
+            that.after('<span class="btnTips" id="btnTips-refresh" style="display: none;">刷新</span>');
+            that.hover(function (){
+                that.attr("title","");
+                timer = setTimeout(function(){
+                    $(".columns-right").find("#btnTips-refresh").show();
+                },600);  
+            },function (){
+                that.attr("title","刷新");
+                clearTimeout(timer);
+                $(".columns-right").find("#btnTips-refresh").hide();  
+            });
+        }else{
+            that.after('<span class="btnTips" id="btnTips-column" style="display: none;left: 8px;">列</span>');
+            that.hover(function (){
+                that.attr("title","");
+                timer = setTimeout(function(){
+                    $(".columns-right").find("#btnTips-column").show();
+                },600);  
+            },function (){
+                that.attr("title","列");
+                clearTimeout(timer);
+                $(".columns-right").find("#btnTips-column").hide();  
+            });
+        }
+        
+    });
+
+    if (!$(".hidden-xs").find(".btnWrapper").length){
+        $(".hidden-xs").find('button').each(function(){
+            let that = $(this);
+            let icon = that.find("i");
+            let text = $.trim(that[0].innerText);
+            var X = that.offset().top;
+            var Y = that.offset().left;
+            that.text(""); 
+            that.append(icon);
+            that.after('<span class="btnTips" style="display: none;left:8px">' + text + '</span>');
+            that.hover(function (){
+                timer = setTimeout(function(){
+                    that.next("span").css("left",Y-80);
+                    that.next('span').show();
+                },600);  
+            },function (){
+                clearTimeout(timer);
+                that.next('span').hide();  
+            });
+        })
+    }
 })  

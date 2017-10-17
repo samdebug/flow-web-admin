@@ -47,8 +47,4 @@
         @}
     </div>
 </div>
-@if(isNotEmpty(underline) && underline == 'true'){
-    <div class="hr-line-dashed"></div>
-@}
-
 

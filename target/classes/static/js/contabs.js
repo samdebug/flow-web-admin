@@ -145,7 +145,7 @@ $(function () {
         	//删除之前的
         	$('.J_menuTabs .page-tabs-content').children().remove();       
         	
-            if (subTitle == "首页"){
+            if (subTitle == "首页" || subTitle == "修改密码" || subTitle == "更换头像"){
                 var str = '<a href="javascript:;" class="active J_menuTab" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166" data-id="' + dataUrl + '">' + subTitle + '</a>';
             }else{
                 var str = '<a href="javascript:;" class="active J_menuTab" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166" data-id="' + dataUrl + '">' + mainTitle + '</a>' + '<i class="fa fa-angle-right" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166">' + '</i>' + '<span style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166;padding-left: 10px;">' + subTitle + '</span>';
@@ -323,5 +323,9 @@ $(function () {
         $('.page-tabs-content').css("margin-left", "0");
     });
 
-    //去掉重置按钮
-});
+    //$('#side-menu').children("li").children('a').click();
+    //选中首页
+    //$('#side-menu').find(".J_menuItem").get(0)
+    //console.log($('#side-menu').children("li").children('a').focus());
+    /*var a = $('#side-menu').children("li").get(1).find('a').click();*/
+}); 

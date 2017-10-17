@@ -19,9 +19,16 @@ var Feng = {
         console.log(info);
     },
     alert: function (info, iconIndex) {
-        parent.layer.msg(info, {
+        if (iconIndex == 2){
+            toastr.error(info);
+        }else if (iconIndex == 1){
+            toastr.success(info);
+        }else{
+            toastr.warning(info);
+        }
+        /*parent.layer.msg(info, {
             icon: iconIndex
-        });
+        });*/
     },
     info: function (info) {
         Feng.alert(info, 0);

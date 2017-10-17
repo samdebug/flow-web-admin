@@ -146,7 +146,6 @@ $(function () {
                     that.next('span').show();
                 },600);  
             },function (){
-                that.attr("title","列");
                 clearTimeout(timer);
                 that.next('span').hide();  
             });
