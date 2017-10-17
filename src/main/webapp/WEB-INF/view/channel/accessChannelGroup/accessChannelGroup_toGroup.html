@@ -1,0 +1,501 @@
+@layout("/common/_container.html"){
+<style>
+    table tbody tr td {
+        text-align: center !important;
+    }
+    .ui-jqgrid .ui-jqgrid-labels th {
+        text-align: center !important;
+    }
+    #channel-info-dialog {
+        overflow: auto;
+    }
+    #channel-info-dialog table tr th:first-child {
+        width: 25%;
+        max-width: 25%;
+    }
+    #channel-info-origin, #channel-info-final {
+        width: 200px;
+        float: left;
+    }
+    #channel-info-origin select, #channel-info-final select {
+        width: 100%;
+        height: 230px;
+    }
+    #channel-info-btn-group {
+        width: 120px;
+        float: left;
+        margin-top: 30px;
+    }
+    #channel-info-btn-group .btn-info {
+        display: block;
+        margin: 10px auto;
+        width: 80px;
+        padding: 0;
+    }
+    .model-error-msg {
+        padding-right: 100px;
+        color: red;
+        display: none;
+    }
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+			<form class="form-horizontal" role="form" id="add-form"
+				onsubmit="return false;">
+				<input type="hidden" name="channelGroupId" id="channelGroupId" value="${channelGroupId}"/> <input
+					type="hidden" name="updId" id="updId" value="${channelGroupId}" />
+					<div class="row">
+						<div class="col-ms-6">
+							<!-- <div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right text-right"
+									for="dispatchChannel"> <span class="text-danger">*</span>
+									流量下发通道:
+								</label>
+								<div class="col-sm-6">
+									<input type="text" name="dispatchChannel" id="dispatchChannel"
+										class="form-control input-sm not-update" />
+								</div>
+							</div> -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right text-right"
+									for="groupName"> <span class="text-danger">*</span> 通道组名称: </label>
+								<div class="col-sm-6">
+									<input type="text" name="groupName" id="groupName" disabled="disabled"
+										class="form-control input-sm" />
+								</div>
+							</div>
+						</div>
+						<div class="col-ms-6">
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right text-right"
+									for="isDef"> <span class="text-danger">*</span> 是否默认通道组:
+								</label>
+								<div class="col-sm-2">
+								<input type="text" name="isDefDesc" id="isDefDesc" disabled="disabled"
+										class="form-control input-sm" />
+								</div>
+								<label class="col-sm-2 control-label no-padding-right text-right"
+									for="isQuote"> <span class="text-danger">*</span> 是否可引用:
+								</label>
+								<div class="col-sm-2"> 
+									<input type="text" name="isQuoteDesc" id="isQuoteDesc" disabled="disabled"
+										class="form-control input-sm" />
+								</div>
+							</div>
+							<!-- <div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right text-right"
+									for="groupName"> <span class="text-danger">*</span> 质量指标: </label>
+								<div class="col-sm-6">
+										<input type="hidden"  id="quota-select"
+										name="quotaId" class="form-control input-sm"/>
+								</div>
+							</div> -->
+						</div>
+					</div>
+				<!-- 接入通道组开始 -->
+				<div class="page-header">
+                    <h1>
+                        <small>接入通道组信息 </small>
+                    </h1>
+                </div>
+                <div class="container">
+                    <div class="row " style="margin-bottom: 15px;">
+                        <div class="col-xs-12">
+                          <!--   <button type="button" id="add-channel-group" class="btn btn-sm btn-success">
+                                <i class="ace-icon fa fa-hand-o-right bigger-120"></i>添加接入通道组
+                            </button> -->
+                             <div class="btnWrapper">
+                            		<#button id="add-channel-group" name="" icon="fa-plus" clickFun=""/>
+                            		<span class="btnTips">添加接入通道组</span>
+                            </div> 
+                            <div class="btnWrapper">
+                            		<#button name="" id="delete-channel-group" icon="fa fa-trash-o" clickFun=""/>
+                            		<span class="btnTips">删除接入通道组</span>
+                            </div> 
+                            <!-- 模态对话框 -->
+				            <div class="modal fade" id="channel-group-dialog" tabindex="-1" role="dialog" aria-labelledby="channel-group-title">
+				                <div class="modal-dialog">
+				                    <div class="modal-content">
+				                        <div class="modal-header">
+				                            <button type="button" class="close" data-dismiss="modal"
+				                                aria-label="Close">
+				                                <span aria-hidden="true">&times;</span>
+				                            </button>
+				                            <h4 class="modal-title" id="channel-group-title">选择接入通道组</h4>
+				                        </div>
+				                        <div class="modal-body">
+				                        	 <div style="width: 477px;margin-left:15px;">
+												<input type="text" id="groupText" name="groupText" style="width:200px;height:30px">
+										  	 </div>
+				                            <div id="channel-info-origin" style="margin-left: 15px;">
+			                                    <select id="groupDltSource" name="groupdltSource" size="10" multiple="multiple" ></select>
+			                                </div>
+			                                <div id="channel-info-btn-group">
+			                                    <input type="button" value="全部 &gt;&gt;" class="btn btn-info" onclick="AddAllGroup($('#groupDltSource'),$('#groupDltTarget'))" />
+			                                    <input type="button" value="&gt;&gt;" id="groupToRight" class="btn btn-info" />
+			                                    <input type="button" value="&lt;&lt;" id="groupToLeft" class="btn btn-info" />
+			                                    <input type="button" value="&lt;&lt; 全部" class="btn btn-info" onclick="AddAllGroup($('#groupDltTarget'),$('#groupDltSource'))" />
+			                                </div>
+			                                <div id="channel-info-final">
+			                                    <select id="groupDltTarget" name="groupDltTarget" size="10" multiple="multiple"></select>
+			                                </div>
+				                        </div>
+				                        <div class="modal-footer" style="padding-top: 208px">
+				                            <span class="model-error-msg">请选择接入通道组</span>
+			                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			                                <button type="button" class="btn btn-primary" onclick="channelGroupAddBtnClickEvent();">添加</button>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="channel-info-table" class="table table-striped table-bordered table-hover">
+                                 <thead>
+                                     <tr>
+                                     	<th style="text-align:center"></th>
+                                         <th style="text-align:center">通道组名称</th>
+                                         <th style="text-align:center">是否默认通道组</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody id="channel-group-tbody"></tbody>
+                             </table>
+                        </div>
+                    </div>
+                </div>
+			</form>
+            <div class="row btn-group-m-t" align="center">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="AccessChannelGroupInfoDlg.addGroupSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="AccessChannelGroupInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/accessChannelGroup/accessChannelGroup_info.js"></script>
+	<script type="text/javascript">
+        var view_url =  Feng.ctxPath + '/accessChannelGroup/findGroupToGroup';
+        var pkId = '${channelGroupId}';
+        
+        var groupList = null;
+        var groupData = null;
+        var groupTotalData = null;
+        var groupLeftSel = $("#groupDltSource"); 
+        var groupRightSel = $("#groupDltTarget");
+        var groupIndex = 0;
+        
+        $(function() {
+            // 【添加接入通道组信息】按钮点击事件
+            chooseChannelGroupBtnClickHandler();
+            // 双向选择按钮组点击事件
+            doubleSelectBtnClick();
+            if (pkId) {
+                $('#updId').val(pkId);
+                $.post(view_url, {
+                    'channelGroupId': pkId
+                }, function(rtn) {
+                    if (rtn.success) {
+                        $('#add-form').json2Form2(rtn.data);
+                        initChannelGroup(rtn.data);
+                    } else {
+                    	Feng.error(rtn.message ? rtn.message : "未知错误");
+                    }
+                });
+            }
+            
+            /**输入框绑定事件**/
+			$('#groupText').bind('input propertychange',function(){
+		        searchAccessChannelGroup();
+		    });
+        });
+        
+        
+        /**根据条件搜索通道*/
+        function searchAccessChannelGroup(){
+        	var text = $("#groupText").val();
+            var prodIds = [];
+            if (groupList != null) {
+                $.each(groupList, function(n, value) {
+                        prodIds.push(value.channelGroupId);
+                    });
+            }
+            var rightchannels = $("#groupDltTarget").val();
+			var rightchannelGroupIds = [];
+			if (rightchannels != null) {
+			    for(var i=0;i<rightchannels.length;i++){
+			    	rightchannelGroupIds.push(parseInt(rightchannels[i]));
+			    }
+			 }
+            $.ajax({
+                url:  Feng.ctxPath + '/accessChannelGroup/selectQuoteGroupList?isQuote=0&groupText=' + text,
+                dataType: 'json',
+                success: function(data, status) {
+                    if (data.success == true) {
+                       var prodDataDB = data.data.concat();
+                            if (groupList != null) {
+                                for (var i = prodDataDB.length - 1; i >= 0; i--) {
+                                    if ($.inArray(prodDataDB[i].channelGroupId, prodIds) >= 0) {
+                                        prodDataDB.splice(i, 1);
+                                    }
+                                }
+                            }
+                            //剔除右边已选的
+			                if (rightchannels != null) {
+			                    for (var i = prodDataDB.length-1 ; i >= 0; i--) {
+			                        if ($.inArray(prodDataDB[i].channelGroupId, rightchannelGroupIds) >= 0) {
+			                            prodDataDB.splice(i, 1);
+			                        }
+			                    }
+			                }
+			                for (var i = prodDataDB.length - 1; i >= 0; i--) {
+			                	if(undefined!=prodDataDB[i] && 1==prodDataDB[i].isQuote){//剔除引用通道
+	                                 prodDataDB.splice(i, 1);
+	                            }
+	                            if(undefined!=prodDataDB[i] && pkId==prodDataDB[i].channelGroupId){//剔除本身
+	                                 prodDataDB.splice(i, 1);
+	                            }
+			                }
+                            prodData = prodDataDB;
+                            $("#channel-group-dialog").modal({
+				                backdrop: "static",
+				                keyboard: false
+				            });
+				            $("#groupDltSource").empty();
+				            $.each(prodData, function(n, value) {
+				                $("#groupDltSource").append("<option value='" + value.channelGroupId + "'>" + value.groupName + "</option>")
+				            });
+                        }
+                    }
+           });
+        }
+        
+        /**
+         * 双向选择按钮组点击事件
+         */
+        function doubleSelectBtnClick() {
+            //通道组
+            $("#groupToRight").click(function() {
+                groupLeftSel.find("option:selected").each(function() {
+                    $(this).remove().appendTo(groupRightSel);
+                });
+            });
+            $("#groupToLeft").click(function() {
+                groupRightSel.find("option:selected").each(function() {
+                    $(this).remove().appendTo(groupLeftSel);
+                });
+            });
+            groupLeftSel.dblclick(function() {
+                $(this).find("option:selected").each(function() {
+                    $(this).remove().appendTo(groupRightSel);
+                });
+            });
+            groupRightSel.dblclick(function() {
+                $(this).find("option:selected").each(function() {
+                    $(this).remove().appendTo(groupLeftSel);
+                });
+            });
+        }
+        
+        /**
+         * 【添加接入通道组信息】按钮点击事件
+         */
+        function chooseChannelGroupBtnClickHandler() {
+            $("#add-channel-group").on('click', function(e) {
+                e.preventDefault();
+                $("#groupText").val("");
+                var groupIds = [];
+                if (groupList != null) {
+                    $.each(groupList, function(n, value) {
+                        groupIds.push(value.channelGroupId);
+                    });
+                }
+                $.ajax({
+                    url:  Feng.ctxPath + '/accessChannelGroup/selectQuoteGroupList?isQuote=0',
+                    dataType: 'json',
+                    success: function(data, status) {
+                        if (data.success == true) {
+                            var groupDataDB = data.data.concat();
+                            if (groupList != null) {
+                                for (var i = groupDataDB.length - 1; i >= 0; i--) {
+                                	if ($.inArray(groupDataDB[i].channelGroupId, groupIds) >= 0) {
+                                        groupDataDB.splice(i, 1);
+                                    }
+                                }
+                            }
+                            for (var i = groupDataDB.length - 1; i >= 0; i--) {
+                            	if(undefined!=groupDataDB[i] && 1==groupDataDB[i].isQuote){//剔除引用通道
+                                   groupDataDB.splice(i, 1);
+                                }
+                                if(undefined!=groupDataDB[i] && pkId==groupDataDB[i].channelGroupId){//剔除本身
+		                           groupDataDB.splice(i, 1);
+		                        }
+                            }
+                            groupData = groupDataDB;
+                            groupTotalData = groupData;
+                            showChannelGroupDialog();
+                        }
+                    }
+                });
+            });
+        }
+        function showChannelGroupDialog() {
+            $("#channel-group-dialog").modal({
+                backdrop: "static",
+                keyboard: false
+            });
+            // 初始化双向选择列表
+            initGroupDoubleSelect();
+        }
+        /**
+         * 初始化通道组双向选择列表
+         */
+        function initGroupDoubleSelect() {
+            $("#groupDltSource").empty();
+            $("#groupDltTarget").empty();
+            $.each(groupData, function(n, value) {
+                $("#groupDltSource").append("<option value='" + value.channelGroupId + "'>" + value.groupName + "</option>")
+            });
+        }
+        
+        /**
+         * 添加通道组按钮点击事件
+         */
+        function channelGroupAddBtnClickEvent() {
+            var selVal = [];
+            groupRightSel.find("option").each(function() {
+                selVal.push(this.value);
+            });
+            if (selVal.length == 0) {
+                $(".model-error-msg").fadeIn('slow');
+                setTimeout(function() {
+                    $(".model-error-msg").fadeOut('slow');
+                }, 1500);
+                return;
+            }
+            var groupDataTemp = groupTotalData;
+            // 初始化接入通道组列表
+            var groupSelectedList = $.getGroupSelectInfo(selVal, groupDataTemp);
+            if (groupList != null) {
+                groupList = groupList.concat(groupSelectedList);
+            } else {
+                groupList = groupSelectedList;
+            }
+            $("#channel-group-dialog").modal('hide');
+            refreshChannelGroupTable(groupSelectedList);
+        }
+        
+        $.getGroupSelectInfo = function(selVal, groupDataTemp) {
+            var arr = new Array();
+            $.each(selVal, function(index, id) {
+                $.each(groupDataTemp, function(n, value) {
+                    if (id == value.channelGroupId) {
+                        arr.push(value);
+                        return false;
+                    }
+                });
+                return true;
+            });
+            return arr;
+        };
+        
+        /**
+         * 刷新通道组
+         */
+        function refreshChannelGroupTable(dataList) {
+            // 刷新接入通道组Table
+            initChannelGroupTable(dataList);
+            // 删除按钮点击事件
+            deleteGroupBtnClickHandler();
+        }
+        
+        /**
+         * 初始化接入通道组Table
+         */
+         function initChannelGroupTable(dataList) {
+        	    var html = "";
+        	    for (var index in dataList) {
+        	        if (index == "contains") {
+        	            continue;
+        	        }
+        	        var obj = dataList[index];
+        	        html += "<tr>";
+        	        html += "<td ><input type='radio' attrid='" + obj.channelGroupId + "' class='groupDeleteBtn'/> </td>";
+        	        /* html += "<td><input type='hidden' name='channelGroupList[" + groupIndex + "].channelGroupId' value='"+ obj.channelGroupId +"'/>" + obj.dispatchChannel + "</td>"; */
+        	        html += "<td><input type='hidden' name='channelGroupList[" + groupIndex + "].channelGroupId' value='"+ obj.channelGroupId +"'/>"+ obj.groupName +"</td>";
+        	        html += "<td>"+ obj.isDefDesc +"</td>";
+        	      /*   html += "<td><button class='btn btn-danger btn-xs groupDeleteBtn' attrid='" + obj.channelGroupId + "'><i class='ace-icon fa fa-trash-o fa icon-only'></i></button></td>" */
+        	        html += "</tr>";
+        	        groupIndex++;
+        	    }
+        	    $("#channel-group-tbody").append(html);
+        	}
+         /**
+          * 删除按钮点击事件
+          */
+         function deleteGroupBtnClickHandler() {
+             $("#delete-channel-group").click(function() {
+                 var $checkRadio;
+                 var count=0;
+         	   	$(".groupDeleteBtn").each(function() {
+         	           if ($(this).is(':checked')) {
+         	           	$checkRadio=$(this);
+         	           	count++;
+         	           	 return false;
+         	           }
+         	       });
+         	   	if(count<1){
+            		 Feng.info("请先选中表格中的某一记录！");
+         	   		 return;
+            		}
+                 $.each(groupList, function(n, value) {
+                     if ($checkRadio.attr("attrid") == value.channelGroupId) {
+                         groupList.splice(n, 1);
+                         return false;
+                     }
+                 });
+                 $checkRadio.parent('td').parent('tr').remove();
+             });
+         }
+        
+        //通道组添加全部
+        function AddAllGroup(ObjSource, ObjTarget) {
+            // 目标列表的HTML加上原列表的所有HTML
+            ObjTarget.append(ObjSource.html());
+            // 原列表清空
+            ObjSource.empty();
+        }
+        
+        /**
+         * 初始化显示关联通道组
+         */
+        function initChannelGroup(data) {
+            var channelGroupIds = [];
+            var odList = data.groupToGroupList;
+            $.each(odList, function(n, value) {
+                channelGroupIds.push(value.channelGroupId);
+            });
+            if (channelGroupIds.length > 0) {
+                $.ajax({
+                    url:  Feng.ctxPath + '/accessChannelGroup/selectQuoteGroupList?isQuote=0&channelGroupIds=' + channelGroupIds,
+                    dataType: 'json',
+                    success: function(data, status) {
+                        if (data.success == true) {
+                            groupList = data.data;
+                            refreshChannelGroupTable(groupList);
+                        }
+                    }
+                });
+            }
+        }
+        function viewEvent(channelGroupId) {
+        	 window.location.href = Feng.ctxPath + '/accessChannelGroup/detail/' + channelGroupId+"?isShow="+1;;
+    	};
+</script>
+@}

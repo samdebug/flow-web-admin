@@ -1,0 +1,44 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>通道质量标准管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="quotaName" name="指标名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="succRatioWeight" name="成功率比重" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="timlyRateWeight" name="及时率比重" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="查询" icon="fa-search" clickFun="ChannelQualityQuota.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="ChannelQualityQuotaTableToolbar" role="group">
+                            @if(shiro.hasPermission("/channelQualityQuota/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="ChannelQualityQuota.openAddChannelQualityQuota()"/>
+                            @}
+                            @if(shiro.hasPermission("/channelQualityQuota/update")){
+                                <#button name="修改" icon="fa-plus" clickFun="ChannelQualityQuota.openChannelQualityQuotaDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/channelQualityQuota/delete")){
+                                <#button name="删除" icon="fa-plus" clickFun="ChannelQualityQuota.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="ChannelQualityQuotaTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelQualityQuota/channelQualityQuota.js"></script>
+@}

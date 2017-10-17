@@ -1,0 +1,148 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+			
+          <input type="hidden" name="maintainSeqId" id="maintainSeqId" value="${channelMaintainInfo.maintainSeqId}" /> <input
+					type="hidden" name="updId" id="updId" value="${channelMaintainInfo.updId}" />
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<div class="col-sm-6">
+								<#NameCon type="text" name="维护信息名称:"  id="maintainName" value="${channelMaintainInfo.maintainName}"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-6">
+								<#SelectCon  id="operatorCode" name="对应运营商:"  >
+									<option value="">请选择运营商</option>
+									<option value="YD" 
+									@if(channelMaintainInfo.maintainName=="YD"){
+									    selected="selected"
+									@}
+									>移动</option>
+									<option value="LT" 
+									@if(channelMaintainInfo.maintainName=="LT"){
+									    selected="selected"
+									@}>联通</option>
+									<option value="DX" 
+									@if(channelMaintainInfo.maintainName=="DX"){
+									    selected="selected"
+									@}
+									>电信</option>
+								</#SelectCon>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-6">
+								<#SelectCon id="channelType" name="通道类别:"
+									class="form-control input-sm">
+									<option value="1">流量</option>
+									<option value="2">话费</option>
+								</#SelectCon>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-6">
+								<#TimeCon type="text" name="开始时间:" id="startTime" isTime="true" pattern="YYYY-MM-DD hh:mm:ss" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-6">
+								<#TimeCon type="text" name="结束时间:" id="endTime" isTime="true" pattern="YYYY-MM-DD hh:mm:ss" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-6">
+								<#NameCon type="text" name="备注:" id="remark" />
+							</div>
+						</div>
+						<!-- <div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="creator"> <span class="red">*</span> 创建者:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="creator" id="creator"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="updator"> 修改者: </label>
+							<div class="col-sm-6">
+								<input type="text" name="updator" id="updator"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="ip"> 创建者IP: </label>
+							<div class="col-sm-6">
+								<input type="text" name="ip" id="ip"
+									class="form-control input-sm" />
+							</div>
+						</div> -->
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<div class="col-sm-6">
+								<#SelectCon id="zone" name="适用区域:" >
+									<option value="">请选择区域</option>
+									@for(area in areas){
+									  <option value="${area.areaCode}">${area.areaName}</option>
+									@}
+								</#SelectCon>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="notice"> <span class="red">*</span> 维护公告:
+							</label>
+							<div class="col-sm-6">
+								<!-- <input type="text" name="notice" id="notice"
+									class="form-control input-sm" /> -->
+								<textarea rows="5" cols="33" name="notice" id="notice"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-6">
+								<#SelectCon  id="isValid" name="是否有效:" >
+									<option value="">请选择是否有效</option>
+									<option value="0">无效</option>
+									<option value="1">有效</option>
+								</#SelectCon>
+							</div>
+						</div>
+						<!-- <div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="createTime"> <span class="red">*</span> 创建时间:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="createTime" id="createTime"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="updateTime"> 修改时间: </label>
+							<div class="col-sm-6">
+								<input type="text" name="updateTime" id="updateTime"
+									class="form-control input-sm" />
+							</div>
+						</div> -->
+					</div>
+				</div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="鎻愪氦" id="ensure" icon="fa-check" clickFun="ChannelMonitorInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="鍙栨秷" id="cancel" icon="fa-eraser" clickFun="ChannelMonitorInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelMonitor/channelMonitor_info.js"></script>
+@}

@@ -1,0 +1,237 @@
+@layout("/common/_container.html"){
+<style>
+.form-control-static{
+	    word-wrap: break-word;
+    word-break: break-all;
+}
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+					<input type="hidden" name="updId" id="updId" value="${info.id}" />
+		           <div class="tabs-container">
+	                    <ul class="nav nav-tabs">
+	                        <li class="active">
+	                        	<a data-toggle="tab" href="#tab-1" aria-expanded="true">基础信息</a>
+	                        </li>
+	                        <li class="" >
+	                        	<a data-toggle="tab" href="#tab-2" aria-expanded="false">接入信息</a>
+	                        </li>
+	                        <li class="">
+	                        	<a data-toggle="tab" href="#tab-3" aria-expanded="false">银行账户信息</a>
+                       		</li>
+	                        <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">联系人信息</a>
+	                        </li>
+	                    </ul>
+	                    <div class="tab-content">
+	                        <div id="tab-1" class="tab-pane active">
+	                        	<div class="panel-body">
+                            		<div class="col-xs-6">
+										<div class="form-group">
+											<label class="col-sm-5 control-label no-padding-right text-right"
+												for="supplierCode"><span class="text-danger">*</span> 供应商编码: </label>
+											<div class="col-sm-6">
+													<p class="form-control-static" name="supplierCode" id="supplierCode">${info.supplierCode}</p>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-5 control-label no-padding-right text-right"
+												for="supplierName"><span class="text-danger">*</span>供应商名称: </label>
+											<div class="col-sm-6">
+													<p class="form-control-static" name="supplierName" id="supplierName">${info.supplierName}</p>
+											</div>
+										</div>
+									  	 <div class="form-group">
+											<label class="col-sm-5 control-label no-padding-right text-right"
+												for="contractNo">合同编号: </label>
+											<div class="col-sm-6">
+													<p class="form-control-static" name="contractNo" id="contractNo">${info.contractNo}</p>
+											</div>
+										</div>
+									</div>
+											<div class="col-xs-6">
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="address"> <span class="text-danger">*</span> 是否有效:
+													</label>
+													<div class="col-sm-6">
+														<p class="form-control-static" name="isValidDesc" id="isValidDesc">${info.isValidDesc}</p>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="adapterId"> <span class="text-danger">*</span> 通道适配器:
+													</label>
+													<div class="col-sm-6">
+													<p class="form-control-static" class="form-control-static" class="form-control-static" class="form-control-static" name="adapterName" id="adapterName" >${info.adapterName}</p>
+													</div>
+												</div>
+											</div>
+									   </div>
+	                        		</div>
+	                        		<div id="tab-2" class="tab-pane">
+	                        		    <div class="panel-body">
+		                            		<div class="col-xs-6">
+		                            			<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="account"> 接入帐号: </label>
+													<div class="col-sm-6">
+														<p class="form-control-static" name="account" id="account" >${info.account}</p>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="passwd"> 接入密码: </label>
+													<div class="col-sm-6">
+															<p class="form-control-static" name="passwd" id="passwd" >${info.passwd}</p>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="appKey"> 接入密钥: </label>
+													<div class="col-sm-6">
+															<p class="form-control-static" name="appKey" id="appKey" >${info.makeOrderUrl}</p>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="makeOrderUrl"> 下单URL: </label>
+													<div class="col-sm-6">
+															<p class="form-control-static" name="makeOrderUrl" id="makeOrderUrl" >${info.makeOrderUrl}</p>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="extUrl"> 查询余额URL: </label>
+													<div class="col-sm-6">
+														<p class="form-control-static" name="extUrl" id="extUrl" >${info.extUrl}</p>
+													</div>
+												</div>
+											</div>
+											<div class="col-xs-6">
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="callBackUrl"> 回调URL: </label>
+													<div class="col-sm-6">
+															<p class="form-control-static" name="callBackUrl" id="callBackUrl" >${info.callBackUrl}</p>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="queryUrl"> 查询URL: </label>
+													<div class="col-sm-6">
+															<p class="form-control-static" name="queryUrl" id="queryUrl" >${info.queryUrl}</p>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="version"> 版本: </label>
+													<div class="col-sm-6">
+															<p class="form-control-static" name="version" id="version" >${info.version}</p>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="version"> 预留字段1: </label>
+													<div class="col-sm-6">
+															<p class="form-control-static" name="eccode" id="eccode" >${info.eccode}</p>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="version"> 预留字段2: </label>
+													<div class="col-sm-6">
+															<p class="form-control-static" name="activityNo" id="activityNo" >${info.activityNo}</p>
+													</div>
+												</div>
+		                            		</div>
+		                            	</div>	
+			                        </div>
+				                    <div id="tab-3" class="tab-pane">
+			                            <div class="panel-body">
+			                            		<div class="col-xs-6">
+													<div class="form-group">
+														<label class="col-sm-4 control-label no-padding-right text-right"
+															for="bankName">  银行名称:
+														</label>
+														<div class="col-sm-6">
+																<p class="form-control-static" name="bankName" id="bankName" >${info.bankName}</p>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-4 control-label no-padding-right text-right"
+															for="bankAddr">  开户行:
+														</label>
+														<div class="col-sm-6">
+															<p class="form-control-static" name="bankAddr" id="bankAddr" >${info.bankAddr}</p>
+														</div>
+													</div>
+							
+												</div>
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label class="col-sm-4 control-label no-padding-right text-right"
+															for="bankAccount"> 银行账号:
+														</label>
+														<div class="col-sm-6">
+																<p class="form-control-static" name="bankAccount" id="bankAccount" >${info.bankAccount}</p>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-4 control-label no-padding-right text-right"
+															for="bankRate">  税率(%):
+														</label>
+														<div class="col-sm-6">
+															<p class="form-control-static" name="bankRate" id="bankRate" >${info.bankRate}</p>
+														</div>
+													</div>
+												</div>
+			                            </div>
+			                        </div>
+			                        <div id="tab-4" class="tab-pane" >
+			                        	<div class="panel-body">
+			                        		<div class="col-xs-6">
+		                            		   	<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="linkName"> 联系人:
+													</label>
+													<div class="col-sm-6">
+															<p class="form-control-static" class="form-control-static" name="linkName" id="linkName" >${info.linkName}</p>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="email">  邮箱:
+													</label>
+													<div class="col-sm-6">
+															<p class="form-control-static" name="email" id="email" >${info.email}</p>
+													</div>
+												</div>
+		                            		</div>
+		                            		<div class="col-xs-6">
+		                            		   	<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="mobile">  电话:
+													</label>
+													<div class="col-sm-6">
+															<p class="form-control-static" name="mobile" id="mobile" >${info.mobile}</p>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="address">  地址:
+													</label>
+													<div class="col-sm-6">
+													<p class="form-control-static" name="address" id="address" >${info.address}</p>
+													</div>
+												</div>
+		                            		</div>
+		                            	</div>	
+			                        </div>
+                     		   </div>
+                    		 </div> 
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelSupplier/channelSupplier_info.js"></script>
+@}

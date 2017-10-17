@@ -1,0 +1,151 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>客户管理管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    <form id="queryForm" action="#">
+                        <div class="row sixChart">
+                            <div class="col-sm-3">
+                                <#NameCon id="params['customerName']" name="客户名称："  />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="params['account']" name="账号："  />
+                            </div>
+                            <div class="col-sm-3">
+                            	<#SelectCon id="params['status']" name="状态：">
+                                	<option value="">全部</option>
+									<option value="1">商用</option>
+									<option value="2">失效</option>
+                                </#SelectCon>
+                            </div>
+                        </div>
+                        <div class="row sixChart">
+                            <div class="col-sm-3">
+                                <div class="input-group">
+								    <div class="input-group-btn">
+								        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">合作伙伴名称：</button>
+								    </div>
+                                    <input type="hidden" id="customer-partner-select" name="params['partnerId']" class="form-control search-query" data-placeholder="请选择合作伙伴"/>
+								</div>
+                            </div>
+                        	<div class="col-sm-3">
+                                <#SelectCon id="params['partnerType']" name="合作伙伴类型：">
+                                	<option value="">全部</option>
+									<option value="1">流量营销</option>
+									<option value="2">渠道直充</option>
+                                </#SelectCon>
+                            </div>
+                        	<div class="col-sm-3 reset">
+                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="Customer.search()"/>
+                                &nbsp;&nbsp;
+                                <#button name="重置" class="button-margin" icon="fa-undo" clickFun="Customer.reset()"/>
+                            </div>
+                        </div>
+                        </form>
+                        
+                        <div class="hidden-xs" id="CustomerTableToolbar" role="group">
+                            @if(shiro.hasPermission("/customer/add")){
+                            <div class="btnWrapper">
+                                <#button name="" icon="fa-plus" clickFun="Customer.openAddCustomer()" style="width:98px"/>
+                                <span class="btnTips">添加</span>
+                            </div>
+                            @}
+                            @if(shiro.hasPermission("/customer/update")){
+                            <div class="btnWrapper">
+                                <#button name="" icon="fa-edit" clickFun="Customer.openCustomerDetail()" style="width:98px"/>
+                                <span class="btnTips">修改</span>
+                            </div>
+                            @}
+                            @if(shiro.hasPermission("/customer/delete")){
+                            <div class="btnWrapper">
+                                <#button name="" icon="fa-trash-o" clickFun="Customer.delete()" style="width:98px"/>
+                                <span class="btnTips">删除</span>
+                            </div>
+                            @}
+                            @if(shiro.hasPermission("/customer/export")){
+                            <div class="btnWrapper">
+                            	<#button name="" icon="fa-download" clickFun="Customer.exportExcel()" style="width:98px"/>
+                            	<span class="btnTips">导出</span>
+                            </div>
+                            @}
+                            
+                            <div class="btnWrapper">
+	                            <#button name="" icon="fa fa-bolt" clickFun="modifyLevelEvent()" style="width:98px"/>
+	                            <span class="btnTips">修改等级</span>
+                            </div>
+                            
+                            <div class="btnWrapper">
+                            	<#button name="" icon="fa fa-flag" clickFun="changeStatus()" style="width:98px"/>
+                            	<span class="btnTips">商用/失效</span>
+                            </div>
+                            
+                        </div>
+                        <#table id="CustomerTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="customer-level-dialog" class="modal fade" tabindex="-1"
+		role="dialog" aria-labelledby="customer-level-dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">客户等级修改</h4>
+				</div>
+				<div class="modal-body">
+					<div class="cadv-customer-credit form-horizontal">
+						<div class="row">
+							<div class="col-sm-2">
+								<input type="hidden" name="customerId" id="customerId"> 
+							</div>
+							<div class="col-sm-8">
+								<div class="form-group">
+									<#SelectCon id="customerLevel" name="客户等级">
+	                                	<option value="5">5</option>
+								    	<option value="4">4</option>
+								    	<option value="3">3</option>
+								    	<option value="2">2</option>
+								    	<option value="1">1</option>
+	                                </#SelectCon>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-8">
+							<div class="form-group" id="orderRiskSetting_form" style="display:none">
+								<#NameCon id="orderRiskSetting" name="单笔风控设置（%）"  />
+								<div id="orderRisk-error" class="alert alert-danger hide" style="margin: 40px 0;text-align: center;">
+	                                    <span id="errorMsg"></span><br>
+	                            </div>
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
+					<button type="button" class="btn btn-primary"
+						onclick="customerLevelSubmit();">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<script src="${ctxPath}/static/modular/customer/customer.js"></script>
+@}

@@ -1,0 +1,541 @@
+@layout("/common/_container.html"){
+<style>
+	.flowPackage{
+		margin:0 !important;
+		padding-left: 0px;
+	}
+	.flowPackage li{
+		list-style:none; float:left;width:90px;height:30px;line-height:30px;margin-right:20px;margin-bottom:15px;
+	  	text-align:center; background-image: url("${ctxPath}/static/img/u191.png");background-repeat:no-repeat;
+	}
+	.flowPackage li:hover{
+		cursor: pointer;
+		background-image: none;
+		border: 1px solid rgb(46, 169, 103);
+		border-radius: 4px;
+	}
+	#u46{
+	    padding-top: 7px;
+	}
+	.opr_img{
+		float:left;width:30px;height:30px;
+	}
+	.oper{
+		float:left;width:80px;height:30px;line-height: 30px; margin-left: 20px;
+	}
+	.oper span {
+		color: red;
+		font-weight: bold;
+	}
+ 	.customer_btn { 
+ 	}
+ 	.customer_btn:hover { 
+ 		background-color: rgb(46, 169, 103) !important; 
+ 	} 
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div id="content-box" class="ibox float-e-margins">
+			<div class="form-horizontal">
+				<br/>
+				<div class="row">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right">事件名称</label>
+							<div class="col-sm-2">
+								<input class="form-control" id="eventName" name="eventName" maxlength="60" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right">上传文件</label>
+							<div class="col-sm-2">
+								<input type="file" class="form-control" id="mobileListFile" accept=".xls" />
+							</div>
+							<div class="col-sm-2">
+								<p class="oper" id="uploadStatus"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right">模板下载</label>
+							<div class="col-sm-2">
+								<a href="${ctxPath}/fileUploadRecord/exportTemplateFile" class="form-control" style="border: none;">流量批量充值模版.xls</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right">中国移动</label>
+							<div class="col-sm-6">
+								<p class="opr_img"><img alt="" width="30px" id="img" height="30px" src="${ctxPath}/static/img/ico2.png"></p>
+								<p class="oper">共<span id="YDCount">_</span>个号码</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" >
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right"></label>
+							<div class="col-sm-6">
+								<ul id="flowPackage_YD" class="flowPackage">
+						        	<li><span>5M</span></li>
+						        	<li><span>10</span>M</li>
+						        	<li><span>30</span>M</li>
+						        	<li><span>50</span>M</li>
+						        	<li><span>100</span>M</li>
+						        	<li><span>200</span>M</li>
+						        	<li><span>500</span>M</li>
+						        	<li><span>1024</span>M</li>
+						        </ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right">中国联通</label>
+							<div class="col-sm-6">
+								<p class="opr_img"><img alt="" width="30px" id="img" height="30px" src="${ctxPath}/static/img/ico1.png"></p>
+								<p class="oper">共<span id="LTCount">_</span>个号码</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" >
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right"></label>
+							<div class="col-sm-6">
+								<ul id="flowPackage_LT" class="flowPackage">
+						        	<li><span>5M</span></li>
+						        	<li><span>10</span>M</li>
+						        	<li><span>30</span>M</li>
+						        	<li><span>50</span>M</li>
+						        	<li><span>100</span>M</li>
+						        	<li><span>200</span>M</li>
+						        	<li><span>500</span>M</li>
+						        	<li><span>1024</span>M</li>
+						        </ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right">中国电信</label>
+							<div class="col-sm-6">
+								<p class="opr_img"><img alt="" width="30px" id="img" height="30px" src="${ctxPath}/static/img/ico3.png"></p>
+								<p class="oper">共<span id="DXCount">_</span>个号码</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" >
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right"></label>
+							<div class="col-sm-6">
+								<ul id="flowPackage_DX" class="flowPackage">
+						        	<li><span>5M</span></li>
+						        	<li><span>10</span>M</li>
+						        	<li><span>30</span>M</li>
+						        	<li><span>50</span>M</li>
+						        	<li><span>100</span>M</li>
+						        	<li><span>200</span>M</li>
+						        	<li><span>500</span>M</li>
+						        	<li><span>1024</span>M</li>
+						        </ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row" id="ERROR_label">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right">无效号码</label>
+							<div class="col-sm-6">
+								<p class="oper">共<span id="ErrorCount">_</span>个号码</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" id="ERROR_phones" >
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right"></label>
+							<div class="col-sm-6">
+								<ul id="flowPackage_ERROR" class="flowPackage">
+						        	
+						        </ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-6 b-r text-right">
+						<button id="toRechargeBtn" type="button" class="btn btn-info customer_btn">
+						    <i class="fa fa-check"></i>&nbsp;充 值
+						</button>
+						&nbsp;&nbsp;
+						<button id="cancel" type="button" class="btn" onclick="parent.layer.close(window.parent.RechargeEvent.layerIndex)">
+						    <i class="fa fa-check"></i>&nbsp;取消
+						</button>
+					</div>
+				</div>
+				
+			</div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+var upload = false;
+
+var resolveData = null;
+var initFlowPackageSuccess = true;
+
+
+function resolveDataHandler(data) {
+	console.log(JSON.stringify(data));
+	
+	$("#YDCount").text(data.YDCount);
+	$("#DXCount").text(data.DXCount);
+	$("#LTCount").text(data.LTCount);
+	
+	checkErrorPhones(data);
+	
+	if ( !data || !data.mobiles || data.mobiles.length <= 0 ) {
+		Feng.info("文件中无有效手机号码，请检查并重新上传！");
+		resolveData = null;
+		return;
+	}
+}
+
+function clearOperatorCount() {
+	$("#YDCount").text("_");
+	$("#DXCount").text("_");
+	$("#LTCount").text("_");
+}
+
+/**
+ * 隐藏错误手机号码
+ */
+function hideErrorPhones() {
+	$("#ERROR_label").hide();
+	$("#ERROR_phones").hide();
+}
+
+function checkErrorPhones(data) {
+	if ( !data || !data.errorMobilesCount || data.errorMobilesCount == 0 ) {
+		hideErrorPhones();
+		return;
+	}
+	if ( data && data.errorMobilesCount > 0 && data.errorMobiles ) {
+		var _style = ' style="border: 1px solid red;border-radius: 4px;"';
+		var _errorUl = $("#flowPackage_ERROR");
+		_errorUl.html("");
+		$(data.errorMobiles).each(function(){
+			_errorUl.append("<li" + _style + "><span>" + this +"</span></li>");
+		});
+		$("#ERROR_label").show();
+		$("#ERROR_phones").show();
+		$("#ErrorCount").text(data.errorMobilesCount);
+	}
+}
+
+/**
+ * 初始化流量包信息
+ */
+function initOperatorPackageInfo() {
+    // 基础包批量充值
+    initOperatorPackage("YD", 1);
+    initOperatorPackage("LT", 1);
+    initOperatorPackage("DX", 1);
+}
+
+
+function initOperatorPackage(operator, packageType) {
+	var ajax = new $ax(Feng.ctxPath + "/portalFlowRecharge/getBatchFlowPackageInfo", function(data){
+		if ( data && data.code && data.code != 200 ) {
+			Feng.error(data && data.message ? data.message : "初始化流量包信息失败");
+			if ( initFlowPackageSuccess )// 只设置一次
+				initFlowPackageSuccess = false;
+			return;
+		}
+		doSuccess(data, operator);
+    },function(data){
+    	Feng.error("初始化流量包信息失败!");
+    	console.error(data);
+    });
+    ajax.set( {"operator": operator, "packageType": packageType});
+    ajax.start();
+}
+
+function doSuccess(val, operator) {
+    var packageStr = "";
+    $.each(val, function(row) {
+         var packageInfo = val[row];
+          packageStr+="<li onclick='showPriceTotal(\""+packageInfo.realprice+"\",this,\""+packageInfo.flowPackageId+"\",\""+packageInfo.flowamount+"\",\""+packageInfo.orderDetailId+"\",\""+packageInfo.productId+"\")'><span>"+packageInfo.flowamount+"M</span></li>";
+    });
+    // 基础包批量充值
+    $("#flowPackage_" + operator).html(packageStr);
+    $("#flowPackage_" + operator + " > li").attr("name", operator);
+}
+
+/**
+ * 选择的信息
+ */
+var SelectFlowPackage = {
+		YD : {
+			price: null,
+			packageId : null,
+			flowAmount : null,
+			orderDetailId : null,
+			productId : null
+		},
+		LT : {
+			price: null,
+			packageId : null,
+			flowAmount : null,
+			orderDetailId : null,
+			productId : null
+		},
+		DX : {
+			price: null,
+			packageId : null,
+			flowAmount : null,
+			orderDetailId : null,
+			productId : null
+		}
+};
+/**
+ * 重置SelectFlowPackage
+ */
+function clearSelectFlowPackage() {
+	$.each(["YD", "LT", "DX"], function(){
+		var _tem = eval("SelectFlowPackage." + this);
+		for (prop in _tem) {
+			_tem[prop] = null;
+		}
+		$("#flowPackage_" + this + " > li").css("background-image","url('${ctxPath}/static/img/u191.png')");
+	});
+}
+
+function showPriceTotal(realprice, obj, packageId, flowamount, orderDetailId, productId) {
+	var _name = $(obj).attr("name");
+	
+	eval("SelectFlowPackage." + _name).price = realprice;
+	eval("SelectFlowPackage." + _name).packageId = packageId;
+	eval("SelectFlowPackage." + _name).flowAmount = flowamount;
+	eval("SelectFlowPackage." + _name).orderDetailId = orderDetailId;
+	eval("SelectFlowPackage." + _name).productId = productId;
+    
+    $("#flowPackage_" + _name + " > li").css("background-image","url('${ctxPath}/static/img/u191.png')");
+	$(obj).css("background-image", "url('${ctxPath}/static/img/u19.png')");
+}
+
+/**
+ * 获取需要提交的数据
+ */
+function getSubmitData() {
+	var _data = {
+		"fileGroupId":	0,
+		"sourceType":	1,
+		"eventName":	$("#eventName").val(),
+		"ydPackageId":	getDataForString(SelectFlowPackage.YD.packageId),
+		"ltPackageId":	getDataForString(SelectFlowPackage.LT.packageId),
+		"dxPackageId":	getDataForString(SelectFlowPackage.DX.packageId),
+		"allPackageId":	"",
+		"ydOrderDetailId":	getDataForLong(SelectFlowPackage.YD.orderDetailId),
+		"ltOrderDetailId":	getDataForLong(SelectFlowPackage.LT.orderDetailId),
+		"dxOrderDetailId":	getDataForLong(SelectFlowPackage.DX.orderDetailId),
+		"allOrderDetailId":	0,
+		"ydProductId":	getDataForLong(SelectFlowPackage.YD.productId),
+		"ltProductId":	getDataForLong(SelectFlowPackage.LT.productId),
+		"dxProductId":	getDataForLong(SelectFlowPackage.DX.productId),
+		"allProductId":	0,
+		"rechargeType":	1,
+		"mobiles":	resolveData.checkStr,
+		"nonceStr":	resolveData.nonceStr,
+		"sign":		resolveData.sign
+	};
+	return _data;
+}
+
+function getDataForLong(data) {
+	if (!data)
+		return 0;
+	return data;
+}
+
+function getDataForString(data) {
+	if (!data)
+		return "";
+	return "" + data;
+}
+
+/**
+ * 检查是否已经全部选择了充值流量包
+ */
+function checkSelect() {
+	if ( $("#eventName").val() == "" ) {
+		Feng.error("请填写事件名称");
+		return false;
+	}
+	
+	if ( !resolveData || !resolveData.mobiles || resolveData.mobiles.length <= 0 ) {
+		Feng.error("请选择充值的手机号文件，或文件中无有效手机号码");
+		return false;
+	}
+	if ( resolveData.YDCount > 0 && !SelectFlowPackage.YD.packageId ) {
+		Feng.error("请选择移动充值流量包");
+		return false;
+	}
+	if ( resolveData.LTCount > 0 && !SelectFlowPackage.LT.packageId ) {
+		Feng.error("请选择联通充值流量包");
+		return false;
+	}
+	if ( resolveData.DXCount > 0 && !SelectFlowPackage.DX.packageId ) {
+		Feng.error("请选择电信充值流量包");
+		return false;
+	}
+	return true;
+}
+
+
+/**
+ * 构造充值提示信息 
+ */
+function buildRechargeInfo() {
+	var _promptHtml = "<div style='padding: 2px 60px;'>你将对";
+	
+	if ( resolveData.YDCount > 0 ) {
+		_promptHtml += "<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + resolveData.YDCount + "个移动号码充值" + SelectFlowPackage.YD.flowAmount + "M流量";
+	}
+	if ( resolveData.LTCount > 0 ) {
+		_promptHtml += "<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + resolveData.LTCount + "个联通号码充值" + SelectFlowPackage.LT.flowAmount + "M流量";
+	}
+	if ( resolveData.DXCount > 0 ) {
+		_promptHtml += "<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + resolveData.DXCount + "个移电信码充值" + SelectFlowPackage.DX.flowAmount + "M流量";
+	}
+	_promptHtml += "<br/>请确认充值！充值提交后无法取消！</div>";
+	return _promptHtml
+}
+
+
+/**
+ * 提交
+ */
+function submitHandler() {
+	// check
+	if ( !checkSelect() ) return;
+	$("#toRechargeBtn").attr('disabled', "true");
+	
+	layer.confirm(buildRechargeInfo(), {maxWidth : 500}, function(index){
+		layer.close(index);
+		var ajax = new $ax(Feng.ctxPath + "/portalFlowRecharge/flowBatchRecharge", function(data){
+			$("#toRechargeBtn").removeAttr('disabled');
+			if ( data && data.code && data.code != 200 ) {
+	    		Feng.error(data && data.message ? data.message : "提交数据失败");
+	    		return;
+	    	}
+	    	Feng.success("提交数据成功！");
+	    	parent.RechargeEvent.table.refresh();
+	    	parent.layer.close(window.parent.RechargeEvent.layerIndex);
+	    },function(data){
+	    	Feng.error("提交数据失败!");
+	    	console.error(data);
+	    	$("#toRechargeBtn").removeAttr('disabled');
+	    });
+	    ajax.set(getSubmitData());
+	    ajax.start();
+	});
+}
+
+
+
+$(function() {
+	
+	hideErrorPhones();
+	
+	$("#mobileListFile").on("change", function(){
+		
+		if ( upload ) {
+			Feng.info("有文件正在解析，请稍后...");
+			return false;
+		}
+		
+		if ( $(this).val() == "" ) return;
+		
+		var oForm = new FormData();    // 创建一个空的FormData对象
+		oForm.append("mobileList", this.files[0]);
+		
+		upload = true;
+		$("#uploadStatus").text("文件解析中...");
+		$.ajax({ 
+			url : "${ctxPath}/fileUploadRecord/resolveMobile", 
+			type : 'POST', 
+			data : oForm, 
+			// 告诉jQuery不要去处理发送的数据
+			processData : false, 
+			// 告诉jQuery不要去设置Content-Type请求头
+			contentType : false,
+			beforeSend:function(){
+				$("#uploadStatus").text("文件解析中...");
+				resolveData = null;
+			},
+			success : function(data) { 
+				$("#uploadStatus").text("");
+				upload = false;
+				if ( data && data.code == 200 ) {
+					resolveData = data;
+					resolveDataHandler(data);
+					return;
+				}
+				Feng.error(data && data.message ? data.message : "解析文件错误");
+				resolveData = null;
+				clearOperatorCount();
+			}, 
+			error : function(responseStr) {
+				upload = false;
+				resolveData = null;
+				clearOperatorCount();
+				console.error(responseStr);
+			} 
+		});
+	});
+	
+	
+	// 初始化 运营商流量包信息
+	initOperatorPackageInfo();
+	
+	
+	$("#toRechargeBtn").on("click", function(){
+		submitHandler();
+	});
+	
+});
+
+</script>
+@}

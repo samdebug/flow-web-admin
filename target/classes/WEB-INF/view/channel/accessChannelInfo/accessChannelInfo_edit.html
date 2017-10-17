@@ -1,0 +1,1097 @@
+@layout("/common/_container.html"){
+<style>
+    table tbody tr td {
+        text-align: center !important;
+    }
+    .ui-jqgrid .ui-jqgrid-labels th {
+        text-align: center !important;
+    }
+    #channel-prod-dialog {
+        overflow: auto;
+    }
+    #channel-prod-dialog table tr th:first-child {
+        width: 25%;
+        max-width: 25%;
+    }
+    #channel-flow-type {
+        float: left;
+        cursor: text;
+    }
+    #channel-prod-origin, #channel-prod-final {
+        width: 200px;
+        float: left;
+    }
+    #channel-prod-origin select, #channel-prod-final select {
+        width: 100%;
+        height: 230px;
+    }
+    #channel-btn-group {
+        width: 120px;
+        float: left;
+        margin-top: 30px;
+    }
+    #channel-btn-group .btn-info {
+        display: block;
+        margin: 10px auto;
+        width: 80px;
+        padding: 0;
+    }
+    .model-error-msg {
+        padding-right: 165px;
+        color: red;
+        display: none;
+    }
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+       	    <form class="form-horizontal" role="form" id="add-form" onsubmit="return false;">
+				<input type="hidden" name="channelSeqId" id="channelSeqId" />
+				<input type="hidden" name="updId" id="updId" />
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="supplierCode"> <span class="text-danger">*</span> 供应商编码: </label>
+							<div class="col-sm-6">
+								<input type="text" id="supplier-select" name="supplierCode" class="form-control" data-placeholder="请输入供应商编码"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="channelName"> <span class="text-danger">*</span> 通道名称:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="channelName" id="channelName" class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="adapterName"> <span class="text-danger">*</span>通道适配器:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="adapterName" id="adapterName" class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="is-valid-select"> <span class="text-danger">*</span> 是否有效:
+							</label>
+							<div class="col-sm-6">
+								<select style="height:35px;" id="is-valid-select" name="isValid" class="form-control input-sm">
+                                    <option value="">请选择是否有效</option>
+                                    <option value="0">无效</option>
+                                    <option value="1">有效</option>
+                                </select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="channel-type-select"> <span class="text-danger">*</span> 通道类别:
+							</label>
+							<div class="col-sm-6">
+								<select style="height:35px;" id="channel-type-select" name="channelType" class="form-control input-sm">
+                                    <option value="">请选择通道类别</option>
+                                    <option value="1">运营商</option>
+                                    <option value="2">第三方</option>
+                                </select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="channel-limit-select">  通道限制:
+							</label>
+							<div class="col-sm-6">
+								<select style="height:35px;" id="channel-limit-select" name="channelLimit" class="form-control input-sm">
+                                    <option value="">请选择通道限制</option>
+                                    <option value="0">赠送</option>
+                                    <option value="1">微信</option>
+                                    <option value="2">阿里</option>
+                                    <option value="3">低价</option>
+                                </select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="zone-select"><span class="text-danger">*</span>适用范围:
+							</label>
+							<div class="col-sm-6">
+								<select style="height:35px;" id="zone-select" name="zone" class="form-control input-sm clear-table-select">
+                                </select>
+							</div>
+						</div>
+						<div class="form-group" id="support-city" style="display:none">
+                            <label class="col-sm-3 control-label no-padding-right text-right"
+                                for="supportCity">支持地市: </label>
+                            <div class="col-sm-6">
+                                <input type="text" name="supportCity" id="support_city" class="form-control input-sm" />
+                            </div>
+                            <span style="color:#ccc">多个用英文逗号,隔开</span>
+                        </div>
+					</div>
+					<div class="col-xs-6">
+						<!-- <div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="channelId"> <span class="text-danger">*</span> 通道ID:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="channelId" id="channelId" class="form-control input-sm not-update" />
+							</div>
+						</div> -->
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="operator-code-select"> <span class="text-danger">*</span> 运营商:
+							</label>
+							<div class="col-sm-6">
+								<select style="height:35px;" id="operator-code-select" name="operatorCode" class="form-control input-sm clear-table-select">
+                                    <option value="">请选择运营商</option>
+                                    <option value="YD">移动</option>
+                                    <option value="LT">联通</option>
+                                    <option value="DX">电信</option>
+                                </select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="discount"> <span class="text-danger">*</span> 折扣(%):
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="discount" id="discount" class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="time-limit"> 流量期限:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="timeLimit" id="timeLimit" class="form-control input-sm" value="自然月" />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="is-smsnotice-select"> <span class="text-danger">*</span> 上游是否有短信:
+							</label>
+							<div class="col-sm-6">
+								<select style="height:35px;" id="is-smsnotice-select" name="isSmsNotice" class="form-control input-sm" onchange="isSmsNoticeFun()">
+                                    <option value="">请选择是否有短信通知</option>
+                                    <option value="0">否</option>
+                                    <option value="1">是</option>
+                                </select>
+							</div>
+						</div>
+						<div class="form-group" id="is-smsnotice-content-form">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="channel-sms"> 上游短信模板:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="channelSms" id="channelSms" class="form-control input-sm" />
+							</div>
+						</div>
+						
+						<div class="form-group" id="platform-sms-select">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="is-smsnotice-select"> <span class="text-danger">*</span> 平台发送短信:
+							</label>
+							<div class="col-sm-6">
+								<select style="height:35px;" id="is-platform-sms-select" name="isPlatformSms" class="form-control input-sm" onchange="isPlatformSmsFun()">
+                                    <option value="">请选择平台是否发送短信</option>
+                                    <option value="0">否</option>
+                                    <option value="1">是</option>
+                                </select>
+							</div>
+						</div>
+						<div class="form-group" id="platform-sms-content-form">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="platform-sms-content"> <span class="text-danger">*</span> 平台短信模板:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="platformSmsContent" id="platformSmsContent" class="form-control input-sm" />
+							</div>
+						</div>
+
+						<div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right text-right"
+                                for="remark"> 备注: </label>
+                            <div class="col-sm-6">
+                                <input type="text" name="remark" id="remark" class="form-control input-sm" />
+                            </div>
+                        </div>
+					<!-- 
+						<div class="form-group" id="maintain-zone" style="disaply:none;">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="channel-maintain-zone-select">通道维护区域:
+							</label>
+							<div class="col-sm-6">
+								<select style="height:35px;" multiple="" class="chosen-select form-control" id="channel-maintain-zone-select" data-placeholder="请选择通道维护区域">
+								</select>
+								<input type="hidden" id="channel-maintain-zone" name="maintainZone">
+							</div>
+						</div>
+						 
+ 						
+						<div class="form-group" id="support-city">
+                            <label class="col-sm-3 control-label no-padding-right text-right"
+                                for="timeoutDefin">超时定义: </label>
+                            <div class="col-sm-3">
+                                <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" name="timeoutDefin" id="timeoutDefin" class="form-control input-sm" />
+                            </div>小时
+                        </div>-->
+					</div>
+				</div>
+				<div class="page-header">
+                    <h1>
+                        <small>通道产品信息 </small>
+                    </h1>
+                </div>
+                <div class="container">
+                    <div class="row " style="margin-bottom: 15px;">
+                        <div class="col-xs-12">
+                         <!--    <button type="button" id="add-channel-product" class="btn btn-sm btn-success">
+                                <i class="ace-icon fa fa-hand-o-right bigger-120"></i>添加通道产品
+                            </button>
+                            <button class="btn btn-success btn-sm" type="button" id="batch-quarz-price " >批量设置定时时间</button>
+                            -->
+                        
+                        	<div class="btnWrapper">
+                            		<#button id="add-channel-product" name="" icon="fa-plus" clickFun=""/>
+                            		<span class="btnTips">添加通道产品</span>
+                            </div> 
+                            <div class="btnWrapper">
+                            		<#button name="" id="batch-quarz-price" icon="fa fa-calendar" clickFun=""/>
+                            		<span class="btnTips">批量设置定时时间</span>
+                            </div> 
+                            <div class="btnWrapper">
+                            		<#button name="" id="effective-channel-product" icon="fa-check-square" clickFun=""/>
+                            		<span class="btnTips">批量有效</span>
+                            </div> 
+                             <div class="btnWrapper">
+                            		<#button name="" id="uneffective-channel-product" icon="fa iconfont icon-window-close" clickFun=""/>
+                            		<span class="btnTips">批量失效</span>
+                            </div> 
+                            <div class="btnWrapper">
+                            		<#button name="" id="del-channel-product" icon="fa fa-trash-o" clickFun=""/>
+                            		<span class="btnTips">删除</span>
+                            </div> 
+						   <!-- 模态对话框 -->
+                            <div class="modal fade" id="channel-prod-dialog" tabindex="-1" role="dialog" aria-labelledby="channel-product-title">
+                                <div class="modal-dialog" style="width:700px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title" id="channel-product-title">选择通道产品</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                           <div style="float:left;">
+											       <input type="button" class="btn btn-info" id="channel-flow-type"  value="基础流量包"></br>
+											</div>
+											<div id="channel-prod-origin">
+			                                    <select  id="dltSource" name="dltSource" size="10" multiple="multiple"></select>
+			                                </div>
+			                                <div id="channel-btn-group">
+			                                    <input type="button" value="全部 &gt;&gt;" class="btn btn-info" onclick="AddAll($('#dltSource'),$('#dltTarget'))" />
+			                                    <input type="button" value="&gt;&gt;" id="toRight" class="btn btn-info" />
+			                                    <input type="button" value="&lt;&lt;" id="toLeft" class="btn btn-info" />
+			                                    <input type="button" value="&lt;&lt; 全部" class="btn btn-info" onclick="AddAll($('#dltTarget'),$('#dltSource'))" />
+			                                </div>
+			                                <div id="channel-prod-final">
+			                                    <select  id="dltTarget" name="dltTarget" size="10" multiple="multiple"></select>
+			                                </div>
+                                        </div>
+                                        <div class="modal-footer" style="padding-top: 208px">
+                                            <span class="model-error-msg">请选择产品</span>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                            <button type="button" class="btn btn-primary" onclick="prodAddBtnClickEvent();">添加</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+                            
+                              <!-- 批量设置定时生效-->
+                          <div id="batch-quarz-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="batch-quarz-title">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title center" id="batch-quarz-title">批量设置定时生效时间</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="bootbox-body center batch-tips-word">设置时间&nbsp;&nbsp;&nbsp;
+                                          <input  onFocus="WdatePicker({startDate: '%y-%M',dateFmt:'yyyy-MM-dd HH:mm',minDate:'%y-%M-%d  %H:{%m+1}',maxDate:'%y-%M-{%d+2}  %H:%m'})" id="quarz-set-time" style="width: 150px;" maxLength="8"/>
+                                          <span style="font-size: 10">*需大于当前时间一分钟以上</span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <span id="sale-error-span" class="model-error-msg"></span>
+                                        <button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
+                                        <button id="batch-quarz-btn" type="button" class="btn btn-primary">提交</button>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="channel-product-table" class="table table-striped table-bordered table-hover">
+                                 <thead>
+                                     <tr>
+                                         <th><label><input type='checkbox' id="1" class='ace allSelect'><span class='lbl'>全选/反选</span></label></th>
+                                         <th style="text-align:center">流量包ID</th>
+                                         <th style="text-align:center">流量包名称</th>
+                                         <th style="text-align:center">通道产品ID</th>
+                                         <th style="text-align:center">通道产品名称</th>
+                                         <th style="text-align:center">结算价格</th>
+                                         <th style="text-align:center">折扣(%)</th>
+                                         <th style="text-align:center">是否有效</th>
+                                         <th style="text-align:center">定时生效</th>
+		                                 <th style="text-align:center">结算价格（定时后）</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody id="channel-tbody"></tbody>
+                             </table>
+                        </div>
+                    </div>
+                </div>
+			</form>
+            <div class="row btn-group-m-t" align="right">
+                    <#button btnCss="info" name="保存" id="ensure" icon="fa-check" clickFun="AccessChannelInfoInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="AccessChannelInfoInfoDlg.close()"/>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/accessChannelInfo/accessChannelInfo_info.js"></script>
+<script src="${ctxPath}/static/js/common/assets/ace-extra.min.js"></script>
+<script src="${ctxPath}/static/js/common/assets/ace-elements.min.js"></script>
+<script src="${ctxPath}/static/js/common/my97/WdatePicker.js"></script>
+
+
+	<script type="text/javascript">
+        var view_url = Feng.ctxPath + '/accessChannelInfo/get';
+        var prodOrderList = null;
+        var pkId=${channelInfoId};
+        var prodData = null;
+        var leftSel = $("#dltSource"); 
+        var rightSel = $("#dltTarget");
+        var productIndex = 0;
+        $(function() {
+            // 初始化select2组件
+            initSelect2();
+            // 初始化区域下拉列表
+            initZoneSelect();
+            // 区域和运营商下拉列表change事件
+            selectChangeHandler();
+            // 【添加产品】按钮点击事件
+            chooseProductBtnClickHandler();
+            // 双向选择按钮组点击事件
+            doubleSelectBtnClick();
+            // 折扣输入框焦点离开事件
+            discountBlurHandler();
+            //批量设置定时生效【提交】按钮点击事件
+            batchQuarzConfirmEvent();
+            //批量设置定时 按钮点击事件
+            batchQuarzBtnClickHandler();
+       	   //全选/反选checkbox点击事件
+            checkBoxClickHandler(); 
+            var add_validator = $('#add-form').validate({
+                rules: {
+                	 'supplierCode': {
+                         required: true,
+                         maxlength: 32
+                     } ,
+                     'channelId': {
+                         required: true,
+                         maxlength: 32
+                     },
+                     'channelName': {
+                         required: true,
+                         maxlength: 128
+                     },
+                     'adapterName': {
+                         required: true,
+                         maxlength: 128
+                     },
+                     'zone': {
+                         required: true,
+                         maxlength: 64
+                     },
+                     'operatorCode': {
+                         required: true,
+                         maxlength: 32
+                     },
+                     'isValid': {
+                         required: true,
+                         maxlength: 11
+                     },
+                     'remark': {
+                         maxlength: 256
+                     },
+                     'discount': {
+                         required: true,
+                         maxlength: 8,
+                         number_2 : true
+                     },
+                     'isAllowSale': {
+                         required: true,
+                         maxlength: 11
+                     },
+                     'isSmsNotice': {
+                         required: true,
+                         maxlength: 11
+                     },
+                     'channelType': {
+                         required: true,
+                         maxlength: 11
+                     }
+                },
+                submitHandler: function(form) {
+                        return false;
+                    }
+            });
+            isPlatformSmsFun();
+            isSmsNoticeFun();
+            changeStatus();
+        });
+        /**
+         * 初始化select2组件
+         */
+        function initSelect2() {
+            $("#supplier-select").removeClass().css("width", "100%").select2({
+                minimumInputLength: 1,
+                ajax: {
+                    url: Feng.ctxPath + '/channelSupplier/selectChannelSupplierByName',
+                    dataType: 'json',
+                    data: function(term) {
+                        return {
+                            "supplierCode": term
+                        };
+                    },
+                    results: function(data) {
+                        return {
+                            results: $.map(data.channelSupplierList, function(item) {
+                                return {
+                                    id: item.supplierCode,
+                                    text: item.supplierCode
+                                }
+                            })
+                        };
+                    }
+                }
+            });
+            /**
+             * 动态设置流量下发通道
+             */
+            $("#supplier-select").on("change", function() {
+                var $this = $(this);
+                $.ajaxSubmit(Feng.ctxPath + '/channelSupplier/get', {
+                    'supplierCode' : $this.val()
+                }, function(rtn) {
+                    if (rtn.success) {
+                        $("#adapterName").val(rtn.data.adapterName ? rtn.data.adapterName : "");
+                    } else {
+                        layer.alert(rtn.message);
+                    }
+                });
+            });
+        }
+        // 初始化区域下拉列表
+        function initZoneSelect() {
+            // 全国区域展示
+            $.ajax({
+                url: Feng.ctxPath + '/accessChannelInfo/selectAreaCodeAll',
+                type: 'get',
+                dataType: 'json',
+                success: function(data) {
+                    var html = '';
+                    html += '<option value="">请选择区域</option>';
+                    for (var i = 0; i < data.data.length; i++) {
+                        html += '<option value="'+data.data[i].areaCode+'">' + data.data[i].areaName + '</option>';
+                    }
+                    $("#zone-select").html(html);
+                     if (pkId!="") {
+                        $('#channelSeqId').val(pkId);
+                        $('#updId').val(pkId);
+                        $.post(view_url, {
+                            'channelSeqId': pkId
+                        }, function(rtn) {
+                            if (rtn.success) {
+                            	var data =JSON.parse(rtn.data); 
+                                $('#add-form').json2Form2(data);
+                                initModifyViewStatus(data);
+                            } else {
+                                Feng.error(rtn.message ? rtn.message : "未知错误");
+                            }
+                        });
+                    } 
+                }
+            });
+        }
+        
+
+        /**
+         * 【添加通道产品】按钮点击事件
+         */
+        function chooseProductBtnClickHandler() {
+            $("#add-channel-product").on('click', function(e) {
+                if ($("#zone-select").val() == "") {
+                	layer.alert("请选择适用区域",{icon:2});
+                    return;
+                }
+                if ($("#operator-code-select").val() == "") {
+                	layer.alert("请选择对应运营商",{icon:2});
+                    return;
+                }
+                e.preventDefault();
+                var url = "";
+                var prodIds = [];
+                if (prodOrderList != null) {
+                    $.each(prodOrderList, function(n, value) {
+                        prodIds.push(value.packageId);
+                    });
+                }
+                $.ajax({
+                    url: Feng.ctxPath + '/flowProductRemodel/getFlowProductRemodel?zone=' + $("#zone-select").val() + '&operator=' + $("#operator-code-select").val(),
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success == true) {
+                        	var list =JSON.parse(data.data); 
+                            var prodDataDB = list.concat();
+                            if (prodOrderList != null) {
+                                for (var i = prodDataDB.length - 1; i >= 0; i--) {
+                                    if ($.inArray(prodDataDB[i].packageId, prodIds) >= 0) {
+                                        prodDataDB.splice(i, 1);
+                                    }
+                                }
+                            }
+                            prodData = prodDataDB;
+                            var discount = $("#discount").val();
+                            if (discount != "" && /^\d{1,3}(\.\d{1,2})?$/.test(discount)) {
+	                            $.each(prodData, function(n, value) {
+	                                if (!isNaN(value.costPrice)) {
+	                                    value.costPrice = (Number(value.costPrice) * discount / 100).toFixed(2);
+	                                } else {
+	                                    value.costPrice = "";
+	                                }
+	                            });
+                            }
+                            showChannelProdDialog();
+                        }
+                    },
+                    error:function(data){
+                    	layer.msg(data);
+                    }
+                });
+            });
+        }
+        function showChannelProdDialog() {
+            $("#channel-prod-dialog").modal({
+                backdrop: "static",
+                keyboard: false
+            });
+            // 初始化双向选择列表
+            initDoubleSelect();
+        }
+
+        /**
+         * 添加按钮点击事件
+         */
+        function prodAddBtnClickEvent() {
+            var selVal = [];
+            rightSel.find("option").each(function() {
+                selVal.push(this.value);
+            });
+            if (selVal.length == 0) {
+                $(".model-error-msg").fadeIn('slow');
+                setTimeout(function() {
+                    $(".model-error-msg").fadeOut('slow');
+                }, 1500);
+                return;
+            }
+            var prodDataTemp = prodData;
+            // 初始化产品订单列表
+            prodOrderSelectedList = $.getSelectInfo(selVal, prodDataTemp);
+            if (prodOrderList != null) {
+                prodOrderList = prodOrderList.concat(prodOrderSelectedList);
+            } else {
+                prodOrderList = prodOrderSelectedList;
+            }
+            $("#channel-prod-dialog").modal('hide');
+            $.each(prodOrderSelectedList, function(index, obj) {
+                obj.channelProductName = obj.packageName;
+                obj.isValid = 1;
+            });
+            refreshProdOrderTable(prodOrderSelectedList);
+        }
+
+        $.getSelectInfo = function(selVal, prodDataTemp) {
+            var arr = new Array();
+            $.each(selVal, function(index, id) {
+                $.each(prodDataTemp, function(n, value) {
+                    if (id == value.packageId) {
+                        arr.push(value);
+                        return false;
+                    }
+                });
+                return true;
+            });
+            return arr;
+        };
+
+        /**
+         * 刷新产品订单表
+         */
+        function refreshProdOrderTable(dataList) {
+            // 刷新产品订单Table
+            initProductOrderTable(dataList);
+            // 文本框输入限制
+            inputNumberFormatHandler();
+            // 删除按钮点击事件
+            deleteBtnClickHandler();
+        }
+
+        /**
+         * 初始化产品订单table
+         */
+        function initProductOrderTable(dataList) {
+            var html = "";
+            var isValidDesc = "";
+            var channelStatus = 1;
+            var channelStatusDesc = "";
+            for (var index in dataList) {
+                if (index == "contains") {
+                    continue;
+                }
+                var obj = dataList[index];
+                if (obj.isValid == 1) {
+                    isValidDesc = "有效";
+                    channelStatus = 0;
+                    channelStatusDesc = "无效";
+                } else if (obj.isValid == 0) {
+                    isValidDesc = "无效";
+                    channelStatus = 1;
+                    channelStatusDesc = "有效";
+                }
+                html += "<tr><input type='hidden' class='costPriceBak' value='"+ obj.costPriceBak +"'/>";
+                html += "<td class='center'><label><input type='checkbox' class='ace' value='"+obj.packageId +"'><span class='lbl'></span></label></td>"
+                html += "<td><input type='hidden' name='flowPackageInfoList[" + productIndex + "].packageId' value='"+ obj.packageId +"'/>" + obj.packageId + "</td>";
+                html += "<td>"+ obj.packageName + "</td>";
+                html += "<td><input class='channelProductId' name='flowPackageInfoList[" + productIndex + "].channelProductId' value='" + obj.channelProductId + "'/></td>";
+                html += "<td><input class='channelProductName' name='flowPackageInfoList[" + productIndex + "].channelProductName' value='" + obj.channelProductName + "'/></td>";
+                html += "<td><input class='costPrice' name='flowPackageInfoList[" + productIndex + "].costPrice' class='numberFormat' value='" + obj.costPrice + "'/></td>";
+               /*  html += "<td>" + (obj.costPrice*100/obj.costPriceBak).toFixed(2) + "</td>"; */
+                html += "<td><input class='discountText' value='" + (obj.costPrice*100/obj.costPriceBak).toFixed(2) + "'/></td>"; 
+                html += "<td>" + isValidDesc + "</td>";
+                var endPrice=obj.endPrice==null||obj.endPrice==0?"":obj.endPrice;
+                var quarzTime=obj.quarzTime==null?"":obj.quarzTime;
+                html += "<td><input  class='numberFormat settQuarzInput' value='"+quarzTime+"'  name='flowPackageInfoList["+ productIndex +"].quarzTime'  onFocus=\"WdatePicker({startDate: '%y-%M',dateFmt:'yyyy-MM-dd HH:mm',minDate:'%y-%M-%d  %H:{%m+1}',maxDate:'%y-%M-{%d+2}  %H:%m'})\"/></td>"
+                html += "<td>"+endPrice+"</td>"
+               /*  html += "<td><button class='btn btn-danger btn-xs deleteBtn' attrid='" + obj.packageId + "'><i class='ace-icon fa fa-trash-o fa icon-only'></i></button>";
+                html += "<button onclick='changeStatus(" + channelStatus + ",\"" + obj.channelProductId+ "\")' class='btn btn-xs btn-warning' data-rel='tooltip' title='"+channelStatusDesc+"'><i class='ace-icon fa fa-flag bigger-120'></i></button></td>" */
+                html += "</tr>";
+                productIndex++;
+            }
+            $("#channel-tbody").append(html);
+            costPriceBlurHandler();
+        }
+
+        /**
+         * 文本框输入限制
+         */
+        function inputNumberFormatHandler() {
+            $(".numberFormat").keypress(function(event) {
+                var keyCode = event.which;
+                if (keyCode == 8 || keyCode == 0 || keyCode == 46 || (keyCode >= 48 && keyCode <= 57))
+                    return true;
+                else
+                    return false;
+            });
+        }
+
+        /**
+         * 删除按钮点击事件
+         */
+        function deleteBtnClickHandler() {
+            $("#del-channel-product").click(function() {
+            	 var selectedCheckboxArr = $("input[type=checkbox]:checked");
+                 if (!selectedCheckboxArr || selectedCheckboxArr.length == 0) {
+                     Feng.error("请先选择需要删除的产品");
+                     return;
+                 }
+                $.each(selectedCheckboxArr, function(n, value) {
+                	if(value.id!="1"){
+                		$.each(prodOrderList, function(n, pro) {
+    	                    if (value.defaultValue == pro.packageId) {
+    	                        prodOrderList.splice(n, 1);
+    	                        return false;
+    	                    }
+    	                });
+                		 value.closest("tr").remove();
+                	}
+                });
+            });
+        }
+
+        /**
+         * 初始化双向选择列表
+         */
+        function initDoubleSelect() {
+            //$("#channel-flow-type").html("基础流量包");
+            $("#channel-flow-type").unbind("click").bind("click",function(){
+            	$("#dltSource").empty();
+                $("#dltTarget").empty();
+                $(this).addClass("btn-info");
+                $.each(prodData, function(n, value) {
+                	//if (value.isCombo == 0){
+                		$("#dltSource").append("<option value='" + value.packageId + "'>" + value.packageName + "</option>");
+                	//}
+                });
+            });
+            $("#channel-flow-type").trigger("click");
+        }
+
+        /**
+         * 双向选择按钮组点击事件
+         */
+        function doubleSelectBtnClick() {
+            $("#toRight").click(function() {
+                leftSel.find("option:selected").each(function() {
+                    $(this).remove().appendTo(rightSel);
+                });
+            });
+            $("#toLeft").click(function() {
+                rightSel.find("option:selected").each(function() {
+                    $(this).remove().appendTo(leftSel);
+                });
+            });
+            leftSel.dblclick(function() {
+                $(this).find("option:selected").each(function() {
+                    $(this).remove().appendTo(rightSel);
+                });
+            });
+            rightSel.dblclick(function() {
+                $(this).find("option:selected").each(function() {
+                    $(this).remove().appendTo(leftSel);
+                });
+            });
+        }
+
+        function isNum(s) {
+            var r = /^\d+(\.\d+)?$/;
+            return r.test(s);
+        }
+
+        /**
+         * 添加全部
+         */
+        function AddAll(ObjSource, ObjTarget) {
+            // 目标列表的HTML加上原列表的所有HTML
+            ObjTarget.append(ObjSource.html());
+            // 原列表清空
+            ObjSource.empty();
+        }
+
+        /**
+         * 初始化修改页面的值状态
+         */
+        function initModifyViewStatus(data) {
+            $(".not-update").attr("disabled", "disabled");
+            $("#supplier-select").select2("disable");
+            var obj = {};
+            obj["id"] = data.supplierCode;
+            obj["text"] = data.supplierCode;
+            $("#supplier-select").select2("data", obj);
+            var prodIds = [];
+            var odList = data.channelProductInfoList;
+            $.each(odList, function(n, value) {
+                prodIds.push(value.packageId);
+            });
+            if (prodIds.length > 0) {
+	            $.ajax({
+	                url: Feng.ctxPath + '/flowProductRemodel/getFlowProductRemodel?productCodes=' + prodIds + '&zone=' + data.zone + '&operator=' + data.operatorCode,
+	                dataType: 'json',
+	                success: function(data, status) {
+	                    if (data.success == true) {
+	                        prodOrderList = JSON.parse(data.data);
+	                        $.each(prodOrderList, function(n, value) {
+	                            $.each(odList, function(index, od) {
+	                                if (value.packageId == od.packageId) {
+	                                    value.channelProductId = od.channelProductId;
+	                                    value.channelProductName = od.channelProductName;
+	                                    value.costPrice = od.price;
+	                                    value.isValid =  od.isValid;
+	                                    value.quarzTime=od.quarzTime;
+	                                    value.endPrice=od.endPrice;
+	                                }
+	                            });
+	                        });
+	                        refreshProdOrderTable(prodOrderList);
+	                    }
+	                }
+	            });
+            }
+        }
+        
+        // 输入框内容校验
+        function checkInputValue() {
+            var successFlag = true;
+            $.each($(".costPrice"), function(n, obj) {
+                var value = $(obj).val();
+                if (value == null || value == "") {
+                    Feng.error("请输入结算价格");
+                    successFlag = false;
+                    return false;
+                }
+                if (value == 0) {
+                    Feng.error("结算价格不能为0，请重新输入。");
+                    successFlag = false;
+                    return false;
+                }
+                var doubleReg = /^\d{1,8}\.?\d{0,2}$/;
+                if (!doubleReg.test(value) || value.length > 8) {
+                    Feng.error("最多只能有八位整数和两位小数，请重新输入。");
+                    successFlag = false;
+                    return false;
+                }
+                // 两位小数验证
+                if ((value + "").indexOf(".") != -1) {
+                    var reg = /^\d+\.+\d{1,2}$/;
+                    if (!reg.test(value)) {
+                        Feng.error("最多只能有两位小数，请重新输入。");
+                        successFlag = false;
+                        return false;
+                    }
+                }
+            });
+            $.each($(".channelProductName"), function(n, obj) {
+                var value = $(obj).val();
+                if (value == null || value == "") {
+                    Feng.error("请输入通道产品名称");
+                    successFlag = false;
+                    return false;
+                }
+                if (value.length > 128) {
+                    Feng.error("通道产品名称最大长度128位，请重新输入");
+                    successFlag = false;
+                    return false;
+                }
+            });
+            $.each($(".channelProductId"), function(n, obj) {
+                var value = $(obj).val();
+                if (value == null || value == "") {
+                    Feng.error("请输入通道产品ID");
+                    successFlag = false;
+                    return false;
+                }
+                if (value.length > 64) {
+                    Feng.error("通道产品ID最大长度64位，请重新输入");
+                    successFlag = false;
+                    return false;
+                }
+            });
+            return successFlag;
+        }
+        
+        // 区域和下拉列表change事件
+        function selectChangeHandler() {
+            $("#zone-select").change(function() {
+                $("#channel-tbody").empty();
+                prodOrderList = null;
+                prodData = null;
+                productIndex = 0;
+                if($("#zone-select").val() == '00'){
+					$("#support_city").val("");
+					$("#support-city").hide();
+				}else{
+					$("#support-city").show();
+				}
+            });
+        }
+        
+     // 折扣输入框焦点离开事件
+        function discountBlurHandler() {
+            $("#discount").blur(function() {
+                var discount = $(this).val();
+                if (discount != "" && /^\d{1,3}(\.\d{1,2})?$/.test(discount)) {
+                    $("#channel-tbody tr").each(function(index, nTr) {
+                        // 获取当前行流量包的原始结算价格
+                        var costPrice = $(nTr).find(".costPriceBak").val();
+                        // 重算结算价格
+                        if (!isNaN(costPrice)) {
+                            $(nTr).find(".costPrice").val((Number(costPrice) * discount / 100).toFixed(2));
+                            $(nTr).find(".discountText").val(((Number(costPrice) * discount / 100)*100/costPrice).toFixed(2));
+                        } else {
+                            $(nTr).find(".costPrice").val("");
+                            $(nTr).find(".discountText").val("");
+                        }
+                    });
+                } else {
+                    Feng.error("请输入0~100之间的整数折扣");
+                }
+            });
+        }
+        
+        function costPriceBlurHandler() {
+        	$(".costPrice").blur(function() {
+        		$("#channel-tbody tr").each(function(index, nTr) {
+	        		var costPrice = $(nTr).find(".costPrice").val(); //结算价格
+	        		var costPriceBak = $(nTr).find(".costPriceBak").val(); //原价
+        			if(!isNaN(Number(costPrice)) && !isNaN(costPriceBak)){
+	        			var discountText = (Number(costPrice) * 100/costPriceBak).toFixed(2); //折扣 = 结算 / 原价 * 100
+	        			$(nTr).find(".discountText").val(discountText);
+        			 }else{
+        				 Feng.error("请输入正确的数据格式");
+        			} 
+        		});
+            });
+        }
+        /**
+         * 有效/无效 按钮点击事件
+         */
+        function changeStatus(isValid, channelProductId) {
+        	//有效
+        	 $("#effective-channel-product").click(function() {
+        		 var channelProductId="";
+            	 var selectedCheckboxArr = $("input[type=checkbox]:checked");
+                 if (!selectedCheckboxArr || selectedCheckboxArr.length == 0) {
+                     Feng.error("请先选择需要修改状态的产品");
+                     return;
+                 }
+                 $.each(selectedCheckboxArr, function(n, value) {
+                	if(value.id!="1"){
+                		channelProductId+=","+value.defaultValue;
+                	}
+                });
+                $.ajax({
+                    url: Feng.ctxPath + '/accessChannelInfo/changeChannelProductStatus?isValid=1&channelSeqId=' + pkId + '&channelProductIds=' + channelProductId,
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.code == 200) {
+                        	location.reload();
+                        } else {
+                            Feng.error(data.message);
+                        }
+                    }
+                });     
+            });
+        	//失效
+        	 $("#uneffective-channel-product").click(function() {
+        		 var channelProductId="";
+            	 var selectedCheckboxArr = $("input[type=checkbox]:checked");
+                 if (!selectedCheckboxArr || selectedCheckboxArr.length == 0) {
+                     Feng.error("请先选择需要修改状态的产品");
+                     return;
+                 }
+                $.each(selectedCheckboxArr, function(n, value) {
+                	if(value.id!="1"){
+                		channelProductId+=","+value.defaultValue;
+                	}
+                });
+                $.ajax({
+                    url: Feng.ctxPath + '/accessChannelInfo/changeChannelProductStatus?isValid=0&channelSeqId=' + pkId + '&channelProductIds=' + channelProductId,
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.code == 200) {
+                        	location.reload();
+                        } else {
+                            Feng.error(data.message);
+                        }
+                    }
+                });     
+            }); 
+        };
+        
+        function isPlatformSmsFun(){
+        	var isPlatformSms = $("#is-platform-sms-select").val();
+        	if(1 == isPlatformSms){
+        		$("#platform-sms-content-form").show();
+        	}else{
+        		$("#platformSmsContent").val("");
+        		$("#platform-sms-content-form").hide();
+        	}
+        }
+        
+        
+        function isSmsNoticeFun(){
+        	var isSmsNotice = $("#is-smsnotice-select").val();
+        	if(1 == isSmsNotice){
+        		$("#is-smsnotice-content-form").show();
+        		$("#platform-sms-select").hide();
+        		$("#platform-sms-content-form").hide();
+        	}else{
+        		$("#channelSms").val("");
+        		$("#platform-sms-select").show();
+        		$("#is-smsnotice-content-form").hide();
+        	}
+        	$("#platform-sms-select option:first").prop("selected", 'selected');  
+        }
+        
+        
+        /**
+         * 批量设置定时生效点击按钮
+         */
+
+        function batchQuarzBtnClickHandler(){
+        	$("#batch-quarz-price").click(function(e) {
+                e.preventDefault();
+                var selectedCheckboxArr = $("input[type=checkbox]:checked");
+                if (!selectedCheckboxArr || selectedCheckboxArr.length == 0) {
+                    Feng.error("请先选择需要设置定时的产品");
+                    return;
+                }
+                // 弹出模态框
+                $("#batch-quarz-modal").modal({
+                    backdrop: "static",
+                    keyboard: false
+                });
+                $("#sale-price-discount").val("");
+                // 批量设置定时时间
+                selectedTrArr = [];
+                $.each(selectedCheckboxArr, function(n, value) {
+                    selectedTrArr.push($(value).parents("tr"));
+                });
+            });
+        }
+
+
+        /**
+         * 批量设置定时生效提交按钮
+         */
+
+        function batchQuarzConfirmEvent(){
+        	 $("#batch-quarz-btn").click(function() {
+        		 	//获取定时时间
+        		    var quarzTime=$("#quarz-set-time").val();
+        		    //清空定时时间
+        		    $("#quarz-set-time").val("");
+        		    //给打上勾的产品赋值生效时间
+        		    $.each(selectedTrArr, function(index, nTr) {
+        	            // 获取产品定价
+        	            // 设定结算价格
+        	            if (isNaN(quarzTime)) {
+        	                $(nTr).children().eq(9).children().val(quarzTime);
+        	            } else {
+        	                $(nTr).children().eq(9).children().val("");
+        	            }
+        	        });
+        	        // 关闭模态框
+        	        $("input[type=checkbox]:checked").removeAttr("checked");
+        	        $("#batch-quarz-modal").modal("hide");
+        	    });
+        }
+
+      //全选/反选checkbox点击事件
+        function checkBoxClickHandler() {
+            $(".allSelect").click(function() {
+                $(this).closest("table").find("input[type='checkbox']").prop("checked", $(this).prop("checked"));
+            });
+        }
+    </script>
+@}

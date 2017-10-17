@@ -1,0 +1,52 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>合作伙伴日账单</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    	<form id="queryForm" action="#">
+                        <div class="row">
+							<div class="col-sm-3">
+                                <div class="input-group">
+								    <div class="input-group-btn">
+								        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">合作伙伴名称</button>
+								    </div>
+                                    <input type="hidden" id="pbqv-partner-select" name="params['partnerId']" class="form-control search-query" data-placeholder="请选择合作伙伴"/>
+								</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <#TimeBetweenCon name="账单日期" isTime="false" pattern="YYYY-MM-DD" 
+										startId="params['inputStartTime']" endId="params['inputEndTime']" />
+                            </div>
+                            <div class="col-sm-3 reset">
+                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="PartnerBillQuery.search()"/>
+                                &nbsp;&nbsp;
+                                <#button name="重置" class="button-margin" icon="fa-undo" clickFun="PartnerBillQuery.reset()"/>
+                                &nbsp;&nbsp;
+                                @if(shiro.hasPermission("/partnerBillQuery/export")){
+                                <#button name="导出" class="button-margin" icon="fa-share-square-o" clickFun="PartnerBillQuery.exportPartnerBillQuery()"/>
+                            	@}
+                            </div>
+                        </div>
+                        
+                        </form>
+                        
+                        <div class="row">
+                        	<div class="col-sm-6"><br/>
+                        		<label>结算数量： <span id="issuedCountAll"></span> 个，合计结算金额：<span id="issuedAmountAll"></span> 元</label>
+                        	</div>
+                        </div>
+                        
+                        <#table id="PartnerBillQueryTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/partnerBill/partnerBillQuery.js"></script>
+@}

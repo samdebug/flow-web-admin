@@ -1,0 +1,54 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+       	 <div class="form-horizontal">
+       	 	<form id="partnerAddForm" action="#" >
+			<input type="hidden" name="maintainSeqId" id="maintainSeqId" /> <input
+					type="hidden" name="updId" id="updId" />
+				<div class="row">
+					<div class="col-sm-6 b-r">
+								<#input type="text" name="维护信息名称:"  id="maintainName"
+									 />
+								<#select  id="operatorCode" name="对应运营商:">
+									<option value="">请选择运营商</option>
+									<option value="YD">移动</option>
+									<option value="LT">联通</option>
+									<option value="DX">电信</option>
+								</#select>
+								<#select id="channelType" name="通道类别:"
+									class="form-control input-sm">
+									<option value="1">流量</option>
+									<option value="2">话费</option>
+								</#select>
+								<#time type="text" name="开始时间:" class="form-control" id="startTime" isTime="true" pattern="YYYY-MM-DD" />
+								<#time type="text" name="结束时间:" class="form-control" id="endTime" isTime="true" pattern="YYYY-MM-DD" />
+								<#input type="text" name="备注:" id="remark" />
+					</div>
+					<div class="col-sm-6 b-r">
+								<#select id="zone" name="适用区域:" >
+								<option value="">请选择区域</option>
+								@for(area in areas){
+									<option value="${area.areaCode}" >${area.areaName}</option>
+								@}
+								</#select>
+								<#textArea id="notice" name="维护公告:" >
+								</#textArea>
+								<#select  id="isValid" name="是否有效:" >
+									<option value="">请选择是否有效</option>
+									<option value="0">无效</option>
+									<option value="1">有效</option>
+								</#select>
+					</div>
+				</div>
+	            <div class="row btn-group-m-t" align="center">
+	                <div class="col-sm-10">
+	                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ChannelMaintainInfoInfoDlg.addSubmit()"/>
+	                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ChannelMaintainInfoInfoDlg.close()"/>
+	                </div>
+	            </div>
+            </form>
+         </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelMaintainInfo/channelMaintainInfo_info.js"></script>
+@}

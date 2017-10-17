@@ -1,0 +1,55 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>账户管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    	<form id="queryForm" action="#">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="params['partnerName']" name="合作伙伴名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="params['partnerType']" name="合作伙伴类型">
+                                	<option value="">全部</option>
+									<option value="1">流量营销</option>
+									<option value="2">渠道直充</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="params['status']" name="合作伙伴状态">
+                                	<option value="">全部</option>
+									<option value="0">待提交</option>
+									<option value="1">商用</option>
+									<option value="2">暂停</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3 reset">
+                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="PartnerBill.search()"/>
+                                &nbsp;&nbsp;
+                                <#button name="重置" class="button-margin" icon="fa-undo" clickFun="PartnerBill.reset()"/>
+                            </div>
+                        </div>
+                        
+                        </form>
+                        
+                        <div class="hidden-xs" id="PartnerBillTableToolbar" role="group">
+                        
+                            <div class="btnWrapper">
+                                <#button name="" icon="fa fa-money" clickFun="PartnerBill.viewEvent()" style="width:98px"/>
+                                <span class="btnTips">账户明细</span>
+                            </div>
+                        </div>
+                        <#table id="PartnerBillTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/partnerBill/partnerBill.js"></script>
+@}

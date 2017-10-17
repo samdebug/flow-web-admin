@@ -1,0 +1,105 @@
+@layout("/common/_container.html"){
+
+<style>
+    .settlementRules {
+        margin-top: 20px;
+    }
+    #psol-error {
+        padding: 5px !important;
+        margin-bottom: -5px !important;
+        text-align: center;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+           <!--  <div class="ibox-title">
+                <h5>合作伙伴月账单</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    	<form id="queryForm" action="#">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="input-group">
+								    <div class="input-group-btn">
+								        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">合作伙伴名称</button>
+								    </div>
+                                    <input type="hidden" id="psol-partner-select" name="params['partnerId']" class="form-control search-query" data-placeholder="请选择合作伙伴"/>
+								</div>
+                            </div>
+                            <div class="col-sm-3 col-sm-4 reset">
+                            	
+                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="PartnerSettlementOrder.search()" space="true"/>
+                                &nbsp;&nbsp;
+                                <#button name="重置" class="button-margin" icon="fa-undo" clickFun="PartnerSettlementOrder.reset()"/>
+                            </div>
+                        </div>
+                        
+                        </form>
+                        
+                        <div class="hidden-xs" id="PartnerBillTableToolbar" role="group">
+                            
+                        </div>
+                        <#table id="PartnerSettlementOrderTable"/>
+                        
+                        <div class="row">
+		                	<div class="settlementRules col-sm-12">
+				                <p>每月2日出上月结算单，每月3日-10日为结算对账期,无异议请点击“确认结算”按钮；</p>
+				                <p>每月11日系统将自动进行确认；</p>
+				                <p>如有异议请尽快联系客服人员。</p>
+				            </div>
+		                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="partner-settlement-dialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="false">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-body">
+	            <button type="button" class="bootbox-close-button close"
+	                data-dismiss="modal" aria-hidden="true"
+	                style="margin-top: -10px;">×</button>
+                <div class="bootbox-body">
+                    <div class="psol-change-balance form-horizontal">
+	            		<div class="row">
+			                <div class="col-xs-12">
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label no-padding-right text-right"><span class="red control-label">*</span>调整金额：</label>
+			                        <div class="col-sm-9">
+			                            <input type="text" class="form-control" maxLength="12" id="psol-adjust-money" placeholder="请输入调整金额" />
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label no-padding-right text-right"><span class="red control-label">*</span>调整原因： </label>
+			                        <div class="col-sm-9">
+			                            <textarea id="psol-remark" placeholder="请输入调整原因" class="form-control input-sm"></textarea>
+			                        </div>
+			                    </div>
+			                    <div id="psol-error" class="alert alert-danger hide">
+			                        <span id="errorMsg"></span><br>
+			                    </div>
+			                </div>
+	            		</div>
+        			</div>
+               	</div>
+           	</div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
+                <button id="partner-settlement-btn" type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="${ctxPath}/static/modular/partnerBill/partnerSettlementOrder.js"></script>
+@}

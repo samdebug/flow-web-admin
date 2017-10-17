@@ -1,0 +1,149 @@
+@layout("/common/_container.html"){
+<style>
+.form-control-static{
+	    word-wrap: break-word;
+    word-break: break-all;
+}
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="ibox float-e-margins">
+			<div class="form-horizontal">
+				<div class="row">
+					<div class="col-xs-1"></div>
+					<div class="col-xs-5">
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="orderIdStr"> 分发订单号: </label>
+							<div class="col-sm-7">
+								<p name="orderIdStr" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="extorderId"> CP订单号: </label>
+							<div class="col-sm-7">
+								<p name="extorderId" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="appId"> 应用ID: </label>
+							<div class="col-sm-7">
+								<p name="appId" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="packageId"> 流量包ID: </label>
+							<div class="col-sm-7">
+								<p name="packageId" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="mobileOperatorDesc"> 运营商: </label>
+							<div class="col-sm-7">
+								<p name="mobileOperatorDesc" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="mobileHome"> 归属地 : </label>
+							<div class="col-sm-7">
+								<p name="mobileHome" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="price"> 价格: </label>
+							<div class="col-sm-7">
+								<p name="price" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="flowRangeDesc"> 流量类型: </label>
+							<div class="col-sm-7">
+								<p name="flowRangeDesc" class="form-control-static"></p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-5">
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="usedMobile"> 手机号码: </label>
+							<div class="col-sm-7">
+								<p name="usedMobile" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="applyDate"> 收单时间: </label>
+							<div class="col-sm-7">
+								<p name="applyDate" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="activeDate"> 发送时间: </label>
+							<div class="col-sm-7">
+								<p name="activeDate" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="checkTime"> 回调时间: </label>
+							<div class="col-sm-7">
+								<p name="checkTime" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="statusDesc"> 订单状态: </label>
+							<div class="col-sm-7">
+								<p name="statusDesc" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="dealFlagDesc"> 回调状态: </label>
+							<div class="col-sm-7">
+								<p name="dealFlagDesc" class="form-control-static"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="gwStatus"> 网关状态: </label>
+							<div class="col-sm-7">
+								<p name="gwStatus" class="form-control-static"></p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-1"></div>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+		var view_url = Feng.ctxPath + '/flowOrderInfo/get';
+		var pkId = getP('orderId');
+		$(function() {
+			if (pkId) {
+				$.ajaxSubmit(view_url, {
+					'orderId' : pkId
+				}, function(rtn) {
+					if (rtn.success) {
+						$.dataInput($('.form-control-static'), rtn.data);
+					} else {
+						Feng.error(rtn.message?rtn.message:"发生未知错误!");
+					}
+				});
+			} else {
+				Feng.error('参数错误');
+			}
+		})
+</script>
+@}

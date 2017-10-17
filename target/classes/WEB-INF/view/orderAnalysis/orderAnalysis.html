@@ -1,0 +1,63 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>订单分析报表管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <form id="queryForm" >
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row sixChart">
+                            <div class="col-sm-3">
+                                <#TimeCon type="text" name="统计开始时间：" id="beginCheckTime" isTime="false" pattern="YYYY-MM-DD" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#TimeCon type="text" name="统计结束时间：" id="endCheckTime" isTime="false" pattern="YYYY-MM-DD" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="partnerName" name="合作伙伴：" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="customerName" name="客户：" />
+                            </div>
+                            <div class="col-sm-3">
+	                             <#SelectCon id="operatorCode" name="供应商：" >
+										<option value="">全部</option>
+										<option value="YD">移动</option>
+										<option value="DX">电信</option>
+										<option value="LT">联通</option>
+								</#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="channelName" name="通道名称：" />
+                            </div>
+                            <div class="col-sm-3 reset">
+                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="OrderAnalysis.search()"/>
+                            </div>
+                        </div>
+                        <div id="main"  style="min-width: 342px; height: 480px; margin: 0 auto;margin-top: 100px;margin-bottom: 100px"></div>
+                        <div class="hidden-xs" id="OrderAnalysisTableToolbar" role="group">
+                            @if(shiro.hasPermission("/orderAnalysis/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="OrderAnalysis.openAddOrderAnalysis()"/>
+                            @}
+                            @if(shiro.hasPermission("/orderAnalysis/update")){
+                                <#button name="修改" icon="fa-plus" clickFun="OrderAnalysis.openOrderAnalysisDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/orderAnalysis/delete")){
+                                <#button name="删除" icon="fa-plus" clickFun="OrderAnalysis.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="OrderAnalysisTable"/>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/orderAnalysis/orderAnalysis.js"></script>
+<script src="${ctxPath}/static/js/plugins/echarts/esl.js"></script>
+<script src="${ctxPath}/static/js/plugins/echarts/echarts.js"></script>
+@}

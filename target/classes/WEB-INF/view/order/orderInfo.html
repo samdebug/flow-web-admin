@@ -1,0 +1,79 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>客户产品配置管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    	<form id="queryForm" action="#">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <#NameCon id="params['orderId']" name="订单编号" />
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+								    <div class="input-group-btn">
+								        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">客户名称</button>
+								    </div>
+                                    <input type="hidden" id="pOIL-customer-select" name="params['customerId']" class="form-control search-query" data-placeholder="请选择客户"/>
+								</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <#SelectCon id="params['status']" name="订单状态">
+                                	<option value="">请选择订单状态</option>
+                                    <option value="1">待生效</option>
+                                    <option value="2">生效</option>
+                                    <option value="3">暂停</option>
+                                </#SelectCon>
+                            </div>
+                        </div>
+                        <div class="row">
+                        	<div class="col-sm-4">
+                                <#SelectCon id="params['orderType']" name="订单类型">
+                                	<option value="">请选择订单类型</option>
+                                    <option value="1">流量包</option>
+                                    <option value="2">流量+</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-4">
+								<#TimeBetweenCon name="创建时间" isTime="true" pattern="YYYY-MM-DD hh:mm:ss" 
+									startId="params['createStartTime']" endId="params['createEndTime']" />
+							</div>
+                        	<div class="col-sm-4 reset">
+                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="OrderInfo.search()"/>
+                                <#button name="重置" class="button-margin" icon="fa-refresh" clickFun="OrderInfo.reset()" space="true"/>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="hidden-xs" id="OrderInfoTableToolbar" role="group">
+                            @if(shiro.hasPermission("/orderInfo/add")){
+                            <div class="btnWrapper">
+                                <#button name="" icon="fa-plus" clickFun="OrderInfo.openAddOrderInfo()" style="width:98px"/>
+                                <span class="btnTips">添加</span>
+                            </div>
+                            @}
+                            @if(shiro.hasPermission("/orderInfo/delete")){
+                            <div class="btnWrapper">
+                                <#button name="" icon="fa-trash-o" clickFun="OrderInfo.delete()"  style="width:98px"/>
+                                <span class="btnTips">删除</span>
+                            </div>
+                            @}
+                            @if(shiro.hasPermission("/orderInfo/export")){
+                            <div class="btnWrapper">
+                                <#button name="" icon="fa-download" clickFun="OrderInfo.exportAllHandler()"  style="width:98px"/>
+                                <span class="btnTips">导出</span>
+                            </div>
+                            @}
+                        </div>
+                        <#table id="OrderInfoTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/order/orderInfo.js"></script>
+@}

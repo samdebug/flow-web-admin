@@ -1,0 +1,177 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+    	<form id="add-form" onsubmit="return false;">
+			<div class="form-horizontal">
+				
+				<input type="hidden" name="productId" value="${flowProductRemodel.productId}" />
+				
+				<div class="row">
+					<div class="col-sm-6 b-r">
+						
+						<#input id="productCode" name="<span class='text-danger'>*</span> 产品代码" underline="true" value="${flowProductRemodel.productCode}" />
+						
+						<#input id="productName" name="<span class='text-danger'>*</span> 产品名称 " underline="true" value="${flowProductRemodel.productName}" />
+						
+						<#select id="zone" name="<span class='text-danger'>*</span>	适用区域" underline="true">
+							@for(it in area){
+								<option value = "${it.areaCode}" 
+								@if(flowProductRemodel.zone==it.areaCode){
+	                       			selected="selected" 
+	                       		@}
+								>${it.areaName}</option>
+							@}
+						</#select>
+						
+						<#select id="operatorCode" name="<span class='text-danger'>*</span> 运营商" underline="true">
+							<option value="YD" 	
+							@if(flowProductRemodel.operatorCode=='YD'){
+	                        	selected="selected" 
+	                        @}
+	                        >移动</option>
+							<option value="LT"
+							@if(flowProductRemodel.operatorCode=='LT'){
+	                        	selected="selected" 
+	                        @}
+							>联通</option>
+							<option value="DX"
+							@if(flowProductRemodel.operatorCode=='DX'){
+	                        	selected="selected" 
+	                        @}
+							>电信</option>
+						</#select>
+						
+					</div>
+					<div class="col-sm-6">
+					
+						<#input id="flowAmount" name="<span class='text-danger'>*</span> 流量大小(M)" underline="true" value="${flowProductRemodel.flowAmount}"/>
+						
+						<#input id="productPrice" name="<span class='text-danger'>*</span> 流量包标准价格(元)" underline="true" value="${flowProductRemodel.productPrice}"/>
+						
+						<!-- 
+						<#input id="activePeriod" name="<span class='text-danger'>*</span> 有效时间(天) 0为无限期" underline="true" value="${flowProductRemodel.activePeriod}"/>
+						 -->
+						<#input id="productDesc" name="备注" underline="true" value="${flowProductRemodel.productDesc}"/>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="row btn-group-m-t"  align="center">
+			<div class="col-sm-10">
+				<#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FlowProductRemodelDlg.editSubmit()"/>
+				<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FlowProductRemodelDlg.close()"/>
+			</div>
+		</div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	var add_validator = $('#add-form').validate(
+			{
+				rules : {
+					'productCode' : {
+						required : true,
+						maxlength : 128,
+						soloProductCode:true
+					},
+					'productName' : {
+						required : true,
+						maxlength : 256,
+						soloProductName:true
+					},
+					'zone':{
+						required : true,
+						maxlength : 64
+					},
+					'operatorCode' : {
+						required : true,
+						maxlength : 32
+					},
+					'productPrice' : {
+						required : true,
+						maxlength : 11,
+						number : true,
+						number_2 : true
+					},
+					'flowAmount' : {
+						required : true,
+						maxlength : 11,
+						number : true,
+						min : 0
+					},
+					'activePeriod' : {
+						required : true,
+						maxlength : 11,
+						number : true,
+						min : 0
+					}
+				},
+				submitHandler : function(form) {
+					return false;
+				}
+			});
+});
+	
+var soloName_url=Feng.ctxPath+'/flowProductRemodel/soloProductName.ajax';
+var soloCode_url=Feng.ctxPath+'/flowProductRemodel/soloProductCode.ajax';
+var soloPackageIdZone_url=Feng.ctxPath+'/flowProductRemodel/soloProductPackageIdZone.ajax';
+
+function soloName(value) {
+	if (value == null || value == "") {
+		return false;
+	};
+	var data={
+			"productName" : value};
+	return solo(data,soloName_url);
+};
+
+function soloPackageIdZone(value,zone){
+	if (value == null || value == "") {
+		return false;
+	}
+	if(zone == null || zone == ""){
+		return false;
+	}
+	var data={
+			"packageId" : value,
+			"zone" : zone};
+	return solo(data,soloPackageIdZone_url);
+};
+
+function soloCode(value) {
+	if (value == null || value == "") {
+		return false;
+	}
+	var data={
+			"productCode" : value};
+	return solo(data,soloCode_url);
+};
+
+function solo(data,url){
+	var flag = false;
+	$.ajax({
+		url : url,
+		type : 'post',
+		data : data,
+		dataType : 'json',
+		async : false,
+		success : function(data) {
+			if (data.code == 200) {
+				flag = true;
+			}
+		}
+	});
+	return flag;
+};
+
+$.validator.addMethod("soloProductName",
+		function(value, element, params) {
+			return soloName(value);
+		}, "产品名称不可用");
+$.validator.addMethod("soloProductCode",
+		function(value, element, params) {
+			return soloCode(value);
+		}, "产品代码不可用");
+</script>
+<script src="${ctxPath}/static/modular/flow/flowProductRemodel/flowProductRemodel_info.js"></script>
+@}

@@ -1,0 +1,213 @@
+@layout("/common/_container.html"){
+<style>
+.user-avator {
+/* 	display: table-cell; */
+	width:103px; 
+	height:103px; 
+	border-radius: 50%;
+	border: 1px solid #cdcdcd;
+	padding: 3px;
+	overflow: hidden;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0 auto;
+}
+.user-avator img {
+	text-align: center;
+	vertical-align: middle;
+	border: none !important;
+	background: none;
+ 	width: 100%; 
+ 	max-width: 100px; 
+ 	max-height: 100px;
+ 	border-radius: 50%;
+ 	padding: 3px;
+}
+.vertical-line {
+	border-right: 1px solid #DCDCDC !important;
+}
+</style>
+<div class="col-sm-4  col-sm-offset-4">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>更换头像</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                     <div class="form-horizontal">
+                         <div class="row">
+                             <div class="col-sm-6">
+								<label class="col-sm-12 text-center">新头像</label>
+                             </div>
+                             <div class="col-sm-6">
+								<label class="col-sm-12 text-center">旧头像</label>
+                             </div>
+                         </div>
+                         <br/>
+                         <div class="row">
+                         	<div class="col-sm-6 text-center vertical-line">
+	                         	<div class="user-avator">
+	                         		<img id="newAvator" alt="" src="${ctxPath}/static/img/u67.jpg" />
+	                         	</div>
+	                         	<input id="avatorFile" type="file" style="display: none;" accept=".jpg,.png,.jpeg" />
+                         	</div>
+                         	<div class="col-sm-6 text-center">
+                         		<div class="user-avator">
+                         			<img id="currentAvator" alt="" src="${ctxPath}/mgr/getAvator" onerror="loadDefaultUserAvator(event);" />
+                       			</div>
+                         	</div>
+                         </div>
+                         <br/>
+                         <div class="row">
+                             <div class="col-sm-10">
+								（上传图片大小不得超过2M）
+                             </div>
+                         </div>
+                         <div class="row btn-group-m-t">
+                             <div class="col-sm-12 text-center">
+                                 <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="toUpload();"/>
+                             </div>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+var UserAvator = {
+	uploading: false,
+	imgObj: $("#newAvator"),
+	fileObj: $("#avatorFile"),
+	defaultImg : "${ctxPath}/static/img/u67.jpg",
+	selected: false,
+	file: null
+};
+
+/**
+ * 选择文件
+ */
+UserAvator.selectFile = function() {
+	$(this.fileObj).click();
+}
+
+/**
+ * reset
+ */
+UserAvator.reset = function() {
+	$(this.imgObj).attr("src", this.defaultImg);
+	this.selected = false;
+	this.file = null;
+}
+
+/**
+ * init
+ */
+UserAvator.init = function() {
+	$(this.fileObj).on("change", function(){
+		if ($(this).val() == "") {
+			UserAvator.reset();
+			return false;
+		}
+		var _file = this.files[0];
+		if( !/image\/\w+/.test(_file.type)){
+            Feng.error("请确保文件为图像类型");
+            UserAvator.reset();
+            return false;
+        }
+		if ( _file.size > 2* 1024 * 1024 ) {
+			Feng.error("文件太大了...");
+			UserAvator.reset();
+            return false;
+		}
+		var reader = new FileReader();
+		reader.onload = function(e){
+            $(UserAvator.imgObj).attr("src", this.result);
+            UserAvator.selected=true;
+            UserAvator.uploading=false;
+            UserAvator.file=_file;
+        }
+        reader.readAsDataURL(_file);
+	});
+	
+	$(this.imgObj).on("click", function(){
+		if ( !UserAvator.uploading ) {
+			UserAvator.selectFile();
+		} else {
+			Feng.info("有图片正在上传，请稍后！");
+		}
+	});
+}
+
+/**
+ * upload
+ */
+UserAvator.upload = function() {
+	if ( !this.selected ) {
+		Feng.info("请选择上传的头像");
+		return false;
+	}
+	var oForm = new FormData();    // 
+	oForm.append("avator", UserAvator.file);
+	
+	UserAvator.uploading=true;//flag
+	$.ajax({ 
+		url : "${ctxPath}/mgr/saveAvator", 
+		type : 'POST', 
+		data : oForm, 
+		// 告诉jQuery不要去处理发送的数据
+		processData : false, 
+		// 告诉jQuery不要去设置Content-Type请求头
+		contentType : false,
+		beforeSend:function(){
+			
+		},
+		success : function(data) { 
+			UserAvator.uploading=false;
+			UserAvator.reset();
+			if ( data && data.code == 200 ) {
+				Feng.success("上传成功");
+				if ( window.parent ) {// 刷新父容器头像
+					window.parent.document.getElementById("current-user-avator").src = encodeURI("${ctxPath}/mgr/getAvator?_ts=" + (new Date().getTime()));
+				}
+				window.location.href = encodeURI(window.location.href);// 刷新本页面
+				return;
+			}
+			Feng.error(data && data.message ? data.message : "上传文件出错");
+		}, 
+		error : function(responseStr) {
+			UserAvator.uploading=false;
+			Feng.error("上传文件出错");
+			console.error(responseStr);
+		} 
+	});
+}
+
+
+/**
+ * 
+ */
+function toUpload() {
+	if (UserAvator.uploading) {
+		Feng.info("文件上传中，请稍后...");
+		return false;
+	}
+	UserAvator.upload();
+}
+
+
+$(function() {
+	
+	if( (typeof FileReader == "undefined") || (typeof FormData == "undefined") ){ 
+		Feng.info( "您的浏览器不支持FileReader！暂无法使用此功能！" );
+	} else {
+		UserAvator.init();
+	}
+	
+});
+
+</script>
+@}

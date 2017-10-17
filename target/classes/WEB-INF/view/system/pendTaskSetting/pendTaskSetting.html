@@ -1,0 +1,118 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+              <div class="ibox-content">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                    	<label class="col-sm-2 control-label">邮件地址：</label>
+                    	<div class="col-sm-4">
+							<p id="staffEmail" class="form-control-static"></p>
+						</div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+						<label class="col-sm-2 control-label">
+							<span class="red">*</span>
+							开通状态：
+						</label>
+						<div class="col-sm-4">
+							<label>
+								<input type="radio" value="1" name="sendemail" id="sendemailYRadio"  class="ace" />
+								<span class="lbl">是</span>
+							</label>
+							<label>
+								<input type="radio"  value="0" name="sendemail" id="sendemailNRadio" class="ace" checked="checked"/>
+								<span class="lbl">否</span>
+							</label>
+						</div>
+					</div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+						<label class="col-sm-2 control-label">
+							<span class="red">*</span>
+							提醒时间：
+						</label>
+						<div id="emailSendTimeSet" class="col-sm-8">
+							<label>
+								<input type="checkbox" value="08" name="emailSendTime" class="ace">
+								<span class="lbl">08:00</span>
+								&nbsp;
+							</label>
+							<label>
+								<input type="checkbox" value="09" name="emailSendTime" class="ace">
+								<span class="lbl">09:00</span>
+								&nbsp;
+							</label>
+							<label>
+								<input type="checkbox" value="10" name="emailSendTime" class="ace">
+								<span class="lbl">10:00</span>
+								&nbsp;
+							</label>
+							<label>
+								<input type="checkbox" value="11" name="emailSendTime" class="ace">
+								<span class="lbl">11:00</span>
+								&nbsp;
+							</label>
+							<label>
+								<input type="checkbox" value="12" name="emailSendTime" class="ace">
+								<span class="lbl">12:00</span>
+								&nbsp;
+							</label>
+							<label>
+								<input type="checkbox" value="13" name="emailSendTime" class="ace">
+								<span class="lbl">13:00</span>
+								&nbsp;
+							</label>
+							<label>
+								<input type="checkbox" value="14" name="emailSendTime" class="ace">
+								<span class="lbl">14:00</span>
+								&nbsp;
+							</label>
+							<br>
+							<label>
+								<input type="checkbox" value="15" name="emailSendTime" class="ace">
+								<span class="lbl">15:00</span>
+								&nbsp;
+							</label>
+							<label>
+								<input type="checkbox" value="16" name="emailSendTime" class="ace">
+								<span class="lbl">16:00</span>
+								&nbsp;
+							</label>
+							<label>
+								<input type="checkbox" value="17" name="emailSendTime" class="ace">
+								<span class="lbl">17:00</span>
+								&nbsp;
+							</label>
+							<label>
+								<input type="checkbox" value="18" name="emailSendTime" class="ace">
+								<span class="lbl">18:00</span>
+								&nbsp;
+							</label>
+							<label>
+								<input type="checkbox" value="19" name="emailSendTime" class="ace">
+								<span class="lbl">19:00</span>
+								&nbsp;
+							</label>
+							<label>
+								<input type="checkbox" value="20" name="emailSendTime" class="ace">
+								<span class="lbl">20:00</span>
+								&nbsp;
+							</label>
+						</div>
+					</div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                         	<#button name="提交" id="ensure" icon="fa-check" clickFun="PendTaskSetting.editSubmit()"/>
+                        	&nbsp; &nbsp; &nbsp;
+                        	<#button name="重置" id="reset" icon="fa-undo" clickFun="PendTaskSetting.reset()"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/pendTaskSetting/pendTaskSetting.js"></script>
+@}

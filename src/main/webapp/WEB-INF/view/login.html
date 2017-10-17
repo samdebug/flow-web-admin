@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<link rel="shortcut icon" href="${headLogo}">
+	<title>${serverTitle}流量分发平台</title>
+	<link rel="stylesheet" type="text/css" href="${ctxPath}/static/css/reg.css">
+	<script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>
+	<script type="text/javascript">
+		if ( window.self != window.top ) {
+			window.top.location.href=encodeURI(window.self.location.href);
+		}
+	</script>
+</head>
+<body>
+	<div class="reg-wrap">
+		<div class="reg-con">
+			<div id="mydiv"></div>
+			<div class="reg-info">
+				<!-- 背景div -->
+				<div class="reg-logo"><a href="javascript:;"><!--"http://www.ucpaas.com/"> <img src="${ctxPath}/static/img/logo.png"> --><img src="${logoSrc}" alt=""></a></div>
+				<div class="description">
+					<h2>持续提升</h2>
+					<h2>通信行业与通信服务效率</h2>
+				</div>
+				<div class="reg-det">
+					<form id="loginform" action="${ctxPath}/login" method="post">
+						<h1>欢迎登录</h1>
+						<div class="group">
+							<input type="text" name="username" placeholder="用户名" id="userName">
+						</div>
+						<div class="group close-d">
+							<input type="password" name="password"  placeholder="密码" id="passWord" >
+						</div>
+						@if(tool.getKaptchaOnOff() == true){
+						<div class="group close-d" style="height: 44px;">
+							<input type="text" name="kaptcha" style="width: 60%;"  placeholder="验证码" id="identifyCode">
+							<div style="width:38%;height: 44px;position: absolute;right:0;top:4px;">
+								<img src="${ctxPath}/kaptcha" id="kaptcha" alt="" style="width: 100%;position: relative;left: 0;top: 0;">
+							</div>
+							<em class="wrongImg identifyImg"></em>
+							<em class="rightImg identifyImg"></em>
+						</div>
+						 @}
+						<div class="group item">
+							<a class="green-btn" onclick="submit();">登录</a>
+							<div class="remeberAccount">
+                                <input class="styled-checkbox" id="autologin" type="checkbox" value="autologin" name="autologin" style="height: 20px;width: 75px;">
+                                <label for="autologin">记住我</label>
+                                <!-- 
+								<label class="checkbox_label">
+                                    <input class="checkbox" type="checkbox" name="autologin" id="autologin" value="autologin"/>记住我</label> -->
+								<h4 style="color: red;" class="tipInfo">${tips!}</h4>
+							</div>
+						</div>
+					</form>
+				</div>	
+				<!-- <div class="go-login">已注册账号？<a href="/login" id="loginUrl">请登录</a></div> -->
+				<footer class="footerMsg" style="line-height: 60px">
+    				<p class="ft-l copyright">&copy;2017 UCPaaS.com. All Rights Reserved. 深圳市云之讯网络技术有限公司  版权所有</p>
+    				@if(null != curVersion){
+    					<p class="ft-r version">${curVersion.version}</p>
+    				@}
+				</footer>
+			</div>
+		</div>
+	</div>
+<script>
+	var flag = true;
+	
+    function submit(){
+  		if (flag)
+    		document.getElementById("loginform").submit();
+    }
+   
+    $(function(){
+        $("#kaptcha").on('click',function(){
+            $("#kaptcha").attr('src', '${ctxPath}/kaptcha?' + Math.floor(Math.random()*100) ).fadeIn();
+        });
+       	/* 登陆 验证样式 */
+    	/*$("#userName").blur(function(){
+    		if($(this).val() == ""){
+    			$(this).css({"border":"solid red 1px"});
+    		}else{
+    			$(this).css({"border":"solid #ccc 1px"});
+    		}
+    	});
+    	
+    	$("#userName").focus(function(){
+    			$(this).css({"border":"solid #2ea967 1px"});
+    	});
+    	
+    	$("#passWord").blur(function(){
+    		if($(this).val() == ""){
+    			$(this).css({"border":"solid red 1px"});
+    		}else{
+    			$(this).css({"border":"solid #ccc 1px"});
+    		}
+    	});
+    	
+    	$("#passWord").focus(function(){
+    			$(this).css({"border":"solid #2ea967 1px"});
+    	});*/
+    	
+    	$("#identifyCode").blur(function(){
+    		var code = $("#identifyCode").val();
+    		if(code == ""){
+    			$(".rightImg").css({"display":"none"});
+    			$(".wrongImg").css({"display":"none"});
+    			return false;
+    		}
+    		var param ={ kaptcha :code };
+    		$.ajax({
+    			 type: "POST",  
+                 url: "${ctxPath}/ckeckCode",  
+                 data: param,  
+                 dataType: "json",  
+                 success: function(data){  
+                	if(data.code==0){
+                		$("#identifyCode").css({"border":"solid red 1px"});
+                		$(".wrongImg").css({"display":"block"});
+                		/*$(".tipInfo").html("验证码错误");*/
+                		flag = false;
+                	}else if(data.code == 200){
+                		$(".rightImg").css({"display":"block"});
+                		flag = true;
+                	}  
+                 } 
+    		})
+   
+    	});
+    	
+    	$("#identifyCode").focus(function(){
+    		$(this).css({"border":"solid #ccc 1px"});
+    		$(".rightImg").css({"display":"none"});
+			$(".wrongImg").css({"display":"none"});
+    	});
+    	/* 登陆首页按回车键触发登陆按钮 */
+    	$(document).keyup(function(event){
+    		  if(event.keyCode ==13){
+    		    $(".green-btn").trigger("click");
+    		  }
+    		});   
+    	 //配置
+	    var config = {
+	        vx: 3,	//小球x轴速度,正为右，负为左
+	        vy: 3,	//小球y轴速度
+	        height: 2,	//小球高宽，其实为正方形，所以不宜太大
+	        width: 2,
+	        count: 110,		//点个数
+	        color: "255, 255, 255", 	//点颜色
+	        stroke: "255,255,255", 		//线条颜色
+	        dist: 1000, 	//点吸附距离
+	        e_dist: 10000, 	//鼠标吸附加速距离
+	        max_conn: 5, 	//点到点最大连接数
+	    }
+	    //调用
+	   // CanvasParticle(config);
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+		           <div class="tabs-container">
+	                    <ul class="nav nav-tabs">
+	                        <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">账户充值</a>
+	                        </li>
+	                        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">充值记录</a>
+	                        </li>
+	                    </ul>
+	                    <div class="tab-content">
+	                        <div id="tab-1" class="tab-pane active">
+	                        	<div class="panel-body">
+	                        		<form class="form-horizontal" role="form" id="add-form"
+										onsubmit="return false;">
+											<input type="hidden" id="supplierCode" value="${supplierCode}"/>
+                            		<div class="col-xs-12">
+                            			<div class="form-group">
+													<label  class="col-sm-3 control-label no-padding-right text-right"
+														for="companyId"><span class="text-danger">*</span> 充值金额: </label>
+													<div class="col-sm-6">
+													 <input type="text" id="money" 
+													 	name="money" class="form-control" data-placeholder="请输入充值金额"/>
+													</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right text-right"
+												for="supplierCode">备注: </label>
+											<div class="col-sm-6">
+												 <textarea rows="4" cols="6" style="width:99%;" name="remark" id="remark"></textarea>
+											</div>
+										</div>
+									</div>
+									</form>
+						            <div class="row btn-group-m-t" style="padding-left: 235px;" align="center">
+						                <div class="col-sm-10">
+						                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="cADVRechargeBtnClickHandler();"/>
+						                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="cancel();"/>
+						                </div>
+						            </div>
+	                        	</div>
+	                        </div>
+	                        <div id="tab-2" class="tab-pane" >
+	                        	<div class="panel-body">
+		                        	  <div class="hidden-xs" id="ChannelSupplierRechargeTableToolbar" role="group">
+		                        	  <div class="btnWrapper">
+		                            		<#button name="" icon="fa-download" clickFun="ChannelSupplierRecharge.export2Excel();" style="width:98px"/>
+		                            		<span class="btnTips">导出</span>
+		                            	</div>  
+		                        	  </div>
+	                        		  <#table id="ChannelSupplierRechargeTable"/>
+                            	</div>	
+	                        </div>
+                        </div>
+                     </div> 
+       			 </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelSupplierRecharge/channelSupplierRecharge.js"></script>
+<script>
+function cADVRechargeBtnClickHandler() {
+    var rechargeBalance = $("#money").val();
+    var rechargeRemark = $("#remark").val();
+    var supplierCode = $("#supplierCode").val();
+    var chargeType=0;
+    // 非空验证
+    if (rechargeBalance == "") {
+    	Feng.error("请输入充值金额");
+        return;
+    }
+    // 整数或小数
+    var numReg = /^(-|\+)?[0-9]+(\.[0-9]*)?$/;
+    if (!numReg.test(rechargeBalance)) {
+    	Feng.error( "只能输入整数或小数，请重新输入。");
+        return;
+    }
+    // 7位整数2位小数
+    var doubleReg = /^(-|\+)?\d{1,7}\.?\d{0,2}$/;
+    if (!doubleReg.test(rechargeBalance)) {
+    	Feng.error( "最多只能有七位整数和两位小数，请重新输入。");
+        return;
+    }
+    // 两位小数验证
+    if (rechargeBalance.indexOf(".") != -1) {
+        var reg = /^(-|\+)?\d+\.+\d{1,2}$/;
+        if (!reg.test(rechargeBalance)) {
+        	Feng.error( "最多只能有两位小数，请重新输入。");
+            return;
+        }
+    }
+    if(rechargeBalance<0){
+    	chargeType=1;
+    }
+    saveSupplierRecharge(supplierCode,chargeType,rechargeBalance, rechargeRemark);
+}
+
+// 保存充值记录
+function saveSupplierRecharge(supplierCode,chargeType,money, remark) {
+    var channelSupplierRecharge = {};
+    channelSupplierRecharge.supplierCode = supplierCode;
+    channelSupplierRecharge.money = money;
+    channelSupplierRecharge.remark = remark;
+    channelSupplierRecharge.type=chargeType;
+    $.ajax({
+        url : Feng.ctxPath + '/channelSupplierRecharge/add',
+        type : "post",
+        contentType : "application/json; charset=UTF-8",
+        cache : false,
+        dataType : 'json',
+        data: JSON.stringify(channelSupplierRecharge),
+        success : function(data, status) {
+            if (data.code==200) {
+                Feng.success('操作成功');
+                $("a[href=#tab-2]").click();
+                ChannelSupplierRecharge.table.refresh();
+                $("#money").val("");
+                $("#remark").val("");
+                window.parent.ChannelSupplier.table.refresh();
+            } else {
+                Feng.error(data.message ? data.message : "发生未知错误!");
+            }
+        }
+    });
+}
+
+function cancel(){
+	 parent.layer.close(window.parent.ChannelSupplier.layerIndex);
+}
+</script>
+@}

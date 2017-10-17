@@ -1,0 +1,76 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>上游供应商管理</h5>
+            </div> -->
+         <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="companyName" name="上游供应商名称：" />
+                            </div>
+                            <div class="col-sm-2">
+                                <#NameCon id="contactsName" name="公司联系人：" />
+                            </div>
+                            <!-- <div class="col-sm-2">
+                                <#NameCon id="manager" name="客户经理：" />
+                            </div> -->
+                            <div class="col-sm-3">
+                                <#NameCon id="contractNo" name="合同编号：" />
+                            </div>
+                            <div class="col-sm-2">
+                                <#SelectCon id="isValid" name="状态：" >
+                                  	<option value="">全部</option>
+                                    <option value="1">有效</option>
+                                    <option value="0">无效</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-2 reset">
+								<#button name="查询" icon="fa-search" clickFun="ChannelCompany.search()" space="true"/>                           
+                                <#button name="重置" icon="fa fa fa-undo" clickFun="ChannelCompany.reSet()" space="true"/>                               
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="ChannelCompanyTableToolbar" role="group">
+                            @if(shiro.hasPermission("/channelCompany/add")){
+                               <div class="btnWrapper">
+                                	<#button name="" icon="fa-plus" clickFun="ChannelCompany.openAddChannelCompany()"/>
+                           		<span class="btnTips">添加</span>
+                            	</div>  
+                            @}
+                            @if(shiro.hasPermission("/channelCompany/update")){
+	                            <div class="btnWrapper">
+	                                <#button name="" icon="fa-pencil-square-o" clickFun="ChannelCompany.openChannelCompanyDetail()" />
+	                            	<span class="btnTips">修改</span>
+	                            </div> 
+                            @}
+                            @if(shiro.hasPermission("/channelCompany/delete")){
+                            	<div class="btnWrapper">	
+                                	<#button name="" icon="fa fa-trash-o" clickFun="ChannelCompany.delete()"/>
+                                	<span class="btnTips">删除</span>
+                            	</div> 
+                            @}
+                            @if(shiro.hasPermission("/channelCompany/export")){
+                             <div class="btnWrapper">
+                                <#button name="" icon="fa-download" clickFun="ChannelCompany.export2Excel();" />
+                            	<span class="btnTips">导出</span>
+                             </div>  
+                            @}
+                            @if(shiro.hasPermission("/channelCompany/export")){
+                               <div class="btnWrapper">
+                                <#button name="" icon="fa fa-money" clickFun="ChannelCompany.detailEvent();"/>
+                            	<span class="btnTips">充值明细</span>
+                             </div>  
+                            @}
+                        </div>
+                        <#table id="ChannelCompanyTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelCompany/channelCompany.js"></script>
+@}

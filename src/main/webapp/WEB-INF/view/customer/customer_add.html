@@ -1,0 +1,127 @@
+@layout("/common/_container.html"){
+
+<style>
+    .flowTypeBtn {
+        font-size: x-large;
+        border-radius: 10px;
+        padding: 35px;
+    }
+    .flowTypeBtn:nth-child(2) {
+        margin-left: 50px;
+    }
+    .ordertype-btn-group {
+        text-align: center;
+        padding: 20px;
+    }
+    #order-modal {
+        overflow: auto;
+    }
+    #order-modal .modal-content {
+        border-radius: 8px !important;
+    }
+</style>
+
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+		<form id="customerAddForm" action="#" >
+            <input type="hidden" id="customerId" value="">
+			
+			<div class="row">
+                <div class="col-sm-6 b-r">
+					<#select id="partnerId" name="*合作伙伴" underline="true" >
+						<option value="">-- 请选择 --</option>
+					</#select>
+                </div>
+            </div>
+            
+<!--             <div class="page-header"><h1><small>客户基本信息 </small></h1></div> -->
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="account" name="*客户账号" readonly="readonly" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="customerName" name="*客户名称" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="companyName" name="*公司名称" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="companyMobile" name="*公司电话" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="customerLinkman" name="*客户联系人" />
+                </div>
+                <div class="col-sm-6 b-r">
+                	<#input id="linkmanQq" name="联系人QQ" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="linkmanEmail" name="*联系人邮箱" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#select id="isSend" name="发送对账邮件" >
+						<option value="" >否</option>
+                        <option value="1">是</option>
+					</#select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="shorterName" name="*客户简称" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="address" name="地址" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="linkmanMobile" name="*客户手机号" underline="true"/>
+                </div>
+                <div class="col-sm-6 b-r">
+					<#select id="balanceLackConfigure" name="余额不足是否收单" underline="true" >
+						<option value="1">收单</option>
+                        <option value="0">不收单</option>
+					</#select>
+                </div>
+            </div>
+            
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CustomerInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CustomerInfoDlg.close()"/>
+                </div>
+            </div>
+            
+        </form>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div id="order-confirm-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<button type="button" class="bootbox-close-button close"
+					data-dismiss="modal" aria-hidden="true"
+					style="margin-top: -10px;">×</button>
+				<div class="bootbox-body">添加客户成功！现在就为该客户创建订单么？</div>
+			</div>
+			<div class="modal-footer">
+				<button id="cancel-btn" type="button" class="btn btn-default">不，谢谢</button>
+				<button id="confirm-btn" type="button" class="btn btn-primary">是的</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="${ctxPath}/static/modular/customer/customer_info.js"></script>
+@}

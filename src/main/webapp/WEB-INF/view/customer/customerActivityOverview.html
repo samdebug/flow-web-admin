@@ -1,0 +1,389 @@
+@layout("/common/_container.html"){
+<style>
+	body {margin: 0px;padding: 0px;background-color: #E4E6E9 !important;}
+	.page-content {background-color: #efefef;position:relative;}
+	#header {width: 100%;background-color: #ffffff;}
+	#header_top {margin: 15px;margin-left: 0px; padding : 0px;width: 100%;padding: 0px; width : 100%;height: 40px;background-color: #efefef;height: 40px;background-color: #efefef;}
+	ul {margin: 0px;padding: 0px;height: 50px;float: left;}
+	li {width:75px;height: 40px;text-align: right;line-height: 40px;list-style: none;float: left;cursor:pointer ;padding-right:15px;}
+	#_p {font-size: 16px; font-weight: bold;height: 40px;line-height:40px;padding-right:10px;text-align:right;background-color: #efefef;float: right;}
+	#_p1 {width: 19%;height: 35px;background-color: #efefef;float: right;background-image: url(${ctxPath}/static/css/yiScore/refresh.png);background-position:right;background-repeat: no-repeat;cursor:pointer;}
+	._style1 {background-image: url(${ctxPath}/static/css/yiScore/star_on.png);background-position:10px 8px;background-repeat: no-repeat;border: 1px solid #efefef;background-color: #ffffff;border-top: 3px solid #7fc1e0;border-bottom: 0px solid #ffffff;}
+	._style {background-image: url(${ctxPath}/static/css/yiScore/star.png);background-position:10px 8px;background-repeat: no-repeat;background-color: #a7a7a7;border: 1px solid #efefef;border-bottom: 0px solid #ffffff;}
+	body,h2,p {margin: 0;padding: 0;font-family: arial, "microsoft yahei"}
+	.dashboard {max-width: 1200px;}
+	
+	.dashboard {width: 100%;margin: 0 auto;padding-bottom: 10px;background-color: #ffffff;background-color: #ffffff;}
+	.box {display: inline-block;width: 18.6%;margin: 10px 0.5% 0 0.5%;min-width: 160px;background-repeat: no-repeat;background-size: auto 86%;background-position: 10px bottom;padding: 6px 0;color: #fff;box-shadow:0 3px 2px 0 #cccccc;}
+	.box:active{box-shadow:none}
+	.data_awaiting {background-image: url(${ctxPath}/static/img/activity/bg01.png);background-color: #7fc1e0;cursor:pointer;}
+	.data_sent {background-image: url(${ctxPath}/static/img/activity/bg02.png);background-color: #aa88be;cursor:pointer;}
+	.data_success {background-image: url(${ctxPath}/static/img/activity/bg03.png);background-color: #ffcb79;cursor:pointer;}
+	.data_fail {background-image: url(${ctxPath}/static/img/activity/bg04.png);background-color: #6dc998;cursor:pointer;}
+	.data_total {background-image: url(${ctxPath}/static/img/activity/bg05.png);background-color: #ff5c6b;cursor:pointer;}
+	.box h2 {margin-left: 48%;font-size: 22px;color: #fff;}
+	.box p {margin-left: 48%;font-size: 14px;opacity: 0.7}
+	.top_text {width:100%;height:40px;margin-left: 2%;font-size: 15px;font-weight: bold;line-height: 40px;}
+	.grid-table {padding-bottom: 30px; height : 20%;width: 90%;border: 1px solid red;margin-left: 20px;background-color: #ffffff;height: 20%;height: 20%;width: 90%;border: 1px solid red;margin-left: 20px;background-color: #ffffff;}
+	.grid-table .td1 {width: 208px;height: 40px;font-size: 14px;font-weight: bold;text-align: center;border: 1px solid #efefef;background-color: #d7e5eb;}
+	.td2 {width: 208px;height: 40px;font-size: 14px;text-align: center;border: 1px solid #efefef;}
+	.top_text {margin-top: 20px;padding-top: 10px;}
+	.partner_list {background-color: #ffffff;display: none;}
+	.customer_list {background-color: #ffffff;display: none;}
+	
+	#loading{position:absolute;width:300px;top:0px;left:50%;margin-left:-150px;
+	text-align:center;	padding:7px 0 0 0;font:bold 11px Arial, Helvetica, sans-serif; }
+	
+	.sk-three-bounce {width: 100%;text-align: center;z-index:9999;position: absolute;margin-top:280px;margin-left:-50px; }
+  	.sk-three-bounce .sk-child {width: 20px;height: 20px;background-color: #438eb9;border-radius: 100%;display: inline-block;
+    -webkit-animation: sk-three-bounce 1.4s ease-in-out 0s infinite both;
+            animation: sk-three-bounce 1.4s ease-in-out 0s infinite both; }
+  	.sk-three-bounce .sk-bounce1 {-webkit-animation-delay: -0.32s;animation-delay: -0.32s; }
+  	.sk-three-bounce .sk-bounce2 {-webkit-animation-delay: -0.16s; animation-delay: -0.16s; }
+
+	\@-webkit-keyframes sk-three-bounce {
+	  0%, 80%, 100% { -webkit-transform: scale(0);transform: scale(0); }
+	  40% {-webkit-transform: scale(1);transform: scale(1); } }
+	
+	\@keyframes sk-three-bounce { 0%, 80%, 100% {-webkit-transform: scale(0);transform: scale(0); }
+	  40% {-webkit-transform: scale(1); transform: scale(1); } }
+</style>
+
+<div class="page-content">
+	<!-- 浮层  加载中 -->
+    <div class="sk-three-bounce">
+      <div class="sk-child sk-bounce1"></div>
+      <div class="sk-child sk-bounce2"></div>
+      <div class="sk-child sk-bounce3"></div>
+	</div>
+	<div id="header">
+		<div id="header_top">
+			<ul>
+				<li class="_style1" value="1">日</li>
+				<li class="_style" value="2">月</li>
+				<!-- <li class="_style" value="3">年</li> -->
+			</ul>
+			<p id="_p1"></p>
+			<p id="_p"></p>
+		</div>
+		<div class="time"></div>
+		<div class="dashboard">
+			<div class="box data_awaiting">
+				<h2 id="daifa">0</h2>
+				<p>待发记录数</p>
+				<input type="hidden" value="1"/>
+			</div>
+			<div class="box data_sent">
+				<h2 id="yifa">0</h2>
+				<p>已发记录数</p>
+				<input type="hidden" value="2"/>
+			</div>
+			<div class="box data_success">
+				<h2 id="chenggong">0</h2>
+				<p>成功记录数</p>
+				<input type="hidden" value="6"/>
+			</div>
+			<div class="box data_fail">
+				<h2 id="shibai">0</h2>
+				<p>失败记录数</p>
+				<input type="hidden" value="4"/>
+			</div>
+			<div class="box data_total">
+				<h2 id="heji">0</h2>
+				<p>合计下发数</p>
+				<input type="hidden" value="5"/>
+			</div>
+		</div>
+		<div>
+			<div id="container" style="height:400px;width:98%;margin:0 auto;"></div>
+		</div>
+	</div>
+	<!-- 合作伙伴top5 -->
+	<!-- <div class="partner_list">
+		<div class="top_text">
+			<img alt="" src="${ctxPath}/static/css/yiScore/star_on.png"> 今日最活跃的TOP5合作伙伴
+		</div>
+		<div class="space-6"></div>
+		<table class="grid-table" id="grid-table_partner">
+			<tr>
+				<td class="td1">合作伙伴名称</td>
+				<td class="td1">当日下发笔数</td>
+				<td class="td1">当月下发笔数</td>
+				<td class="td1">账户余额(￥)</td>
+				<td class="td1">可用额度(￥)</td>
+			</tr>
+		</table>
+	</div>
+	<div></div> -->
+	<!-- 客户top5 -->
+	<div class="customer_list">
+		<div class="top_text">
+			<img alt="" src="${ctxPath}/static/css/yiScore/star_on.png"> 今日最活跃的TOP5客户
+		</div>
+		<div class="space-6"></div>
+		<table class="grid-table" id="grid-table_customer">
+			<tr>
+				<td class="td1">客户名称</td>
+				<td class="td1">当日下发笔数</td>
+				<td class="td1">当月下发笔数</td>
+				<td class="td1">账户余额(￥)</td>
+				<td class="td1">可用额度(￥)</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<script src="${ctxPath}/static/js/plugins/highcharts-4.1.8/highcharts.js"></script>
+<script type="text/javascript">
+
+		var init_reportform_url = Feng.ctxPath + '/customerBusinessBoard/initReportForm';
+		var init_url = Feng.ctxPath + '/customerBusinessBoard/initData';
+		
+		var type = 1;
+		var status = 5;
+		var text = "合计下发";
+		
+		$(document).ready(function() {
+			$(".sk-three-bounce").show();
+			ajax_report_init(type,5,text);
+			ajax_init();
+			//时钟特效
+			tick();
+			//日月年 tab切换
+			$("li").click(function() {
+				type = $(this).val();
+				//切换样式
+				if (!$(this).is('._style1')) {
+					$("li").addClass("_style");
+					$(this).addClass("_style1").removeClass("_style");
+				} else {
+					$("li").removeClass("_style1");
+					$("li").addClass("_style");
+					$(this).removeClass("_style");
+					$(this).addClass("_style1");
+				}
+				$("#container").css("visibility","hidden");
+				$(".sk-three-bounce").show();
+				status = 5;
+				ajax_report_init(type,5,text);
+			});
+			$("#_p1").click(function(){
+				location.reload();
+			});
+			$(".box").click(function(){
+				$(".sk-three-bounce").show();
+				$("#container").css("visibility","hidden");
+				status = $(this).find('input').val();
+				ajax_report_init(type,status,getText(status));
+			});
+		});
+		
+		function getText(status){
+			if(status == 1){
+				return "待发记录";
+			}else if(status == 2){
+				return "已发记录";
+			}else if(status == 6){
+				return "成功记录";
+			}else if(status == 4){
+				return "失败记录";
+			}else if(status == 5){
+				return "合计下发";
+			}
+		}
+		
+		//图表
+		function initChart(cate,data,text,statuss){
+			var time = getTime();
+			var color = getColor(statuss);
+			$('#container').highcharts({
+				title: {text: time+'流量下发业务监控'},
+				chart: { borderColor: '#efefef', borderWidth: 1, type: 'line'
+					/* backgroundColor: {linearGradient: [0, 0, 500, 500],stops: [ [0, 'rgb(255, 255, 255)'],[1, 'rgb(200, 200, 255)'] ]} */},
+// 	            legend: {layout: 'vertical',backgroundColor: '#FFFFFF',floating: true,align: 'left',x: 100,verticalAlign: 'top',y: 70 },
+		        xAxis: {title: {text: danweiX()},categories: cate,lineWidth: 1},
+		        yAxis: {
+		        	title: {text: '条'},
+					// labels: { align: 'right', x: -5, y: -2 },
+		        	min:0,	// 定义最小值
+		        	allowDecimals:false,	//不显示负数
+		        	lineWidth: 1,		// Y轴的宽度
+// 		        	lineColor: '#ffffff',
+		        	//gridLineWidth: 0,	// 横向格线宽度
+		        	gridLineColor: '#197F07',	//网格颜色
+		        	gridLineDashStyle:'Dot'	//网格线类型	Solid、Dot、Dash
+		        }, 
+				//  tooltip: {valueSuffix: '条',pointFormat: '下发数：{point.y}'},
+		        tooltip: {enabled: true,formatter: function() {return '<b>'+ this.series.name +'</b><br>'+(getDate(this.x)) +' 下发: '+ this.y +' 条';}},
+		        plotOptions: { line: { dataLabels: {enabled: true },enableMouseTracking: true }},
+		        legend: {layout: 'vertical',align: 'right',verticalAlign: 'middle',borderWidth: 0},
+		        series: [{name:text,data: data, color:color}],
+		        //,dashStyle: 'longdash' 
+		        credits : {enabled : false}
+		    });
+		}
+		
+		function danwei(){
+			if(type == 1){return '条';}
+			else if(type == 2){return '天/条';}
+			else{return '月/条';}
+		}
+		
+		function danweiX(){
+			if(type == 1){return '时';}
+			else if(type == 2){return '日';}
+			else{return '月';}
+		}
+		
+		function getDate(serName){
+			var objD = new Date();
+			var yy = objD.getYear();
+			if (yy < 1900)
+				yy = yy + 1900;
+			var MM = objD.getMonth() + 1;
+			if (MM < 10)
+				MM = '0' + MM;
+			var dd = objD.getDate();
+			if (dd < 10)
+				dd = '0' + dd;
+			var hh = objD.getHours();
+			if (hh < 10)
+				hh = '0' + hh;
+			if(type == 1){return MM+' 月 '+dd+' 日 '+serName+' 点';}
+			else if(type == 2){return MM+' 月 '+serName+' 日 ';}
+			else{return yy+' 年 '+MM+' 月 ';}
+		}
+		function getColor(statuss){
+			if(statuss == 1){return '#7ec1e1';}
+			else if(statuss == 2){return '#ab89bf';}
+			else if(statuss == 6){return '#ffcb78';}
+			else if(statuss == 4){return '#6cc999';}
+			else if(statuss == 5){return '#ff5c6a';}
+		}
+		function getTime(){
+			var today = new Date();
+			var yy = today.getYear();
+			if (yy < 1900)
+				yy = yy + 1900;
+			var MM = today.getMonth() + 1;
+			if (MM < 10)
+				MM = '0' + MM;
+			var dd = today.getDate();
+			if (dd < 10)
+				dd = '0' + dd;
+			if(type == 1){
+				return yy+"年"+MM+"月"+dd+"日 ";
+			}else if(type == 2){
+				return yy+"年"+MM+"月";
+			}else{
+				return yy+"年";				
+			}
+		}
+		
+		//图标初始化
+		function ajax_report_init(init_type, status, text){
+			var ajax = new $ax(init_reportform_url, function (data) {
+		 		$("#container").css("visibility","visible");
+		 		$(".sk-three-bounce").hide();
+		 		if(data && !data.message){
+		 			$("#daifa").html(data.reportFormDataInfo.readyCount);
+		 			$("#yifa").html(data.reportFormDataInfo.beenIssuedCount);
+		 			$("#chenggong").html(data.reportFormDataInfo.successCount);
+		 			$("#shibai").html(data.reportFormDataInfo.failCount);
+		 			$("#heji").html(data.reportFormDataInfo.sumCount);
+		 			initChart(data.xParame, data.yParame, text, status);
+		 		}else{
+		 			Feng.error("查询数据失败！" + data.message);
+		 		}
+	        }, function (data) {
+	        	Feng.error("查询数据失败！");
+	        });
+	        ajax.set( {type: init_type, status: status} );
+	        ajax.start();
+		}
+		
+		//客户数据展示
+		function ajax_init(){
+			var ajax = new $ax(init_url, function (data) {
+				if(data && !data.message){
+		 			$(".td2").remove();
+			 		var customerData;
+			 		var partnerData;
+			 		if(data.customerListData != null && data.customerListData != undefined){
+			 			$(".customer_list").show();
+			 			$.each(data.customerListData,function(row){ 
+				 			var customer = data.customerListData[row];
+				 			customerData+="<tr><td class=\"td2\">"+customer.customerName+"</td><td class=\"td2\">"+customer.countDay+"</td><td class=\"td2\">"+customer.countMonth+"</td><td class=\"td2\">"+customer.balance+"</td><td class=\"td2\">"+customer.availableCredit+"</td></tr>";
+				 		});
+				 		$("#grid-table_customer").append(customerData);
+			 		}
+			 		/*if(data.partnerListData != null && data.partnerListData != undefined){
+			 			$(".partner_list").show();
+			 			$.each(data.partnerListData,function(row){ 
+				 			var partner = data.partnerListData[row];
+				 			partnerData+="<tr><td class=\"td2\">"+partner.partnerName+"</td><td class=\"td2\">"+partner.countDay+"</td><td class=\"td2\">"+partner.countMonth+"</td><td class=\"td2\">"+partner.balance+"</td><td class=\"td2\">"+partner.availableCredit+"</td></tr>";
+				 		});
+				 		$("#grid-table_partner").append(partnerData);
+			 		}*/
+		 		}else{
+		 			Feng.error("查询数据失败！" + data.message);
+		 		}
+	        }, function (data) {
+	        	Feng.error("查询数据失败！");
+	        });
+	        ajax.set( {type: 1} );
+	        ajax.start();
+		}
+
+		function showLocale(objD) {
+			var str, colorhead, colorfoot;
+			var yy = objD.getYear();
+			if (yy < 1900)
+				yy = yy + 1900;
+			var MM = objD.getMonth() + 1;
+			if (MM < 10)
+				MM = '0' + MM;
+			var dd = objD.getDate();
+			if (dd < 10)
+				dd = '0' + dd;
+			var hh = objD.getHours();
+			if (hh < 10)
+				hh = '0' + hh;
+			var mm = objD.getMinutes();
+			if (mm < 10)
+				mm = '0' + mm;
+			var ss = objD.getSeconds();
+			if (ss < 10)
+				ss = '0' + ss;
+			var ww = objD.getDay();
+			if (ww == 0)
+				colorhead = "<font color=\"#FF0000\">";
+			if (ww > 0 && ww < 6)
+				colorhead = "<font color=\"#373737\">";
+			if (ww == 6)
+				colorhead = "<font color=\"#008000\">";
+			if (ww == 0)
+				ww = "星期日";
+			if (ww == 1)
+				ww = "星期一";
+			if (ww == 2)
+				ww = "星期二";
+			if (ww == 3)
+				ww = "星期三";
+			if (ww == 4)
+				ww = "星期四";
+			if (ww == 5)
+				ww = "星期五";
+			if (ww == 6)
+				ww = "星期六";
+			colorfoot = "</font>"
+			str = colorhead + yy + "-" + MM + "-" + dd + " " + hh + ":" + mm + ":" + ss + "  " + ww + colorfoot;
+			return (str);
+		}
+		function tick() {
+			var today;
+			today = new Date();
+			document.getElementById("_p").innerHTML = showLocale(today);
+			window.setTimeout("tick()", 1000);
+		}
+</script>
+@}

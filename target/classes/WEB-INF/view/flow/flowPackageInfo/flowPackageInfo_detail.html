@@ -1,0 +1,201 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="packageId"> 流量包ID: </label>
+						<div class="col-sm-7">
+							<p name="packageId" class="form-control-static">${flowPackageInfo.packageId}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="packageName"> 流量包名称: </label>
+						<div class="col-sm-7">
+							<p name="packageName" class="form-control-static">${flowPackageInfo.packageName}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="oprPackageId"> 运营商编码: </label>
+						<div class="col-sm-7">
+							<p name="oprPackageId" class="form-control-static">${flowPackageInfo.oprPackageId}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="activePeriod"> 有效期: </label>
+						<div class="col-sm-7">
+							<p name="activePeriod" class="form-control-static">${flowPackageInfo.activePeriod}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="zone"> 适用区域: </label>
+						<div class="col-sm-7">
+							<p name="zone" class="form-control-static">${flowPackageInfo.zoneDesc}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="isCombo"> 流量包类型: </label>
+							@if(flowPackageInfo.isCombo=='0'){
+							<div class="col-sm-7">
+								<p name="isCombo" class="form-control-static">基础包</p>
+							</div>
+							@}
+							@if(flowPackageInfo.isCombo=='1'){
+							<div class="col-sm-7">
+								<p name="isCombo" class="form-control-static">组合包</p>
+							</div>
+							@}
+							@if(flowPackageInfo.isCombo=='2'){
+							<div class="col-sm-7">
+								<p name="isCombo" class="form-control-static">话费</p>
+							</div>
+							@}
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="costPrice"> 标准成本价: </label>
+						<div class="col-sm-7">
+							<p name="costPrice" class="form-control-static">${flowPackageInfo.costPrice}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="createTime"> 创建时间: </label>
+						<div class="col-sm-7">
+							<p name="createTime" class="form-control-static">${flowPackageInfo.createTimeView}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="updateTime"> 更新时间: </label>
+						<div class="col-sm-7">
+							<p name="updateTime" class="form-control-static">${flowPackageInfo.updateTimeView}</p>
+						</div>
+					</div>
+					<div class="form-group" id="rules">
+						<h5 class="header smaller lighter blue" align="center">流量包规则说明</h5>
+						<div class="col-sm-7 tableCenter">
+							<table class="table">
+								<thead>
+								   <th width="150">流量包ID</th>
+								   <th width="150">兑换比例(0-100)</th>
+								   <th>备注</th>
+								</thead>
+								<tbody>
+									 @for(flowProductRule in flowPackageInfo.flowProductRules){
+										<tr>
+											<td>${flowProductRule.subPackageId}</td>
+											<td>${flowProductRule.exchangeRatio}</td>
+											<td>${flowProductRule.remark}</td>
+										</tr>
+									@}
+								</tbody>
+							</table>
+						</div>
+					</div>
+                </div>
+                <div class="col-sm-6">
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="operatorCode"> 对应运营商: </label>
+						<div class="col-sm-7">
+							<p name="operatorCode" class="form-control-static">
+							@if(flowPackageInfo.flowPackageInfos !=null) {
+								@for(packageInfo in flowPackageInfo.flowPackageInfos) {
+									${packageInfo.operatorName}
+								@}
+							@}
+							${flowPackageInfo.operatorName}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="flowAmount"> 流量大小: </label>
+						<div class="col-sm-7">
+							<p name="flowAmount" class="form-control-static">${flowPackageInfo.flowAmount}</p>
+						</div>
+					</div>
+					@if(flowPackageInfo.comboPackageStr != ''){
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="comboPackageStr"> 组合流量包: </label>
+						<div class="col-sm-7">
+							<p name="comboPackageStr" class="form-control-static">
+							@for(packageInfo in flowPackageInfo.flowPackageInfos){
+								${packageInfo.packageName}
+							@}
+							</p>
+						</div>
+					</div>
+					@}
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="salePrice"> 标准销售价格: </label>
+						<div class="col-sm-7">
+							<p name="salePrice" class="form-control-static">${flowPackageInfo.salePrice}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="remark"> 备注说明: </label>
+						<div class="col-sm-7">
+							<p name="remark" class="form-control-static">${flowPackageInfo.remark}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="packageType"> 流量包种类: </label>
+						<div class="col-sm-7">
+							<p name="packageType" class="form-control-static">${flowPackageInfo.packageTypeDesc}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="packageDesc"> 流量包种类描述: </label>
+						<div class="col-sm-7">
+							<p name="packageDesc" class="form-control-static">${flowPackageInfo.packageDesc}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="creator"> 创建者: </label>
+						<div class="col-sm-7">
+							<p name="creator" class="form-control-static">${flowPackageInfo.creator}</p>
+						</div>
+					</div>
+                	<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="updator"> 更新者: </label>
+						<div class="col-sm-7">
+							<p name="updator" class="form-control-static">${flowPackageInfo.updator}</p>
+						</div>
+					</div>
+            	</div>
+            </div>
+        </div>
+		<div class="row btn-group-m-t">
+		         <div class="col-sm-10" align="center">
+		             <#button btnCss="danger" name="返回" id="cancel" icon="fa-return" clickFun="FlowPackageInfoDlg.close()"/>
+		         </div>
+		   </div>
+    </div>
+</div>
+	<!--#include virtual="/include_footer.html"  -->
+	<script type="text/javascript">
+		$(function(){
+			if(${flowPackageInfo.flowProductRules}.length>0){
+				$("#rules").show();
+			} else {
+				$("#rules").hide();
+			}
+		});
+	</script>
+<script src="${ctxPath}/static/modular/flow/flowPackageInfo/flowPackageInfo_info.js"></script>
+@}

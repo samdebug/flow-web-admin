@@ -1,0 +1,186 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <form id="queryForm">
+								<div class="widget-box">
+									<div class="row search_tj_bar">
+										<div class="col-xs-12">
+											<div class="center">
+												<div class="row accessChannelInfo">
+													<div class="col-xs-3">
+														<#NameCon name="分发订单号：" id="params['orderId']" />
+													</div>
+													<div class="col-xs-3">
+													     <#NameCon name="手机号：" id="params['usedMobile']" />
+													</div>
+													<div class="col-xs-3">
+																<#SelectCon name="订单状态：" id="params['status']">	
+																	<option value="">全部</option>
+																	<option value="1">待发</option>
+																	<option value="2">已发</option>
+																	<option value="3">重发</option>
+																	<option value="6">成功</option>
+																	<option value="4">失败</option>
+																	<option value="5">风控</option>
+																</#SelectCon>
+													</div>
+													<div class="col-xs-3">
+																<#SelectCon name="回调状态："  id="params['dealFlag']">
+																	<option value="">全部</option>
+																	<option value="0">运营商处理中</option>
+																	<option value="1">待回调</option>
+																	<option value="2">已回调</option>
+																	<option value="3">无需回调</option>
+																</#SelectCon>
+													</div>
+												</div>
+												<div class="row accessChannelInfo">
+													<div class="col-xs-3">
+														<div class="input-group">
+														    <div class="input-group-btn">
+														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+														                type="button">合作伙伴：
+														        </button>
+														    </div>
+														    <input type="hidden" class="form-control" id="partner_select" name="params['partnerId']" placeholder="${placeholder!}" />
+														</div>
+													</div>
+													<div class="col-xs-3">
+														<div class="input-group">
+														    <div class="input-group-btn">
+														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+														                type="button">客户名称：
+														        </button>
+														    </div>
+														    <input type="hidden" class="form-control" id="customer_select" name="params['customerId']" placeholder="${placeholder!}" />
+														</div>
+													</div>
+													<div class="col-xs-3">
+																<#SelectCon id="params['mobileOperator']" name="运营商："
+																	class="form-control search-query">
+																	<option value="">全部</option>
+																	<option value="YD">移动</option>
+																	<option value="DX">电信</option>
+																	<option value="LT">联通</option>
+																</#SelectCon>
+													</div>
+													<div class="col-xs-3">
+														<#NameCon id="params['mobileHome']" name="归属地：" />
+													</div>
+												</div>
+												<div class="row accessChannelInfo">
+													<div class="col-xs-3">
+														<div class="input-group">
+														    <div class="input-group-btn">
+														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+														                type="button">通道名称：
+														        </button>
+														    </div>
+														    <input type="hidden" class="form-control" id="channelName_select" name="params['channelId']" placeholder="${placeholder!}" />
+														</div>
+													</div>
+													<div class="col-xs-3">
+														<#TimeBetweenCon name="发送时间:" isTime="true" pattern="YYYY-MM-DD hh:mm:ss"  startValue="${nowStartTime}"
+															startId="params['createStartTime']" endId="params['createEndTime']" endValue="${nowEndTime}" />
+													</div>
+													<div class="col-xs-3">
+														<#TimeBetweenCon name="回调时间:" isTime="true" pattern="YYYY-MM-DD hh:mm:ss"  
+															startId="params['checkStartTime']" endId="params['checkEndTime']" />
+													</div>
+													<!-- <div class="col-xs-3" >
+														<div class="input-group">
+															<div class="input-group-btn">
+														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">
+														            		下载天报表：
+														        </button>
+														    </div>
+														    <select class="form-control" id="download" onchange="downLoadByDay();">
+														       		<option value=""></option>
+														    </select>
+													    </div>
+													</div>
+													<div class="col-xs-3">
+														<div class="input-group">
+															<div class="input-group-btn">
+														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">
+														            		下载月报表：
+														        </button>
+														    </div>
+														    <select class="form-control" id="downloadMonth" onchange="downLoadByMonth();">
+														       		<option value=""></option>
+														    </select>
+													    </div>
+													</div>
+													<div class="col-xs-3">
+															<div class="input-group">
+														      <label class="col-sm">45天外的数据：</label>
+														      <input type="hidden" name="params['dataType']" id="id-his-value">
+															  <input class="ace" type="checkbox" id="id-his" onchange="inputHis();">
+													    	</div>
+													    </div> -->
+													 <div class="col-xs-3 reset">
+															 <#button name="查询" icon="fa-search" clickFun="FlowOrderInfo.search()" space="true"/>
+                            								 <#button name="重置" icon="fa fa-undo" clickFun="FlowOrderInfo.reset()" space="true"/>													 
+													 </div>   
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+                        <div class="hidden-xs" id="FlowOrderInfoTableToolbar" role="group">
+                            @if(shiro.hasPermission("/flowOrderInfo/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="FlowOrderInfo.openAddFlowOrderInfo()"/>
+                            @}
+                            @if(shiro.hasPermission("/flowOrderInfo/update")){
+                                <#button name="修改" icon="fa-plus" clickFun="FlowOrderInfo.openFlowOrderInfoDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/flowOrderInfo/delete")){
+                                <#button name="删除" icon="fa-plus" clickFun="FlowOrderInfo.delete()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/flowOrderInfo/reCallBack")){
+                                 <div class="btnWrapper">
+                                 <#button name="" icon="fa fa-share" clickFun="reCallBack();"/>
+                           		<span class="btnTips">重回调</span>
+                            </div>
+                            @}
+                              @if(shiro.hasPermission("/flowOrderInfo/reSuccessBack")){
+                              <div class="btnWrapper">
+                               <#button name="" icon="ace-icon fa fa-thumbs-up  bigger-120" clickFun="reSuccessBack();" />
+                            	<span class="btnTips">置成功</span>
+                            </div> 
+                            @}
+                            @if(shiro.hasPermission("/flowOrderInfo/reFailBack")){
+                               <div class="btnWrapper">
+                               <#button name="" icon="ace-icon fa fa-thumbs-down  bigger-120" clickFun="reFailBack();" />
+                           		<span class="btnTips">置失败</span>
+                            </div> 
+                            @}
+                            @if(shiro.hasPermission("/flowOrderInfo/reSend")){
+                              <div class="btnWrapper">
+                                <#button name="" icon="fa fa-send" clickFun="reSend();" />
+                          	  	<span class="btnTips">置重发</span>
+                            </div> 
+                            @}
+                            @if(shiro.hasPermission("/flowOrderInfo/export")){
+                              <div class="btnWrapper">
+                                <#button name="" icon="fa-download" clickFun="FlowOrderInfo.export2Excel();" />
+                           	  	<span class="btnTips">导出</span>
+                            </div>  
+                            @}
+                        </div>
+                        <label>客户结算总价：&nbsp;&nbsp;&nbsp; <span id="customerTotalPrice"></span>元</label>&nbsp;&nbsp;<label>上游结算总金额：&nbsp;&nbsp;&nbsp; <span id="operatorTotalPrice"></span>元</label>
+                        <#table id="FlowOrderInfoTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/flowOrder/flowOrderInfo/flowOrderInfo.js"></script>
+@}

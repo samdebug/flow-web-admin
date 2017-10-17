@@ -1,0 +1,398 @@
+@layout("/common/_container.html"){
+<style>
+    table tbody tr td {
+        text-align: center !important;
+    }
+    .ui-jqgrid .ui-jqgrid-labels th {
+        text-align: center !important;
+    }
+    #channel-prod-dialog {
+        overflow: auto;
+    }
+    #channel-prod-dialog table tr th:first-child {
+        width: 25%;
+        max-width: 25%;
+    }
+    #channel-flow-type {
+        float: left;
+        cursor: text;
+    }
+    #channel-prod-origin, #channel-prod-final {
+        width: 200px;
+        float: left;
+    }
+    #channel-prod-origin select, #channel-prod-final select {
+        width: 100%;
+        height: 230px;
+    }
+    #channel-btn-group {
+        width: 120px;
+        float: left;
+        margin-top: 30px;
+    }
+    #channel-btn-group .btn-info {
+        display: block;
+        margin: 10px auto;
+        width: 80px;
+        padding: 0;
+    }
+    .model-error-msg {
+        padding-right: 165px;
+        color: red;
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-xs-12">
+                       <form id="queryParams">
+                        <div class="row accessChannelInfo">
+									<div class="col-xs-3">
+										<#NameCon  name="通道名称：" id="channelName"/>
+									</div>
+									<div class="col-xs-3">
+												<#NameCon name="供应商编码：" id="supplierCode" />
+									</div>
+									<div class="col-xs-3">
+												<#SelectCon name="运营商：" id="operatorCode" >
+				                                    <option value="">请选择运营商</option>
+				                                    <option value="YD">移动</option>
+				                                    <option value="LT">联通</option>
+				                                    <option value="DX">电信</option>
+				                                </#SelectCon>
+									</div>
+									<div class="col-xs-3">
+												<#SelectCon id="zone" name="适用区域：" >
+                                				</#SelectCon>
+									</div>
+							</div>
+							<div class="row accessChannelInfo">
+									<div class="col-xs-3">
+												<#SelectCon name="是否有效：" id="isValid" >
+				                                    <option value="">请选择是否有效</option>
+				                                    <option value="0">无效</option>
+				                                    <option value="1">有效</option>
+				                                </#SelectCon>
+									</div>
+									<div class="col-xs-3">
+												<#SelectCon name="通道限制：" id="channelLimit" >
+				                                    <option value="">请选择通道限制</option>
+				                                    <option value="0">赠送</option>
+				                                    <option value="1">微信</option>
+				                                    <option value="2">阿里</option>
+				                                    <option value="3">低价</option>
+				                                </#SelectCon>
+									</div>
+									 <div class="col-sm-3 reset">
+                	 					<#button name="查询" icon="fa-search" clickFun="AccessChannelInfo.search()" space="true"/>
+                             			<#button name="重置" icon="fa fa fa-undo" clickFun="AccessChannelInfo.reSet()" space="true"/> 	
+                            		</div>
+								</div>
+						</form>
+                        <div class="hidden-xs" id="AccessChannelInfoTableToolbar" role="group">
+                            @if(shiro.hasPermission("/accessChannelInfo/add")){
+                            	<div class="btnWrapper">
+                            		<#button name="" icon="fa-plus" clickFun="AccessChannelInfo.openAddAccessChannelInfo()"/>
+                            		<span class="btnTips">添加</span>
+                            	</div> 
+                               
+                            @}
+                            @if(shiro.hasPermission("/accessChannelInfo/update")){
+                            	<div class="btnWrapper">
+                            		<#button name="" icon="fa-pencil-square-o " clickFun="AccessChannelInfo.openAccessChannelInfoDetail()"/>
+                            		<span class="btnTips">修改</span>
+                            	</div>    
+                            @}
+                            @if(shiro.hasPermission("/accessChannelInfo/delete")){
+                            	<div class="btnWrapper">
+                            		<#button name="" icon="fa fa-trash-o" clickFun="AccessChannelInfo.delete()"/>
+                            		<span class="btnTips">删除</span>
+                            	</div>  
+                            @}
+                            @if(shiro.hasPermission("/accessChannelInfo/delete")){
+                            	<div class="btnWrapper">
+                            		<#button name="" icon="fa-download" clickFun="AccessChannelInfo.export2Excel();"/>
+                            		<span class="btnTips">导出</span>
+                            	</div> 
+                                
+                            @}
+                             @if(shiro.hasPermission("/accessChannelInfo/delete")){
+                            	<div class="btnWrapper">
+                            		<#button name="" icon="fa-flag" clickFun="changeStatusEvent();"/>
+                            		<span class="btnTips">是否有效</span>
+                            	</div>  
+                            @}
+                            @if(shiro.hasPermission("/accessChannelInfo/delete")){
+                            	<div class="btnWrapper">
+                            		<#button name="" icon="fa-cart-plus" clickFun="addToChannelGroup();"/>
+                            		<span class="btnTips">添加到通道组</span>
+                            	</div>  
+                            @}
+                            @if(shiro.hasPermission("/accessChannelInfo/delete")){
+                            	<div class="btnWrapper">
+                            		<#button name="" icon="fa fa-wrench" clickFun="chooseAreaClickHandler();"/>
+                            		<span class="btnTips">维护</span>
+                            	</div>  
+                            @}
+                        </div>
+                        <#table id="AccessChannelInfoTable"/>
+				               <div class="modal fade" id="channel-prod-dialog" tabindex="-1" role="dialog" aria-labelledby="channel-product-title">
+		                                <div class="modal-dialog" style="width:700px;">
+		                                    <div class="modal-content">
+		                                        <div class="modal-header">
+		                                            <button type="button" class="close" data-dismiss="modal"
+		                                                aria-label="Close">
+		                                                <span aria-hidden="true">&times;</span>
+		                                            </button>
+		                                            <h4 class="modal-title" id="channel-product-title">选择维护区域</h4>
+		                                        </div>
+		                                        <div class="modal-body">
+		                                           <div style="float:left;">
+													</div>
+													<div id="channel-prod-origin">
+					                                    <select  id="dltSource" name="dltSource" size="10" multiple="multiple"></select>
+					                                </div>
+					                                <div id="channel-btn-group">
+					                                    <input type="button" value="全部 &gt;&gt;" class="btn btn-info" onclick="AddAll($('#dltSource'),$('#dltTarget'))" />
+					                                    <input type="button" value="&gt;&gt;" id="toRight" class="btn btn-info" />
+					                                    <input type="button" value="&lt;&lt;" id="toLeft" class="btn btn-info" />
+					                                    <input type="button" value="&lt;&lt; 全部" class="btn btn-info" onclick="AddAll($('#dltTarget'),$('#dltSource'))" />
+					                                </div>
+					                                <div id="channel-prod-final">
+					                                    <select  id="dltTarget" name="dltTarget" size="10" multiple="multiple"></select>
+					                                </div>
+		                                        </div>
+		                                        <div class="modal-footer" style="padding-top: 208px">
+		                                            <span class="model-error-msg">选择维护区域</span>
+		                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		                                            <button type="button" class="btn btn-primary" onclick="areaAddBtnClickEvent();">添加</button>
+		                                        </div>
+		                                    </div><!-- /.modal-content -->
+		                                </div><!-- /.modal-dialog -->
+		                            </div><!-- /.modal -->
+				                <div id="job"> 
+									<div class="widget-box">
+										<div class="widget-header widget-header-flat search_tj_bar_tit">
+											<h5 class="widget-title">定时任务</h5>
+										</div>
+										<div class="row search_tj_bar">
+											<form id="jcForm">
+											<div class="col-xs-12">
+											<label>每5分钟将 </label> <input name="inHours" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="inHours">
+											<label>(可配置值，默认48)小时内，已发订单数大于</label><input name="stuckRows" style="width:50px"  type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="stuckRows">
+											<label>（可配置值，默认2000）的通道，将其失效</label>
+											</div>
+											</form>
+											<div class="bs_btn" style="padding-right:3%" align="right">
+												<button id="setBtn" class="btn btn-sm btn-success" >
+													<i class="ace-icon fa fa-hand-o-right bigger-120"></i>保存设置
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="widget-box">
+									<div class="widget-header widget-header-flat search_tj_bar_tit">
+										<h5 class="widget-title">通道预警配置</h5>
+									</div>
+									<div class="row search_tj_bar">
+										<form id="alarm_form">
+										<div class="col-xs-12" style="margin:2px 0;">
+											<label>当单条通道订单连续失败超过阈值</label> <input name="emailAlarmNum" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="emailAlarmNum"/>
+											<label>单，发送<strong style="color:red">邮件</strong>告知运营人员,发送邮件间隔时间</label><input name="emailAlarmInterval" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="emailAlarmInterval"><label>秒</label>
+											<label>，邮件接收人</label><input name="emailAlarmRecivers" style="width:280px" type="text"  onkeyup="AccessChannelInfo.checkText(this)" id="emailAlarmRecivers"><label>(多个以;隔开隔开)</label><br>
+										</div>
+										<div class="col-xs-12" style="margin:2px">
+											<label>当单条通道订单连续失败超过阈值</label><input name="smsAlarmNum" style="width:50px"  type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="smsAlarmNum"/>
+											<label>单，发送<strong style="color:red">短信</strong>告知运营人员,发送短信间隔时间</label><input name="smsAlarmInterval" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="smsAlarmInterval"><label>秒</label>
+											<label>，短信接收人</label><input name="smsAlarmRecivers" style="width:280px" type="text"  onkeyup="AccessChannelInfo.checkText(this)" id="smsAlarmRecivers"><label>(多个以;隔开隔开)</label><br>
+										</div>
+										</form>
+										<div class="bs_btn" style="padding-right:3%" align="right">
+											<button id="setAlarmBtn" class="btn btn-sm btn-success">
+												<i class="ace-icon fa fa-hand-o-right bigger-120"></i>保存设置
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="${ctxPath}/static/modular/channel/accessChannelInfo/accessChannelInfo.js"></script>
+<!-- <link href="${ctxPath}/static/js/common/assets/css/ace-fonts.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace-rtl.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace-skins.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace.min.css" rel="stylesheet">
+<script src="${ctxPath}/static/js/common/assets/ace-extra.min.js"></script>
+<script src="${ctxPath}/static/js/common/assets/ace-elements.min.js"></script> -->
+<script>
+$(function(){
+	$('#setAlarmBtn').on('click', function() {
+		 $.post(channel_alarm_congfig_url,$("#alarm_form").serializeJson(),function(result){
+				if(result.success){
+					Feng.success("设置成功！");
+				}else{
+					Feng.error("设置失败，请重新设置或联系技术人员");
+				}
+		 });
+    });
+	$('#setBtn').on('click', function() {
+		 $.post(job_congfig_url,$("#jcForm").serializeJson(),function(result){
+				if(result.success){
+					 Feng.success("设置成功！");
+				}else{
+					 Feng.error("设置失败，请重新设置或联系技术人员");
+				}
+		 });
+	});
+	doubleSelectBtnClick();
+});
+
+
+var groupLeftSel = $("#dltSource"); 
+var groupRightSel = $("#dltTarget");
+/**
+ * 双向选择按钮组点击事件
+ */
+function doubleSelectBtnClick() {
+    //通道组
+    $("#toRight").click(function() {
+        groupLeftSel.find("option:selected").each(function() {
+            $(this).remove().appendTo(groupRightSel);
+        });
+    });
+    $("#toLeft").click(function() {
+        groupRightSel.find("option:selected").each(function() {
+            $(this).remove().appendTo(groupLeftSel);
+        });
+    });
+    groupLeftSel.dblclick(function() {
+        $(this).find("option:selected").each(function() {
+            $(this).remove().appendTo(groupRightSel);
+        });
+    });
+    groupRightSel.dblclick(function() {
+        $(this).find("option:selected").each(function() {
+            $(this).remove().appendTo(groupLeftSel);
+        });
+    });
+}
+
+/**
+ * 【添加接入通道组信息】按钮点击事件
+ */
+ var areaList=null;
+function chooseAreaClickHandler() {
+		if(!AccessChannelInfo.check()){
+			return;
+		}
+		if(AccessChannelInfo.seItem.zone!="00"){
+			Feng.error("仅当适用区域为全国时可设置!");
+			return;
+		}
+        var areaIds = [];
+        if (areaList != null) {
+            $.each(areaList, function(n, value) {
+            	areaIds.push(value.areaCode);
+            });
+        }
+        $.ajax({
+            url:  Feng.ctxPath + '/accessChannelInfo/selectAreaCodeAll',
+            dataType: 'json',
+            success: function(data, status) {
+                if (data.code == 200) {
+                    var areaDataDB = data.data.concat();
+                    showChannelGroupDialog(areaDataDB);
+                }
+            }
+        });
+}
+
+function showChannelGroupDialog(areaDataDB) {
+    $("#channel-prod-dialog").modal({
+        backdrop: "static",
+        keyboard: false
+    });
+    // 初始化双向选择列表
+    initGroupDoubleSelect(areaDataDB);
+}
+/**
+ * 初始化通道组双向选择列表
+ */
+function initGroupDoubleSelect(areaDataDB) {
+    $("#dltSource").empty();
+    $("#dltTarget").empty();
+    var zoneArray = AccessChannelInfo.seItem.maintainZone.split(",");
+    $.each(areaDataDB, function(n, value) {
+    	if($.inArray(value.areaCode,zoneArray)>-1){
+    		$("#dltTarget").append("<option value='" + value.areaCode + "'>" + value.areaName + "</option>");
+    	}else{
+    		  $("#dltSource").append("<option value='" + value.areaCode + "'>" + value.areaName + "</option>");
+    	}
+    });
+}
+
+/**
+ * 添加通道组按钮点击事件
+ */
+function areaAddBtnClickEvent() {
+    var selVal = [];
+    groupRightSel.find("option").each(function() {
+        selVal.push(this.value);
+    });
+    if (selVal.length == 0) {
+        $(".model-error-msg").fadeIn('slow');
+        setTimeout(function() {
+            $(".model-error-msg").fadeOut('slow');
+        }, 1500);
+        return;
+    }
+	areaIds =  selVal.join(",");
+	 $.ajax({
+         url:  Feng.ctxPath + '/accessChannelInfo/updatemaintainZone',
+         dataType: 'json',
+         data:{"maintainZoneIds":areaIds,"channelSeqId":AccessChannelInfo.seItem.channelSeqId},
+         success: function(data, status) {
+             if (data.code == 200) {
+                 var areaDataDB = data.data.concat();
+                 showChannelGroupDialog(areaDataDB);
+             }else{
+            	 Feng.error(data.message);
+            	 return;
+             }
+         }
+     });
+    $("#channel-prod-dialog").modal('hide');
+    AccessChannelInfo.search();
+}
+
+$.getGroupSelectInfo = function(selVal, groupDataTemp) {
+    var arr = new Array();
+    $.each(selVal, function(index, id) {
+        $.each(groupDataTemp, function(n, value) {
+            if (id == value.channelGroupId) {
+                arr.push(value);
+                return false;
+            }
+        });
+        return true;
+    });
+    return arr;
+};
+
+//通道组添加全部
+function AddAll(ObjSource, ObjTarget) {
+    // 目标列表的HTML加上原列表的所有HTML
+    ObjTarget.append(ObjSource.html());
+    // 原列表清空
+    ObjSource.empty();
+}
+
+</script>
+@}

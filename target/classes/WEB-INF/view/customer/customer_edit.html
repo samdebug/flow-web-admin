@@ -1,0 +1,106 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+		<form id="customerEditForm" action="#" >
+            <input type="hidden" id="customerId" name="customerId" value="${customer.customerId}">
+			
+			<div class="row">
+                <div class="col-sm-6 b-r">
+					<#select id="partnerId" name="*合作伙伴" underline="true" disabled="disabled" >
+						<option value="${customer.partnerInfo.partnerId}">${customer.partnerInfo.partnerName}</option>
+					</#select>
+                </div>
+            </div>
+            
+            <div class="page-header"><h1><small>客户基本信息 </small></h1></div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="account" name="*客户账号" disabled="disabled" value="${customer.account}" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="customerName" name="*客户名称" value="${customer.customerName}" disabled="disabled" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="companyName" name="*公司名称" value="${customer.companyName}" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="companyMobile" name="*公司电话" value="${customer.companyMobile}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="customerLinkman" name="*客户联系人" value="${customer.customerLinkman}" />
+                </div>
+                <div class="col-sm-6 b-r">
+                	<#input id="linkmanQq" name="联系人QQ" value="${customer.linkmanQq}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="linkmanEmail" name="*联系人邮箱" value="${customer.linkmanEmail}" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#select id="isSend" name="发送对账邮件" >
+						<option value="" >否</option>
+                        <option value="1" 
+                        @if(customer.isSend==1){
+                        	selected="selected" 
+                        @}
+                        >是</option>
+					</#select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="shorterName" name="*客户简称" value="${customer.shorterName}" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="address" name="地址" value="${customer.address}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="linkmanMobile" name="*客户手机号" underline="true" value="${customer.linkmanMobile}"/>
+                </div>
+                <div class="col-sm-6 b-r">
+					<#select id="balanceLackConfigure" name="余额不足是否收单" underline="true" >
+						<option value="1" 
+						@if(customer.balanceLackConfigure==1){
+                        	selected="selected" 
+                        @}
+						>收单</option>
+                        <option value="0" 
+                        @if(customer.balanceLackConfigure==0){
+                        	selected="selected" 
+                        @}
+                        >不收单</option>
+					</#select>
+                </div>
+            </div>
+            
+            <div class="page-header"><h1><small>客户账户信息 </small></h1></div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="creditAmount" name="*授信额度" value="${customer.creditAmount}" disabled="disabled" underline="true" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="balance" name="账户余额" value="${customer.balance}" disabled="disabled" underline="true"/>
+                </div>
+            </div>
+            
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CustomerInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CustomerInfoDlg.close()"/>
+                </div>
+            </div>
+        </form>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/customer/customer_info.js"></script>
+@}

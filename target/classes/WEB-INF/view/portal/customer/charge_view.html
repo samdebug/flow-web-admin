@@ -1,0 +1,147 @@
+@layout("/common/_container.html"){
+
+<style>
+.form-control-static{
+	font-weight: bold;
+}
+</style>
+
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+    
+        <div class="form-horizontal">
+        	<br/>
+        	<div class="container">
+	            <div class="row">
+	            	<div class="col-sm-4">账户余额：<span id="balance" name="balance" class="form-control-static"></span></div>
+	            	<div class="col-sm-4">授信额度：<span id="creditAmount" name="creditAmount" class="form-control-static"></span></div>
+	            	<div class="col-sm-4">可用额度：<span id="availableCredit" name="availableCredit" class="form-control-static"></span></div>
+	            </div>
+	            <br/>
+	            <div class="row">
+	            	<div class="col-sm-4">累计存款：<span id="accumulatedDeposit" class="form-control-static"></span></div>
+	            	<div class="col-sm-4"></div>
+	            	<div class="col-sm-4">累计消费：<span id="cumulativeConsumption" class="form-control-static"></span></div>
+	            </div>
+            </div>
+        </div>
+        <br/>
+		<div class="row ">
+			<div class="col-sm-12">
+				<#table id="ChargeViewTable"/>
+			</div>
+		</div>
+		<br/>
+		<div class="row" style="text-align: center;">
+			<#button name="返回" icon="fa-undo" clickFun="parent.layer.close(window.parent.CustomerCharge.layerIndex)"/>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+var pkId = getP("customerId");
+
+var ChargeView = {
+	    id: "ChargeViewTable",	//表格id
+	    seItem: null,		//选中的条目
+	    table: null,
+	    layerIndex: -1,
+	    queryData:{},
+        viewUrl : Feng.ctxPath + '/customer/get',
+        initUrl : Feng.ctxPath + '/customerTradeFlow/init?pkId=' + pkId
+	};
+
+/**
+ * 初始化表格的列
+ */
+ ChargeView.initColumn = function () {
+    return [
+   		{field: 'selectItem', radio: true, visible: false,},
+        {title: '时间', field: 'tradeTime', align: 'center', valign: 'middle'},
+        {title: '交易金额', field: 'tradeAmount',  align: 'center', valign: 'middle', formatter: formatTradeAmount},
+        {title: '账户余额', field: 'balance',  align: 'center', valign: 'middle', formatter: formatBalance},
+        {title: '交易类型', field: 'tradeTypeDesc', align: 'center', valign: 'middle'},
+        {title: '备注', field: 'remark', align: 'center', valign: 'middle'}
+    ];
+};
+
+function formatTradeAmount(cellvalue, rowObject, options) {
+	if ( rowObject.tradeType == 3 ) {
+		cellvalue = rowObject.creditAmount;// 授信
+	}
+    if (cellvalue > 0) {
+        return "+" + cellvalue;
+    } else {
+        return cellvalue;
+    }
+}
+
+function formatBalance(cellvalue, rowObject, options) {
+	return rowObject.balance + rowObject.creditAmount;
+}
+
+
+ChargeView.initFields = function() {
+	if (!pkId) {
+		Feng.error("非法操作...");
+		return;
+	}
+	var ajax = new $ax(this.viewUrl, function(rtn){
+    	if ( !rtn.success ) {
+    		Feng.error(rtn.message ? rtn.message : "发生未知错误!");
+    		return;
+    	}
+    	customerInfo = rtn.data;
+        $.dataInput($('.form-control-static'), rtn.data);
+        // 可用额度
+        var availableCredit = floatSub(floatAdd(rtn.data.creditAmount + "", rtn.data.balance + ""), rtn.data.currentAmount + "");
+        $("#availableCredit").html(availableCredit);
+        $("#balance").html(floatSub(rtn.data.balance + "", rtn.data.currentAmount + ""));
+        
+        // 初始化【累计存款】和【累计消费】
+        ChargeView.initAccuAndCumu();
+    },function(data){
+    	Feng.error("发生未知错误!");
+    	console.error(data);
+    });
+    ajax.set( {'customerId': pkId});
+    ajax.start();
+}
+
+/**
+ * 出事化累计存款 
+ */
+ChargeView.initAccuAndCumu = function() {
+	var ajax = new $ax(this.initUrl, function(rtn){
+		if (rtn.error) {
+            Feng.error(rtn.message ? rtn.message : "发生未知错误!");
+            return;
+        }
+        // 累计存款
+        $("#accumulatedDeposit").html(rtn.rechargeAmount);
+        // 累计消费：日账单之和+未确认金额
+        $("#cumulativeConsumption").html(floatAdd(rtn.sumCustomerAmount + "", customerInfo.currentAmount + ""));
+    },function(data){
+    	Feng.error("发生未知错误!");
+    	console.error(data);
+    });
+    ajax.set( {'customerId': pkId});
+    ajax.start();
+}
+
+$(function() {
+	
+    var table = new BSTable(ChargeView.id, "/customerTradeFlow/query?customerId=" + pkId, ChargeView.initColumn());
+    // table.setPaginationType("client");
+    table.height = 500;
+    ChargeView.table = table.init();
+    // 隐藏 tool bar
+    $(".bootstrap-table .fixed-table-toolbar").hide();
+    // 
+    ChargeView.initFields();
+    
+    
+	
+});
+</script>
+@}

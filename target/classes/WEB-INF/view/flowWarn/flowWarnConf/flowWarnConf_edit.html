@@ -1,0 +1,56 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="warnConfId" value="${flowWarnConf.warnConfId}">
+            <input type="hidden" id="creator" value="${flowWarnConf.creator}">
+            <input type="hidden" id="createTime" value="${flowWarnConf.createTime}">
+            
+            <input type="hidden" id="warnTypeValue" value="${flowWarnConf.warnType}">
+            <input type="hidden" id="isMonthLastTwoDayNotifyValue" value="${flowWarnConf.isMonthLastTwoDayNotify}">
+            <input type="hidden" id="isValidValue" value="${flowWarnConf.isValid}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+						<#Select id="warnType" name="告警类别" underline="true">
+                                    <option value="">全部</option>
+									<option value="1">待发</option>
+									<option value="2">已发</option>
+									<option value="3">失败</option>
+                         </#Select>
+						 <#input name="多久间隔时间内: (分钟)" id="failIntervalMin" type="text" underline="true" value="${flowWarnConf.failIntervalMin}"/>
+						 <#input type="text" name="通知名单:多个用逗号隔开" id="notifyLlist"
+									underline="true" value="${flowWarnConf.notifyLlist}"/>
+						 <#input type="text" name="通知间隔时间: (分钟)"
+									id="notifyIntervalMin" underline="true" value="${flowWarnConf.notifyIntervalMin}"/>
+						 <#Select name="每月最后两天通知:" id="isMonthLastTwoDayNotify" underline="true">
+									<option value="1">是</option>
+									<option value="2">否</option>
+						 </#Select>
+                </div>
+
+                <div class="col-sm-6">
+					  			<#input type="text" name="失败条数:" id="failNum" underline="true" value="${flowWarnConf.failNum}"/>
+							    <#Select name="是否有效" id="isValid" underline="true">
+									<option value="1">是</option>
+									<option value="2">否</option>
+								</#Select>
+								<#input type="text" name="通知内容模板:" id="notifyTemplate" underline="true" value="${flowWarnConf.notifyTemplate}"/>
+								<#input type="text" name="备注:" id="remark" underline="true" value="${flowWarnConf.remark}"/>
+								<#input type="text" name="通知时间段: 比如:9-18" value="0-23" id="notifyTimeQuantum"  underline="true" value="${flowWarnConf.notifyTimeQuantum}"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FlowWarnConfInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FlowWarnConfInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/flowWarn/flowWarnConf/flowWarnConf_info.js"></script>
+@}

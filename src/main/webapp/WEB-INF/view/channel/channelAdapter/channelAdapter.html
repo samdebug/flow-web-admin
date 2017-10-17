@@ -1,0 +1,53 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>通道适配器管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="adapterName" name="适配器名称：" />
+                            </div>
+                             <div class="col-sm-3">
+                                <#NameCon id="clazzName" name="适配器类名：" />
+                            </div>
+                            <div class="col-sm-3 reset">
+                	 			<#button name="查询" icon="fa-search" clickFun="ChannelAdapter.search()" space="true"/>
+                            	<#button name="重置" icon="fa fa fa-undo" clickFun="ChannelAdapter.reSet()" space="true"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="ChannelAdapterTableToolbar" role="group">
+                            @if(shiro.hasPermission("/channelAdapter/add")){
+                            	<div class="btnWrapper">	
+                                <#button name="" icon="fa-plus" clickFun="ChannelAdapter.openAddChannelAdapter()"/>
+                                <span class="btnTips">添加</span>
+                            	</div>     
+                            @}
+                            @if(shiro.hasPermission("/channelAdapter/update")){
+                            	<div class="btnWrapper">	
+                                <#button name="" icon="fa-pencil-square-o" clickFun="ChannelAdapter.openChannelAdapterDetail()"/>
+                                <span class="btnTips">修改</span>
+                            	</div>
+                                
+                            @}
+                            @if(shiro.hasPermission("/channelAdapter/delete")){
+                            	<div class="btnWrapper">	
+                                <#button name="" icon="fa fa-trash-o" clickFun="ChannelAdapter.delete()"/>
+                                <span class="btnTips">删除</span>
+                            	</div>
+                            @}
+                            
+                        </div>
+                        <#table id="ChannelAdapterTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelAdapter/channelAdapter.js"></script>
+@}

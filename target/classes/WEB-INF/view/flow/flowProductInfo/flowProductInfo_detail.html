@@ -1,0 +1,137 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <input type="hidden" id="productId" value="${flowProductInfo.productId}">
+            
+            <div class="row">
+                <div class="col-sm-6 b-r">
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="productId"> 产品ID: </label>
+							<div class="col-sm-7">
+								<p name="productId" class="form-control-static">${flowProductInfo.productId}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="productCode"> 产品代码: </label>
+							<div class="col-sm-7">
+								<p name="productCode" class="form-control-static">${flowProductInfo.productCode}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="productTypeDesc"> 产品类别: </label>
+							<div class="col-sm-7">
+								<p name="productTypeDesc" class="form-control-static">${flowProductInfo.productTypeDesc}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="packageName"> 流量包名称: </label>
+							<div class="col-sm-7">
+								<p name="packageName" class="form-control-static">${flowProductInfo.flowPackageInfo.packageName}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="flowAmount"> 流量大小(M): </label>
+							<div class="col-sm-7">
+								<p name="flowAmount" class="form-control-static">${flowProductInfo.flowPackageInfo.flowAmount}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="zone"> 适用区域: </label>
+							<div class="col-sm-7">
+								<p name="zone" class="form-control-static">${flowProductInfo.flowPackageInfo.zoneDesc}</p>
+							</div>
+						</div>
+						@if(flowProductInfo.flowPlusProduct!=null){
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="cardType"> 流量加类别: </label>
+							<div class="col-sm-7">
+								<p name="cardType" class="form-control-static">${flowProductInfo.flowPlusProduct.cardType}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="channelType"> 流量加载体: </label>
+							<div class="col-sm-7">
+								<p name="channelType" class="form-control-static">${flowProductInfo.flowPlusProduct.channelTypeName}</p>
+							</div>
+						</div>
+						@}
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="creator"> 创建者: </label>
+							<div class="col-sm-7">
+								<p name="creator" class="form-control-static">${flowProductInfo.creator}</p>
+							</div>
+						</div>
+                </div>
+
+                <div class="col-sm-6">
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="productName"> 产品名称: </label>
+							<div class="col-sm-7">
+								<p name="productName" class="form-control-static">${flowProductInfo.productName}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="productPrice"> 产品定价(元): </label>
+							<div class="col-sm-7">
+								<p name="productPrice" class="form-control-static">${flowProductInfo.productPrice}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="productDesc"> 产品描述: </label>
+							<div class="col-sm-7">
+								<p name="productDesc" class="form-control-static">${flowProductInfo.productDesc}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="operatorCode"> 适用供应商: </label>
+							<div class="col-sm-7">
+								<p name="operatorCode" class="form-control-static">${flowProductInfo.flowPackageInfo.operatorName}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="createTime"> 创建时间: </label>
+							<div class="col-sm-7">
+								<p name="createTime" class="form-control-static">${flowProductInfo.createTimeView}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="updateTime"> 更新时间: </label>
+							<div class="col-sm-7">
+								<p name="updateTime" class="form-control-static">${flowProductInfo.updateTimeView}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="updator"> 更新者: </label>
+							<div class="col-sm-7">
+								<p name="updator" class="form-control-static">${flowProductInfo.updator}</p>
+							</div>
+						</div>
+            </div>
+       </div>
+    </div>
+    
+    <div class="row btn-group-m-t">
+          <div class="col-sm-10" align="center">
+              <#button btnCss="danger" name="返回" id="cancel" icon="fa-return" clickFun="FlowProductInfoInfoDlg.close()"/>
+          </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/flow/flowProductInfo/flowProductInfo_info.js"></script>
+@}

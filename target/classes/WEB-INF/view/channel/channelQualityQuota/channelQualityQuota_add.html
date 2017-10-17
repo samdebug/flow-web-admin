@@ -1,0 +1,37 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+           <input type="hidden" name="quotaId" id="quotaId" /> 
+           <input type="hidden" name="updId" id="updId" />
+				<div class="row">
+					<div class="col-sm-6 b-r">
+								<#input type="text" name="*指标名称:"  id="quotaName"
+									 />
+								<#input type="text" name="*及时率比重:"  id="timlyRateWeight"
+									 />
+								<#input type="text" name="*人工权重率比重:"  id="manualRatioWeight"
+									 />
+								<#input type="text" name="及时率基线:"  id="timlyBaseLine"
+									 />
+					</div>
+					<div class="col-sm-6 b-r">
+								<#input type="text" name="*成功率比重:"  id="succRatioWeight"/>
+								<#input type="text" name="*价格率比重:"  id="priceRatioWeight"/>
+								<#input type="text" name="成功率基线:"  id="succBaseLine"/>
+								<#input type="text" name="备注:"  id="remark"/>
+									 
+					</div>
+				</div>
+            <div class="row btn-group-m-t" align="center">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ChannelQualityQuotaInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ChannelQualityQuotaInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelQualityQuota/channelQualityQuota_info.js"></script>
+@}

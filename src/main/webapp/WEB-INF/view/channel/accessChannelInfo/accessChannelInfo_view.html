@@ -1,0 +1,286 @@
+@layout("/common/_container.html"){
+<style>
+.form-control-static{
+	    word-wrap: break-word;
+    word-break: break-all;
+}
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+       	    <form class="form-horizontal" role="form" id="add-form"
+				onsubmit="return false;">
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="supplierCode">  供应商编码: </label>
+							<div class="col-sm-6">
+								<p name="supplierCode" id="supplierCode" class="form-control-static" ></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="channelName">  通道名称:
+							</label>
+							<div class="col-sm-6">
+								<p name="channelName" id="channelName" class="form-control-static" ></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="adapterName"> 通道适配器:
+							</label>
+							<div class="col-sm-6">
+								<p name="adapterName" id="adapterName" class="form-control-static" ></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="is-valid-select">  是否有效:
+							</label>
+							<div class="col-sm-6">
+								<p name="isValidDesc" id="isValidDesc" class="form-control-static" ></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="channel-type-select">  通道类别:
+							</label>
+							<div class="col-sm-6">
+								<p name="channelTypeDesc" id="channelTypeDesc" class="form-control-static" ></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="channel-limit-select">  通道限制:
+							</label>
+							<div class="col-sm-6">
+								<p name="channelLimit" id="channelLimit" class="form-control-static" ></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="zone-select">适用范围:
+							</label>
+							<div class="col-sm-6">
+								<p name="zoneDesc" id="zoneDesc" class="form-control-static" ></p>
+							</div>
+						</div>
+						<div class="form-group" id="support-city" style="display:none">
+                            <label class="col-sm-4 control-label no-padding-right text-right"
+                                for="supportCity">支持地市: </label>
+                            <div class="col-sm-6">
+                            	<p name="supportCity" id="supportCity" class="form-control-static" ></p>
+                            </div>
+                            <span style="color:#ccc">多个用英文逗号,隔开</span>
+                        </div>
+					</div>
+					<div class="col-xs-6">
+						<!-- <div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="channelId">  通道ID:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="channelId" id="channelId" class="form-control-static not-update" />
+							</div>
+						</div> -->
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="operator-code-select">  对应运营商:
+							</label>
+							<div class="col-sm-6">
+								<p name="operatorCodeDesc" id="operatorCodeDesc" class="form-control-static" ></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="discount">  折扣(%):
+							</label>
+							<div class="col-sm-6">
+								<p name="discount" id="discount" class="form-control-static" ></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="time-limit">  流量期限:
+							</label>
+							<div class="col-sm-6">
+								<p name="timeLimit" id="timeLimit" class="form-control-static" ></p>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="is-smsnotice-select">  上游是否有短信:
+							</label>
+							<div class="col-sm-6">
+								<p name="isSmsNoticeDesc" id="isSmsNoticeDesc" class="form-control-static" ></p>
+							</div>
+						</div>
+						<div class="form-group" id="is-smsnotice-content-form">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="channel-sms"> 上游短信模板:
+							</label>
+							<div class="col-sm-6">
+								<p name="channelSms" id="channelSms" class="form-control-static" ></p>
+							</div>
+						</div>
+						
+						<div class="form-group" id="platform-sms-select">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="is-smsnotice-select">  平台发送短信:
+							</label>
+							<div class="col-sm-6">
+							 	<p name="isPlatformSmsDesc" id="isPlatformSmsDesc" class="form-control-static" ></p>
+							</div>
+						</div>
+						<div class="form-group" id="platform-sms-content-form">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="platform-sms-content">  平台短信内容:
+							</label>
+							<div class="col-sm-6">
+								  <p name="platformSmsContent" id="platformSmsContent" class="form-control-static" ></p>
+							</div>
+						</div>
+
+						<div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right text-right"
+                                for="remark"> 备注: </label>
+                            <div class="col-sm-6">
+                                <p name="remark" id="remark" class="form-control-static" ></p>
+                            </div>
+                        </div>
+					<!-- 
+						<div class="form-group" id="maintain-zone" style="disaply:none;">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="channel-maintain-zone-select">通道维护区域:
+							</label>
+							<div class="col-sm-6">
+								<select style="height:35px;" multiple="" class="chosen-select form-control" id="channel-maintain-zone-select" data-placeholder="请选择通道维护区域">
+								</select>
+								<input type="hidden" id="channel-maintain-zone" name="maintainZone">
+							</div>
+						</div>
+						 
+ 						
+						<div class="form-group" id="support-city">
+                            <label class="col-sm-4 control-label no-padding-right text-right"
+                                for="timeoutDefin">超时定义: </label>
+                            <div class="col-sm-4">
+                                <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" name="timeoutDefin" id="timeoutDefin" class="form-control-static" />
+                            </div>小时
+                        </div>-->
+					</div>
+				</div>
+				<div class="page-header">
+                    <h1>
+                        <small>通道产品信息 </small>
+                    </h1>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="channel-view-table" class="table table-striped table-bordered table-hover">
+                                 <thead>
+                                     <tr>
+                                         <th style="text-align:center">流量包ID</th>
+                                         <th style="text-align:center">流量包名称</th>
+                                         <th style="text-align:center">通道产品ID</th>
+                                         <th style="text-align:center">通道产品名称</th>
+                                         <th style="text-align:center">结算价格(元)</th>
+                                         <th style="text-align:center">折扣(%)</th>
+                                         <th style="text-align:center">定时生效</th>
+		                                 <th style="text-align:center">结算价格（定时后）</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody id="channel-view-tbody"></tbody>
+                             </table>
+                        </div>
+                    </div>
+                </div>
+			</form>
+        </div>
+        @if(isShow==1){
+        <div class="row btn-group-m-t" align="center">
+                <div class="col-sm-10">
+                    <#button btnCss="danger" name="返回" id="cancel" icon="fa fa-undo" clickFun="javascript:history.back();"/>
+                </div>
+          </div>
+         @} 
+    </div>
+</div>
+<link href="${ctxPath}/static/js/common/assets/css/ace-fonts.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace-rtl.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace-skins.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace.min.css" rel="stylesheet">
+<script src="${ctxPath}/static/modular/channel/accessChannelInfo/accessChannelInfo_info.js"></script>
+<script src="${ctxPath}/static/js/common/assets/ace-extra.min.js"></script>
+<script src="${ctxPath}/static/js/common/assets/ace-elements.min.js"></script>
+<script src="${ctxPath}/static/js/common/my97/WdatePicker.js"></script>
+<script type="text/javascript">
+        var view_url = Feng.ctxPath + '/accessChannelInfo/get';
+        var pkId =${channelInfoId};
+        $(function() {
+            if (pkId) {
+                $.post(view_url, {
+                    'channelSeqId': pkId
+                }, function(rtn) {
+                    if (rtn.success) {
+                    	var data =JSON.parse(rtn.data); 
+                    	 $.dataInput($('.form-control-static'), data);
+                        if(0 == $("#channelLimit").html()){
+                        	$("#channelLimit").html("赠送");
+                        }else if(1 == $("#channelLimit").html()){
+                        	$("#channelLimit").html("微信");
+                        }else if(2 == $("#channelLimit").html()){
+                        	$("#channelLimit").html("阿里");
+                        }else{
+                        	$("#channelLimit").html("低价");
+                        }
+                        if(0 == $("#channelAbandon").html()){
+                        	$("#channelAbandon").html("否");
+                        }else{
+                        	$("#channelAbandon").html("是");
+                        }
+                        if(0 == $("#channelRange").html()){
+                        	$("#channelRange").html("国内");
+                        }else if(1 == $("#channelRange").html()){
+                        	$("#channelRange").html("省内");
+                        }else{
+                        	$("#channelRange").html("");
+                        }
+                        if(0 == $("#channelActivity").html()){
+                        	$("#channelActivity").html("否");
+                        }else{
+                        	$("#channelActivity").html("是");
+                        }
+                        initChannelProductTable(data);
+                    } else {
+                    	Feng.error(rtn.message);
+                    }
+                });
+            } else {
+            	Feng.error('参数错误');
+            }
+        });
+        function initChannelProductTable(data) {
+            $("#channel-view-tbody").empty();
+            var html = '';
+            $.each(data.channelProductInfoList, function(n, value) {
+	            html += '<tr>';
+	            html += '<td>' + value.packageId + '</td>';
+	            html += '<td>' + value.flowPackageInfo.packageName + '</td>';
+	            html += '<td>' + value.channelProductId + '</td>';
+	            html += '<td>' + value.channelProductName + '</td>';
+	            html += '<td>' + value.price + '</td>';
+	            html += '<td>' + (value.price*100/value.flowPackageInfo.costPriceBak).toFixed(2) + '</td>';
+	            html += '<td>' + value.quarzTime + '</td>';
+	            var endPrice = value.endPrice==0||value.endPrice==null?"":value.endPrice;
+	            html += '<td>' + endPrice+ '</td>';
+	            html += '</tr>';
+            });
+            $("#channel-view-tbody").html(html);
+        }
+    </script>
+@}

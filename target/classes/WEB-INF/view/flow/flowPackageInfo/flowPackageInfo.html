@@ -1,0 +1,64 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+          <!--   <div class="ibox-title">
+                <h5>流量包管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="packageName" name="流量包名称" />
+                            </div>
+                             <div class="col-sm-3">
+                                <#SelectCon id="operatorCode" name="对应供应商" >
+                                  	<option value="">全部</option>
+                                  	<option value="YD">移动</option>
+                                    <option value="LT">联通 </option>
+                                    <option value="DX">电信</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="zone" name="适用区域">
+								<option value = "" >请选择适用区域</option>
+								@for(it in area){
+									<option value = "${it.areaCode}" >${it.areaName}</option>
+								@}
+								</#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="查询" icon="fa-search" clickFun="FlowPackageInfo.search()" space="true"/>
+                                <#button name="重置" icon="fa fa fa-undo" clickFun="FlowPackageInfo.reSet()" space="true"/>    	
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="FlowPackageInfoTableToolbar" role="group">
+                            @if(shiro.hasPermission("/flowPackageInfo/add")){
+                                  <div class="btnWrapper">
+                            		<#button name="" icon="fa-plus" clickFun="FlowPackageInfo.openAddFlowPackageInfo()" style="width:98px"/>
+                            		<span class="btnTips">添加</span>
+                            	</div>  
+                            @}
+                            @if(shiro.hasPermission("/flowPackageInfo/update")){
+                                 <div class="btnWrapper">
+                            		<#button name="" icon="fa-pencil-square-o" clickFun="FlowPackageInfo.openFlowPackageInfoUpdate()" style="width:98px"/>
+                            		<span class="btnTips">修改</span>
+                            	</div>  
+                            @}
+                            @if(shiro.hasPermission("/flowPackageInfo/delete")){
+                                 <div class="btnWrapper">
+                            		<#button name="" icon="fa fa-trash-o" clickFun="FlowPackageInfo.delete()" style="width:98px"/>
+                            		<span class="btnTips">删除</span>
+                            	</div> 
+                            @}
+                        </div>
+                        <#table id="FlowPackageInfoTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/flow/flowPackageInfo/flowPackageInfo.js"></script>
+@}

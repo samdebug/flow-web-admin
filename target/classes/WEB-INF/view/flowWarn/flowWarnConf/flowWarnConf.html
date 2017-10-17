@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>流量告警配置管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-2">
+								<#SelectCon id="warnType" name="告警类别">
+                                    <option value="">全部</option>
+									<option value="1">待发</option>
+									<option value="2">已发</option>
+									<option value="3">失败</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="查询" icon="fa-search" clickFun="FlowWarnConf.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="FlowWarnConfTableToolbar" role="group">
+                            @if(shiro.hasPermission("/flowWarnConf/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="FlowWarnConf.openAddFlowWarnConf()"/>
+                            @}
+                            @if(shiro.hasPermission("/flowWarnConf/update")){
+                                <#button name="修改" icon="fa-plus" clickFun="FlowWarnConf.openFlowWarnConfDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/flowWarnConf/delete")){
+                                <#button name="删除" icon="fa-trash-o" clickFun="FlowWarnConf.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="FlowWarnConfTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/flowWarn/flowWarnConf/flowWarnConf.js"></script>
+@}

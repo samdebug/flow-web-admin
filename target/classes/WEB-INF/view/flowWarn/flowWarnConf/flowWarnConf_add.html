@@ -1,0 +1,170 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+				<input id="warnConfId" name="warnConfId" type="hidden"/>
+				<input id="updId" name="updId" type="hidden"/>
+				
+				<div class="row">
+
+					<div class="col-sm-6 b-r">
+								<#Select id="warnType" name="告警类别" underline="true">
+                                    <option value="">全部</option>
+									<option value="1">待发</option>
+									<option value="2">已发</option>
+									<option value="3">失败</option>
+                                </#Select>
+								<#input name="多久间隔时间内: (分钟)" id="failIntervalMin" type="text" underline="true" value=""/>
+								<#input type="text" name="通知名单:多个用逗号隔开" id="notifyLlist"
+									underline="true"/>
+								<#input type="text" name="通知间隔时间: (分钟)"
+									id="notifyIntervalMin" underline="true"/>
+								<#Select name="每月最后两天通知:" id="isMonthLastTwoDayNotify" underline="true">
+									<option value="1">是</option>
+									<option value="2">否</option>
+								</#Select>
+					</div>
+					<div class="col-sm-6 b-r">
+								<#input type="text" name="失败条数:" id="failNum" underline="true"/>
+							    <#Select name="是否有效" id="isValid" underline="true">
+									<option value="1">是</option>
+									<option value="2">否</option>
+								</#Select>
+								<#input type="text" name="通知内容模板:" id="notifyTemplate" underline="true"/>
+								<#input type="text" name="备注:" id="remark" underline="true"/>
+								<#input type="text" name="通知时间段: 比如:9-18" value="0-23" id="notifyTimeQuantum"  underline="true"/>
+					</div>
+				</div>
+			</form>
+            
+            
+            <!-- <form class="form-horizontal" role="form" id="add-form"
+				onsubmit="return false;">
+				<input type="hidden" name="warnConfId" id="warnConfId" /> <input
+					type="hidden" name="updId" id="updId" />
+				<div class="row">
+
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="warnType"> <span class="red">*</span> 告警类别
+							</label>
+							<div class="col-sm-6">
+								<select name="warnType" id="warnType"
+									class="form-control input-sm">
+									<option value="">全部</option>
+									<option value="1">待发</option>
+									<option value="2">已发</option>
+									<option value="3">失败</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="failIntervalMin"> <span class="red">*</span>
+								多久间隔时间内: <br />(分钟)
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="failIntervalMin" id="failIntervalMin"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="notifyLlist"> 通知名单: <br />多个用逗号隔开
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="notifyLlist" id="notifyLlist"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="notifyIntervalMin"> <span class="red">*</span>
+								通知间隔时间: <br />(分钟)
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="notifyIntervalMin"
+									id="notifyIntervalMin" class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="isMonthLastTwoDayNotify"> <span class="red">*</span>
+								每月最后两天通知:
+							</label>
+							<div class="col-sm-6">
+								<select name="isMonthLastTwoDayNotify"
+									id="isMonthLastTwoDayNotify" class="form-control input-sm">
+									<option value="1">是</option>
+									<option value="2">否</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="failNum"> <span class="red">*</span> 失败条数:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="failNum" id="failNum"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="isValid"> <span class="red">*</span> 是否有效
+							</label>
+							<div class="col-sm-6">
+							    <select name="isValid"
+									id="isValid" class="form-control input-sm">
+									<option value="1">是</option>
+									<option value="2">否</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="notifyTemplate"> 通知内容模板: </label>
+							<div class="col-sm-6">
+								<input type="text" name="notifyTemplate" id="notifyTemplate"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="remark"> 备注: </label>
+							<div class="col-sm-6">
+								<input type="text" name="remark" id="remark"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="notifyTimeQuantum"> 通知时间段: <br />比如:9-18
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="notifyTimeQuantum" value="0-23"
+									id="notifyTimeQuantum" class="form-control input-sm" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</form> -->
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FlowWarnConfInfoDlg.addSubmit()"/>
+                    <#button btnCss="info" name="重 置" id="ensure" icon="fa-check"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FlowWarnConfInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/flowWarn/flowWarnConf/flowWarnConf_info.js"></script>
+@}

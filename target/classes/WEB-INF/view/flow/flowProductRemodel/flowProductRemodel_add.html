@@ -1,0 +1,215 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+    	<form id="add-form" onsubmit="return false;">
+			<div class="form-horizontal">
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="productCode"> <span class='text-danger'>*</span> 流量包代码:
+							</label>
+							<div class="col-sm-6"> 
+								<input type="text" name="productCode" id="productCode" 
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="productName"> <span class='text-danger'>*</span> 流量包名称:
+							</label>
+							<div class="col-sm-6"> 
+								<input type="text" name="productName" id="productName" 
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="zone"> <span class='text-danger'>*</span> 适用区域:
+							</label>
+							<div class="col-sm-6"> 
+								<select name="zone" id="zone" class="form-control input-sm" style="height: 35px;">
+									@for(it in area){
+										<option value = "${it.areaCode}" >${it.areaName}</option>
+									@}
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="operatorCode"> <span class='text-danger'>*</span> 运营商:
+							</label>
+							<div class="col-sm-6"> 
+								<select name="operatorCode" id="operatorCode" class="form-control input-sm" style="height: 35px;">
+									<option value="YD">移动</option>
+									<option value="LT">联通</option>
+									<option value="DX">电信</option>
+								</select>
+							</div>
+						</div>
+					</div>	
+					<div class="col-xs-6">
+						
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="flowAmount"> <span class='text-danger'>*</span> 流量大小(M):
+							</label>
+							<div class="col-sm-6"> 
+								<input type="text" name="flowAmount" id="flowAmount" value="0"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="productPrice"> <span class='text-danger'>*</span> 流量包标准价格(元):
+							</label>
+							<div class="col-sm-6"> 
+								<input type="text" name="productPrice" id="productPrice" value="0"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<!-- 
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="activePeriod"> <span class='text-danger'>*</span> 有效时间(天)<br/>0为无限期:
+							</label>
+							<div class="col-sm-6"> 
+								<input type="text" name="activePeriod" id="activePeriod" value="0"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						 -->
+						 <input type="hidden" name="activePeriod" id="activePeriod" value="0"/>
+						 
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="productDesc"> 备注:
+							</label>
+							<div class="col-sm-6"> 
+								<textarea name="productDesc" id="productDesc" rows="3" class="form-control input-sm"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="row btn-group-m-t"  align="center">
+			<div class="col-sm-10">
+				<#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FlowProductRemodelDlg.addSubmit()"/>
+				<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FlowProductRemodelDlg.close()"/>
+			</div>
+		</div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	var add_validator = $('#add-form').validate(
+			{
+				rules : {
+					'productCode' : {
+						required : true,
+						maxlength : 128,
+						soloProductCode:true
+					},
+					'productName' : {
+						required : true,
+						maxlength : 256,
+						soloProductName:true
+					},
+					'zone':{
+						required : true,
+						maxlength : 64
+					},
+					'operatorCode' : {
+						required : true,
+						maxlength : 32
+					},
+					'productPrice' : {
+						required : true,
+						maxlength : 11,
+						number : true,
+						number_2 : true
+					},
+					'flowAmount' : {
+						required : true,
+						maxlength : 11,
+						number : true,
+						min : 0
+					},
+					'activePeriod' : {
+						required : true,
+						maxlength : 11,
+						number : true,
+						min : 0
+					}
+				},
+				submitHandler : function(form) {
+					return false;
+				}
+			});
+});
+	
+var soloName_url=Feng.ctxPath+'/flowProductRemodel/soloProductName.ajax';
+var soloCode_url=Feng.ctxPath+'/flowProductRemodel/soloProductCode.ajax';
+var soloPackageIdZone_url=Feng.ctxPath+'/flowProductRemodel/soloProductPackageIdZone.ajax';
+
+function soloName(value) {
+	if (value == null || value == "") {
+		return false;
+	};
+	var data={
+			"productName" : value};
+	return solo(data,soloName_url);
+};
+
+function soloPackageIdZone(value,zone){
+	if (value == null || value == "") {
+		return false;
+	}
+	if(zone == null || zone == ""){
+		return false;
+	}
+	var data={
+			"packageId" : value,
+			"zone" : zone};
+	return solo(data,soloPackageIdZone_url);
+};
+
+function soloCode(value) {
+	if (value == null || value == "") {
+		return false;
+	}
+	var data={
+			"productCode" : value};
+	return solo(data,soloCode_url);
+};
+
+function solo(data,url){
+	var flag = false;
+	$.ajax({
+		url : url,
+		type : 'post',
+		data : data,
+		dataType : 'json',
+		async : false,
+		success : function(data) {
+			if (data.code == 200) {
+				flag = true;
+			}
+		}
+	});
+	return flag;
+};
+
+$.validator.addMethod("soloProductName",
+		function(value, element, params) {
+			return soloName(value);
+		}, "产品名称不可用");
+$.validator.addMethod("soloProductCode",
+		function(value, element, params) {
+			return soloCode(value);
+		}, "产品代码不可用");
+</script>
+<script src="${ctxPath}/static/modular/flow/flowProductRemodel/flowProductRemodel_info.js"></script>
+@}

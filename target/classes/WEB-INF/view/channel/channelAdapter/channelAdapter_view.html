@@ -1,0 +1,44 @@
+@layout("/common/_container.html"){
+<style>
+.form-control-static{
+	    word-wrap: break-word;
+    word-break: break-all;
+}
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+			<input type="hidden" name="adapterId" id="adapterId" value="${channelAdapter.adapterId}" /> <input
+					type="hidden" name="updId" id="updId" />
+				<div class="row">
+					<div class="col-xs-11">
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="adapterName"> <span class="text-danger">*</span> 适配器名称:
+							</label>
+							<div class="col-sm-6">
+							    <p name="adapterName" id="adapterName" class="form-control-static">${channelAdapter.adapterName}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="clazzName"> <span class="text-danger">*</span> 适配器类名:
+							</label>
+							<div class="col-sm-6">
+								 <p name="clazzName" id="clazzName" class="form-control-static">${channelAdapter.clazzName}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 control-label no-padding-right text-right"
+								for="remark"> 备注: </label>
+							<div class="col-sm-6">
+								 <p name="remark" id="remark" class="form-control-static">${channelAdapter.remark}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelAdapter/channelAdapter_info.js"></script>
+@}

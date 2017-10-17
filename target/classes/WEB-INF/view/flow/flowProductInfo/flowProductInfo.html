@@ -1,0 +1,59 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>产品设置</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                       <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="productCode" name="产品代码" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="productName" name="产品名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="productType" name="产品类别" >
+                                  	<option value="">全部</option>
+                                  	<option value="1">基础流量包</option>
+                                    <option value="2">组合流量包 </option>
+                                    <option value="3">流量加</option>
+                                </#SelectCon>
+                            </div>
+                             <div class="col-sm-2">
+                                <#button name="查询" icon="fa-search" clickFun="FlowProductInfo.search()" space="true"/>
+                                <#button name="重置" icon="fa fa fa-undo" clickFun="FlowProductInfo.reSet()" space="true"/>    	
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="FlowProductInfoTableToolbar" role="group">
+                            @if(shiro.hasPermission("/flowProductInfo/add")){
+                                <div class="btnWrapper">
+                            		<#button name="" icon="fa-plus" clickFun="FlowProductInfo.openAddFlowProductInfo()" style="width:98px"/>
+                            		<span class="btnTips">添加</span>
+                            	</div>  
+                            @}
+                            @if(shiro.hasPermission("/flowProductInfo/update")){
+                                 <div class="btnWrapper">
+                            		<#button name="" icon="fa-pencil-square-o" clickFun="FlowProductInfo.openFlowProductInfoUpdate()" style="width:98px"/>
+                            		<span class="btnTips">修改</span>
+                            	</div>  
+                            @}
+                            @if(shiro.hasPermission("/flowProductInfo/delete")){
+                                 <div class="btnWrapper">
+                            		<#button name="" icon="fa fa-trash-o" clickFun="FlowProductInfo.delete()" style="width:98px"/>
+                            		<span class="btnTips">删除</span>
+                            	</div> 
+                            @}
+                        </div>
+                        <#table id="FlowProductInfoTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/flow/flowProductInfo/flowProductInfo.js"></script>
+@}

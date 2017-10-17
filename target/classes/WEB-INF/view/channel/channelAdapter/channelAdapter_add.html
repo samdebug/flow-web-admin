@@ -1,0 +1,93 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+        	<form id="add-form">
+				<input type="hidden" name="adapterId" id="adapterId" /> <input
+					type="hidden" name="updId" id="updId" />
+					<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="adapterName"> <span class="text-danger">*</span> 适配器名称:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="adapterName" id="adapterName"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="clazzName"> <span class="text-danger">*</span> 适配器类名:
+							</label>
+							<div class="col-sm-6">
+								<label class="col-sm-3 control-label no-padding-right text-right"
+									for="clazzName">
+									com.szwisdom.foss.flowdispatcher.adapter.
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="clazzName"> 
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="clazzName" id="clazzName"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="remark"> 备注: </label>
+							<div class="col-sm-6">
+								<input type="text" name="remark" id="remark"
+									class="form-control input-sm" />
+							</div>
+						</div>
+					</div>
+				</div>
+				</form>
+           		<div class="row btn-group-m-t" align="right">
+	                <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ChannelAdapterInfoDlg.addSubmit()"/>
+	                <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ChannelAdapterInfoDlg.close()"/>
+           	 </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelAdapter/channelAdapter_info.js"></script>
+<script>
+$(function(){
+	var add_validator = $('#add-form')
+					.validate(
+							{
+								rules : {
+									'adapterName' : {
+										required : true,
+										maxlength : 256
+									},
+									'clazzName' : {
+										required : true,
+										maxlength : 256
+									},
+									'remark' : {
+										maxlength : 512
+									},
+									'resendErrorCode' : {
+										maxlength : 2000
+									},
+									'notavailableErrorCode' : {
+										maxlength : 2000
+									},
+									'userErrorCode' : {
+										maxlength : 2000
+									}
+								},
+								submitHandler : function(form) {
+									return false;
+								}
+							});
+});
+</script>
+@}

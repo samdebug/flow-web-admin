@@ -1,0 +1,56 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>接入通道组管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <#NameCon id="groupName" name="通道组名称：" />
+                            </div>
+                            <div class="col-sm-4">
+                                <#SelectCon id="isQuote" name="是否可引用：">
+                                	 <option value="">请选择是否可引用</option> 
+				                     <option value="0">否</option>
+				                     <option value="1">是</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-2 reset">
+                	 			<#button name="查询" class="button-margin" icon="fa-search" clickFun="AccessChannelGroup.search()"/>
+                             	<#button name="重置" icon="fa fa fa-undo" clickFun="AccessChannelGroup.reSet()" space="true"/>	
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="AccessChannelGroupTableToolbar" role="group">
+                            @if(shiro.hasPermission("/accessChannelGroup/add")){
+                            	<div class="btnWrapper">
+                            		<#button name="" icon="fa-plus" clickFun="AccessChannelGroup.openAddAccessChannelGroup()"/>
+                            		<span class="btnTips">添加</span>
+                            	</div>
+                            @}
+                            @if(shiro.hasPermission("/accessChannelGroup/update")){
+                            	<div class="btnWrapper">
+                            		<#button name="" icon="fa fa-pencil-square-o" clickFun="AccessChannelGroup.openAccessChannelGroupDetail()"/>
+                            		<span class="btnTips">修改</span>
+                            	</div> 
+                            @}
+                            @if(shiro.hasPermission("/accessChannelGroup/delete")){
+                            	<div class="btnWrapper">
+                            		<#button name="" icon="fa fa-trash-o" clickFun="AccessChannelGroup.delete();"/>
+                            		<span class="btnTips">删除</span>
+                            	</div> 
+                            @}
+                            
+                        </div>
+                        <#table id="AccessChannelGroupTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/accessChannelGroup/accessChannelGroup.js"></script>
+@}

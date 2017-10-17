@@ -1,0 +1,66 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                       <div class="row">
+                            <div class="col-sm-2">
+                                <#NameCon id="productCode" name="流量包代码:" />
+                            </div>
+                            <div class="col-sm-2">
+                                <#NameCon id="productName" name="流量包名称:" />
+                            </div>
+                            <div class="col-sm-2">
+                                 <#SelectCon id="operatorCode" name="运营商:" >
+                                  	<option value="">全部</option>
+                                  	<option value="YD">移动</option>
+                                    <option value="LT">联通 </option>
+                                    <option value="DX">电信</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="zone" name="&nbsp;&nbsp;&nbsp;&nbsp;适用区域:">
+								<option value = "" >请选择适用区域</option>
+								@for(it in area){
+									<option value = "${it.areaCode}" >${it.areaName}</option>
+								@}
+								</#SelectCon>
+                            </div>
+                             <div class="col-sm-3 reset">
+                                <#button name="查询" icon="fa-search" clickFun="FlowProductRemodel.search()" space="true"/>
+                                <#button name="重置" icon="fa fa fa-undo" clickFun="FlowProductRemodel.reSet()" space="true"/>    	
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="FlowProductRemodelTableToolbar" role="group">
+                            @if(shiro.hasPermission("/flowProductRemodel/add")){
+                                <div class="btnWrapper">
+                            		<#button name="" icon="fa-plus" clickFun="FlowProductRemodel.openAddFlowProductRemodel()" style="width:98px"/>
+                            		<span class="btnTips">添加</span>
+                            	</div>  
+                            @}
+                            <!-- 
+                            @if(shiro.hasPermission("/flowProductRemodel/update")){
+                                 <div class="btnWrapper">
+                            		<#button name="" icon="fa-pencil-square-o" clickFun="FlowProductRemodel.openUpdateFlowProductRemodel()" style="width:98px"/>
+                            		<span class="btnTips">修改</span>
+                            	</div>  
+                            @}
+                             -->
+                            @if(shiro.hasPermission("/flowProductRemodel/delete")){
+                                 <div class="btnWrapper">
+                            		<#button name="" icon="fa fa-trash-o" clickFun="FlowProductRemodel.delete()" style="width:98px"/>
+                            		<span class="btnTips">删除</span>
+                            	</div> 
+                            @}
+                        </div>
+                        <#table id="FlowProductRemodelTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/flow/flowProductRemodel/flowProductRemodel.js"></script>
+@}

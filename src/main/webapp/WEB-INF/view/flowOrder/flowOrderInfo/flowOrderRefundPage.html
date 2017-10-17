@@ -1,0 +1,19 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+         <div class="ibox-content">
+         		<div class="row row-lg">
+	        		<input type="hidden" id="orderId" value="${orderId}" />
+	                <div class="row row-lg">
+	                    <div class="col-sm-12">
+	                        <#table id="flowRefundPageInfoTable"/>
+	                    </div>
+	                </div>
+	            </div>    
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/flowOrder/flowOrderInfo/flowOrderRefundPage.js"></script>
+@}

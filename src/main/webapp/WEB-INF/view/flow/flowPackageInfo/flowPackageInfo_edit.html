@@ -1,0 +1,493 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+			<form id="add-form" onsubmit="return false;">
+			<input type="hidden" id="packageId" name="packageId" value="${flowPackageInfo.packageId}"/>
+			<input type="hidden" id="updId" name="updId" value="${flowPackageInfo.packageId}"/>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+						<#input id="packageId" name="流量包标识   <span class='text-danger'>*</span>" underline="true" value="${flowPackageInfo.packageId}" disabled="disabled"/>
+						
+						<#input id="packageName" name="流量包名称  <span class='text-danger'>*</span>" underline="true" value="${flowPackageInfo.packageName}"/>
+						
+						<#select id="zone" name="适用区域   <span class='text-danger'>*</span>" underline="true">
+							@for(it in area){
+									<option value = "${it.areaCode}" 
+										@if(flowPackageInfo.zone==it.areaCode){
+                        				selected="selected" 
+                       		 			@}
+									>${it.areaName}</option>
+						    @}
+						</#select>
+						
+						<#input id="activePeriod" name="有效期(天)0为无限期   <span class='text-danger'>*</span>" underline="true" value="${flowPackageInfo.activePeriod}"/>
+						
+						<#select id="isCombo" name="流量包类型 " underline="true">
+							<option value="0"
+							@if(flowPackageInfo.isCombo=='0'){
+                        		selected="selected" 
+                       		 @}
+							>基础流量包</option>
+							<option value="1"
+							@if(flowPackageInfo.isCombo=='1'){
+                        		selected="selected" 
+                       		 @}
+							>组合流量包</option>
+							<option value="2"
+							@if(flowPackageInfo.isCombo=='2'){
+                        		selected="selected" 
+                       		 @}
+							>流量加</option>
+						</#select>
+						
+						<#input id="remark" name="备注说明 " underline="true" value="${flowPackageInfo.remark}"/>
+						
+						<div class="form-group" id="comboPackageDiv"
+							style="display: none;">
+							<label class="col-sm-3 control-label no-padding-right text-right"
+								for="comboPackageStr"> 组合流量包: <br />
+							<a href="javascript:;" id="addRuleBtn">添加规则</a></label>
+							<div class="col-sm-6">
+								<input type="hidden" id="comboPackageStr" name="comboPackageStr"
+									style="width: 240px;">
+									<script type="text/javascript">  
+    									var array1 = new Array();
+    									var array2 = new Array();
+    									var array3 = new Array();
+										@if(flowPackageInfo.flowPackageInfos!=null){
+											@for(packageInfo in flowPackageInfo.flowPackageInfos){
+												 array1.push("${packageInfo.packageId}");  
+												 array2.push("${packageInfo.packageName}");  
+												 array3.push("${packageInfo.operatorCode}");  
+											@}
+										@}
+									</script>
+							</div>
+						</div>
+						<div class="form-group" id="PackageRuleDiv" style="display: none;">
+							<div class="col-sm-12">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th width="150">流量包名称</th>
+											<th width="150">兑换比例(0-100)</th>
+											<th>备注</th>
+										</tr>
+									</thead>
+									<tbody id="packageRuleContent">
+									</tbody>
+								</table>
+							</div>
+						</div>
+                </div>
+
+                <div class="col-sm-6">
+					<#select id="operatorCode" name="对应运营商产品   <span class='text-danger'>*</span>" underline="true">
+						<option value="YD"
+						@if(flowPackageInfo.operatorCode=='YD'){
+                        		selected="selected" 
+                       	@}
+						>移动</option>
+						<option value="LT"
+						@if(flowPackageInfo.operatorCode=='lT'){
+                        		selected="selected" 
+                       	@}
+						>联通</option>
+						<option value="DX"
+						@if(flowPackageInfo.operatorCode=='DX'){
+                        		selected="selected" 
+                       	@}
+						>电信</option>
+					</#select>
+					
+					<#input id="flowAmount" name="流量大小  <span class='text-danger'>*</span>" underline="true" value="${flowPackageInfo.flowAmount}"/>
+					
+					<#input id="oprPackageId" name="运营商品编码 " underline="true" value="${flowPackageInfo.oprPackageId}"/>
+					
+					<#input id="salePrice" name="标准销售价格(元)  <span class='text-danger'>*</span>" underline="true" value="${flowPackageInfo.salePrice}"/>
+					
+					<#input id="costPrice" name="标准陈本价格(元)  <span class='text-danger'>*</span>" underline="true" value="${flowPackageInfo.costPrice}"/>
+					
+					<#select id="packageType" name="流量包种类   <span class='text-danger'>*</span>" underline="true">
+						<option value="1"
+						@if(flowPackageInfo.packageType==1){
+                        		selected="selected" 
+                       	@}
+						>叠加包</option>
+						<option value="2"
+						@if(flowPackageInfo.packageType==2){
+                        		selected="selected" 
+                       	@}
+						>前向包</option>
+						<option value="3"
+						@if(flowPackageInfo.packageType==3){
+                        		selected="selected" 
+                       	@}
+						>红包</option>
+					</#select>
+					
+					<#input id="packageDesc" name="流量包种类描述  <span class='text-danger'>*</span>" underline="true" value="${flowPackageInfo.packageDesc}"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t" align="center">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FlowPackageInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FlowPackageInfoDlg.close()"/>
+                </div>
+            </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+		var packageIndex = 0;
+		var view_url = Feng.ctxPath + '/flowPackageInfo/get.ajax';
+		var pkId = decodeURI(getP('packageId'));
+		function initOperatorCode() {
+			var $operatorCode = $("#operatorCode"), isCombo = $("#isCombo")
+					.val();
+			if (isCombo == "1") {
+				$operatorCode.empty().append('<option value="">全部</option>');
+			} else {
+				$operatorCode
+						.empty()
+						.append(
+								'<option value="YD">移动</option><option value="LT">联通</option><option value="DX">电信</option>');
+			}
+		};
+		function initComboPackageSelect2() {
+			var data1 = [];
+			for (var i = 0; i < array1.length; i++) {
+				var obj = {};
+				obj["id"] = array1[i];
+				obj["text"] = array2[i];
+				obj["operatorCode"] = array3[i];
+				data1.push(obj);
+			};
+			$("#comboPackageStr").select2(
+					{	
+						data : data1,
+						placeholder : "请输入流量包关键字",
+						minimumInputLength : 1,
+						multiple : true,
+						ajax : {
+							url : Feng.ctxPath + '/flowPackageInfo//selectPackageByName',
+							dataType : 'json',
+							data : function(term, page) {
+								return {
+									"params['packageName']" : term, // search term
+									"params['isCombo']" : 0, // search term
+									"params['operatorCode']" : $(
+											"#operatorCode").val(), // search term
+									"params['zone']" : $("#zone").val(), // search term
+									rows : 100,
+								};
+							},
+							results : function(rtn) {
+								var rtnArr =  rtn.packageList;
+								var arr = [];
+								for (var i = 0; i < rtnArr.length; i++) {
+									var o = {
+										id : rtnArr[i].packageId,
+										text : rtnArr[i].packageName,
+										operatorCode : rtnArr[i].operatorCode
+									};
+									arr.push(o);
+								}
+								return {
+									results : arr
+								};
+							}
+						}
+					});
+			$("#comboPackageStr").on(
+					"select2-selecting",
+					function(e) {
+						var isCombo = $("#isCombo").val();
+						if (isCombo == "1") {
+							var data = $("#comboPackageStr").select2("data");
+							data.push(e.choice);
+							var showCode = formatCode("全部", data)
+							$("#operatorCode").html(
+									'<option value="">' + showCode
+											+ '</option>');
+						}
+						if ($("#PackageRuleDiv").is(":hidden")) {
+							return;
+						}
+						addRuleRow(e.choice);
+					});
+			$("#comboPackageStr").on(
+					"select2-removed",
+					function(e) {
+						var isCombo = $("#isCombo").val();
+						if (isCombo == "1") {
+							var data = $("#comboPackageStr").select2("data");
+							var showCode = formatCode("全部", data)
+							$("#operatorCode").html(
+									'<option value="">' + showCode
+											+ '</option>');
+						}
+						removeRuleRow(e.choice);
+					});
+		}
+		function getFlowPackageInfo() {
+			var isCombo = $("#isCombo").val();
+			if (isCombo != "1") {
+				$("#comboPackageDiv").hide();
+				return;
+			}
+			$("#comboPackageStr").select2("val", "");
+			$("#comboPackageDiv").show();
+			$("#packageRuleContent").html("");
+
+		}
+		var count = 0;
+		function addRuleRow(data) {
+			var c = [];
+			c.push("<tr id=\"R"+data.id+"\">");
+			c.push("<td><input type=\"hidden\" name=\"flowProductRules["+count+"].subPackageId\" value=\""+data.id+"\">"
+							+ data.text + "</td>");
+			c.push("<td><input type=\"text\" class=\"input-sm\" style=\"width:100%\" name=\"flowProductRules["
+							+ count + "].exchangeRatio\"></td>");
+			c.push("<td><input type=\"text\" class=\"input-sm\" name=\"flowProductRules["+count+"].remark\"></td>");
+			c.push("</tr>");
+			$("#packageRuleContent").append(c.join(""));
+			count++;
+		}
+		function removeRuleRow(data) {
+			$("#R" + data.id).remove();
+		}
+		$(function() {
+			$("#isCombo").on("change", function() {
+				getFlowPackageInfo();
+			});
+			
+			$("#operatorCode,#zone").on("change", function() {
+				getFlowPackageInfo();
+			});
+			
+			if($("#isCombo").val()=="1"){
+				getFlowPackageInfo();
+			}
+			var data1 = [];
+			for (var i = 0; i < array1.length; i++) {
+				var obj = {};
+				obj["id"] = array1[i];
+				obj["text"] = array2[i];
+				obj["operatorCode"] = array3[i];
+				data1.push(obj);
+			};
+			
+			$("#comboPackageStr").select2("val","YD100").trigger("change");
+			$("#comboPackageStr").select2("data",data1).trigger("change");
+			
+			initComboPackageSelect2();
+			$("#addRuleBtn").on("click", function() {
+				var $PackageRuleDiv = $("#PackageRuleDiv");
+				if ($PackageRuleDiv.is(":hidden")) {
+					$(this).html("取消规则");
+					$("#PackageRuleDiv").show();
+					var data = $("#comboPackageStr").select2("data");
+					var c = [];
+					for (var i = 0; i < data.length; i++) {
+						addRuleRow(data[i]);
+					}
+				} else {
+					$(this).html("新增规则");
+					$("#PackageRuleDiv").hide();
+					$("#packageRuleContent").empty();
+				}
+
+			});
+			var add_validator = $('#add-form')
+					.validate(
+							{
+								rules : {
+									'packageName' : {
+										required : true,
+										maxlength : 256
+									},
+									'operatorCode' : {
+										required : false,
+										maxlength : 32
+									},
+									'oprPackageId' : {
+										maxlength : 128
+									},
+									'adaptor' : {
+										maxlength : 64
+									},
+									'activePeriod' : {
+										required : true,
+										maxlength : 11,
+										number : true,
+										min : 0
+									},
+									'flowAmount' : {
+										required : true,
+										maxlength : 11,
+										number : true,
+										min : 0
+									},
+									'zone' : {
+										required : true,
+										maxlength : 64
+									},
+									'comboPackageStr' : {
+										maxlength : 512
+									},
+									'isCombo' : {
+										maxlength : 512
+									},
+									'salePrice' : {
+										required : true,
+										maxlength : 11,
+										number : true,
+										number_2 : true
+									},
+									'costPrice' : {
+										required : true,
+										number : true,
+										maxlength : 11,
+										number_2 : true
+									},
+									'remark' : {
+										required : false,
+										maxlength : 1024
+									},
+									'isValid' : {
+										required : true,
+										maxlength : 11
+									},
+									'packageType' : {
+										required : true,
+										maxlength : 11
+									},
+									'packageDesc' : {
+										required : true,
+										maxlength : 128
+									}
+								},
+								submitHandler : function(form) {
+									return false;
+								}
+							});
+			if (pkId) {
+				$('#updId').val(pkId);
+				$('#packageId').attr('readonly', 'readonly');
+				$
+						.ajaxSubmit(
+								view_url,
+								{
+									'packageId' : pkId
+								},
+								function(rtn) {
+									if (rtn.success) {
+										$('#add-form').json2Form2(rtn.data);
+										var flowPackageInfos = rtn.data.flowPackageInfos, data = [];
+										if (flowPackageInfos
+												&& flowPackageInfos.length > 0) {
+											(flowPackageInfos);
+											var showCode = formatCode("全部",
+													flowPackageInfos);
+											for (var i = 0; i < flowPackageInfos.length; i++) {
+												var obj = {};
+												obj["id"] = flowPackageInfos[i].packageId
+														+ "_"
+														+ (++packageIndex);
+												obj["text"] = flowPackageInfos[i].packageName;
+												obj["operatorCode"] = flowPackageInfos[i].operatorCode;
+												data[data.length] = obj;
+											}
+											$("#comboPackageStr").select2(
+													"data", data);
+											$("#operatorCode").html(
+													'<option value="">'
+															+ showCode
+															+ '</option>');
+										}
+										var flowProductRules = rtn.data.flowProductRules, rules = [];
+										if (flowProductRules
+												&& flowProductRules.length > 0) {
+											$("#addRuleBtn").trigger("click");
+											var flowProductRulesInputs = $("input[name^=flowProductRules]");
+											flowProductRulesInputs
+													.each(function() {
+														var name = $(this)
+																.attr("name");
+														if (name) {
+															var tmp = eval("("
+																	+ name
+																	+ ")");
+															if (tmp) {
+																$(this)
+																		.val(
+																				tmp);
+															}
+														}
+													});
+
+										}
+									} else {
+										Q_Alert_Fail(rtn.message);
+									}
+								});
+			}
+		});
+
+		/**function changeSelect2() {
+			var data = $("#comboPackageStrSelect").select2("data");
+			var datastring = "";
+			$.each(data, function(key, val) {
+				datastring = datastring + val.id + ",";
+			});
+			if (datastring != "") {
+				datastring = datastring.substring(0, datastring.length - 1);
+			}
+			$("#comboPackageStr").val(datastring);
+		}**/
+		function formatCode(val, obj) {
+			var resultMap = new Array();
+			var result = "";
+			if (obj != null && obj != "undefined" && obj.length > 0) {
+				for (var i = 0; i < obj.length; i++) {
+					if (resultMap[obj[i].operatorCode] == true) {
+						continue;
+					}
+					resultMap[obj[i].operatorCode] = true;
+					result += setCode(obj[i].operatorCode) + ',';
+				}
+				if (result.length > 0) {
+					result = result.substring(0, result.length - 1);
+				}
+			} else {
+				result = val;
+			}
+
+			return result;
+		}
+
+
+		function setCode(val) {
+			switch (val) {
+			case "YD":
+				return "移动";
+				break;
+			case "LT":
+				return "联通";
+				break;
+			case "DX":
+				return "电信";
+				break;
+			default:
+				return "";
+				break;
+			}
+		}
+	</script>
+<script src="${ctxPath}/static/modular/flow/flowPackageInfo/flowPackageInfo_info.js"></script>
+@}

@@ -1,0 +1,100 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+		<form id="partnerAddForm" action="#" >
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="partnerName" name="*伙伴名称"  />
+                </div>
+                <div class="col-sm-6">
+					<#input id="shorterName" name="*伙伴简称"  />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="loginName" name="*伙伴账号"  />
+                </div>
+                <div class="col-sm-6">
+					<#input id="partnerNo" name="*伙伴编码"  />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#select id="partnerType" name="*伙伴类型" underline="true">
+						<option value="1">流量营销</option>
+						<option value="2">渠道充值</option>
+					</#select>
+                </div>
+                <div class="col-sm-6">
+					<#input id="address" name=" 伙伴地址" underline="true" />
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="realName" name="*伙伴姓名"  />
+                </div>
+                <div class="col-sm-6">
+					<#input id="mobile" name="*手机号码"  />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="email" name="*伙伴邮箱" underline="true" />
+                </div>
+                <div class="col-sm-6">
+					
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="" name="*信用额度" disabled="disabled" />
+                </div>
+                <div class="col-sm-6">
+					<#input id="settlementDiscount" name="*结算折扣(%)" type="number" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="" name="*账户余额" disabled="disabled" />
+                </div>
+                <div class="col-sm-6">
+					<#select id="orderBillingType" name="*是否按下发计费" >
+						<option value="0">否</option>
+						<option value="1">是</option>
+					</#select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#select id="settlementPattern" name="*结算模式" >
+						<option value="">请选择</option>
+						<option value="1">按固定折扣</option>
+						<option value="2">按固定毛利率</option>
+					</#select>
+                </div>
+                <div class="col-sm-6">
+                	<#input id="settlementDiscountRatio" name="计算折扣比率(%)" type="number" />
+                </div>
+            </div>
+            
+            
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="PartnerInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="PartnerInfoDlg.close()"/>
+                </div>
+            </div>
+        </form>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/partner/partner_info.js"></script>
+@}

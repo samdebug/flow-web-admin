@@ -1,0 +1,314 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+            <div class="row">
+               <form class="form-horizontal" role="application" id="add-form"
+				onsubmit="return false;">
+				  <div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">基础信息</a>
+                        </li>
+                        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">银行账户信息</a>
+                        </li>
+                        <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">联系人信息</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane active">
+                            <div class="panel-body">
+                            	<div class="col-xs-6">
+									<div class="form-group">
+										<label class="col-sm-5 control-label no-padding-right text-right"
+											for="companyCode"> <span class='text-danger'>*</span> 上游供应商编码:
+										</label>
+										<div class="col-sm-6"> 
+											<input type="text" name="companyCode" id="companyCode" 
+												class="form-control input-sm" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label no-padding-right text-right"
+											for="companyName"> <span class='text-danger'>*</span> 上游供应商名称:
+										</label>
+										<div class="col-sm-6">
+											<input type="text" name="companyName" id="companyName" 
+												class="form-control input-sm" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label no-padding-right text-right"
+											for="companyType">  上游供应商类型:
+										</label>
+										<div class="col-sm-6">
+											<select name="companyType" id="companyType"  
+												class="form-control input-sm" style="height: 35px;">
+												<option value="0">运营商直连</option>
+												<option value="1">第三方供应商</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label no-padding-right text-right"
+											for="contract">  资质与合同:
+										</label>
+										<div class="col-sm-6">
+											<select name="contract" id="contract"
+												class="form-control input-sm" style="height: 35px;">
+												<option value="1">有</option>
+												<option value="0">无</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="form-group">
+										<label class="col-sm-5 control-label no-padding-right text-right"
+											for="companyPhone">  联系电话:
+										</label>
+										<div class="col-sm-6">
+											<input type="text" name="companyPhone" id="companyPhone" 
+												class="form-control input-sm" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label no-padding-right text-right"
+											for="companyCity">  公司所在城市:
+										</label>
+										<div class="col-sm-6">
+											<input type="text" name="companyCity" id="companyCity"
+												class="form-control input-sm" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label no-padding-right text-right"
+											for="companyAddr">公司详细地址: </label>
+										<div class="col-sm-6">
+											<input type="text" name="companyAddr" id="companyAddr"
+												class="form-control input-sm" />
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-5 control-label no-padding-right text-right"
+											for="contractNo">合同编号: </label>
+										<div class="col-sm-6">
+											<input type="text" name="contractNo" id="contractNo"
+												class="form-control input-sm" />
+										</div>
+									</div>
+								</div>
+                            </div>
+                        </div>
+                        <div id="tab-2" class="tab-pane">
+                            <div class="panel-body">
+                            		<div class="col-xs-6">
+										<div class="form-group">
+											<label class="col-sm-4 control-label no-padding-right text-right"
+												for="bankName"> <span class='text-danger'>*</span> 银行名称:
+											</label>
+											<div class="col-sm-6">
+												<input type="text" name="bankName" id="bankName" 
+													class="form-control input-sm" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label no-padding-right text-right"
+												for="bankAddr"> <span class='text-danger'>*</span> 开户行:
+											</label>
+											<div class="col-sm-6">
+												<input type="text" name="bankAddr" id="bankAddr" 
+													class="form-control input-sm" />
+											</div>
+										</div>
+				
+									</div>
+									<div class="col-xs-6">
+										<div class="form-group">
+											<label class="col-sm-4 control-label no-padding-right text-right"
+												for="bankAccount"><span class='text-danger'>*</span> 银行账号:
+											</label>
+											<div class="col-sm-6">
+												<input type="text" name="bankAccount" id="bankAccount"
+													class="form-control input-sm" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label no-padding-right text-right"
+												for="bankRate"> <span class='text-danger'>*</span> 税率(%):
+											</label>
+											<div class="col-sm-6">
+												<input type="text" name="bankRate" id="bankRate"  
+													class="form-control input-sm" value="6.00"/>
+											</div>
+										</div>
+									</div>
+                            </div>
+                        </div>
+						<div id="tab-3" class="tab-pane">
+							<div class="panel-body">
+								<div class="col-xs-6">
+									<div class="form-group">
+										<label
+											class="col-sm-5 control-label no-padding-right text-right"
+											for="contactsName">
+											姓名:
+										</label>
+										<div class="col-sm-6">
+											<input type="text" name="contactsName" id="contactsName"
+												class="form-control input-sm" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label
+											class="col-sm-5 control-label no-padding-right text-right"
+											for="contactsEmail">邮箱: </label>
+										<div class="col-sm-6">
+											<input type="text" name="contactsEmail" id="contactsEmail"
+												class="form-control input-sm" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label
+											class="col-sm-5 control-label no-padding-right text-right"
+											for="contactsQq">QQ: </label>
+										<div class="col-sm-6">
+											<input type="text" name="contactsQq" id="contactsQq"
+												class="form-control input-sm" />
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="form-group">
+										<label
+											class="col-sm-5 control-label no-padding-right text-right"
+											for="contactsPosition"> 职位: </label>
+										<div class="col-sm-6">
+											<input type="text" name="contactsPosition"
+												id="contactsPosition" class="form-control input-sm" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label
+											class="col-sm-5 control-label no-padding-right text-right"
+											for="contactsPhone">电话: </label>
+										<div class="col-sm-6">
+											<input type="text" name="contactsPhone" id="contactsPhone"
+												class="form-control input-sm" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                </div>
+			</form>
+            </div>
+            <div class="row btn-group-m-t" align="right">
+                <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ChannelCompanyInfoDlg.addSubmit()"/>
+                <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ChannelCompanyInfoDlg.close()"/>
+            </div>
+        </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelCompany/channelCompany_info.js"></script>
+<script type="text/javascript">
+var soloName_url=Feng.ctxPath+'/channelCompany/checkCompanyName';
+var soloCode_url=Feng.ctxPath+'/channelCompany/checkCompanyCode';
+	$(function(){
+		var add_validator = $('#add-form')
+		.validate(
+				{
+					ignore: "", //不忽略隐藏域
+					rules : {
+						'companyCode' : {
+							required : true,
+							maxlength : 32,
+							soloCompanyCode:true
+						},
+						'companyName' : {
+							required : true,
+							maxlength : 32,
+							soloCompanyName:true
+						},
+						'companyType' : {
+							required : true,
+							maxlength : 10
+						},
+						'bankName' : {
+							required : true,
+							maxlength : 32
+						},
+						'bankAccount' : {
+							required : true,
+							creditcard:false,
+							maxlength : 50
+						},
+						'bankAddr' : {
+							required : true,
+							maxlength : 100
+						},
+						'bankRate' : {
+							required : true,
+							number:true,  
+							maxlength : 32,
+						},
+						'companyPhone':{
+							required : false,
+							number:true,  
+							maxlength : 32
+						},
+						'contactsPhone':{
+							required : false,
+							number:true,  
+							maxlength : 32
+						}
+					},
+					submitHandler : function(form) {
+						return false;
+					}
+				});
+	});
+	
+	$.validator.addMethod("soloCompanyName",
+			function(value, element, params) {
+				return soloName(value);
+			}, "上游供应商名称已经存在");
+	$.validator.addMethod("soloCompanyCode",
+			function(value, element, params) {
+				return soloCode(value);
+			}, "上游供应商编码已经存在");
+	
+	function soloCode(value) {
+		if (value == null || value == "") {
+			return false;
+		}
+		var data={
+				"companyCode" : value};
+		return solo(data,soloCode_url);
+	};
+	
+	function soloName(value) {
+		if (value == null || value == "") {
+			return false;
+		}
+		var data={"companyName" : value};
+		return solo(data,soloName_url);
+	};
+	
+	function solo(data,url){
+		var flag = false;
+		$.ajax({
+			url : url,
+			type : 'post',
+			data : data,
+			dataType : 'json',
+			async : false,
+			success : function(data) {
+				if (data.code == 200) {
+					flag = true;
+				}
+			}
+		});
+		return flag;
+	};
+</script>
+@}

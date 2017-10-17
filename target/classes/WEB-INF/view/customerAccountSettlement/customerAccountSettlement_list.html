@@ -1,0 +1,58 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row row-lg">
+							<form id="queryForm" onsubmit="return false;">
+							<input type="hidden" id="customerId" value="${customerId}"/>
+								<div class="widget-box">
+									<div class="widget-header widget-header-flat search_tj_bar_tit">
+										<h5 class="widget-title">查询条件</h5>
+										<div class="widget-toolbar">
+											<a href="javascript:;" data-action="collapse"> <i
+												class="1 ace-icon fa fa-chevron-up bigger-125"></i>
+											</a>
+										</div>
+									</div>
+									<div class="row search_tj_bar">
+										<div class="col-xs-12">
+											<div class="center">
+												<div class="row">
+													<div class="col-xs-4">
+														<span> <label class="col-xs-12 col-sm-3">时间：</label>
+															<div class="input-daterange input-group">
+																<input class="form-control date-picker" autocomplete="off" onFocus="WdatePicker({startDate: '%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+																	   name="params['settlementStrartTime']" id="startTime"> <span
+																	class="input-group-addon"> <i class="fa fa-exchange"></i>
+																</span> <input class="form-control date-picker" autocomplete="off" onFocus="WdatePicker({startDate: '%y-%M-%d 23:59:59',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+																			   name="params['settlementEndTime']" id="endTime">
+															</div>
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+				 			<div class="hidden-xs" id="CustomerChargeTableToolbar" role="group" style="text-align:right;">
+				                <#button name="查询" icon="fa-search" clickFun="customerAccountSettlement.search()" space="true"/>
+				                <#button name="重置" icon="fa-undo" clickFun="customerAccountSettlement.reset()" space="true"/>
+				           </div>
+				          <#table id="customerAccountSettlementTable"/>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/customerAccountSettlement/customerAccountSettlement.js"></script>
+<link href="${ctxPath}/static/js/common/assets/css/ace-fonts.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace-rtl.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace-skins.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/css.css" rel="stylesheet">
+<script src="${ctxPath}/static/js/common/assets/ace-extra.min.js"></script>
+<script src="${ctxPath}/static/js/common/assets/ace-elements.min.js"></script>
+<script src="${ctxPath}/static/js/common/my97/WdatePicker.js"></script>
+@}

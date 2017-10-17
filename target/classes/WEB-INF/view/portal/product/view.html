@@ -1,0 +1,209 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+    
+        <div class="form-horizontal">
+        	<br/>
+        	<div class="container">
+	            <div class="row">
+	            	<div class="col-sm-3">编号：<span name="orderIdStr" class="form-control-static"></span></div>
+	            	<div class="col-sm-3">客户名称：<span name="customerName" class="form-control-static"></span></div>
+	            	<div class="col-sm-3">产品类型：<span name="orderType" class="form-control-static"></span></div>
+	            	<div class="col-sm-3">计费方式：<span name="billingTypeDesc" class="form-control-static"></span></div>
+	            </div>
+            </div>
+        </div>
+        
+		<br /><br />
+			<div class="row ">
+				<div class="col-sm-12">
+					<table id="sample-table-1"
+						class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th style="text-align: center; vertical-align: middle;">产品名称</th>
+								<th style="text-align: center; vertical-align: middle;">运营商</th>
+								<th style="text-align: center; vertical-align: middle;">使用区域</th>
+								<th style="text-align: center; vertical-align: middle;">流量包ID</th>
+								<th style="text-align: center; vertical-align: middle;">产品原价</th>
+								<th style="text-align: center; vertical-align: middle;">结算价格</th>
+								<th style="text-align: center; vertical-align: middle;">折扣（%）</th>
+								<!-- <th style="text-align: center; vertical-align: middle;">定时生效</th> -->
+								<!-- <th style="text-align: center; vertical-align: middle;">结算价格<br/>（定时后）</th> -->
+								<!-- <th style="text-align: center; vertical-align: middle;">销售价格<br/>（定时后）</th> -->
+							</tr>
+						</thead>
+						<tbody id="customer-Product">
+							
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		<br/>
+		<div class="row" style="text-align: center;">
+			<#button name="返回" icon="fa-undo" clickFun="parent.layer.close(window.parent.CustomeProduct.layerIndex)"/>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+var CustomerProductDetail = {
+	viewUrl : Feng.ctxPath + '/orderInfo/get.ajax',
+	customerProductId : getP('orderId'),
+	isWYAdmin : false
+};
+
+/**
+ * 显示基础字段值
+ */
+CustomerProductDetail.showBaseFields = function(data) {
+	$.dataInput($('.form-control-static'), data);
+    if (data.orderType == 2) {
+        $("span[name='orderType']").text("流量+产品");
+    } else {
+        $("span[name='orderType']").text("流量包");
+    }
+    $("span[name='customerName']").html($.htmlspecialchars(data.customerName));
+}
+
+/**
+ * 显示表格数据 - 只展示 基础流量包类型， 其他忽略 - 产品已经画押
+ */
+CustomerProductDetail.showTable = function(data) {
+	var baseFlowPackage = [];
+    $.each(data.orderDetailList, function(n, value) {
+        // 流量加
+        if (value.orderType == 2) {
+            console.info("return[orderType:2]");
+            return;
+        }
+        // 基础包
+        if (value.productType == 1) {
+            baseFlowPackage.push(value);
+        }
+    });
+    createFlowProductTable(baseFlowPackage);
+}
+
+
+/**
+ * 逗号分隔
+ */
+function commaDelimited(num) {
+    return String(num).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+}
+
+var _render = [ {
+				    mData : "productName",
+				    mRender : function(value, type, rowData) {
+				        return $.htmlspecialchars(value) ;
+				    }
+				}, {
+				    mData : "operatorCodeDesc",
+				    mRender : function(value, type, rowData) {
+				        var operatorCode = value != null ? value : "移动、电信、联通";
+				        return  operatorCode ;
+				    }
+				}, {
+				    mData : "zoneDesc",
+				    mRender : function(value, type, rowData) {
+				        return  value ;
+				    }
+				}, {
+				    mData : "packageId",
+				    mRender : function(value, type, rowData) {
+				        return  value ;
+				    }
+				}, {
+				    mData : "productPrice",
+				    mRender : function(value, type, rowData) {
+				        if (value != null) {
+				            return "￥" + commaDelimited(value);
+				        } else {
+				            return "";
+				        }
+				    }
+				}, {
+				    mData : "price",
+				    mRender : function(value, type, rowData) {
+				        if (value != null) {
+				            return "￥" + commaDelimited(value);
+				        } else {
+				            return "";
+				        }
+				    }
+				}, {
+				    mData : "discount",
+				    mRender : function(value, type, rowData) {
+				        return  commaDelimited((rowData.price*100/rowData.productPrice).toFixed(2));
+				    }
+				}
+// 				,{
+// 				    mData : "quarzTime",
+// 				    mRender : function(value, type, rowData) {
+// 				    	value=value==null?"":value;
+// 				        return  value;
+// 				    }
+// 				},
+// 				{
+// 				    mData : "endPrice",
+// 				    mRender : function(value, type, rowData) {
+// 				    	value=value==null||value==0?"":value;
+// 				        return value;
+// 				    }
+// 				}
+// 				,{
+// 				    mData : "salePrice",
+// 				    mRender : function(value, type, rowData) {
+// 				    	value=value==null||value==0?"":value;
+// 				        return value ;
+// 				     }
+// 				}
+				];
+
+
+function createFlowProductTable(datas) {
+	var _body = $("#customer-Product");
+	$(datas).each(function() {
+		_body.append(createTrData(this, _render));
+	})
+}
+
+
+function createTrData(item, render) {
+	var _tr = "<tr>";
+	$(render).each(function() {
+		_tr += '<td style="text-align: center; vertical-align: middle;">{{}}</td>'.replace("{{}}", 
+				this.mRender ? this.mRender(eval("item." + this.mData), null, item) : eval("item." + this.mData));
+	})
+	return _tr += "</tr>";
+}
+
+CustomerProductDetail.initData = function() {
+    if (!this.customerProductId) {
+        Feng.error('参数错误!');
+        return;
+    }
+    var ajax = new $ax(this.viewUrl, function(data){
+    	if ( data && data.code && data.code != 200 ) {
+    		Feng.error(data.message ? data.message : "获取数据失败！");
+    		return;
+    	}
+    	// 初始化页面的值
+        CustomerProductDetail.showBaseFields(data);
+        CustomerProductDetail.showTable(data);
+    },function(data){
+        Feng.error("添加失败!");
+    });
+    ajax.set( {'orderId': CustomerProductDetail.customerProductId});
+    ajax.start();
+}
+
+	
+
+$(function() {
+	CustomerProductDetail.initData();// 初始化
+});
+</script>
+@}

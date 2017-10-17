@@ -1,0 +1,161 @@
+@layout("/common/_container.html"){
+<style>
+.section-title {
+	display: block;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+.section-title span {
+	padding-bottom: 6px;
+	padding-right: 25px;
+	border-bottom: 1px solid #dcdcdc;
+}
+</style>
+<div class="ibox float-e-margins">
+
+	@if(!flag){
+	<div class="row" style="text-align:center;color:red;">
+        <p>当前没有合作伙伴...</p>
+    </div>
+	@}
+
+    <div class="ibox-content">
+        <div class="form-horizontal">
+        
+        <div class="section-title">
+			<span> 基本信息 </span>
+		</div><br/>
+        
+		<form id="partnerViewForm" action="#" >
+<!--             <input type="hidden" id="partnerId" name="partnerId" value=""> -->
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="partnerName" name="伙伴名称" value="${partner.partnerName!}" disabled="disabled" />
+                </div>
+                <div class="col-sm-6">
+					<#input id="loginName" name="伙伴账号" value="${partner.loginName!}" disabled="disabled" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#select id="partnerLevel" name="伙伴等级" disabled="disabled">
+						<option value="1" 
+						@if(flag && partner.partnerLevel==1){
+							selected="selected" 
+						@} 
+						>普通客户</option>
+						<option value="3" 
+						@if(flag && partner.partnerLevel==3){
+							selected="selected" 
+						@} 
+						>重要客户</option>
+					</#select>
+                </div>
+                <div class="col-sm-6">
+					<#select id="status" name="状态" disabled="disabled">
+						<option value="0" 
+						@if(flag && partner.status=="0"){
+							selected="selected" 
+						@} 
+						>无效</option>
+						<option value="1" 
+						@if(flag && partner.status=="1"){
+							selected="selected" 
+						@} 
+						>有效</option>
+						<option value="2" 
+						@if(flag && partner.status=="2"){
+							selected="selected" 
+						@} 
+						>无效</option>
+					</#select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="balance" name=" 账户余额" underline="true" value="${partner.balance!}(元)" disabled="disabled" />
+                </div>
+                <div class="col-sm-6">
+					<#input id="creditAmount" name=" 授信额度" underline="true" value="${partner.creditAmount!}(元)" disabled="disabled" />
+                </div>
+            </div>
+            
+            <div class="section-title">
+				<span> 联系人信息 </span>
+			</div><br/>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="realName" name=" 联系人" value="${partner.realName!}" disabled="disabled" />
+                </div>
+                <div class="col-sm-6">
+					<#input id="mobile" name=" 电话" value="${partner.mobile!}" disabled="disabled"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="email" name="邮箱" underline="true" value="${partner.email!}" disabled="disabled"/>
+                </div>
+                <div class="col-sm-6">
+					<#input id="address" name="地址" underline="true" value="${partner.address!}" disabled="disabled"/>
+                </div>
+            </div>
+        </form>
+        </div>
+        
+        <div class="section-title">
+			<span> 产品信息 </span>
+		</div><br/>
+		<div class="container">
+			<div class="row ">
+				<div class="col-sm-12">
+					<table id="sample-table-1"
+						class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th style="text-align: center; vertical-align: middle;">产品名称</th>
+								<th style="text-align: center; vertical-align: middle;">产品代码</th>
+								<th style="text-align: center; vertical-align: middle;">运营商</th>
+								<th style="text-align: center; vertical-align: middle;">适用区域</th>
+								<th style="text-align: center; vertical-align: middle;">产品定价（元）</th>
+								<th style="text-align: center; vertical-align: middle;">结算价格（元）</th>
+								<th style="text-align: center; vertical-align: middle;">折扣（%）</th>
+							</tr>
+						</thead>
+						<tbody id="partner-Product">
+						@if(flag && partner.partnerProductList != null && partner.partnerProductList.~size > 0){
+							@for(product in partner.partnerProductList){
+							<tr style="text-align: center; vertical-align: middle;">
+								<td>${product.flowProductInfo.productName!}</td>
+								<td>${product.flowProductInfo.productCode!}</td>
+								<td>${product.flowProductInfo.operatorCodeDesc!}</td>
+								<td>${product.flowProductInfo.zoneDesc!}</td>
+								<td>${product.flowProductInfo.productPrice!}</td>
+								<td>${product.settlementAmount!}</td>
+								<td>${product.settlementAmount!/product.flowProductInfo.productPrice!*100}</td>
+							</tr>
+							@}
+						@}
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+        
+    </div>
+</div>
+<script type="text/javascript">
+	if(!${flag}){
+		Feng.error("当前没有合作伙伴");
+	} else {
+
+	    
+	}
+	
+	// 下载订单处理记录
+    function downloadEvent(dealRecordId) {
+    	window.location.href = encodeURI(Feng.ctxPath + "/orderDealRecord/download?dealRecordId=" + dealRecordId);
+    }
+</script>
+@}

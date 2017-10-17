@@ -1,0 +1,82 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+           <!--  <div class="ibox-title">
+                <h5>通道供应商</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="supplierName" name="供应商名称：" />
+                            </div>
+                             <div class="col-sm-3">
+                                <#SelectCon id="isValid" name="状态：" >
+                                  	<option value="">全部</option>
+                                    <option value="1">有效</option>
+                                    <option value="2">无效</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3 reset">
+                                <#button name="查询" icon="fa-search" clickFun="ChannelSupplier.search()" space="true"/>
+                                <#button name="重置" icon="fa fa fa-undo" clickFun="ChannelSupplier.reSet()" space="true"/>   
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="ChannelSupplierTableToolbar" role="group">
+                            @if(shiro.hasPermission("/channelSupplier/add")){
+                                <div class="btnWrapper">    
+                                <#button name="" icon="fa-plus" clickFun="ChannelSupplier.openAddChannelSupplier()"/>
+                                <span class="btnTips">新增</span>
+                                </div>
+                            @}
+                            @if(shiro.hasPermission("/channelSupplier/update")){
+                                <div class="btnWrapper">
+                                    <#button name="" icon="fa-pencil-square-o" clickFun="ChannelSupplier.openChannelSupplierDetail()"/>
+                                    <span class="btnTips">编辑</span>
+                                </div>
+                                
+                            @}
+                            @if(shiro.hasPermission("/channelSupplier/delete")){
+                                <div class="btnWrapper">
+                                    <#button name="" icon="fa fa-trash-o" clickFun="ChannelSupplier.delete()"/>
+                                    <span class="btnTips">删除</span>
+                                </div>
+                            @}
+                            @if(shiro.hasPermission("/channelSupplier/useAll")){
+                                <div class="btnWrapper">
+                                    <#button name="" icon="fa-flag" clickFun="ChannelSupplier.useAll();" style="width:98px"/>
+                                    <span class="btnTips">批量生效</span>
+                                </div>
+                                
+                            @}
+                            @if(shiro.hasPermission("/channelSupplier/unUseAll")){
+                                <div class="btnWrapper">
+                                    <#button name="" icon="fa fa-times-circle-o" clickFun="ChannelSupplier.unUseAll();" style="width:98px"/>
+                                    <span class="btnTips">批量失效</span>
+                                </div>  
+                            @}
+                              @if(shiro.hasPermission("/channelSupplier/unUseAll")){
+                                <div class="btnWrapper">
+                                    <#button name="" icon="fa-money" clickFun="ChannelSupplier.chargeEvent();"/>
+                                    <span class="btnTips">充值</span>
+                                </div>  
+                            @}
+                              @if(shiro.hasPermission("/channelSupplier/export")){
+                                <div class="btnWrapper">
+                                    <#button name="" icon="fa-flag" clickFun=""/>
+                                    <span class="btnTips">有效</span>
+                                </div>  
+                            @}
+                            
+                        </div>
+                        <#table id="ChannelSupplierTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelSupplier/channelSupplier.js"></script>
+@}

@@ -1,0 +1,68 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>通道变更记录管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+			             <form id="queryForm">
+							<div class="widget-box">
+								<div class="widget-header widget-header-flat search_tj_bar_tit">
+									<h5 class="widget-title">查询条件</h5>
+									<div class="widget-toolbar">
+										<a href="javascript:;" data-action="collapse"> <i
+											class="1 ace-icon fa fa-chevron-up bigger-125"></i>
+										</a>
+									</div>
+								</div>
+								<div class="row search_tj_bar">
+									<div class="col-xs-12">
+										<div class="center">
+											<div class="row">
+												<div class="col-xs-4">
+													<span> <label class="col-xs-12 col-sm-3">时间：</label>
+														<div class="input-daterange input-group">
+															<input type="hidden" id="channelSeqId" value="${channelSeqId}" />
+															<input class="form-control date-picker" autocomplete="off" onFocus="WdatePicker({startDate: '%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+																   id="createStartTime"> <span
+																class="input-group-addon"> <i class="fa fa-exchange"></i>
+															</span> <input class="form-control date-picker" autocomplete="off" onFocus="WdatePicker({startDate: '%y-%M-%d 23:59:59',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+																		   id="createEndTime">
+														</div>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="bs_btn">
+										<button class="btn btn-purple btn-sm" type="button" id="resetBtn">
+											<i class="ace-icon fa fa-undo bigger-110"></i> 重 置
+										</button>
+										<button id="seachBtn" type="button" class="btn btn-purple btn-sm" onclick="AccessChannelInfoHistory.search();">
+											查找<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+										</button>
+			
+									</div>
+								</div>
+							</div>
+						</form>
+                        <#table id="AccessChannelInfoHistoryTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/accessChannelInfoHistory/accessChannelInfoHistory.js"></script>
+<link href="${ctxPath}/static/js/common/assets/css/ace-fonts.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace-rtl.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace-skins.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/css.css" rel="stylesheet">
+<script src="${ctxPath}/static/js/common/assets/ace-extra.min.js"></script>
+<script src="${ctxPath}/static/js/common/assets/ace-elements.min.js"></script>
+<script src="${ctxPath}/static/js/common/my97/WdatePicker.js"></script>
+@}

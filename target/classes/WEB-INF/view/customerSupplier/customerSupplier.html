@@ -1,0 +1,44 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>客户供应商管理管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    	<form id="queryForm" action="#">
+	                        <div class="row">
+	                            <div class="col-sm-4">
+									<#TimeBetweenCon name="时间：" isTime="true" pattern="YYYY-MM-DD hh:mm:ss" 
+										startId="params['startTime']" endId="params['endTime']" />
+								</div>
+	                            <div class="col-sm-4 reset">
+	                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="CustomerSupplier.search()"/>
+	                                &nbsp;&nbsp;
+	                                <#button name="重置" class="button-margin" icon="fa-undo" clickFun="CustomerSupplier.reset()"/>
+	                            </div>
+	                        </div>
+	                        <div class="row">
+	                        	<div class="col-sm-6" style="font-weight:bold;">
+	                        		<br/>
+									<span>充值净差值：</span><span id="charge_diff"></span>
+								</div>
+	                        </div>
+	                        
+                        </form>
+                        
+                        <div class="page-header"><h1><small>客户信息</small></h1></div>
+                        <#table id="CustomerSupplierTable"/>
+                        
+                        <div class="page-header"><h1><small>供应商信息</small></h1></div>
+                        <#table id="cSupplierTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/customerSupplier/customerSupplier.js"></script>
+@}

@@ -1,0 +1,123 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+		<form id="partnerEditForm" action="#" >
+            <input type="hidden" id="partnerId" name="partnerId" value="${partner.partnerId}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="partnerName" name="*伙伴名称" value="${partner.partnerName}" disabled="disabled" />
+                </div>
+                <div class="col-sm-6">
+					<#input id="shorterName" name="*伙伴简称" value="${partner.shorterName}" disabled="disabled" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="loginName" name="*伙伴账号" value="${partner.loginName}" disabled="disabled" />
+                </div>
+                <div class="col-sm-6">
+					<#input id="partnerNo" name="*伙伴编码" value="${partner.partnerNo}" disabled="disabled" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#select id="partnerType" name="*伙伴类型" underline="true" disabled="disabled">
+						<option value="1" 
+						@if(partner.partnerType==1){
+							selected="selected"
+						@}
+						>流量营销</option>
+						<option value="2" 
+						@if(partner.partnerType==2){
+							selected="selected"
+						@}
+						>渠道充值</option>
+					</#select>
+                </div>
+                <div class="col-sm-6">
+					<#input id="address" name=" 伙伴地址" underline="true" value="${partner.address}" disabled="disabled" />
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="realName" name="*伙伴姓名" value="${partner.realName}" />
+                </div>
+                <div class="col-sm-6">
+					<#input id="mobile" name="*手机号码" value="${partner.mobile}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="email" name="*伙伴邮箱" underline="true" value="${partner.email}"/>
+                </div>
+                <div class="col-sm-6">
+					
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="creditAmount" name="*信用额度" disabled="disabled" value="${partner.creditAmount}" />
+                </div>
+                <div class="col-sm-6">
+					<#input id="settlementDiscount" name="*结算折扣(%)" type="number" value="${partner.settlementDiscount}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="balance" name="*账户余额" disabled="disabled" value="${partner.balance}" />
+                </div>
+                <div class="col-sm-6">
+					<#select id="orderBillingType" name="*是否按下发计费" >
+						<option value="0" 
+						@if(partner.orderBillingType==0){
+							selected="selected"
+						@}
+						>否</option>
+						<option value="1" 
+						@if(partner.orderBillingType==1){
+							selected="selected"
+						@}
+						>是</option>
+					</#select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#select id="settlementPattern" name="*结算模式" >
+						<option value="">请选择</option>
+						<option value="1" 
+						@if(partner.settlementPattern==1){
+							selected="selected"
+						@}
+						>按固定折扣</option>
+						<option value="2" 
+						@if(partner.settlementPattern==2){
+							selected="selected"
+						@}
+						>按固定毛利率</option>
+					</#select>
+                </div>
+                <div class="col-sm-6">
+                	<#input id="settlementDiscountRatio" name="计算折扣比率(%)" type="number" value="${partner.settlementDiscountRatio}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="PartnerInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="PartnerInfoDlg.close()"/>
+                </div>
+            </div>
+        </form>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/partner/partner_info.js"></script>
+@}

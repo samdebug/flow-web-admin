@@ -1,0 +1,223 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+
+	@if(!flag){
+	<div class="row" style="text-align:center;color:red;">
+        <p>未查询到客户信息...</p>
+    </div>
+	@}
+
+    <div class="ibox-content">
+        <div class="form-horizontal">
+		<form id="customerViewForm" action="#" >
+            <input type="hidden" id="customerId" name="customerId" value="${customer.customerId!}">
+			
+			<div class="row">
+                <div class="col-sm-6 b-r">
+					<#select id="partnerId" name="*合作伙伴" underline="true" disabled="disabled" >
+						<option value="${customer.partnerInfo.partnerId!}">${customer.partnerInfo.partnerName!}</option>
+					</#select>
+                </div>
+            </div>
+            
+            <div class="page-header"><h1><small>客户基本信息 </small></h1></div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="account" name="*客户账号" disabled="disabled" value="${customer.account!}" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="customerName" name="*客户名称" value="${customer.customerName!}" disabled="disabled" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="companyName" name="*公司名称" value="${customer.companyName!}" disabled="disabled"/>
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="companyMobile" name="*公司电话" value="${customer.companyMobile!}" disabled="disabled"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="customerLinkman" name="*客户联系人" value="${customer.customerLinkman!}" disabled="disabled"/>
+                </div>
+                <div class="col-sm-6 b-r">
+                	<#input id="linkmanQq" name="联系人QQ" value="${customer.linkmanQq!}" disabled="disabled"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="linkmanEmail" name="*联系人邮箱" value="${customer.linkmanEmail!}" disabled="disabled"/>
+                </div>
+                <div class="col-sm-6 b-r">
+					<#select id="isSend" name="发送对账邮件" disabled="disabled">
+						<option value="" >否</option>
+                        <option value="1" 
+                        @if(flag && customer.isSend==1){
+                        	selected="selected" 
+                        @}
+                        >是</option>
+					</#select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="shorterName" name="*客户简称" value="${customer.shorterName!}" disabled="disabled"/>
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="address" name="地址" value="${customer.address!}" disabled="disabled"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="linkmanMobile" name="*客户手机号" underline="true" value="${customer.linkmanMobile!}" disabled="disabled"/>
+                </div>
+                <div class="col-sm-6 b-r">
+					<#select id="balanceLackConfigure" name="余额不足是否收单" underline="true" disabled="disabled">
+						<option value="1" 
+						@if(flag && customer.balanceLackConfigure==1){
+                        	selected="selected" 
+                        @}
+						>收单</option>
+                        <option value="0" 
+                        @if(flag && customer.balanceLackConfigure==0){
+                        	selected="selected" 
+                        @}
+                        >不收单</option>
+					</#select>
+                </div>
+            </div>
+            
+            <div class="page-header"><h1><small>客户账户信息 </small></h1></div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="creditAmount" name="授信额度" value="${customer.creditAmount!}" disabled="disabled" underline="true" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="currentAmount" name="未确认金额(元)" value="${customer.currentAmount!}" disabled="disabled" underline="true"/>
+                </div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-6 b-r">
+					<#input id="balance" name="账户余额(元)" value="${customer.balance!}" disabled="disabled" underline="true"/>
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="availableCredit" name="可用额度(元)" disabled="disabled" underline="true" />
+                </div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-6 b-r">
+					<#input id="accumulatedDeposit" name="累计存款(元)" disabled="disabled" underline="true"/>
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="cumulativeConsumption" name="累计消费(元)" disabled="disabled" underline="true" />
+                </div>
+            </div>
+            
+        </form>
+        </div>
+        
+        <div class="page-header"><h1><small>客户订单信息 </small></h1></div>
+		<div class="container">
+			<div class="row ">
+				<div class="col-sm-12">
+					<#table id="CustomerOrdersTable"/>
+				</div>
+			</div>
+		</div>
+		
+
+    </div>
+</div>
+
+<script src="${ctxPath}/static/modular/customer/customer_info.js"></script>
+<script type="text/javascript">
+
+	var pkId = ${customer.customerId!'null'};
+	var customerOrderUrl = "";	
+	if(!${flag}){
+		Feng.error("未查询到客户信息");
+	} else {
+		customerOrderUrl = "/orderInfo/queryByCustomerId.ajax?customerId=" + ${customer.customerId!};
+	}
+	
+	
+	var CustomerView = {
+		id: "CustomerOrdersTable",	//表格id
+	    seItem: null,		//选中的条目
+	    table: null,
+	    layerIndex: -1	
+	};
+	
+
+	/**
+	 * 初始化表格的列
+	 */
+	 CustomerView.initColumn = function () {
+	    return [
+	        {field: 'selectItem', radio: true},
+	        {title: '订单编号', field: 'orderIdStr', align: 'center', valign: 'middle'},
+	        {title: '客户名称', field: 'customerName', align: 'center', valign: 'middle'},
+	        {title: '合作伙伴', field: 'partnerName', align: 'center', valign: 'middle'},
+	        {title: '合作类型', field: 'partnerTypeDesc', align: 'center', valign: 'middle'},
+	        {title: '订单类型', field: 'orderType', align: 'center', valign: 'middle', formatter : formatOrderType},
+	        {title: '创建时间', field: 'createTime', align: 'center', valign: 'middle'},
+	        {title: '订单状态', field: 'status', align: 'center', valign: 'middle', formatter : formatOrderStatus}
+	    ];
+	};
+
+	function formatOrderType(cellvalue, rowObject, options) {
+	    if (cellvalue == 1) {
+	        return "流量包";
+	    } else if (cellvalue == 2) {
+	        return "流量+产品";
+	    }
+	}
+	
+	function formatOrderStatus(cellvalue, options, rowObject) {
+        if (cellvalue == 1) {
+            return "待生效";
+        } else if (cellvalue == 2) {
+            return "生效";
+        } else if (cellvalue == 3) {
+            return "暂停";
+        }
+    }
+	
+	
+	  //初始化 累计存款/累计消费/未确认金额/可用额度  字段；
+	function init(){
+		var ajax = new $ax(Feng.ctxPath + "/customer/initBalance.ajax", function (data) {
+			if ( data && data.code && data.code != 200 ) {
+				Feng.success(data.message);
+				return;
+			}
+			// 累计存款
+            $("#accumulatedDeposit").val(data.rechargeAmount);
+            // 累计消费：日账单之和+未确认金额
+            $("#cumulativeConsumption").val(data.sumCustomerAmount);
+            //可用额度
+            $("#availableCredit").val(data.availableCredit);
+	    }, function (data) {
+	        Feng.error("初始化信息失败！");
+	    });
+	    ajax.set({'customerId': pkId});
+	    ajax.start();
+	}
+	
+	
+	$(function(){
+		var defaultColunms = CustomerView.initColumn();
+	    var table = new BSTable(CustomerView.id, customerOrderUrl, defaultColunms);
+// 	    table.setPaginationType("client");
+	    CustomerView.table = table.init();
+	    $(".bootstrap-table .fixed-table-toolbar").hide();
+	    
+	    if (${flag}) {
+	    	init();
+	    }
+	    
+	});
+	
+</script>
+@}

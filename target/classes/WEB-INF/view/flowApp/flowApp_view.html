@@ -1,0 +1,207 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+		<form class="form-horizontal" role="form" id="add-form" onsubmit="return false;">
+			<div class="row">
+
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="appId"> 应用ID: </label>
+						<div class="col-sm-7">
+							<p name="appId" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="orderId"> 订单ID号: </label>
+						<div class="col-sm-7">
+							<p name="orderIdStr" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="customerId"> 客户名称: </label>
+						<div class="col-sm-7">
+							<p name="customerInfo.customerName" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="startDate"> 开始日期: </label>
+						<div class="col-sm-7">
+							<p name="startDate" class="form-control-static"></p>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="callbackUrl"> 网关回调URL: </label>
+						<div class="col-sm-7">
+							<p name="callbackUrl" class="form-control-static"></p>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="needSms"> 是否需要支持短信: </label>
+						<div class="col-sm-7">
+							<p name="needSmsDesc" class="form-control-static"></p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="smsChannelId"> 短信通道ID: </label>
+						<div class="col-sm-7">
+							<p name="smsChannelId" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="failNeedSmsDesc"> 失败是否发短信: </label>
+						<div class="col-sm-7">
+							<p name="failNeedSmsDesc" class="form-control-static"></p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="failSmsChannelId"> 失败短信通道ID: </label>
+						<div class="col-sm-7">
+							<p name="failSmsChannelId" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="isResendDesc"> 是否重发: </label>
+						<div class="col-sm-7">
+							<p name="isResendDesc" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group" id="form-group-times">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="resendTimes"> 重发次数
+						</label>
+						<div class="col-sm-7">
+						<p name="resendTimes" class="form-control-static"></p>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="appName"> APP名称: </label>
+						<div class="col-sm-7">
+							<p name="appName" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="appKey"> 应用Key: </label>
+						<div class="col-sm-7">
+							<p name="appKey" class="form-control-static"></p>
+						</div>
+					</div>
+					
+					
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="status"> 状态: </label>
+						<div class="col-sm-7">
+							<p name="statusDesc" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="endDate"> 结束日期: </label>
+						<div class="col-sm-7">
+							<p name="endDate" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="exchangeCbUrl"> 兑换回调URL: </label>
+						<div class="col-sm-7">
+							<p name="exchangeCbUrl" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="ipAddress"> 签权IP地址: </label>
+						<div class="col-sm-7">
+							<p name="ipAddress" class="form-control-static"></p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="dispatchChannel"> 流量下发通道: </label>
+						<div class="col-sm-7">
+							<p name="dispatchChannel" class="form-control-static"></p>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="smsContent"> 短信内容: </label>
+						<div class="col-sm-7">
+							<p name="smsContent" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="failSmsContent"> 失败短信内容: </label>
+						<div class="col-sm-7">
+							<p name="failSmsContent" class="form-control-static"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label no-padding-right text-right"
+							for="dispatchChannelName"> 通道组名称: </label>
+						<div class="col-sm-7">
+							<p name="dispatchChannelName" class="form-control-static"></p>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="clearfix form-actions">
+				<div class="center">
+					<button class="btn" type="button" onclick="parent.layer.close(window.parent.FlowApp.layerIndex)">
+						<i class="ace-icon fa fa-undo bigger-110"></i> 返 回
+					</button>
+				</div>
+			</div>
+		</form>
+		<br/>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var view_url = Feng.ctxPath + '/flowAppInfo/get';
+	var pkId = getP('flowAppId');
+	$(function() {
+		if (pkId) {
+			$.ajaxSubmit(view_url, 
+				{'flowAppId' : pkId}, 
+				function(data) {
+					if ( data && data.code && data.code != 200 ) {
+						Feng.error(data.message ? data.message : "获取数据失败！")
+						return;
+					}
+					$.dataInput($('.form-control-static'), data);
+					if(data.isResend==0){
+						$("#form-group-times").css("display","none");
+					}
+				}
+			);
+		} else {
+			Feng.error('参数错误');
+		}
+		
+	})
+</script>
+@}

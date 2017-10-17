@@ -1,0 +1,39 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>客户日账单</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    	<input type="hidden" id="customerId" name="params['customerId']" value="${custoerId!}"/>
+                    	<form id="queryForm" action="#">
+                        <div class="row">
+							<div class="col-sm-4">
+                                <#TimeBetweenCon name="日期" isTime="false" pattern="YYYY-MM-DD" 
+										startId="params['inputStartTime']" endId="params['inputEndTime']" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="查询" icon="fa-search" clickFun="CustomerBillDay.search()"/>
+                                <#button name="重置" icon="fa-undo" clickFun="CustomerBillDay.reset()"/>
+                            </div>
+                        </div>
+                        </form>
+                        
+                        <div class="hidden-xs" id="CustomerBillDayTableToolbar" role="group">
+                        	<div class="btnWrapper">
+                            	<#button name="" icon="fa fa-share-square-o" clickFun="CustomerBillDay.exportCustomerBillDay()" style="width:98px"/>
+                            	<span class="btnTips">导出</span>
+                            </div>
+                        </div>
+                        <#table id="CustomerBillDayTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/portal/bill/day.js"></script>
+@}

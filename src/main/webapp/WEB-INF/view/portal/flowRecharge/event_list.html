@@ -1,0 +1,169 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row row-lg">
+                	<br/>
+                    <div class="col-sm-12">
+                    	<input type="hidden" id="customerId" name="params['customerId']" value="${custoerId!}"/>
+                    	<form id="queryForm" action="#">
+                        <div class="row">
+                        	<div class="col-sm-3">
+                                <#NameCon name="事件名称" id="params['eventName']" />
+                            </div>
+							<div class="col-sm-4">
+                                <#TimeBetweenCon name="充值日期" isTime="false" pattern="YYYY-MM-DD" 
+										startId="params['createStartTime']" endId="params['createEndTime']" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="查询" icon="fa-search" clickFun="RechargeEvent.search();"/>
+                                <#button name="重置" icon="fa-undo" clickFun="RechargeEvent.reset();"/>
+                            </div>
+                        </div>
+                        </form>
+                        
+                        <div class="hidden-xs" id="RechargeEventTableToolbar" role="group">
+                        	<div class="btnWrapper">
+                            	<#button name="" icon="fa fa-money" clickFun="RechargeEvent.openRechargeBatch();" style="width:98px"/>
+                            	<span class="btnTips">批量 充值</span>
+                            </div>
+                            
+                            <div class="btnWrapper">
+                            	<#button name="" icon="fa fa-remove" clickFun="RechargeEvent.delete();" style="width:98px"/>
+                            	<span class="btnTips">删除</span>
+                            </div>
+                        	
+                        	<div class="btnWrapper">
+                            	<#button name="" icon="fa fa-share-square-o" clickFun="RechargeEvent.export();" style="width:98px"/>
+                            	<span class="btnTips">导出</span>
+                            </div>
+                        </div>
+                        <#table id="RechargeEventTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+var RechargeEvent = {
+	    id: "RechargeEventTable",	//表格id
+	    seItem: null,		//选中的条目
+	    table: null,
+	    layerIndex: -1,
+	    queryData:{}
+	};
+	
+/**
+ * 初始化表格的列
+ */
+ RechargeEvent.initColumn = function () {
+    return [
+        {field: 'selectItem', radio: true},
+        {title: '序列', field: 'fileId', visible: false, align: 'center', valign: 'middle'},
+        {title: '事件名称', field: 'eventName', align: 'center', valign: 'middle'},
+        {title: '充值时间', field: 'createTime', align: 'center', valign: 'middle'},
+        {title: '操作者', field: 'creator', align: 'center', valign: 'middle'}
+    ];
+};
+
+
+RechargeEvent.search = function () {
+    var queryData = this.getQueryData();
+    RechargeEvent.table.refresh({query: queryData});
+};
+
+RechargeEvent.getQueryData=function(){
+	var array = $("#queryForm").serializeArray();
+	if (array && array.length > 0) {
+		$.each(array, function() {
+			RechargeEvent.queryData[this.name] = this.value;
+	    });
+	}
+	return RechargeEvent.queryData;
+}
+
+/**
+ * 清空查询条件
+ */
+ RechargeEvent.reset = function() {
+	document.getElementById("queryForm").reset();
+	RechargeEvent.queryData = {};
+}
+
+ /**
+  * 检查是否选中
+  */
+  RechargeEvent.check = function () {
+     var selected = $('#' + this.id).bootstrapTable('getSelections');
+     if(selected.length == 0){
+         Feng.info("请先选中表格中的某一记录！");
+         return false;
+     }else{
+    	 RechargeEvent.seItem = selected[0];
+         return true;
+     }
+ };
+
+ /**
+  *
+  */
+ RechargeEvent.delete = function() {
+	 if ( !this.check() ) {
+		 return;
+	 }
+	 layer.confirm('确认删除？', function(index){
+		layer.close(index);
+		var ajax = new $ax(Feng.ctxPath + '/fileUploadRecord/delete', function (data) {
+			if ( data && data.code == 200 ) {
+				Feng.success("删除成功!");
+		        RechargeEvent.table.refresh();
+		        return ;
+			}
+	        Feng.error(data && data.message ? data.message : "删除失败!");
+	    }, function (data) {
+	        Feng.error("删除失败!");
+	        console.error(data);
+	    });
+	    ajax.set({'fileId': RechargeEvent.seItem.fileId});
+	    ajax.start();
+	});
+ };
+
+//充值结果导出
+RechargeEvent.export = function() {
+	if ( !this.check() ) {
+		 return;
+	}
+	window.location.href = encodeURI(Feng.ctxPath +"/portalFlowRecharge/exportTopUpResults?fileId=" + RechargeEvent.seItem.fileId);
+ };
+ 
+/**
+ * 批量充值页面
+ */
+RechargeEvent.openRechargeBatch = function(){
+	var index = layer.open({
+        type: 2,
+        title: '批量充值',
+        area: ['880px', '600px'], //宽高
+        fix: false, //不固定
+        maxmin: true,
+        content: Feng.ctxPath + '/portal/flowRecharge_batch'
+	});
+	RechargeEvent.layerIndex = index;
+	layer.full(index);// 全屏
+}
+
+
+$(function() {
+	
+    var table = new BSTable(RechargeEvent.id, "/fileUploadRecord/query", RechargeEvent.initColumn());
+    RechargeEvent.table = table.init();
+	
+});
+
+</script>
+@}

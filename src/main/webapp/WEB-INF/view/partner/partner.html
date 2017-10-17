@@ -1,0 +1,121 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>合作伙伴管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    <form id="queryForm" action="#">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="params['partnerName']" name="合作伙伴名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="params['partnerLevel']" name="合作伙伴等级">
+                                	<option value="">全部</option>
+									<option value="1">普通客户</option>
+									<option value="3">重要客户</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3">
+                                <#SelectCon id="params['status']" name="合作伙伴状态">
+                                	<option value="">全部</option>
+									<option value="0">待提交</option>
+									<option value="1">有效</option>
+									<option value="2">无效</option>
+                                </#SelectCon>
+                            </div>
+                            <div class="col-sm-3 reset">
+                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="Partner.search()"/>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="hidden-xs" id="PartnerTableToolbar" role="group">
+                            @if(shiro.hasPermission("/partner/add")){
+                                <div class="btnWrapper">
+                            		<#button name="" icon="fa fa-plus" clickFun="Partner.openAddPartner()" style="width:98px"/>
+                            		<span class="btnTips">添加</span>
+                            	</div>  
+                            @}
+                            @if(shiro.hasPermission("/partner/update")){
+	                            <div class="btnWrapper">
+	                                <#button name="" icon="fa fa-edit" clickFun="Partner.openPartnerDetail()" style="width:98px"/>
+	                                <span class="btnTips">修改</span>
+	                           	</div>  
+                            @}
+                            @if(shiro.hasPermission("/partner/delete")){
+                            	<div class="btnWrapper">
+	                                <#button name="" icon="fa fa-trash-o" clickFun="Partner.delete()" style="width:98px"/>
+	                                <span class="btnTips">删除</span>
+                                </div>
+                            @}
+                            @if(shiro.hasPermission("/partner/resetPassword")){
+<!--                             	<div class="btnWrapper"> -->
+<!-- 	                                <#button name="" icon="fa fa-refresh" clickFun="Partner.resetPassword()" style="width:98px"/> -->
+<!-- 	                                <span class="btnTips">重置 密码</span> -->
+<!--                                 </div> -->
+                            @}
+                            <div class="btnWrapper">
+	                            <#button name="" icon="fa fa-bolt" clickFun="modifyLevelEvent()" style="width:98px"/>
+	                            <span class="btnTips">修改 等级</span>
+                            </div>
+							<div class="btnWrapper">
+                            	<#button name="" icon="fa fa-flag" clickFun="changeStatus()" style="width:98px"/>
+                            	<span class="btnTips">有效/无效</span>
+                            </div>
+                            <div class="btnWrapper">
+                                <#button name="" icon="fa fa-money" clickFun="Partner.viewTreade()" style="width:98px"/>
+                                <span class="btnTips">账户明细</span>
+                            </div>
+                        </div>
+                        <#table id="PartnerTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="partner-level-dialog" class="modal fade" tabindex="-1"
+	role="dialog" aria-labelledby="partner-level-dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">合作伙伴等级修改</h4>
+			</div>
+			<div class="modal-body">
+				<div class="cadv-customer-credit form-horizontal">
+					<div class="row">
+						<div class="col-sm-2">
+						<input type="hidden" name="partnerId" id="partnerId">
+						</div>
+						<div class="col-sm-8">
+							<div class="form-group">
+								<#SelectCon id="partnerLevel" name="合作伙伴等级">
+							    	<option value="1">普通客户</option>
+							    	<option value="3">重要客户</option>
+                                </#SelectCon>
+							</div>
+						</div>
+						<div class="col-sm-2"></div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
+				<button type="button" class="btn btn-primary"
+					onclick="partnerLevelSubmit();">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="${ctxPath}/static/modular/partner/partner.js"></script>
+@}

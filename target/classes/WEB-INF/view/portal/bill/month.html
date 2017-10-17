@@ -1,0 +1,52 @@
+@layout("/common/_container.html"){
+<style>
+    .settlementRules {
+        margin-top: 20px;
+    }
+    #csol-error {
+        padding: 5px !important;
+        margin-bottom: -5px !important;
+        text-align: center;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>客户月账单</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    	<input type="hidden" id="customerId" name="params['customerId']" value="${customerId!}"/>
+                    	<form id="queryForm" action="#">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#TimeBetweenCon name="月份" isTime="false" pattern="YYYY-MM" 
+										startId="params['startMonth']" endId="params['endMonth']" />
+                            </div>
+                            <div class="col-sm-3">
+                            	&nbsp;&nbsp;
+                                <#button name="查询" icon="fa-search" clickFun="CustomerBillMonth.search()"/>
+                                <#button name="重置" icon="fa-undo" clickFun="CustomerBillMonth.reset()"/>
+                            </div>
+                        </div>
+                        
+                        </form>
+                        
+                        <div class="hidden-xs" id="CustomerBillMonthTableToolbar" role="group">
+                        	<div class="btnWrapper">
+                            	<#button name="" icon="fa fa-share-square-o" clickFun="CustomerBillMonth.export()" style="width:98px"/>
+                            	<span class="btnTips">导出</span>
+                            </div>
+                        </div>
+                        <#table id="CustomerBillMonthTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/portal/bill/month.js"></script>
+@}

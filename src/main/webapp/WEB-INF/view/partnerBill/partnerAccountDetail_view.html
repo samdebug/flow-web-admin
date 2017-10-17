@@ -1,0 +1,227 @@
+@layout("/common/_container.html"){
+
+<style>
+    table tbody tr td {
+        text-align: center !important;
+    }
+</style>
+
+<div class="ibox float-e-margins">
+
+    <div class="ibox-content">
+    	<div class="tabs-container">
+    		<ul class="nav nav-tabs">
+    			<li class="active">
+    				<a data-toggle="tab" href="#tab-1" aria-expanded="true">账户充值</a>
+                </li>
+                <li class="">
+                	<a data-toggle="tab" href="#tab-2" aria-expanded="false">充值记录</a>
+               	</li>
+             </ul>
+             <div class="tab-content">
+             	<div id="tab-1" class="tab-pane active">
+             		<div class="panel-body">
+             			<div class="col-xs-9">
+							<div class="form-group">
+								<label class="col-sm-5 control-label no-padding-right text-right"
+									for="tradeType"><span class='text-danger'>*</span> 操作类型:
+								</label>
+								<div class="col-sm-6">
+									<select name="tradeType" id="tradeType"  
+										class="form-control input-sm" style="height: 35px;">
+										<option value="2">充值</option>
+										<option value="3">授信</option>
+									</select>
+								</div>
+								<br/>
+								<br/>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label no-padding-right text-right"
+									for="tradeAmount"> <span class='text-danger'>*</span> 金额:
+								</label>
+								<div class="col-sm-6">
+									<input type="text" name="tradeAmount" id="tradeAmount" 
+										class="form-control input-sm" />
+								</div>
+								<br/>
+								<br/>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label no-padding-right text-right"
+									for="tradeAmount"> 备注:
+								</label>
+								<div class="col-sm-6">
+									<textarea id="remark" name="remark" placeholder="请输入备注" class="form-control input-sm"></textarea>
+								</div>
+								<br/>
+								<br/>
+							</div>
+							<div class="row btn-group-m-t">
+								<br/>
+								<br/>
+				                <div class="col-sm-11 text-center">
+				                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="pADVRechargeBtnClickHandler()"/>
+				                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="PartnerAccountDetail.close()"/>
+				                </div>
+				            </div>
+             			</div>
+             		</div>
+             	</div>
+             	<div id="tab-2" class="tab-pane">
+             		<div class="panel-body">
+    					<div class="row ">
+							<div class="col-sm-12">
+								<div class="hidden-xs" id="PartnerAccountDetailToolbar" role="group">
+			                    </div>
+								<#table id="PartnerAccountDetailTable"/>
+							</div>
+						</div>
+             		</div>
+             	</div>
+             </div>
+    	</div>
+    </div>
+</div>
+
+<script>
+
+var pkId = ${partnerId!'null'};
+
+
+var PartnerAccountDetail = {
+	id: "PartnerAccountDetailTable",	//表格id
+    seItem: null,		//选中的条目
+    table: null,
+    layerIndex: -1
+};
+
+/**
+ * 初始化表格的列
+ */
+ PartnerAccountDetail.initColumn = function () {
+    return [
+    	{field: 'selectItem', visible: false, radio: true},
+        {title: '日期', field: 'tradeTime', align: 'center', valign: 'middle'},
+        //{title: '账户余额', field: 'balance', align: 'center', valign: 'middle'},
+        //{title: '信用额度', field: 'creditAmount', align: 'center', valign: 'middle'},
+        {title: '操作类型', field: 'tradeType', align: 'center', valign: 'middle', formatter: formatTradeType},
+        {title: '金额', field: 'tradeAmount', align: 'center', valign: 'middle', formatter: formatTradeAmount},
+        {title: '操作者', field: 'loginName', align: 'center', valign: 'middle'},
+        {title: '备注', field: 'remark', align: 'center', valign: 'middle'}
+    ];
+};
+
+
+PartnerAccountDetail.close = function() {
+	parent.layer.close(window.parent.Partner.layerIndex);	
+}
+
+
+function formatTradeAmount(cellvalue, rowObject, options) {
+    if (cellvalue > 0) {
+        return "+" + cellvalue;
+    } else {
+        return cellvalue;
+    }
+}
+
+function formatTradeType(cellvalue, rowObject, options) {
+    if (cellvalue == 1) {
+        return "结算";
+    } else if (cellvalue == 2) {
+        return "充值";
+    } else if (cellvalue == 3) {
+        return "授信";
+    } else if (cellvalue == 4) {
+        return "流量加激活";
+    } else if (cellvalue == 5) {
+        return "流量加作废";
+    }else {
+        return "";
+    }
+}
+
+
+function clearData() {
+	$("#tradeAmount").val("");
+	$("#remark").val("");
+	$("#tradeType").val(2);
+}
+
+
+function pADVRechargeBtnClickHandler() {
+    var rechargeBalance = $("#tradeAmount").val();
+    var rechargeRemark = $("#remark").val();
+    var type = $("#tradeType").val();
+    // 非空验证
+    if (rechargeBalance == "") {
+        Feng.error("请输入操作金额");
+        return;
+    }
+    // 正负的 最多7位整数位，2位小数位
+    var numReg = /^(-|\+)?[0-9]{1,7}(\.\d{1,2})?$/
+    if (!numReg.test(rechargeBalance)) {
+        Feng.error("请输入合法的数字（整数位最多7位，小数位最多2位）");
+        return;
+    }
+    if (type != 2 && type != 3) {
+    	Feng.error("请选择操作类型");
+    	return ;
+    }
+    // 账户充值
+    savePartnerTradeFlow(rechargeBalance, rechargeRemark, type);
+}
+
+
+// 充值/信用额度调整
+function savePartnerTradeFlow(tradeAmount, remark, tradeType) {
+    var partnerTradeFlow = {};
+    partnerTradeFlow.partnerId = pkId;
+    partnerTradeFlow.tradeAmount = tradeAmount;
+    partnerTradeFlow.remark = remark;
+    partnerTradeFlow.tradeType = tradeType;
+    
+    $("#ensure").attr("disabled", "disabled");
+    $.ajax({
+        url : Feng.ctxPath + '/partnerTradeFlow/add.ajax',
+        type : "post",
+        contentType : "application/json; charset=UTF-8",
+        cache : false,
+        dataType : 'json',
+        data: JSON.stringify(partnerTradeFlow),
+        success : function(data, status) {
+        	$("#ensure").removeAttr("disabled");
+            if (data && data.code && data.code == 200) {
+                clearData();
+                Feng.success("操作成功");
+                // 刷新当前列表
+                PartnerAccountDetail.table.refresh();
+                // 刷新账户列表数据
+                window.parent.Partner.table.refresh();
+            } else {
+            	Feng.error(data.message ? data.message : "发生未知错误!");
+            }
+        },
+        error : function(xmlHttp, error, ex){
+        	$("#ensure").removeAttr("disabled");
+        	Feng.error("发生未知错误！");
+        	console.error(error);
+        }
+    });
+}
+
+
+
+
+$(function () {
+	
+    var defaultColunms = PartnerAccountDetail.initColumn();
+    var table = new BSTable(PartnerAccountDetail.id, "/partnerTradeFlow/query.ajax?pkId=" + pkId, defaultColunms);
+    //table.setPaginationType("client");
+    PartnerAccountDetail.table = table.init();
+    
+});
+
+</script>
+@}

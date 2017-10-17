@@ -1,0 +1,325 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+				<form class="form-horizontal" role="form" id="add-form"
+				onsubmit="return false;">
+					<input type="hidden" name="updId" id="updId" value="${info.id}" />
+		           <div class="tabs-container">
+	                    <ul class="nav nav-tabs">
+	                        <li class="active">
+	                        	<a data-toggle="tab" href="#tab-1" aria-expanded="true">基础信息</a>
+	                        </li>
+	                        <li class="" >
+	                        	<a data-toggle="tab" href="#tab-2" aria-expanded="false">接入信息</a>
+	                        </li>
+	                        <li class="">
+	                        	<a data-toggle="tab" href="#tab-3" aria-expanded="false">银行账户信息</a>
+                       		</li>
+	                        <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">联系人信息</a>
+	                        </li>
+	                    </ul>
+	                    <div class="tab-content">
+	                        <div id="tab-1" class="tab-pane active">
+	                        	<div class="panel-body">
+                            		<div class="col-xs-6">
+										<div class="form-group">
+											<label class="col-sm-5 control-label no-padding-right text-right"
+												for="supplierCode"><span class="text-danger">*</span> 供应商编码: </label>
+											<div class="col-sm-6">
+												<input type="text" name="supplierCode" id="supplierCode" value="${info.supplierCode}"
+													class="form-control input-sm" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-5 control-label no-padding-right text-right"
+												for="supplierName"><span class="text-danger">*</span>供应商名称: </label>
+											<div class="col-sm-6">
+												<input type="text" name="supplierName" id="supplierName" value="${info.supplierName}"
+													class="form-control input-sm" />
+											</div>
+										</div>
+									  	 <div class="form-group">
+											<label class="col-sm-5 control-label no-padding-right text-right"
+												for="contractNo">合同编号: </label>
+											<div class="col-sm-6">
+												<input type="text" name="contractNo" id="contractNo" value="${info.contractNo}"
+													class="form-control input-sm" />
+											</div>
+										</div>
+									</div>
+											<div class="col-xs-6">
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="address"> <span class="text-danger">*</span> 是否有效:
+													</label>
+													<div class="col-sm-6">
+														<select name="isValid" id="isValid"
+															class="form-control input-sm" style="height: 35px" >
+															<option value="1" 
+															@if(info.isValid == 1){
+																selected="selected"
+															@}
+															>有效</option>
+															<option value="2"
+															@if(info.isValid == 2){
+																selected="selected"
+															@}
+															>无效</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="adapterId"> <span class="text-danger">*</span> 通道适配器:
+													</label>
+													<div class="col-sm-6">
+													    <select name="adapterId" id="adapterId" style="height:35px"
+															class="form-control input-sm" >
+																<option value="">请选择通道适配器</option>
+																@for(adapter in adapters){
+																<option value = "${adapter.adapterId}"
+																 @if(info.adapterId == adapter.adapterId){
+																	selected="selected"
+																  @}
+																 >${adapter.adapterName}</option>
+																@}
+															</select>
+													</div>
+												</div>
+											</div>
+									   </div>
+	                        		</div>
+	                        		<div id="tab-2" class="tab-pane">
+	                        		    <div class="panel-body">
+		                            		<div class="col-xs-6">
+		                            			<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="account"> 接入帐号: </label>
+													<div class="col-sm-6">
+														<input type="text" name="account" id="account" value="${info.account}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="passwd"> 接入密码: </label>
+													<div class="col-sm-6">
+														<input type="text" name="passwd" id="passwd" value="${info.passwd}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="appKey"> 接入密钥: </label>
+													<div class="col-sm-6">
+														<input type="text" name="appKey" id="appKey" value="${info.appKey}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="makeOrderUrl"> 下单URL: </label>
+													<div class="col-sm-6">
+														<input type="text" name="makeOrderUrl" id="makeOrderUrl" value="${info.makeOrderUrl}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="extUrl"> 查询余额URL: </label>
+													<div class="col-sm-6">
+														<input type="text" name="extUrl" id="extUrl" value="${info.extUrl}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+											</div>
+											<div class="col-xs-6">
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="callBackUrl"> 回调URL: </label>
+													<div class="col-sm-6">
+														<input type="text" name="callBackUrl" id="callBackUrl" value="${info.callBackUrl}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="queryUrl"> 查询URL: </label>
+													<div class="col-sm-6">
+														<input type="text" name="queryUrl" id="queryUrl" value="${info.queryUrl}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="version"> 版本: </label>
+													<div class="col-sm-6">
+														<input type="text" name="version" id="version"  value="${info.version}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="version"> 预留字段1: </label>
+													<div class="col-sm-6">
+														<input type="text" name="eccode" id="eccode"  value="${info.eccode}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="version"> 预留字段2: </label>
+													<div class="col-sm-6">
+														<input type="text" name="activityNo" id="activityNo" value="${info.activityNo}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+		                            		</div>
+		                            	</div>	
+			                        </div>
+				                    <div id="tab-3" class="tab-pane">
+			                            <div class="panel-body">
+			                            		<div class="col-xs-6">
+													<div class="form-group">
+														<label class="col-sm-4 control-label no-padding-right text-right"
+															for="bankName">  银行名称:
+														</label>
+														<div class="col-sm-6">
+															<input type="text" name="bankName" id="bankName"  value="${info.bankName}"
+																class="form-control input-sm" />
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-4 control-label no-padding-right text-right"
+															for="bankAddr">  开户行:
+														</label>
+														<div class="col-sm-6">
+															<input type="text" name="bankAddr" id="bankAddr"   value="${info.bankAddr}"
+																class="form-control input-sm" />
+														</div>
+													</div>
+							
+												</div>
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label class="col-sm-4 control-label no-padding-right text-right"
+															for="bankAccount"> 银行账号:
+														</label>
+														<div class="col-sm-6">
+															<input type="text" name="bankAccount" id="bankAccount" value="${info.bankAccount}"
+																class="form-control input-sm" />
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-4 control-label no-padding-right text-right"
+															for="bankRate">  税率(%):
+														</label>
+														<div class="col-sm-6">
+															<input type="text" name="bankRate" id="bankRate"   value="${info.bankRate}"
+																class="form-control input-sm" />
+														</div>
+													</div>
+												</div>
+			                            </div>
+			                        </div>
+			                        <div id="tab-4" class="tab-pane" >
+			                        	<div class="panel-body">
+			                        		<div class="col-xs-6">
+		                            		   	<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="linkName"> 联系人:
+													</label>
+													<div class="col-sm-6">
+														<input type="text" name="linkName" id="linkName"  value="${info.linkName}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="email">  邮箱:
+													</label>
+													<div class="col-sm-6">
+														<input type="text" name="email" id="email" value="${info.email}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+		                            		</div>
+		                            		<div class="col-xs-6">
+		                            		   	<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="mobile">  电话:
+													</label>
+													<div class="col-sm-6">
+														<input type="text" name="mobile" id="mobile" value="${info.mobile}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-5 control-label no-padding-right text-right"
+														for="address">  地址:
+													</label>
+													<div class="col-sm-6">
+														<input type="text" name="address" id="address"  value="${info.address}"
+															class="form-control input-sm" />
+													</div>
+												</div>
+		                            		</div>
+		                            	</div>	
+			                        </div>
+                     		   </div>
+                    		 </div> 
+					</form>
+            <div class="row btn-group-m-t" align="right">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ChannelSupplierInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ChannelSupplierInfoDlg.close()"/>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelSupplier/channelSupplier_info.js"></script>
+<script>
+$(function(){
+	var add_validator = $('#add-form')
+	.validate(
+			{
+				ignore: "", //不忽略隐藏域
+				rules : {
+					'supplierCode' : {
+						required : true,
+						maxlength : 128,
+						isLetterAndNum:true
+					},
+					'supplierName' : {
+						required : true,
+						maxlength : 128
+					},
+					 'companyId' : {
+							required : true,
+							maxlength : 128
+						},
+					'isValid' : {
+						required : true
+					},
+					'adapterId' : {
+						required : true,
+						maxlength : 20
+					},
+					'mobile':{
+						required : false,
+						number:true,  
+						maxlength : 32
+					},
+					'email':{
+						maxlength : 64,
+						multipleEmailValid : true
+					}
+				},
+				submitHandler : function(form) {
+					return false;
+				}
+			});
+});
+</script>
+@}

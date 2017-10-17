@@ -1,0 +1,39 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+               <h4>系统当前版本为：
+               @if(null != curVersion){
+               	${curVersion.version}
+               @}
+               </h4>
+               @if(flag == true) {
+               <input type="hidden" id="newVersion" value="${newVersion.version}"/>
+               @}
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="hidden-xs" id="UpgradeTableToolbar" role="group">
+                            @if(shiro.hasPermission("/upgrade/changeStatus") && flag == true){
+                            <div class="col-sm-4">
+                            	<#TimeCon name="预定升级时间" id="reserveTime" isTime="true" pattern="YYYY-MM-DD hh:mm" />
+                           	</div>
+                           	<div class="col-sm-4">
+                                 <div class="btnWrapper">
+                            		<#button name="" icon="fa-thumbs-up" clickFun="Upgrade.openChangeStatus()" style="width:98px"/>
+                            		<span class="btnTips">升级</span>
+                            	</div>  
+                             </div>
+                            @}
+                        </div>
+                        <#table id="UpgradeTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/upgrade/upgrade.js"></script>
+@}

@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>上游通道分析管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#SelectCon id="mobileOperator" name="运营商：" >
+										<option value="">全部</option>
+										<option value="YD">移动</option>
+										<option value="DX">电信</option>
+										<option value="LT">联通</option>
+								</#SelectCon>
+                            </div>
+                            <div class="col-sm-3 reset">
+                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="ChannelAnalyse.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="ChannelAnalyseTableToolbar" role="group">
+                            @if(shiro.hasPermission("/channelAnalyse/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="ChannelAnalyse.openAddChannelAnalyse()"/>
+                            @}
+                            @if(shiro.hasPermission("/channelAnalyse/update")){
+                                <#button name="修改" icon="fa-plus" clickFun="ChannelAnalyse.openChannelAnalyseDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/channelAnalyse/delete")){
+                                <#button name="删除" icon="fa-plus" clickFun="ChannelAnalyse.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="ChannelAnalyseTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channelAnalyse/channelAnalyse.js"></script>
+@}

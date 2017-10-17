@@ -1,0 +1,41 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+		<form id="onelinePayForm" action="#">
+            <div class="row">
+            	<div class="col-sm-2 b-r"></div>
+                <div class="col-sm-8 b-r">
+					<#select id="isSend" name="* 请选择充值金额" >
+						<option value="" >请选择待充值金额</option>
+                        <option value="100">100</option>
+                        <option value="100">200</option>
+                        <option value="100">500</option>
+                        <option value="100">1000</option>
+					</#select>
+                </div>
+                <div class="col-sm-2 b-r"></div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-2 b-r"></div>
+                <div class="col-sm-8 b-r">
+					<#input id="customerName" name="* 合作伙伴名称" />
+                </div>
+                <div class="col-sm-2 b-r"></div>
+            </div>
+
+            <div class="row btn-group-m-t">
+            	<div class="col-sm-2 b-r"></div>
+                <div class="col-sm-8 b-r">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="PartnerBillInfoDlg.toOnlinPay()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="PartnerBillInfoDlg.close()"/>
+                </div>
+                <div class="col-sm-2 b-r"></div>
+            </div>
+        </form>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/partnerBill/partnerBill_info.js"></script>
+@}

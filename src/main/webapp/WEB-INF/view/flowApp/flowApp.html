@@ -1,0 +1,72 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>App接入</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    <form id="queryForm" action="#">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="params['appId']" name="应用ID"  />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="params['orderId']" name="订单ID"  />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="params['appName']" name="APP名称"  />
+                            </div>
+                            <div class="col-sm-3">
+                                <#NameCon id="params['customerName']" name="客户名称"  />
+                            </div>
+                            <div class="col-sm-3 reset">
+                                <#button name="重置" icon="fa-undo" class="pull-right" space="true" clickFun="FlowApp.reset()"/>
+                                <#button name="查询" icon="fa-search" class="pull-right" space="true" clickFun="FlowApp.search()"/>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="hidden-xs" id="FlowAppTableToolbar" role="group">
+                            @if(shiro.hasPermission("/flowAppInfo/add")){
+                            <div class="btnWrapper">
+                                <#button name="" icon="fa-plus" clickFun="FlowApp.openAddFlowApp()" style="width:98px"/>
+                                <span class="btnTips">添加</span>
+                            </div>
+                            @}
+                            @if(shiro.hasPermission("/flowAppInfo/edit")){
+                            <div class="btnWrapper">
+                                <#button name="" icon="fa-edit" clickFun="FlowApp.openEditFlowApp()" style="width:98px"/>
+                                <span class="btnTips">修改</span>
+                            </div>
+                            @}
+                            @if(shiro.hasPermission("/flowAppInfo/delete")){
+                            <div class="btnWrapper">
+                                <#button name="" icon="fa-trash-o" clickFun="FlowApp.delete()" style="width:98px"/>
+                                <span class="btnTips">删除</span>
+                            </div>
+                            @}
+                            
+                            <div class="btnWrapper">
+	                            <#button name="" icon="fa fa-flag" clickFun="FlowApp.changeEvent()" style="width:98px"/>
+	                            <span class="btnTips">有效 无效</span>
+                            </div>
+                            
+                            <div class="btnWrapper">
+	                            <#button name="" icon="fa-download" clickFun="FlowApp.exportFlowApp()" style="width:98px"/>
+	                            <span class="btnTips">导出</span>
+                            </div>
+                            
+                        </div>
+                        <#table id="FlowAppTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="${ctxPath}/static/modular/flowApp/flowApp.js"></script>
+@}

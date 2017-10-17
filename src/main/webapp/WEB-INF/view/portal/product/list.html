@@ -1,0 +1,27 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>客户产品配置管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    	<form id="queryForm" action="#">
+                        <div class="row">
+                             <input type="hidden" id="customerId" name="params['customerId']" class="form-control search-query" value="${customerId!}"/>
+                        </div>
+                        </form>
+                        <div class="hidden-xs" id="OrderInfoTableToolbar" role="group">
+                            
+                        </div>
+                        <#table id="CustomeProductTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/portal/product/customerProduct.js"></script>
+@}

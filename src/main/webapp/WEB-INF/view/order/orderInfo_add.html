@@ -1,0 +1,488 @@
+@layout("/common/_container.html"){
+<link rel="stylesheet" href="${ctxPath}/static/js/common/my97/skin/WdatePicker.css" />
+<style>
+    table tr th, table tr td {
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+    /*fix bug 新增订单时，按照产品名称排序*/
+/*     .product-table tr th { */
+/*         color: white !important; */
+/*         background-color: #32a3ce; */
+/*     } */
+    .radio {
+        padding-left: 0 !important;
+    }
+    .product-list-title {
+        background-color: #0066FF;
+        text-align: center;
+        color: white;
+    }
+    .col-sm-3 label, .col-sm-9 label {
+        vertical-align: middle;
+        vertical-align: -webkit-baseline-middle;
+        vertical-align: -moz-middle-with-baseline;
+    }
+    #prod-detail-dialog .form-horizontal {
+        padding: 10px 20px;
+    }
+    .prod-detail-title {
+        font-size: medium;
+        font-weight: bold;
+    }
+    #partner-prod-dialog table tr th:first-child {
+        width: 25%;
+        max-width: 25%;
+    }
+    #product-order-table, #product-combo-order-table {
+         width: 100% !important;
+         max-width: 100% !important;
+    }
+    #prod-directcharge-table {
+         width: 100% !important;
+         max-width: 100% !important;
+    }
+    .flow-plus-picker {
+        width: 40%;
+        float: left;
+    }
+    #poia-flow-type {
+        float: left;
+        cursor: text;
+    }
+    #poia-prod-origin, #poia-prod-final {
+        width: 200px;
+        float: left;
+    }
+    #poia-prod-origin select, #poia-prod-final select {
+        width: 100%;
+        height: 230px;
+    }
+    #poia-btn-group {
+        width: 120px;
+        float: left;
+        margin-top: 30px;
+    }
+    #poia-btn-group .btn-info {
+        display: block;
+        margin: 10px auto;
+        width: 80px;
+        padding: 0;
+    }
+    #pdOperatorCode {
+        margin-left: 15px;
+    }
+    .flow-plus-show, 
+    .flowPlusAndBillTypeIssued,
+    .directChargeDisplay,
+    .flowplus-tbl-container {
+        display: none;
+    }
+    .model-error-msg {
+        padding-right: 180px;
+        color: red;
+        display: none;
+    }
+    .batch-tips-word {
+        font-weight: bold;
+        font-size: 15px;
+    }
+    #batch-error-span, #sale-error-span {
+        padding-right: 100px;
+    }
+    #batch-setprice-title, #batch-saleprice-title {
+        color: blue;
+	    font-size: 20px;
+	    font-weight: bold;
+    }
+.many-selected {
+	background-color: burlywood;
+}
+</style>
+
+<div class="page-content">
+	<!-- 新增活动按钮 -->
+	<div class="table-responsive">
+		<div class="page-header">
+			<h1>订单 <small> <i class="ace-icon fa fa-angle-double-right"></i> 新增/修改</small></h1>
+		</div>
+		<form class="form-horizontal" role="form" id="add-form" onsubmit="return false;" style="overflow-x: hidden;">
+			<input type="hidden" name="orderId" id="orderId" /> <input
+				type="hidden" name="updId" id="updId" />
+			<input type="hidden" name="orderType" id="orderType" />
+			<div class="row">
+				<div class="col-xs-12">
+                       <div class="form-group">
+                           <label class="col-sm-2 control-label no-padding-right text-right"> 订单编号： </label>
+                           <div class="col-sm-3">
+                               <label id="orderNumberLbl" name="orderIdStr" class="form-rollback"></label>
+                           </div>
+                           <label class="col-sm-3 control-label no-padding-right text-right"> 订单状态： </label>
+                           <div class="col-sm-3">
+                               <label name="status" class="form-rollback">待生效</label>
+                           </div>
+                       </div>
+					<div class="form-group">
+						<label for="customer-select" class="col-sm-2 control-label no-padding-right text-right"><span class="red">*</span> 客户名称： </label>
+						<div class="col-sm-3">
+                               <input type="hidden" id="customer-select" name="customerId" class="form-rollback" data-placeholder="请选择客户名称"/>
+						</div>
+						<label class="col-sm-3 control-label no-padding-right text-right flowPlusAndBillTypeIssued"><span class="red">*</span> 计费方式： </label>
+                           <div class="col-sm-3 flowPlusAndBillTypeIssued">
+                               <select id="billing-type-select" class="form-rollback not-update">
+                                   <option value="">请选择计费方式</option>
+                                   <option value="1">激活计费</option>
+                                   <option value="2" selected="selected">下发计费</option>
+                               </select>
+                               <input type="hidden" name="billingType" id="billingType"/>
+                           </div>
+					</div>
+					<div class="form-group radioGroupDisplay">
+						<label class="col-sm-2 control-label no-padding-right text-right"><span class="red">*</span> 产品类型：
+						</label>
+						<div class="col-sm-3">
+							<div class="radio flowPackageDiaplay">
+                                <label>
+                                    <input name="product-type-radio" value="1" type="radio" class="ace" checked>
+                                    <span class="lbl"> 基础流量包</span>
+                                </label>
+                            </div>
+                            <!-- <div class="radio flowPackageDiaplay comboRadio">
+                                <label>
+                                    <input name="product-type-radio" value="2" type="radio" class="ace">
+                                    <span class="lbl"> 组合流量包</span>
+                                </label>
+                            </div>
+                            <div class="radio flowPackageDiaplay telFareDiaplay">
+                                <label>
+                                    <input name="product-type-radio" value="4" type="radio" class="ace">
+                                    <span class="lbl"> 话费</span>
+                                </label>
+                            </div>
+                            <div class="radio flowPlusDiaplay">
+                                <label>
+                                    <input name="product-type-radio" value="3" type="radio" class="ace">
+                                    <span class="lbl"> 流量+产品</span>
+                                </label>
+                            </div> -->
+						</div>
+					</div>
+					<div class="form-group">
+					  <label class="col-sm-2 control-label"></label>
+					  <div class="col-sm-9 product-list-title">产品列表</div>
+                       </div>
+					<div class="form-group">
+					  <label class="col-sm-2 control-label no-padding-right text-right">
+                         </label>
+                         <div class="col-sm-3">
+                           <a href="#" id="choose-product" class="btn btn-primary btn-sm">添加产品</a>
+                         </div>
+                         <div class="col-sm-6 text-right flowPackageDiaplay">
+                           <button class="btn btn-danger btn-sm" type="button" id="batch-set-price" >结算价格批量定价</button>
+                           <!-- <button class="btn btn-success btn-sm" type="button" id="batch-sale-price" >销售价格批量定价</button> -->
+                           <!-- <button class="btn btn-success btn-sm" type="button" id="batch-quarz-price" >批量设置定时时间</button> -->
+                         </div>
+                         <!-- 结算价格批量定价模态框 -->
+                         <div id="batch-setprice-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="batch-setprice-title">
+	                    <div class="modal-dialog">
+	                        <div class="modal-content">
+	                            <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                           <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       <h4 class="modal-title center" id="batch-setprice-title">结算价格批量定价</h4>
+                                   </div>
+	                            <div class="modal-body">
+	                                <div class="bootbox-body center batch-tips-word">按照产品定价的&nbsp;&nbsp;&nbsp;
+	                                  <input class="numberNoPointFormat" id="price-discount" style="width: 50px;" maxLength="8"/>%&nbsp;&nbsp;&nbsp;批量设置结算价格
+	                                </div>
+	                            </div>
+	                            <div class="modal-footer">
+	                                <span id="batch-error-span" class="model-error-msg"></span>
+	                                <button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
+	                                <button id="batch-setprice-btn" type="button" class="btn btn-primary">提交</button>
+	                            </div>
+	                        </div>
+	                    </div>
+	                  </div>
+	                  <!-- 销售价格批量定价模态框 -->
+                         <div id="batch-saleprice-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="batch-saleprice-title">
+                           <div class="modal-dialog">
+                               <div class="modal-content">
+                                   <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                           <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       <h4 class="modal-title center" id="batch-saleprice-title">销售价格批量定价</h4>
+                                   </div>
+                                   <div class="modal-body">
+                                       <div class="bootbox-body center batch-tips-word">按照产品定价的&nbsp;&nbsp;&nbsp;
+                                         <input class="numberNoPointFormat" id="sale-price-discount" style="width: 50px;" maxLength="8"/>%&nbsp;&nbsp;&nbsp;批量设置销售价格
+                                       </div>
+                                   </div>
+                                   <div class="modal-footer">
+                                       <span id="sale-error-span" class="model-error-msg"></span>
+                                       <button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
+                                       <button id="batch-saleprice-btn" type="button" class="btn btn-primary">提交</button>
+                                   </div>
+                               </div>
+                           </div>
+                         </div>
+                         
+                         
+                         
+                           <!-- 批量设置定时生效-->
+                         <div id="batch-quarz-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="batch-quarz-title">
+                           <div class="modal-dialog">
+                               <div class="modal-content">
+                                   <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                           <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       <h4 class="modal-title center" id="batch-quarz-title">批量设置定时生效时间</h4>
+                                   </div>
+                                   <div class="modal-body">
+                                       <div class="bootbox-body center batch-tips-word">设置时间&nbsp;&nbsp;&nbsp;
+                                         <input  onFocus="WdatePicker({startDate: '%y-%M',dateFmt:'yyyy-MM-dd HH:mm',minDate:'%y-%M-%d  %H:{%m+1}',maxDate:'%y-%M-{%d+2}  %H:%m'})" id="quarz-set-time" style="width: 150px;" maxLength="8"/>
+                                         <span style="font-size: 10">*需大于当前时间一分钟以上</span>
+                                       </div>
+                                   </div>
+                                   <div class="modal-footer">
+                                       <span id="sale-error-span" class="model-error-msg"></span>
+                                       <button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
+                                       <button id="batch-quarz-btn" type="button" class="btn btn-primary">提交</button>
+                                   </div>
+                               </div>
+                           </div>
+                         </div>
+                         
+                         <!-- 流量产品模态对话框 -->
+                         <div class="modal fade" id="partner-prod-dialog" tabindex="-1" role="dialog" aria-labelledby="partner-prod-title">
+                             <div class="modal-dialog" style="width:700px;">
+                                 <div class="modal-content">
+                                     <div class="modal-header">
+                                         <button type="button" class="close" data-dismiss="modal"
+                                             aria-label="Close">
+                                             <span aria-hidden="true">&times;</span>
+                                         </button>
+                                         <h4 class="modal-title" id="partner-prod-title">选择产品</h4>
+                                     </div>
+                                     <div class="modal-body" style="position: relative;padding: 20px;">
+                                     	 <div style="width: 477px;margin-left:129px;display:none" id="searchInput">
+										<input type="hidden" value="" id="operatorCode" />
+										<input type="text" id="text" name="text" style="width:200px;height:25px">
+								  	 </div>
+                                        <div id="poia-flow-type" class="btn btn-info"></div>
+	                                 <div id="poia-prod-origin">
+	                                    <select id="dltSource" name="dltSource" size="10" multiple="multiple"></select>
+	                                 </div>
+	                                 <div id="poia-btn-group">
+	                                    <input type="button" value="全部 &gt;&gt;" class="btn btn-info" onclick="AddAll($('#dltSource'),$('#dltTarget'))" />
+	                                    <input type="button" value="&gt;&gt;" id="toRight" class="btn btn-info" />
+	                                    <input type="button" value="&lt;&lt;" id="toLeft" class="btn btn-info" />
+	                                    <input type="button" value="&lt;&lt; 全部" class="btn btn-info" onclick="AddAll($('#dltTarget'),$('#dltSource'))" />
+	                                 </div>
+	                                 <div id="poia-prod-final">
+	                                    <select id="dltTarget" name="dltTarget" size="10" multiple="multiple"></select>
+	                                 </div>
+                                     </div>
+                                     <div class="modal-footer" style="padding-top: 208px;margin-top: 15px">
+                                         <span id="product-error-span" class="model-error-msg">请选择产品</span>
+                                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                         <button type="button" class="btn btn-primary" onclick="prodAddBtnClickHandler();">添加</button>
+                                     </div>
+                                 </div><!-- /.modal-content -->
+                             </div><!-- /.modal-dialog -->
+                         </div><!-- /.modal -->
+                       </div>
+                       <div class="form-group flowPackageDiaplay">
+                           <label class="col-sm-2 control-label no-padding-right text-right"> 基础流量包：</label>
+                           <div class="col-sm-9">
+                            <table id="product-order-table" class="table table-striped table-bordered table-hover">
+	                             <thead>
+	                                 <tr>
+	                                     <th><label><input type='checkbox' class='ace allSelect'><span class='lbl'>全选/反选</span></label></th>
+	                                     <th>产品名称</th>
+	                                     <th>适用运营商</th>
+	                                     <th>适用区域</th>
+	                                     <th>产品定价(元)</th>
+	                                     <th>结算价格(元)</th>
+	                                     <th>折扣(%)</th>
+	                                     <!-- <th>定时生效</th>
+	                                     <th>结算价格（定时后）</th> -->
+	                                     <!-- <th>销售价格（定时后）</th> -->
+	                                     <th>操作</th>
+	                                 </tr>
+	                             </thead>
+	                             <tbody id="product-order-tbody"></tbody>
+	                         </table>
+                         </div>
+                       </div>
+                       <!-- <div class="form-group flowPackageDiaplay combo-package">
+                           <label class="col-sm-2 control-label no-padding-right text-right"> 组合流量包：</label>
+                           <div class="col-sm-9">
+                            <table id="product-combo-order-table" class="table table-striped table-bordered table-hover">
+	                             <thead>
+	                                 <tr>
+	                                     <th><label><input type='checkbox' class='ace allSelect'><span class='lbl'>全选/反选</span></label></th>
+	                                     <th>产品名称</th>
+	                                     <th>适用运营商</th>
+                                            <th>适用区域</th>
+	                                     <th>产品定价(元)</th>
+	                                     <th>结算价格(元)</th>
+	                                     <th>销售价格(元)</th>
+	                                     <th>操作</th>
+	                                 </tr>
+	                             </thead>
+	                             <tbody id="product-combo-order-tbody"></tbody>
+	                         </table>
+                         </div>
+                       </div> -->
+                        <!-- <div class="form-group telFareDiaplay">
+                           <label class="col-sm-2 control-label no-padding-right text-right"> 话费：</label>
+                           <div class="col-sm-9">
+                            <table id="product-telfare-order-table" class="table table-striped table-bordered table-hover">
+	                             <thead>
+	                                 <tr>
+	                                     <th><label><input type='checkbox' class='ace allSelect'><span class='lbl'>全选/反选</span></label></th>
+	                                     <th>产品名称</th>
+	                                     <th>适用运营商</th>
+                                            <th>适用区域</th>
+	                                     <th>产品定价(元)</th>
+	                                     <th>结算价格(元)</th>
+	                                     <th>销售价格(元)</th>
+	                                     <th>操作</th>
+	                                 </tr>
+	                             </thead>
+	                             <tbody id="product-telfare-order-tbody"></tbody>
+	                         </table>
+                         </div>
+                       </div> -->
+                       <!-- <div class="form-group flowPlusDiaplay">
+                           <label class="col-sm-2 control-label no-padding-right text-right"> 流量加：</label>
+                           <div class="col-sm-9">
+                            <table id="product-plus-order-table" class="table table-striped table-bordered table-hover">
+	                             <thead>
+	                                 <tr>
+	                                     <th>产品名称</th>
+	                                     <th>适用运营商</th>
+                                            <th>适用区域</th>
+	                                     <th class="flow-plus-show">订购数量</th>
+	                                     <th>产品定价(元)</th>
+	                                     <th>结算价格(元)</th>
+	                                     <th>操作</th>
+	                                 </tr>
+	                             </thead>
+	                             <tbody id="product-plus-order-tbody"></tbody>
+	                         </table>
+                         </div>
+                       </div> -->
+                       <div class="flowplus-tbl-container">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right text-right"></label>
+                            <label class="col-sm-2" style="width: 160px;" for="delivery-date-picker">期望交货日期：</label>
+                            <div class="col-sm-6">
+                                   <div class="input-group flow-plus-picker">
+                                       <input name="deliveryTime" autocomplete="off" onFocus="WdatePicker({startDate: '%y-%M-%d 23:59:59',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+                                           class="form-control form-rollback" id="delivery-date-picker">
+                                       <span class="input-group-addon">
+                                           <i class="fa fa-calendar bigger-110"></i>
+                                       </span>
+                                   </div>
+	                         </div>
+                        </div>
+                       </div>
+                       <!-- 模态对话框 -->
+                       <div class="modal fade" id="prod-detail-dialog" tabindex="-1" role="dialog" aria-labelledby="prod-detail-title">
+                           <div class="modal-dialog" style="width:700px;">
+                               <div class="modal-content">
+                                   <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal"
+                                           aria-label="Close">
+                                           <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       <h4 class="modal-title" id="prod-detail-title">产品详情</h4>
+                                   </div>
+                                   <div class="modal-body">
+                                       <div class="form-horizontal">
+		                                <div class="row">
+		                                    <div class="col-xs-6">
+		                                        <div class="form-group">
+		                                            <label class="col-sm-3 control-label no-padding-right text-right"> 产品名称： </label>
+		                                            <div class="col-sm-9"><label id="pdProdName"></label>
+		                                            </div>
+		                                        </div>
+		                                        <div class="form-group">
+		                                            <label class="col-sm-3 control-label no-padding-right text-right"> 产品代码： </label>
+		                                            <div class="col-sm-9"><label id="pdProdCode"></label>
+		                                            </div>
+		                                        </div>
+		                                        <div class="form-group">
+		                                            <label class="col-sm-3 control-label no-padding-right text-right"> 产品类别： </label>
+		                                            <div class="col-sm-9"><label id="pdProdType"></label>
+		                                            </div>
+		                                        </div>
+		                                        <div class="form-group">
+		                                            <label class="col-sm-3 control-label no-padding-right text-right"> 产品定价： </label>
+		                                            <div class="col-sm-9"><label id="pdProdPrice"></label>
+		                                            </div>
+		                                        </div>
+		                                        <div class="form-group">
+		                                            <label class="col-sm-3 control-label no-padding-right text-right"> 合计金额： </label>
+		                                            <div class="col-sm-9"><label id="pdProdTotalPrice"></label>
+		                                            </div>
+		                                        </div>
+		                                        <div class="form-group">
+		                                            <label class="col-sm-3 control-label no-padding-right text-right"> 产品说明： </label>
+		                                            <div class="col-sm-9"><label id="pdProdDescription"></label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <div class="col-xs-6">
+		                                        <div class="form-group">
+		                                            <label class="col-sm-3 control-label no-padding-right text-right"> 流量大小： </label>
+		                                            <div class="col-sm-9"><label id="pdFlowAmount"></label>
+		                                            </div>
+		                                        </div>
+		                                        <div class="form-group">
+		                                            <label class="col-sm-3 control-label no-padding-right text-right"> 适用运营商： </label>
+		                                            <div class="col-sm-9"><label id="pdOperatorCode"></label>
+		                                            </div>
+		                                        </div>
+		                                        <div class="form-group">
+		                                            <label class="col-sm-3 control-label no-padding-right text-right"> 适用区域： </label>
+		                                            <div class="col-sm-9"><label id="pdZone"></label>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+                                   </div>
+                                   <div class="modal-footer">
+                                       <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                 </div>
+               </div>
+
+			<br/>
+			<div class="clearfix form-actions">
+				<div class="center" style="text-align: center;">
+					<button class="btn btn-info" type="button" id="submitButton" permCheck="auth_order_manager_list,add,hidden">
+						<i class="ace-icon fa fa-check bigger-110"></i> 保 存
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn poia-back-btn" type="button">
+						<i class="ace-icon fa fa-arrow-left"></i> 返 回
+					</button>
+				</div>
+			</div>
+		</form>
+		<br/>
+	</div>
+</div>
+<script src="${ctxPath}/static/js/common/my97/WdatePicker.js"></script>
+<script src="${ctxPath}/static/modular/order/orderInfo_add.js?20160821"></script>
+@}

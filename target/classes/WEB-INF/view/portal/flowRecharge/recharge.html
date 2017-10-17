@@ -1,0 +1,340 @@
+@layout("/common/_container.html"){
+<style>
+	#flowPackage{
+		margin:0 !important;
+		padding-left: 0px;
+	}
+	#flowPackage li{
+		list-style:none; float:left;width:90px;height:30px;line-height:30px;margin-right:20px;margin-bottom:15px;
+	  	text-align:center; background-image: url("${ctxPath}/static/img/u191.png");background-repeat:no-repeat;
+	}
+	#flowPackage li:hover{
+		cursor: pointer;
+		background-image: none;
+		border: 1px solid rgb(46, 169, 103);
+		border-radius: 4px;
+	}
+	#u46{
+	    padding-top: 7px;
+	}
+	#opr_img{
+		float:left;width:30px;height:30px;
+	}
+	#oper{
+		float:left;width:80px;height:30px;line-height: 30px;
+	}
+ 	.customer_btn { 
+ 	}
+ 	.customer_btn:hover { 
+ 		background-color: rgb(46, 169, 103) !important; 
+ 	} 
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div id="content-box" class="ibox float-e-margins">
+			<div class="form-horizontal">
+				<br/>
+				<div class="row">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-2 control-label text-right">充值号码</label>
+							<div class="col-sm-2">
+								<input class="form-control" id="userMobile" name="userMobile" maxlength="11" />
+							</div>
+							<div class="col-sm-8">
+								<p id="opr_img"><img alt="" width="30px" id="img" height="30px" src=""></p>
+								<p id="oper"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-2 control-label text-right">地区</label>
+							<div class="col-sm-2">
+								<select id="zone" name="zone" class="form-control">
+									<option value="00">全国</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-2 control-label text-right">流量大小</label>
+							<div class="col-sm-6">
+							<br/>
+								<ul id="flowPackage">
+						        	<li><span>5M</span></li>
+						        	<li><span>10</span>M</li>
+						        	<li><span>30</span>M</li>
+						        	<li><span>50</span>M</li>
+						        	<li><span>100</span>M</li>
+						        	<li><span>200</span>M</li>
+						        	<li><span>500</span>M</li>
+						        	<li><span>1024</span>M</li>
+						        </ul>
+							</div>
+							<input type="hidden" id="packageId"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-2 control-label text-right">结算价</label>
+							<div class="col-sm-2">
+								<label class="control-label"><span id="price" style="color: red; font-weight:bold;">8</span> 元</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 b-r">
+						<div class="form-group">
+							<label class="col-sm-2 control-label text-right">说明</label>
+							<div class="col-sm-8">
+								<div id="u46" class="text">
+						          	<div id="YD" style="display:none">
+						          		<p>1、生效时间：充值成功即时生效，不支持冲正。<p>
+						          		<p>2、使用范围：支持全国漫游。</p>
+										<p>3、使用有效期：当月有效。</p>
+										<p>4、充值次数限制：移动单个号码每月充值30次。</p>
+										<p>5、温馨提醒：用户处于欠费停机等异常状态均不能充值。</p>
+						          	</div>
+						          	<div id="DX" style="display:none">
+						          		<p>1、生效时间：充值成功即时生效。</p>
+										<p>2、使用范围：支持全国漫游。</p>
+										<p>3、使用有效期：当月有效。</p>
+										<p>4、充值次数限制：单个号码同面值限充值5次，不同面值限充值15次。</p>
+										<p>5、温馨提醒：天翼无线宽带套餐及时长计费用户、处于欠费停机等异常状态均不能充值。</p>
+						          	</div>
+						          	<div id="LT" style="display:none">
+						          		<p>1、生效时间：充值成功即时生效。</p>
+										<p>2、使用范围：支持全国漫游。</p>
+										<p>3、使用有效期：当月有效。</p>
+										<p>4、充值次数限制：单个号码限充值3次。</p>
+										<p>5、温馨提醒：纯2G用户及未实名认证用户、用户处于欠费停机等异常状态均不能充值。</p>
+						          	</div>
+						        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-4 b-r text-right">
+						<button id="btn" type="button" class="btn btn-info customer_btn">
+						    <i class="fa fa-check"></i>&nbsp;充 值
+						</button>
+					</div>
+				</div>
+				
+			</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+/**
+ * //加载验证登录用户是否有流量充值的订单
+ */
+function checkFlowOrder(){
+	var ajax = new $ax(Feng.ctxPath + "/portalFlowRecharge/checkFlowOrderInfoByCustomerId", function(data){
+		if ( data && data.code && data.code == 200 ) {
+			return;
+		}
+ 		$("#content-box").html("<br/><br/><div style=\"width:200px;height:50px;text-align:center;line-height:30px;margin:0 auto;font-weight:bold;\">"+ (data && data.message ? data.message : "初始化数据错误" )+"</div><br/><br/>");
+    },function(data){
+    	Feng.error("发生未知错误!");
+    	console.error(data);
+    });
+    ajax.start();
+}
+
+var _selectArea = null;
+/**
+ * 重置区域列表
+ */
+function resetAreaInfo(data) {
+	var _html = "<option value=\"00\">全国</option>";
+	if ( data && data.areaCode && data.areaName && data.areaName != '' && data.areaCode != '' ) {
+		_html += "<option value=\"" + data.areaCode + "\" {selected}>" + data.areaName + "</option>";
+		_html = _html.replace("{selected}", _selectArea == data.areaCode ? "selected='selected'" : "");
+	}
+	$("#zone").html(_html);
+}
+
+/**
+ * 获取流量包
+ */
+function getFlowPackageByUserMobile(userMobile, code){
+	var ajax = new $ax(Feng.ctxPath + "/portalFlowRecharge/getFlowPackageInfo", function(data){
+		$("#flowPackage").html("");
+		if ( data && data.code && data.code != 200 ) {
+			Feng.error(data && data.message ? data.message : "获取数据失败");
+			$("#flowPackage").html("");
+ 			$("#price").html("0");
+ 			$("#u46").hide();
+			return;
+		}
+		$("#u46").show();
+		resetAreaInfo(data);
+		doSuccess(data.data);
+    },function(data){
+    	Feng.error("发生未知错误!");
+    	console.error(data);
+    });
+    ajax.set( {"userMobile": userMobile, "code": code, "isCombo": 0});
+    ajax.start();
+}
+
+var _oprs = ["LT", "YD", "DX"];
+function showOperator(mobile) {
+	if (!MobileRegExp.test(mobile)){
+		Feng.error("请输入一个正确的手机号码");
+		return false;
+	}
+	var temp = null;
+	var tempName = null;
+	for (var _o = 0; _o < 3; _o++) {
+		if ( MobileRegExp.regs[_oprs[_o]].reg.test(mobile) ) {
+			tempName = MobileRegExp.regs[_oprs[_o]].name;
+			temp = _o;
+			$("#" + _oprs[_o]).show();
+		} else {
+			$("#" + _oprs[_o]).hide();
+		}
+	}
+	
+	$("#img").attr("src","${ctxPath}/static/img/ico" + (Number(temp)+1) + ".png");
+	$("#oper").html("&nbsp;&nbsp;中国" + tempName);
+	return true;
+}
+
+function doSuccess(val){
+	if ( !val || val.length < 1 ) {
+		Fing.info("暂无充值数据");
+		return;
+	}
+	var packageStr = "";
+	var currentId, currentPricse, price;
+	$.each(val,function(row){ 
+		var packageInfo = val[row];
+		if(row==0){
+			packageStr+="<li id=\"li_1\" style=\"background-image:url('${ctxPath}/static/img/u19.png')\" onclick='showPrice(\""+packageInfo.saleprice+"\","+packageInfo.realprice+",this,\""+packageInfo.flowPackageId+"\")'><span>"+packageInfo.flowamount+"M</span></li>";
+			currentId = packageInfo.flowPackageId;
+			currentPrice =packageInfo.saleprice;
+			price = packageInfo.realprice;
+			$("#packageId").val(currentId);
+			//$("#salePrice").html(currentPrice);
+			$("#price").html(price);
+		}else{
+			packageStr+="<li onclick='showPrice(\""+packageInfo.saleprice+"\","+packageInfo.realprice+",this,\""+packageInfo.flowPackageId+"\")'><span>"+packageInfo.flowamount+"M</span></li>";
+		}
+	});
+	$("#flowPackage").html(packageStr);
+}
+
+function showPrice(saleprice, realprice, obj, packageId){
+// 	$("#salePrice").html(saleprice);
+	$("#price").html(realprice);
+	$("#packageId").val(packageId);
+	$("#flowPackage > li").css("background-image","url('${ctxPath}/static/img/u191.png')");
+	//obj.style.backgroundImage="url('${ctxPath}/static/img/u19.png')";
+	$(obj).css("background-image", "url('${ctxPath}/static/img/u19.png')");
+}
+
+/**
+ * 充值 
+ */
+function recharge(userMobile, packageId, password){
+	$("#btn").attr('disabled', "true");
+	var ajax = new $ax(Feng.ctxPath + "/portalFlowRecharge/flowRecharge", function(data){
+		hit = 1;
+		$("#btn").removeAttr('disabled');
+		if ( data && data.code && data.code != 200 ) {
+			Feng.error(data && data.message ? data.message : "充值失败！")		
+			return ;
+		}
+		Feng.success("充值成功！");
+		window.location.href = window.location.href;// refresh
+    },function(data){
+    	hit = 1;
+    	$("#btn").removeAttr('disabled');
+    	Feng.error("发生未知错误!");
+    	console.error(data);
+    });
+    ajax.set( {"userMobile": userMobile, "packageId": packageId, "isCombo": 0});
+    ajax.start();
+}
+
+
+var hit = 1;
+
+
+$(function() {
+	
+	checkFlowOrder();
+	
+	
+	//输入手机号码获取对应的流量包信息
+	$("#userMobile").keyup(function(){
+		var userMobile = $(this).val();
+		//去除空格和-
+		var str = userMobile.replace(/([ ])|(-)/g,"");
+		if (userMobile != "" && str.length == 11) {
+			if ( !showOperator(userMobile) ) {
+				return;
+			}
+			var code = '00';// 默认全国
+			_selectArea = code;
+			getFlowPackageByUserMobile(userMobile,code);
+		}else if(str.length >= 11){
+			Feng.error("手机号码格式不正确");
+		}
+	});
+	
+	
+	//下拉框
+	$("#zone").change(function(){
+		var mobile = $("#userMobile").val();
+		if(mobile == ""){
+			Feng.error("请先输入手机号码");
+			return;
+		}
+		_selectArea = $(this).val();
+		getFlowPackageByUserMobile(mobile, $(this).val());
+	});
+	
+	
+	//充值
+	$("#btn").click(function(){
+		var mobile = $("#userMobile").val();
+		if(mobile == ""){
+			Feng.error("请输入手机号码");
+			return ;
+		}else{
+			var packageId = $("#packageId").val();
+			if(hit = 1){
+				hit=0;
+				recharge(mobile, packageId);
+			}else{
+				Feng.info("请勿重复提交");
+				return ;
+			}
+		}
+	});
+	
+	
+});
+
+</script>
+@}

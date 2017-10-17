@@ -1,0 +1,87 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+			<form id="partnerAddForm" action="#" >
+           <input type="hidden" name="maintainSeqId" id="maintainSeqId" value="${info.maintainSeqId}" /> <input
+					type="hidden" name="updId" id="updId" />
+				<div class="row">
+					<div class="col-sm-6 b-r">
+								<#input type="text" name="维护信息名称:"  id="maintainName" value="${info.maintainName}"
+									 />
+								<#select  id="operatorCode" name="对应运营商:"  >
+									<option value="" >请选择运营商</option>
+									<option value="YD"
+										@if(info.operatorCode=="YD"){
+											selected="selected"
+										@}
+									>移动</option>
+									<option value="LT"
+									@if(info.operatorCode=="LT"){
+											selected="selected"
+									@}
+									>联通</option>
+									<option value="DX"
+									@if(info.operatorCode=="DX"){
+											selected="selected"
+									@}
+									>电信</option>
+								</#select>
+								<#select id="channelType" name="通道类别:"
+									class="form-control input-sm">
+									<option value="1"
+									@if(info.channelType==1){
+											selected="selected"
+									@}
+									>流量</option>
+									<option value="2" 
+									@if(info.channelType==2){
+											selected="selected"
+									@}
+									>话费</option>
+								</#select>
+								<#time type="text" name="开始时间:" class="form-control" id="startTime" isTime="true" pattern="YYYY-MM-DD hh:mm:ss" value="${info.startTime}" />
+								<#time type="text" name="结束时间:" class="form-control" id="endTime" isTime="true" pattern="YYYY-MM-DD hh:mm:ss"  value="${info.endTime}"/>
+								<#input type="text" name="备注:" id="remark"  value="${info.remark}"/>
+					</div>
+					<div class="col-sm-6 b-r">
+								<#select id="zone" name="适用区域:" >
+								<option value="">请选择区域</option>
+								@for(area in areas){
+								<option value="${area.areaCode}" 
+									@if(info.zone== area.areaCode){
+											selected="selected"
+									@}
+								>${area.areaName}</option>
+								@}
+								</#select>
+								<#textArea id="notice" name="维护公告:" value="${info.notice}" >
+								</#textArea>
+								<#select  id="isValid" name="是否有效:" >
+									<option value="">请选择是否有效</option>
+									<option value="0"
+									@if(info.isValid== 0){
+											selected="selected"
+									@}
+									>无效</option>
+									<option value="1"
+									@if(info.isValid==1){
+											selected="selected"
+									@}
+									>有效</option>
+								</#select>
+					</div>
+				</div>
+
+            <div class="row btn-group-m-t" align="center">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="保存" id="ensure" icon="fa-check" clickFun="ChannelMaintainInfoInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ChannelMaintainInfoInfoDlg.close()"/>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/channel/channelMaintainInfo/channelMaintainInfo_info.js"></script>
+@}

@@ -1,0 +1,193 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+	    <form id="add-form" onsubmit="return false;">
+			<div class="form-horizontal">
+				<div class="row">
+					<div class="col-sm-6 b-r">
+						<#input id="productCode" name="产品代码   <span class='text-danger'>*</span>" underline="true" />
+							
+						<#select id="productType" name="产品类别   <span class='text-danger'>*</span>" underline="true">
+							<option value="1">基础流量包</option>
+							<option value="2">组合流量包</option>
+							<option value="3">流量加</option>
+							<option value="4">话费</option>
+						</#select>
+	
+						<#input id="productDesc" name="产品描述   <span class='text-danger'>*</span>" underline="true"/>
+						
+						<#select id="zone" name="适用区域" underline="true">
+							@for(it in area){
+								<option value = "${it.areaCode}" >${it.areaName}</option>
+							@}
+						</#select>
+					</div>
+					<div class="col-sm-6">
+						<#input id="productName" name="产品名称   <span class='text-danger'>*</span>" underline="true"/>
+						
+						<#input id="productPrice" name="产品定价(元)   <span class='text-danger'>*</span>" underline="true"/>
+						
+						<#input id="operatorCode" name="适用供应商" underline="true" readonly="readonly"/>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="page-header">
+						<i class="ace-icon fa fa-angle-double-right"></i>
+						流量包
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right text-center" for="packageId1"><span class="text-danger">*</span> 选择流量包: </label>
+					<div class="col-sm-2" style="margin: 20px">
+							<input type="hidden" id="packageId" name="packageId1" class="form-control" data-placeholder="请输入流量包关键字"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-horizontal" style="display: none" id="plusProduct">
+				<div class="row">
+					<div class="col-sm-6 b-r">
+						<#select id="cardType" name="流量加类别 " underline="true">
+							<option value="A">A卡</option>
+							<option value="B">B卡</option>
+							<option value="C">C卡</option>
+						</#select>
+							
+						<#select id="channelType" name="流量加载体" underline="true">
+							<option value="1">实体类</option>
+							<option value="2">电子卷</option>
+						</#select>
+					</div>
+				</div>
+			</div>
+			<div class="row btn-group-m-t"  align="center">
+					<div class="col-sm-10">
+						<#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FlowProductInfoInfoDlg.addSubmit()"/>
+						<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FlowProductInfoInfoDlg.close()"/>
+					</div>
+				</div>
+		</form>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	var add_validator = $('#add-form').validate(
+			{
+				rules : {
+					'zone':{
+						required : true
+					},
+					'productCode' : {
+						required : true,
+						maxlength : 128,
+						soloProductCode:true
+					},
+					'productName' : {
+						required : true,
+						maxlength : 256,
+						soloProductName:true
+					},
+					'productType' : {
+						required : true,
+						maxlength : 11
+					},
+					'productPrice' : {
+						required : true,
+						maxlength : 11,
+						number : true,
+						number_2:true
+					},
+					'productBelongTo' : {
+						required : true,
+						maxlength : 128
+					},
+					'productDesc' : {
+						required : true,
+						maxlength : 1024
+					},
+					'packageId' : {
+						required : true,
+						maxlength : 64
+					}
+				},
+				submitHandler : function(form) {
+					return false;
+				}
+			});
+});
+	
+var soloName_url=Feng.ctxPath+'/flowProductInfo/soloProductName.ajax';
+var soloCode_url=Feng.ctxPath+'/flowProductInfo/soloProductCode.ajax';
+var soloPackageIdZone_url=Feng.ctxPath+'/flowProductInfo/soloProductPackageIdZone.ajax';
+
+function soloName(value) {
+	if (value == null || value == "") {
+		return false;
+	};
+	var data={
+			"productName" : value};
+	return solo(data,soloName_url);
+};
+
+function soloPackageIdZone(value,zone){
+	if (value == null || value == "") {
+		return false;
+	}
+	if(zone == null || zone == ""){
+		return false;
+	}
+	var data={
+			"packageId" : value,
+			"zone" : zone};
+	return solo(data,soloPackageIdZone_url);
+};
+
+function soloCode(value) {
+	if (value == null || value == "") {
+		return false;
+	}
+	var data={
+			"productCode" : value};
+	return solo(data,soloCode_url);
+};
+
+function solo(data,url){
+	var flag = false;
+	$.ajax({
+		url : url,
+		type : 'post',
+		data : data,
+		dataType : 'json',
+		async : false,
+		success : function(data) {
+			if (data.code == 200) {
+				flag = true;
+			}
+		}
+	});
+	return flag;
+};
+
+function soloName(value) {
+	if (value == null || value == "") {
+		return false;
+	}
+	var data={"productName" : value};
+	return solo(data,soloName_url);
+};
+
+$.validator.addMethod("soloProductName",
+		function(value, element, params) {
+			return soloName(value);
+		}, "产品名称不可用");
+$.validator.addMethod("soloProductCode",
+		function(value, element, params) {
+			return soloCode(value);
+		}, "产品代码不可用");
+</script>
+<script src="${ctxPath}/static/modular/flow/flowProductInfo/flowProductInfo_info.js"></script>
+@}

@@ -1,0 +1,969 @@
+@layout("/common/_container.html"){
+<style type="text/css">
+.border-style-1 {
+	border: 1px solid #cccccc;
+}
+
+.manyDiv {
+	width: 750px;
+	height: 400px;
+	position: fixed;
+	z-index: 99999;
+	bottom: 150px;
+	left: 50%;
+	margin-left: -350px;
+	background-color: white;
+}
+
+.yuanjiao {
+	border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+}
+
+.float-left {
+	float: left;
+}
+
+.clear {
+	clear: both;
+}
+
+.many-ul {
+	list-style: none;
+	border: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.many-ul li {
+	border-bottom: 1px solid #cccccc;
+	height: 35px;
+	line-height: 35px;
+	padding: 0 10px;
+	cursor: pointer;
+}
+
+.data-ul {
+	list-style: none;
+	border: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.data-ul li {
+	border-bottom: 1px solid #cccccc;
+	height: 25px;
+	line-height: 25px;
+	padding: 0 10px;
+	cursor: pointer;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.many-padding {
+	padding-top: 20px;
+}
+
+.selectDiv {
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+	width: 118px;
+}
+
+.selectList {
+	border: 1px solid #cccccc;
+	height: 246px;
+	overflow-y: scroll;
+	min-width: 240px;
+	max-width: 240px;
+}
+
+.resultList {
+	border: 1px solid #cccccc;
+	height: 246px;
+	overflow-y: scroll;
+	min-width: 200px;
+	max-width: 200px;
+}
+
+.button-style-1 {
+	height: 25px;
+	text-align: center;
+	background: none;
+	border: 1px solid #cccccc;
+	cursor: pointer;
+}
+
+.actionDiv {
+	height: 200px;
+	padding: 20px 0;
+	text-align: center;
+}
+
+.actionDiv button {
+	margin-top: 40px;
+	display: block;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.many-son {
+	padding-left: 50px;
+}
+
+.many-selected {
+	background-color: burlywood;
+}
+
+li:hover {
+	background-color: burlywood;
+}
+
+.button-style-2 {
+	width: 150px;
+	height: 35px;
+	background: none;
+	border: 1px solid #cccccc;
+}
+
+.div-padding-bottom {
+	padding-bottom: 35px;
+	padding-top: 35px;
+}
+
+#batch-setprice-title {
+	color: blue;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.batch-tips-word {
+	font-weight: bold;
+	font-size: 15px;
+}
+
+#batch-error-span {
+	padding-right: 100px;
+}
+
+.model-error-msg {
+	padding-right: 180px;
+	color: red;
+	display: none;
+}
+
+.col-sm-6 select{
+	height:32px;
+}
+.white_bg {
+	background-color: #ffffff;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.section-title {
+	display: block;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+.section-title span {
+	padding-bottom: 6px;
+	padding-right: 25px;
+	border-bottom: 1px solid #dcdcdc;
+}
+</style>
+
+	<div class="page-content white_bg">
+		<!-- 新增活动按钮 -->
+		<div class="table-responsive">
+			<div class="section-title">
+				<span> 基本信息 </span>
+			</div>
+			<form class="form-horizontal" role="form" id="add-form" onsubmit="return false;" style="overflow-x: hidden;">
+				<input type="hidden" name="partnerId" id="partnerId" /> <input
+					type="hidden" name="updId" id="updId" />
+				<div class="row not-update">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="partnerName"> <span class="red">*</span> 合作伙伴名称:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="partnerName" id="partnerName"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="partnerLevel"> <span class="red">*</span> 合作伙伴等级:
+							</label>
+							<div class="col-sm-6">
+								<select name="partnerLevel" id="partnerLevel"
+									class="form-control input-sm">
+									<option value="1">普通客户</option>
+									<option value="3">重要客户</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="loginName"> <span class="red">*</span> 合作伙伴帐号:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="loginName" id="loginName"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="status"> <span class="red">*</span> 合作伙伴状态:
+							</label>
+							<div class="col-sm-6">
+								<select name="status" id="status"
+									class="form-control input-sm">
+									<option value="0">无效</option>
+									<option value="1">有效</option>
+									<option value="2">无效</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<br/>
+				<div class="section-title">
+					<span> 联系人信息 </span>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="realName"> 联系人:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="realName" id="realName"
+									class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="email"> 邮箱:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="email" id="email"
+									class="form-control input-sm" />
+							</div>
+						</div>
+
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="mobile"> 电话:
+							</label>
+							<div class="col-sm-6">
+								<input type="text" name="mobile" id="mobile"
+									class="form-control input-sm" maxlength="11" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label no-padding-right text-right"
+								for="address">地址: </label>
+							<div class="col-sm-6">
+								<input type="text" name="address" id="address"
+									class="form-control input-sm" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<br/>
+				<div class="section-title">
+					<span> 产品信息 </span>
+				</div>
+				<div class="container">
+					<div class="row " style="margin-bottom: 15px;">
+						<div class=" col-xs-12">
+							<div class="col-sm-3">
+								<div class="btnWrapper">
+                            		<#button name="" icon="fa fa-plus" clickFun="showAddProduct(true)" style="width:98px"/>
+                            		<span class="btnTips">新增产品</span>
+                            	</div>
+                            	<div class="btnWrapper">
+	                                <#button id="batch-delete" name="" icon="fa fa-trash-o" clickFun="" style="width:98px"/>
+	                                <span class="btnTips">删除产品</span>
+                                </div>
+                                <div class="btnWrapper">
+	                                <#button id="batch-set-price" name="" icon="fa fa-edit" clickFun="" style="width:98px"/>
+	                                <span class="btnTips">批量定价</span>
+                                </div>
+							</div>
+	                          <!-- 结算价格批量定价模态框 -->
+	                          <div id="batch-setprice-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="batch-setprice-title">
+	                            <div class="modal-dialog">
+	                                <div class="modal-content">
+	                                    <div class="modal-header">
+	                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                                            <span aria-hidden="true">&times;</span>
+	                                        </button>
+	                                        <h4 class="modal-title center" id="batch-setprice-title">结算价格批量定价</h4>
+	                                    </div>
+	                                    <div class="modal-body">
+	                                        <div class="bootbox-body center batch-tips-word">按照产品定价的&nbsp;&nbsp;&nbsp;
+	                                          <input class="numberNoPointFormat" id="price-discount" style="width: 50px;" maxLength="8"/>%&nbsp;&nbsp;&nbsp;批量设置结算价格
+	                                        </div>
+	                                    </div>
+	                                    <div class="modal-footer">
+	                                        <span id="batch-error-span" class="model-error-msg"></span>
+	                                        <button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
+	                                        <button id="batch-setprice-btn" type="button" class="btn btn-primary">提交</button>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                          </div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<table id="sample-table-1"
+								class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+									    <th><label><input type='checkbox' class='ace allSelect'><span class='lbl'></span></label></th>
+										<th>产品名称</th>
+										<th>产品代码</th>
+										<th>运营商</th>
+										<th>区域</th>
+										<th>产品定价(元)</th>
+										<th>结算价格(元)</th>
+										<th>折扣(%)</th>
+									</tr>
+								</thead>
+								<tbody id="showProduct">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<br/>
+				<div class="clearfix form-actions">
+					<div class="center">
+						<button class="btn btn-info" type="submit" id="submitButton" >
+							<i class="ace-icon fa fa-check bigger-110"></i> 保 存
+						</button>
+						&nbsp; &nbsp; &nbsp;
+						<button class="btn" type="button" id="resetBtn">
+							<i class="ace-icon fa fa-undo bigger-110"></i> 重 置
+						</button>
+						&nbsp; &nbsp; &nbsp;
+						<button class="btn" type="button"
+							onclick="parent.layer.close(window.parent.Partner.layerIndex);">
+							<i class="ace-icon fa fa-arrow-left"></i> 返 回
+						</button>
+					</div>
+					<br/>
+				</div>
+				<div class="manyDiv border-style-1 yuanjiao" id="addProdcut"
+					style="display: none;">
+					<div class="text-center many-padding many-son">
+						<input type="hidden" value="" id="productType" />
+						<input type="hidden" value="" id="operatorCode" />
+						<div style="width: 477px;">
+							<input type="text" id="text" name="text" style="width:240px;height:27px">
+						</div>
+						<div class="selectDiv float-left">
+							<ul class="many-ul">
+								<li class=" many-select" onclick="getProduct(1,this)">基础流量产品</li>
+								<ul class="sub_select" style="list-style-type:none;display:none">
+									<li class="many-select" onclick="getProductByOperatorCode('YD',this)">中国移动</li>
+									<li class="many-select" onclick="getProductByOperatorCode('LT',this)">中国联通</li>
+									<li class="many-select" onclick="getProductByOperatorCode('DX',this)">中国电信</li>
+								</ul>
+							</ul>
+						</div>
+						<div class="selectList float-left">
+							<ul class="data-ul" id="selectData">
+							</ul>
+						</div>
+						<div class="float-left actionDiv">
+							<button type="button" class="button-style-1 yuanjiao"
+								onclick="allSelect()">全部&gt;&gt;</button>
+							<button type="button" class="button-style-1 yuanjiao"
+								onclick="allRemove()">&lt;&lt;全部</button>
+						</div>
+						<div class="resultList float-left">
+							<ul class="data-ul" id="resultData">
+							</ul>
+						</div>
+						<div class="clear"></div>
+						<div class="div-padding-bottom">
+							<button type="button" class="yuanjiao button-style-2"
+								onclick="showProduct()">确认</button>
+							<button type="button" class="yuanjiao button-style-2"
+								style="margin-left: 100px;" onclick="showAddProduct(false)">关闭</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+<script type="text/javascript">
+	var update_url = Feng.ctxPath + '/partner/add.ajax';
+	var view_url = Feng.ctxPath + '/partner/get.ajax';
+	var pkId = ${partnerId!'null'};
+	var persistentData = null;
+	
+	$.validator.addMethod("adviserMobile", function(value, element, params) {
+		var re1 = /^1\d{10}$/
+		if (re1.test(value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}, "请输入合法的手机号码");
+	
+	$.validator.addMethod("soloAccount", function(value, element,
+			params) {
+		return soloAccount(value);
+	}, "该账号不可用");
+	
+	
+	function soloAccount(value){
+		var updId = $("#updId").val();
+		if (value == null || value == "") {
+			return false;
+		}
+		var flag = false;
+		$.ajax({
+			url : Feng.ctxPath + '/partner/soloAccount',
+			type : 'post',
+			data : {
+				"partnerId" : updId,
+				"loginName" : value
+			},
+			dataType : 'json',
+			async : false,
+			success : function(data) {
+				if (data.code == 200) {
+					flag = true;
+				}
+			}
+		});
+		return flag;
+	}
+
+	function initLoginNameSelect2(data) {
+		if (data && data['loginName']) {
+			$('#loginName').select2('data', {
+				id : data['loginName'],
+				text : data['loginName']
+			});
+		}
+	}
+	
+	
+	function partnerSubmitHandler() {
+		var isZero= false;
+		if($("#settlementPattern").val()==2){
+			$("#showProduct").children().each(function(){
+				var input = $($(this).children()[6]).find('input')[0];
+				if($(input).val()==0){
+					Feng.error("结算价格不允许为0");
+		    		isZero = true;
+		    		return false;
+		    	} 
+			  });
+		}
+		if(isZero)
+			return false;
+		
+		var ajax = new $ax(update_url, function (data) {
+			if (data.code == 200) {
+				$("#partner-level-dialog").modal("hide");
+				
+				Feng.success("成功！");
+				window.parent.Partner.table.refresh();
+				parent.layer.close(window.parent.Partner.layerIndex);
+			} else {
+				Feng.error(data.message);
+			}
+	    }, function (data) {
+	        Feng.error("操作失败!");
+	    });
+		var _data = $("#add-form").serializeJson();
+	    ajax.set(_data);
+	    ajax.start();
+	}
+	
+	//重置form,添加validator样式清除
+	function resetForm($form, $validator) {
+		if ( persistentData ) {
+			$('#add-form').json2Form2(persistentData);
+		} else {
+			$form[0].reset();	
+		}
+		if ($validator) {
+			$validator.resetForm();
+// 			$form.find('.form-group').removeClass('has-error');
+		}
+	}
+	
+	
+	$(function() {
+		
+		var add_validator = $('#add-form')
+				.validate(
+						{
+							rules : {
+								'partnerName' : {
+									required : true,
+									maxlength : 256
+								},
+								'loginName' : {
+									required : true,
+									maxlength : 20,
+									soloAccount:true
+								},
+								'realName' : {
+									required : false,
+									maxlength : 64
+								},
+								'mobile' : {
+									required : false,
+									maxlength : 32,
+									mobile : true
+								},
+								'email' : {
+									required : false,
+									maxlength : 64,
+									email : true
+								},
+								'address' : {
+									required : false,
+									maxlength : 1024
+								},
+								'status' : {
+									required : true,
+									maxlength : 64
+								}
+							},
+							submitHandler : function(form) {
+								partnerSubmitHandler();
+								return false;
+							}
+						});
+		
+		
+
+		$('#resetBtn').on('click', function() {
+// 			document.getElementById("add-form").reset();
+			resetForm($('#add-form'), add_validator);
+		});
+
+		function showAttach(list) {
+
+		}
+		if (pkId) {
+			$('#updId').val(pkId);
+			
+			var ajax = new $ax(view_url, function (data) {
+				if (data.code && data.code != 200) {
+					Feng.error(data.message);
+				} else {
+					$('#add-form').json2Form2(data);
+					persistentData = data;
+					var list = data.partnerProductList;
+
+					for (var i = 0; i < list.length; i++) {
+						var obj = list[i];
+						obj['productName'] = obj.flowProductInfo.productName;
+						obj['productPrice'] = obj.flowProductInfo.productPrice;
+						obj['productCode'] = obj.flowProductInfo.productCode;
+						obj['operatorCodeDesc'] = obj.flowProductInfo.operatorCodeDesc;
+						obj['zoneDesc'] = obj.flowProductInfo.zoneDesc;
+						resultList[list[i].productId] = obj;
+					}
+					showProduct();
+					settlementDiscount=data.settlementDiscount;
+					$(".not-update").find("input").attr("disabled", "disabled");
+					$(".not-update").find("select").attr("disabled", "disabled");
+					// 【是否可按下发计费】可以修改
+					$("#settlementDiscount").removeAttr("disabled");
+					//$("#orderBillingType").removeAttr("disabled");
+					$("#settlementPattern").removeAttr("disabled");
+					//$("#settlementDiscountRatio").removeAttr("disabled");
+					$("#balance").html(data.balance);
+					$("#creditAmount").html(data.creditAmount);
+					$("#partnerLevel").removeAttr("disabled");
+					$("#status").removeAttr("disabled");
+				}
+		    }, function (data) {
+		        Feng.error("获取数据失败!");
+		    });
+		    ajax.set( {'partnerId' : pkId} );
+		    ajax.start();
+		} else {
+			showAttach(null);
+		}
+		
+		/**输入框绑定事件**/
+		$('#text').bind('input propertychange',function(){
+	        getProductByOperatorCode("-1", null);
+	    });
+	})
+
+	function showAddProduct(flag) {
+		if (!flag) {
+			$("#addProdcut").hide();
+		} else {
+			getProduct("1", null);
+			$("#text").val("");
+			$("#addProdcut").show();
+
+		}
+	}
+
+	function selectDataById(id, objElemnt) {
+		var obj = productList[id];
+		if (obj == null) {
+			return;
+		}
+		if (resultList[id]) {
+			return;
+		}
+		resultList[id] = obj;
+		var html = $("#resultData").html();
+		html += '<li onclick="removeDateById(' + obj.productId + ',this)">'
+				+ obj.productName + '</li>';
+		$(objElemnt).remove();
+		$("#resultData").html(html);
+	}
+
+	function removeDateById(id, obj) {
+		resultList[id] = null;
+		$(obj).remove();
+		if ($("#productType").val() == null
+				|| $("#productType").val() == "undefined"
+				|| $("#productType").val() == "") {
+			return;
+		}
+		getProduct($("#productType").val(), null);
+	}
+
+	function getProduct(type, obj) {
+		if (type<1||type>4) {
+			return;
+		}
+		$("#productType").val(type);
+		$("#operatorCode").val("");
+		$("#text").val("");
+		if (obj != null) {
+			$(".many-select").removeClass("many-selected");
+			$(obj).addClass("many-selected");
+		}
+		if(1 == type){//二级搜索框
+			if($(".sub_select").is(":hidden")){
+				$(".sub_select").show();
+			}else{
+				$(".sub_select").hide();
+			}
+			$("#text").show();
+		}else{
+			$("#text").val("");
+			$("#text").hide();
+			$(".sub_select").hide();
+		}
+		$.ajax({
+			url : Feng.ctxPath
+					+ '/flowProductRemodel/getByProductType?productType='
+					+ type,
+			type : 'get',
+			dateType : 'json',
+			success : function(data) {
+				var html = "";
+				for (var i = 0; i < data.length; i++) {
+					if (resultList[data[i].productId] != null) {
+						continue;
+					}
+					productList[data[i].productId] = data[i];
+					html += '<li data="' + data[i].productId
+							+ '" onclick="selectDataById('
+							+ data[i].productId + ',this)">'
+							+ data[i].productName + '</li>';
+				}
+				$("#selectData").html(html);
+			}
+		});
+	}
+	
+	/*按运营商分类产品*/
+	function getProductByOperatorCode(operatorCode, obj) {
+		if (obj != null) {
+			$(".many-select").removeClass("many-selected");
+			$(obj).addClass("many-selected");
+		}
+		var text = $("#text").val();//输入框
+		if(operatorCode == '-1'){
+			operatorCode = $("#operatorCode").val();
+		}else{
+			$("#operatorCode").val(operatorCode);
+		}
+		$.ajax({
+			url : Feng.ctxPath
+					+ '/flowProductRemodel/searchProduct?operatorCode='
+					+ operatorCode + '&text=' + text,
+			type : 'get',
+			dateType : 'json',
+			success : function(data) {
+				var html = "";
+				for (var i = 0; i < data.length; i++) {
+					if (resultList[data[i].productId] != null) {
+						continue;
+					}
+					productList[data[i].productId] = data[i];
+					html += '<li data="' + data[i].productId
+							+ '" onclick="selectDataById('
+							+ data[i].productId + ',this)">'
+							+ data[i].productName + '</li>';
+				}
+				$("#selectData").html(html);
+			}
+		});
+	}
+	
+	function allRemove() {
+		$("#resultData").html("");
+		resultList = new Array();
+		getProduct($("#productType").val(), null);
+	}
+
+	function allSelect() {
+		var allLi = $("#selectData").find("li");
+		for (var i = 0; i < allLi.length; i++) {
+			var id = $(allLi[i]).attr("data");
+			selectDataById(id, allLi[i]);
+		}
+	}
+
+	var productList = new Array();
+	var resultList = new Array();
+	var showList = new Array();
+
+	var ilist = new Array();
+	var productIndex = 0;
+	function showProduct() {
+		showAddProduct(false);
+		for ( var index in resultList) {
+			var html = '';
+			if (index == "contains") {
+				continue;
+			}
+			var obj = resultList[index];
+			if (obj == null) {
+				continue;
+			}
+			if (showList[index] == true) {
+				continue;
+			}
+			if (obj.remark == null) {
+				obj.remark = "";
+			}
+			if (obj.seqId == null) {
+				obj.seqId = "";
+			}
+			var settlementDiscount = 100;
+			if ( /^(-|\+)?\d+(\.\d+)?$/.test(""+obj.settlementAmount) ) {
+				// 如果已经有结算价格 则计算显示的折扣 （折扣不存入数据库）
+				settlementDiscount = (Number(obj.settlementAmount) / Number(obj.productPrice) * 100).toFixed(2)
+			} else {
+				// 没有折扣价格时，直接设置为和定价一样
+				obj.settlementAmount = obj.productPrice;
+			}
+			showList[index] = true;
+			ilist.push(productIndex);
+			if(!obj.seqId || obj.seqId==""){
+				//obj.seqId="null";
+			}
+			html += '<tr>';
+			html += '<td class="center"><label><input type="checkbox" class="ace" value="'+ obj.productId +'" d-index="'+productIndex+'" '
+					+' d-seqId="'+obj.seqId+'"><span class="lbl"></span></label></td>';
+			
+			html += '<td>'
+					+ obj.productName
+					+ '<input type="hidden" value="' + obj.seqId + '" name="partnerProductList['+productIndex+'].seqId"><input type="hidden" value="'+obj.productId+'" name="partnerProductList['+productIndex+'].productId"></td>';
+			
+			html += "<td>"+obj.productCode+"</td>";
+			html += "<td>"+obj.operatorCodeDesc+"</td>";
+			html += "<td>"+obj.zoneDesc+"</td>";
+			html += '<td>' + obj.productPrice + '</td>';
+			
+			html += '<td><input type="text" class="chosen-table" style="width:85px;" maxlength="10" id="settlementAmount_'+productIndex+'" value="'
+					+ obj.settlementAmount
+					+ '" name="partnerProductList['
+					+ productIndex
+					+ '].settlementAmount" '
+					+ ' onblur="autoSetDiscount(this,'+obj.productPrice+','+productIndex+');"><span class="error_span" style="margin-left:5px;color:red;"></span></td>';
+			
+			html += '<td><input type="text" class="chosen-table" style="width:50px;" maxlength="6" id="discount'+productIndex+'" value="'
+					+ settlementDiscount + '" '
+					+ ' name="partnerProductList['+productIndex+'].discount" '
+					+ ' onblur="autoSetsettlement(this,'+obj.productPrice+','+productIndex+');"><span class="error_span" style="margin-left:5px;color:red;"></span></td>';
+			html += '</tr>';
+			
+			$("#showProduct").append(html);
+			
+			$("#settlementAmount_"+productIndex).rules("add", {required : true, number_2:true});
+			$("#discount"+productIndex).rules("add",{maxlength :6, number_2:true});
+			
+			productIndex++;
+		}
+		
+	}
+
+	/**
+	 * 更改折扣自动计算 结算价格
+	 */
+	function autoSetsettlement(thisObj, price, index) {
+		var _discount = $(thisObj).val();
+		if (!/^(-|\+)?\d+(\.\d+)?$/.test(_discount)) {
+			console.log("invalid input value:" + _discount);
+			return false;
+		}
+		$("#settlementAmount_"+index).val((Number(price) * Number(_discount) / 100).toFixed(2));
+	}
+	
+	/**
+	 * 更改结算价格自动计算 折扣
+	 */
+	function autoSetDiscount(thisObj, price, index) {
+		var _price = $(thisObj).val();
+		if (!/^(-|\+)?\d+(\.\d+)?$/.test(_price)) {
+			console.log("invalid input value:" + _discount);
+			return false;
+		}
+		$("#discount"+index).val((Number(_price) / Number(price) * 100).toFixed(2));
+	}
+	
+	$(".allSelect").click(function() {
+        $(this).closest("table").find("input[type='checkbox']").prop("checked", $(this).prop("checked"));
+    });
+	
+	// 【结算价格批量定价】按钮点击事件
+	$("#batch-set-price").click(function(e) {
+        e.preventDefault();
+        var selectedCheckboxArr = $("input[type=checkbox]:checked");
+        if (!selectedCheckboxArr || selectedCheckboxArr.length == 0) {
+            Feng.error("请先选择需要批量定价的产品");
+            return;
+        }
+        // 弹出模态框
+        $("#batch-setprice-modal").modal({
+            backdrop: "static",
+            keyboard: false
+        });
+        $("#price-discount").val("");
+        // 构造批量定价用数据
+        selectedTrArr = [];
+        $.each(selectedCheckboxArr, function(n, value) {
+            selectedTrArr.push($(value).parents("tr"));
+        });
+    });
+	
+	$("#batch-delete").click(function(e){
+		e.preventDefault();
+        var boxs = $("input[type=checkbox]:checked");
+        if (!boxs || boxs.length == 0) {
+            Feng.error("请先选择需要删除的产品");
+            return;
+        }
+        var deleteData = [];
+        var dbIds = "";// 删除列表
+        for(var i=0; i<boxs.length; i++) {
+        	var box = $(boxs[i]);
+        	var _seqId = box.attr("d-seqId");
+        	if ( _seqId == undefined ) { 
+        		continue;
+        	}
+        	
+        	deleteData.push({"index":box.attr("d-index"), "seqId":_seqId, obj: box});
+        	if ( /^\d+$/.test(_seqId) ) {
+        		dbIds += "," + _seqId;
+        	}
+        }
+        if ( dbIds.length > 1 ) {
+        	dbIds = dbIds.substring(1);// 干掉第一个逗号
+        }
+        deleteByIds(dbIds, deleteData);
+	});
+	
+	
+	function deleteByIds(ids, doms) {
+		if ( ids.length > 1 ) {
+			$.ajax({
+				url : Feng.ctxPath + '/partner/deleteBySeqId?seqId='
+						+ ids,
+				type : 'get',
+				dataType : 'json',
+				success : function(data) {
+					if (data.code != 200) {
+						Feng.error(data.message);
+						return;
+					}
+					removeDom(doms);
+				}
+			});
+		} else {
+			removeDom(doms);
+		}
+	}
+	
+	function removeDom(doms) {
+		if ( !doms || doms.length < 1 )
+			return;
+		for ( var i=0; i< doms.length; i++ ) {
+			showList[doms[i].index] = null;
+			resultList[doms[i].index] = null;
+			$(doms[i].obj).parent().parent("td").parent("tr").remove();
+		}
+	}
+	
+	// 结算价格批量定价【提交】按钮点击事件
+	$("#batch-setprice-btn").click(function() {
+        var discountVal = $("#price-discount").val();
+        // 只允许输入1~100之间的整数
+        var reg = /^\d{1,3}(\.\d{1,2})?$/;
+        if (!reg.test(discountVal)) {
+            $("#batch-error-span").text("请输入大于0不大于100的整数");
+            $("#batch-error-span").fadeIn("slow");
+            setTimeout(function() {
+                $("#batch-error-span").fadeOut("slow");
+            }, 1500);
+            return;
+        }
+        $.each(selectedTrArr, function(index, nTr) {
+            // 获取产品定价
+            var productPriceVal = $(nTr).children().eq(5).text();
+            // 设定结算价格
+            if (!isNaN(productPriceVal)) {
+                $(nTr).children().eq(6).children().val((Number(productPriceVal) * discountVal / 100).toFixed(2));
+                $(nTr).children().eq(7).children().val(discountVal);
+            } else {
+                $(nTr).children().eq(6).children().val("");
+                $(nTr).children().eq(7).children().val("");
+            }
+        });
+        // 关闭模态框
+        $("input[type=checkbox]:checked").removeAttr("checked");
+        $("#batch-setprice-modal").modal("hide");
+    })
+</script>
+
+@}

@@ -1,0 +1,490 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>充值明细管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+				   <form class="form-horizontal" role="form" id="add-form"
+								onsubmit="return false;">
+								<input type="hidden" id="customerId" value="${customerId}"/>
+								<div class="page-header">
+				                    <h1>
+				                        <small>账户信息 </small>
+				                    </h1>
+				                </div>
+								<div class="row">
+									<div class="col-xs-6">
+										<div class="form-group">
+											<label class="col-sm-5 control-label no-padding-right text-right"
+												for="customerName"> 客户名称: </label>
+											<div class="col-sm-7">
+												<p name="customerName" class="form-control-static"></p>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-5 control-label no-padding-right text-right"
+												for="currentAmount"> 未确认金额: </label>
+											<div class="col-sm-7">
+												<p name="currentAmount" class="form-control-static"></p>
+											</div>
+										</div>
+										<div class="form-group">
+				                            <label class="col-sm-5 control-label no-padding-right text-right"
+				                                for="accumulatedDeposit"> 累计存款: </label>
+				                            <div class="col-sm-7">
+				                                <p name="accumulatedDeposit" id="accumulatedDeposit" class="form-control-static"></p>
+				                            </div>
+				                        </div>
+									</div>
+									<div class="col-xs-6">
+										<div class="form-group">
+											<label class="col-sm-5 control-label no-padding-right text-right"
+												for="partnerType"> 合作类型: </label>
+											<div class="col-sm-7">
+												<p name="partnerType" id="partnerType" class="form-control-static"></p>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-5 control-label no-padding-right text-right"
+												for="availableCredit"> 可用额度: </label>
+											<div class="col-sm-7">
+												<p name="availableCredit" id="availableCredit" class="form-control-static"></p>
+											</div>
+										</div>
+										<div class="form-group">
+				                            <label class="col-sm-5 control-label no-padding-right text-right"
+				                                for="cumulativeConsumption"> 累计消费: </label>
+				                            <div class="col-sm-7">
+				                                <p name="cumulativeConsumption" id="cumulativeConsumption" class="form-control-static"></p>
+				                            </div>
+				                        </div>
+									</div>
+								</div>
+								<div class="page-header">
+									<h1>
+										<small>账户交易流水 </small>
+									</h1>
+								</div>
+								<div class="searchBtns" style="text-align: right;">
+									<button id="cadvRechargeBtn" class="btn btn-sm btn-danger" permCheck="auth_customer_bill,accountChange,hidden">
+										<i class="ace-icon fa fa-credit-card icon-on-right bigger-110"></i> 账户充值
+									</button>
+									<button id="cadvCreditBtn" class="btn btn-sm btn-pink" permCheck="auth_customer_bill,accountChange,hidden">
+										<i class="ace-icon fa fa-adjust icon-on-right bigger-110"></i> 信用额度调整
+									</button>
+								</div>
+				                <div id="customer-recharge-dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="customer-recharge-title">
+				                  <div class="modal-dialog">
+				                      <div class="modal-content">
+				                          <div class="modal-header">
+				                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				                                  <span aria-hidden="true">&times;</span>
+				                              </button>
+				                              <h4 class="modal-title" id="customer-recharge-title"></h4>
+				                          </div>
+				                          <div class="modal-body">
+				                             <div class="cadv-customer-recharge form-horizontal">
+						                        <div class="row">
+						                            <div class="col-xs-12">
+						                                <div class="form-group">
+						                                    <label class="col-sm-3 control-label no-padding-right text-right"><span class="red control-label">*</span>充值金额：</label>
+						                                    <div class="col-sm-9">
+						                                        <input type="text" maxLength="12" id="cadv-recharge-money" placeholder="请输入充值金额" />
+						                                    </div>
+						                                </div>
+						                                <div class="form-group">
+						                                    <label class="col-sm-3 control-label no-padding-right text-right">备注： </label>
+						                                    <div class="col-sm-9">
+						                                        <textarea id="cadv-remark" placeholder="请输入备注" class="form-control input-sm"></textarea>
+						                                    </div>
+						                                </div>
+						                                <div id="cadv-error" class="alert alert-danger hide">
+						                                    <span id="errorMsg"></span><br>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </div>
+				                          </div>
+				                          <div class="modal-footer">
+				                              <button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
+				                              <button type="button" class="btn btn-primary" onclick="cADVRechargeBtnClickHandler();">确定</button>
+				                          </div>
+				                      </div>
+				                  </div>
+				                </div>
+				                <div id="customer-credit-dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="customer-credit-title">
+				                  <div class="modal-dialog">
+				                      <div class="modal-content">
+				                          <div class="modal-header">
+				                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				                                  <span aria-hidden="true">&times;</span>
+				                              </button>
+				                              <h4 class="modal-title" id="customer-credit-title"></h4>
+				                          </div>
+				                          <div class="modal-body">
+				                             <div class="cadv-customer-credit form-horizontal">
+						                        <div class="row">
+						                            <div class="col-xs-12">
+						                                <div class="form-group">
+						                                    <label class="col-sm-3 control-label no-padding-right text-right"><span class="red control-label">*</span>信用额度调整：</label>
+						                                    <div class="col-sm-9">
+						                                        <input type="text" style="width:200px;" maxLength="12" id="cadv-credit-money" placeholder="请输入信用额度调整金额" />
+						                                    </div>
+						                                </div>
+						                                <div class="form-group">
+						                                    <label class="col-sm-3 control-label no-padding-right text-right">备注： </label>
+						                                    <div class="col-sm-9">
+						                                        <textarea id="cadv-credit-remark" placeholder="请输入备注" class="form-control input-sm"></textarea>
+						                                    </div>
+						                                </div>
+						                                <div id="cadv-credit-error" class="alert alert-danger hide">
+						                                    <span id="credit-errorMsg"></span><br>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </div>
+				                          </div>
+				                          <div class="modal-footer">
+				                              <button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
+				                              <button type="button" class="btn btn-primary" onclick="cADVCreditBtnClickHandler();">确定</button>
+				                          </div>
+				                      </div>
+				                  </div>
+				                </div>
+							</form>
+											<!-- 流水 -->
+							<form id="queryForm" onsubmit="return false;">
+								<div class="widget-box">
+									<div class="widget-header widget-header-flat search_tj_bar_tit">
+										<h5 class="widget-title">查询条件</h5>
+										<div class="widget-toolbar">
+											<a href="javascript:;" data-action="collapse"> <i
+												class="1 ace-icon fa fa-chevron-up bigger-125"></i>
+											</a>
+										</div>
+									</div>
+									<div class="row search_tj_bar">
+										<div class="col-xs-12">
+											<div class="center">
+												<div class="row">
+													<div class="col-xs-4">
+														<span> <label class="col-xs-12 col-sm-3">时间：</label>
+															<div class="input-daterange input-group">
+																<input class="form-control date-picker" autocomplete="off" onFocus="WdatePicker({startDate: '%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+																	   name="params['startTime']" id="startTime"> <span
+																	class="input-group-addon"> <i class="fa fa-exchange"></i>
+																</span> <input class="form-control date-picker" autocomplete="off" onFocus="WdatePicker({startDate: '%y-%M-%d 23:59:59',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+																			   name="params['endTime']" id="endTime">
+															</div>
+														</span>
+													</div>
+													<div class="col-xs-7">
+														<input class="ace" type="checkbox" name="tradeTypes[]" value="0" style="display:none;" id="allValue"/>
+														<span> 
+															<label class="col-xs-3 col-sm-3">交易类型：</label>
+															<div class="input-group col-xs-1 col-sm-1"> 
+																<label class="middle">
+																	<input class="ace ace-checkbox-2" type="checkbox" id="allType"/>
+																	<span class="lbl">全部</span>
+																</label>
+															</div> 
+															<div class="input-group col-xs-1 col-sm-1"> 
+																<label class="middle">
+																	<input class="ace ace-checkbox-2" type="checkbox" name="tradeTypes[]" value="1"/>
+																	<span class="lbl">结算</span>
+																</label>
+															</div> 
+															<div class="input-group col-xs-1 col-sm-1"> 
+																<label class="middle">
+																	<input class="ace ace-checkbox-2" type="checkbox" name="tradeTypes[]"  value="2"/>
+																	<span class="lbl">充值</span>
+																</label>
+															</div> 
+															<div class="input-group col-xs-1 col-sm-1"> 
+																<label class="middle">
+																	<input class="ace ace-checkbox-2" type="checkbox" name="tradeTypes[]"  value="3"/>
+																	<span class="lbl">授信</span>
+																</label>
+															</div> 
+															<div class="input-group col-xs-2 col-sm-2"> 
+																<label class="middle">
+																	<input class="ace ace-checkbox-2" type="checkbox" name="tradeTypes[]"  value="4"/>
+																	<span class="lbl">流量加激活计费</span>
+																</label>
+															</div> 
+															<div class="input-group col-xs-2 col-sm-2"> 
+																<label class="middle">
+																	<input class="ace ace-checkbox-2" type="checkbox" name="tradeTypes[]"  value="5"/>
+																	<span class="lbl">流量加作废计费</span>
+																</label>
+															</div> 
+														</span>
+													</div>
+				                                     
+													<!-- 
+													<div class="col-xs-4">
+				                                        <span> <label class="col-xs-12 col-sm-3">交易类型：</label>
+				                                            <div class="input-group col-xs-12 col-sm-9">
+				                                                <select name="params['tradeType']"
+				                                                    class="form-control search-query">
+				                                                    <option value="">全部</option>    
+				                                                    <option value="1">结算</option>
+				                                                    <option value="2">充值</option>
+				                                                    <option value="3">受信</option>
+				                                                    <option value="2">充值</option>
+				                                                </select>
+				                                            </div>
+				                                        </span>
+				                                    </div> 
+				                                     -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+				 			<div class="hidden-xs" id="CustomerChargeTableToolbar" role="group" style="text-align:right;">
+				                <#button name="查询" icon="fa-search" clickFun="customerRecharge.search()" space="true"/>
+				                <#button name="导出" icon="fa fa-share-square-o" clickFun="exportDetail('${customerId}')" space="true"/>
+				           </div>
+				          <#table id="customerRechargeTable"/>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/customerCharge/customerRecharge.js"></script>
+<link href="${ctxPath}/static/js/common/assets/css/ace-fonts.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace-rtl.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace-skins.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/ace.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/js/common/assets/css/css.css" rel="stylesheet">
+<script src="${ctxPath}/static/js/common/assets/ace-extra.min.js"></script>
+<script src="${ctxPath}/static/js/common/assets/ace-elements.min.js"></script>
+<script src="${ctxPath}/static/js/common/my97/WdatePicker.js"></script>
+<script type="text/javascript">
+	    var customerInfo = null;
+        var pkId = '${customerId}';
+        var view_url = Feng.ctxPath + '/customer/get';
+        var init_url = Feng.ctxPath + '/customerTradeFlow/init?pkId=' + pkId;
+        var charge_url = Feng.ctxPath + '/customerTradeFlow/add';
+        $(function() {
+            if (pkId) {
+                $.post(view_url, {
+                    'customerId': pkId
+                }, function(rtn) {
+                    if (rtn.success) {
+                        customerInfo = rtn.data;
+                        $.dataInput($('.form-control-static'), rtn.data);
+                        var partnerTypeStr = "";
+                        if (rtn.data.partnerType == "1") {
+                            partnerTypeStr = "流量营销";
+                        } else if (rtn.data.partnerType == "2") {
+                            partnerTypeStr = "渠道直充";
+                        }
+                        $("#partnerType").html(partnerTypeStr);
+                        // 可用额度
+                        var availableCredit = floatSub(floatAdd(rtn.data.creditAmount + "", rtn.data.balance + ""), rtn.data.currentAmount + "");
+                        $("#availableCredit").html(availableCredit);
+                        
+                        // 初始化【累计存款】和【累计消费】
+                        initAccuAndCumu();
+                    } else {
+                        Feng.error(rtn.message ? rtn.message : "发生未知错误!");
+                    }
+                });
+            } else {
+                Feng.error('参数错误');
+            }
+            var allType = $('#allType');
+            allType.on('click', function() {
+            	var that = this;
+            	if(allType.prop("checked")==true){
+            		$("[name='tradeTypes[]']").each(function() {
+						this.checked = that.checked;
+					});
+            	}else{ 
+            		$("[name='tradeTypes[]']").each(function() {
+						this.checked = that.checked;
+					});
+            	}
+    		});
+            allType.prop("checked",true);
+            $("[name='tradeTypes[]']").each(function(){
+            	var that = this;
+            	$(this).prop("checked",true);
+            	$(this).on('click', function() {
+            	if($(this).prop("checked")==true){ 
+            	}else{ 
+            		$('#allType')[0].checked = that.checked;
+            		$('#allValue')[0].checked = that.checked;
+            	}
+    		})});
+        });
+
+        function initAccuAndCumu() {
+            $.post(init_url, {
+                'customerId': pkId
+            }, function(rtn) {
+                if (rtn.error) {
+                    Feng.error(rtn.message ? rtn.message : "发生未知错误!");
+                    return;
+                }
+                // 累计存款
+                $("#accumulatedDeposit").html(rtn.rechargeAmount);
+                // 累计消费：日账单之和+未确认金额
+                $("#cumulativeConsumption").html(floatAdd(rtn.sumCustomerAmount + "", customerInfo.currentAmount + ""));
+            });
+        }
+        
+        // 点击【账户充值】按钮
+        $("#cadvRechargeBtn").click(function() {
+            $("#customer-recharge-title").html("【" + $("p[name='customerName']").html() + "】账户充值");
+            // 弹出模态框
+            $("#customer-recharge-dialog").modal({
+                backdrop: "static",
+                keyboard: false
+            }).on("shown.bs.modal", function(e) {
+                $("#cadv-recharge-money").val("");
+                $("#cadv-remark").val("");
+            });
+        });
+        
+        function cADVRechargeBtnClickHandler() {
+            var rechargeBalance = $("#cadv-recharge-money").val();
+            var rechargeRemark = $("#cadv-remark").val();
+            // 非空验证
+            if (rechargeBalance == "") {
+                showErrorMsg("#cadv-error", "#errorMsg", "请输入充值金额");
+                return;
+            }
+            // 整数或小数
+            var numReg = /^(-|\+)?[0-9]+(\.[0-9]*)?$/;
+            if (!numReg.test(rechargeBalance)) {
+                showErrorMsg("#cadv-error", "#errorMsg", "只能输入整数或小数，请重新输入。");
+                return;
+            }
+            // 7位整数2位小数
+            var doubleReg = /^(-|\+)?\d{1,7}\.?\d{0,2}$/;
+            if (!doubleReg.test(rechargeBalance)) {
+                showErrorMsg("#cadv-error", "#errorMsg", "最多只能有七位整数和两位小数，请重新输入。");
+                return;
+            }
+            // 两位小数验证
+            if (rechargeBalance.indexOf(".") != -1) {
+                var reg = /^(-|\+)?\d+\.+\d{1,2}$/;
+                if (!reg.test(rechargeBalance)) {
+                    showErrorMsg("#cadv-error", "#errorMsg", "最多只能有两位小数，请重新输入。");
+                    return;
+                }
+            }
+            saveCustomerTradeFlow(rechargeBalance, rechargeRemark, 2);
+        }
+        
+        // 点击【信用额度调整】按钮
+        $("#cadvCreditBtn").click(function() {
+            $("#customer-credit-title").html("【" + $("p[name='customerName']").html() + "】信用额度调整");
+            // 弹出模态框
+            $("#customer-credit-dialog").modal({
+                backdrop: "static",
+                keyboard: false
+            }).on("shown.bs.modal", function(e) {
+                $("#cadv-credit-money").val("");
+                $("#cadv-credit-remark").val("");
+            });
+        });
+        
+        function cADVCreditBtnClickHandler() {
+            var creditBalance = $("#cadv-credit-money").val();
+            var creditRemark = $("#cadv-credit-remark").val();
+            // 非空验证
+            if (creditBalance == "") {
+                showErrorMsg("#cadv-credit-error", "#credit-errorMsg", "请输入信用额度");
+                return;
+            }
+            // 整数或小数
+            var numReg = /^(-|\+)?[0-9]+(\.[0-9]*)?$/;
+            if (!numReg.test(creditBalance)) {
+                showErrorMsg("#cadv-credit-error", "#credit-errorMsg", "只能输入整数或小数，请重新输入。");
+                return;
+            }
+            // 7位整数2位小数
+            var doubleReg = /^(-|\+)?\d{1,7}\.?\d{0,2}$/;
+            if (!doubleReg.test(creditBalance)) {
+                showErrorMsg("#cadv-credit-error", "#credit-errorMsg", "最多只能有七位整数和两位小数，请重新输入。");
+                return;
+            }
+            // 两位小数验证
+            if (creditBalance.indexOf(".") != -1) {
+                var reg = /^(-|\+)?\d+\.+\d{1,2}$/;
+                if (!reg.test(creditBalance)) {
+                    showErrorMsg("#cadv-credit-error", "#credit-errorMsg", "最多只能有两位小数，请重新输入。");
+                    return;
+                }
+            }
+            saveCustomerTradeFlow(creditBalance, creditRemark, 3);
+        }
+        
+        // 错误消息
+        function showErrorMsg(outObj, inObj, errorMsg) {
+            $(outObj).removeClass('hide');
+            $(outObj).fadeIn(1000);
+            $(inObj).html(errorMsg);
+            setTimeout(function() {
+                $(outObj).fadeOut(2000);
+            }, 1500);
+        }
+        
+        // 充值/信用额度调整
+        function saveCustomerTradeFlow(tradeAmount, remark, tradeType) {
+            var customerTradeFlow = {};
+            customerTradeFlow.customerId = pkId;
+            customerTradeFlow.tradeAmount = tradeAmount;
+            customerTradeFlow.remark = remark;
+            customerTradeFlow.tradeType = tradeType;
+            $.ajax({
+                url : charge_url,
+                type : "post",
+                contentType : "application/json; charset=UTF-8",
+                cache : false,
+                dataType : 'json',
+                data: JSON.stringify(customerTradeFlow),
+                success : function(data, status) {
+                    if (data.success) {
+                        if (tradeType == 2) {
+                            $("#customer-recharge-dialog").modal("hide");
+                        } else if (tradeType == 3) {
+                            $("#customer-credit-dialog").modal("hide");
+                        }
+                        Feng.success('操作成功');
+                        location.href=Feng.ctxPath+"/customerCharge/customerChargeView?customerId=" + pkId;
+                    } else {
+                        Feng.error(data.message ? data.message : "发生未知错误!");
+                    }
+                }
+            });
+        }
+        
+        
+        function exportDetail(pkId) {
+        	if (!/\d+/.test(pkId)) {
+        		Feng.error("未获取到客户信息");
+        		return;
+        	}
+//         	$('#queryForm').exportData({
+//                 url: Feng.ctxPath + '/customerTradeFlow/export?pkId=' + pkId,
+//                 callback: function(data) {
+//                 },
+//                 failure: function(rtn, action) {
+//                 	console.error(rtn + " - - - -"+ action);
+//                 }
+//             });
+        	
+        	location.href = Feng.ctxPath + '/customerTradeFlow/export?pkId=' + pkId + "&" + $("#queryForm").serialize();
+        	
+        }
+    </script>
+@}

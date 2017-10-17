@@ -1,0 +1,120 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+           <!--  <div class="ibox-title">
+                <h5>流量订单管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <form id="queryForm">
+								<div class="widget-box">
+									<div class="widget-header widget-header-flat search_tj_bar_tit">
+										<h5 class="widget-title">查询条件</h5>
+									</div>
+									<div class="row search_tj_bar">
+										<div class="col-xs-12">
+											<div class="center">
+												<div class="row accessChannelInfo">
+													<div class="col-xs-3">
+														<#NameCon name="订单号：" id="params['orderId']" />
+													</div>
+													<div class="col-xs-3">
+													     <#NameCon name="手机号：" id="params['usedMobile']" />
+													</div>
+													<div class="col-xs-3">
+																<#SelectCon name="订单状态：" id="params['status']">	
+																	<option value="">全部</option>
+																	<option value="1">待发</option>
+																	<option value="2">已发</option>
+																	<option value="3">重发</option>
+																	<option value="6">成功</option>
+																	<option value="4">失败</option>
+																	<option value="5">风控</option>
+																</#SelectCon>
+													</div>
+													<div class="col-xs-3">
+																<#SelectCon name="回调状态："  id="params['dealFlag']">
+																	<option value="">全部</option>
+																	<option value="0">运营商处理中</option>
+																	<option value="1">待回调</option>
+																	<option value="2">已回调</option>
+																	<option value="3">无需回调</option>
+																</#SelectCon>
+													</div>
+												</div>
+												<br/>
+												
+												<div class="row accessChannelInfo">
+													<div class="col-xs-3">
+														<#NameCon name="CP订单号：" id="params['extorderId']" />
+													</div>
+													<div class="col-xs-3">
+														<#NameCon id="params['mobileHome']" name="归属地：" />
+													</div>
+													<div class="col-xs-3">
+														<div class="input-group">
+														    <div class="input-group-btn">
+														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+														                type="button">应用ID：
+														        </button>
+														    </div>
+														    <input type="hidden" class="form-control" id="app_select" name="params['flowAppId']" placeholder="${placeholder!}" />
+														</div>
+													</div>
+													<div class="col-xs-3">
+																<#SelectCon id="params['mobileOperator']" name="运营商："
+																	class="form-control search-query">
+																	<option value="">全部</option>
+																	<option value="YD">移动</option>
+																	<option value="DX">电信</option>
+																	<option value="LT">联通</option>
+																</#SelectCon>
+													</div>
+												</div>
+												<br/>
+												
+												<div class="row accessChannelInfo">
+													<div class="col-xs-5">
+														<#TimeBetweenCon name="发送时间:" isTime="true" pattern="YYYY-MM-DD hh:mm:ss"  startValue="${nowStartTime}"
+															startId="params['createStartTime']" endId="params['createEndTime']" endValue="${nowEndTime}" />
+													</div>
+													<div class="col-xs-5">
+														<#TimeBetweenCon name="回调时间:" isTime="true" pattern="YYYY-MM-DD hh:mm:ss"  
+															startId="params['checkStartTime']" endId="params['checkEndTime']" />
+													</div>
+													<div class="col-xs-2">
+														<#button name="查询" icon="fa-search" clickFun="FlowOrderInfo.search()" space="true"/>
+                     									<#button name="重置" icon="fa fa-undo" clickFun="FlowOrderInfo.reset()" space="true"/>
+													</div>
+												</div>
+												<br/>
+												
+												<div class="row accessChannelInfo">
+												
+												<input type="hidden" class="form-control" name="params['customerId']" value="${customerId!}" />
+													
+												</div>
+												
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+                        <div class="hidden-xs" id="FlowOrderInfoTableToolbar" role="group">
+                            <div class="btnWrapper">
+                                 <#button name="" icon="ace-icon fa fa-hand-o-right bigger-120" clickFun="reCallBack();"/>
+                           		<span class="btnTips">重回调</span>
+                            </div>
+                        </div>
+                        <#table id="FlowOrderInfoTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/portal/order/flowOrderInfo.js"></script>
+@}

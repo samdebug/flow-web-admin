@@ -1,0 +1,68 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <!-- <div class="ibox-title">
+                <h5>客户充值管理管理</h5>
+            </div> -->
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <form id="queryForm" onsubmit="return false;">
+							<div class="widget-box">
+								<div class="widget-header widget-header-flat search_tj_bar_tit">
+									<h5 class="widget-title">查询条件</h5>
+								</div>
+								<div class="row search_tj_bar">
+									<div class="col-xs-12">
+										<div class="center">
+											<div class="row">
+												<div class="col-xs-3">
+													<#NameCon id="params['customerName']" name="客户名称：" />
+												</div>
+												<div class="col-xs-3">
+														<#SelectCon name="合作类型：" id="params['partnerType']">	
+															 <option value="">全部</option>    
+			                                                 <option value="1">流量营销</option>
+			                                                 <option value="2">渠道直充</option>
+			                                             </#SelectCon>       
+			                                    </div>
+			                                    <div class="col-xs-3">
+			                                    		<#SelectCon name="状态：" id="params['status']">	
+															<option value="">全部</option>
+			                                                    <option value="0">保存</option>
+			                                                    <option value="1">商用</option>
+			                                                    <option value="2">暂停</option>
+			                                             </#SelectCon>  
+			                                    </div>
+			                                    <div class="col-xs-3 reset">
+			                                    	 <#button name="查询" icon="fa-search" clickFun="CustomerCharge.search()" space="true"/>
+                            						 <#button name="重置" icon="fa-undo" clickFun="CustomerCharge.restForm()" space="true"/>
+			                                    </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+                        <div class="hidden-xs" id="CustomerChargeTableToolbar" role="group">
+                            <div class="btnWrapper">
+                            	<#button name="" icon="fa fa-money" clickFun="detailEvent()" style="width:98px"/>
+                            	<span class="btnTips">账户 明细</span>
+                            </div>
+                            
+                            <div class="btnWrapper">
+                            	<#button name="" icon="fa fa-download" clickFun="accountSettlementReport()" style="width:98px"/>
+                            	<span class="btnTips">账单 报表</span>
+                            </div>
+                            
+                        </div>
+                        <#table id="CustomerChargeTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/customerCharge/customerCharge.js"></script>
+@}

@@ -1,0 +1,294 @@
+@layout("/common/_container.html"){
+<style>
+	.wellcome-box{
+		min-width: 360px;
+		max-width: 500px;
+		/*margin-left: 15px;*/
+		overflow-x: hidden;
+	}
+	.wellcome-box .container-box{
+		padding: 25px;
+ 		border: 1px solid #dcdcdc; 
+ 		box-shadow: 5px 3px 5px #dcdcdc;
+	}
+	.wellcome-box .user-avator {
+		display: table-cell;
+		width:105px; 
+		height:105px; 
+		border-radius: 50%;
+		border: 1px solid #cdcdcd;
+		padding: 3px;
+		overflow: hidden;
+		text-align: center;
+		vertical-align: middle;
+		float: left;
+	}
+	.wellcome-box .user-avator img {
+		text-align: center;
+		vertical-align: middle;
+		border: none !important;
+		background: none;
+	 	width: 100%; 
+	 	max-width: 100px; 
+	 	max-height: 100px;
+	 	border-radius: 50%;
+	 	padding: 3px;
+	}
+	.wellcome-box .user-name{
+ 		margin-left: 130px; 
+ 		margin-top: 35px;
+ 		font-size: 26px;
+ 		line-height: 26px;
+ 		height: 26px;
+ 		overflow:hidden;
+	    text-overflow:ellipsis;
+	    white-space:nowrap
+	}
+	.wellcome-box .wellcome-txt{
+		text-align: right;
+		font-size: 15px;
+	}
+</style>
+<div class="col-sm-3">
+	<div class="card-box">
+	    <div class="col-sm-12 card-container">
+	        <div class="card-header">
+	            <img src="${ctxPath}/static/img/HomePage/ink.png" alt="">
+	        </div>
+	        <div class="card-body">
+	            <p>供应商管理</p>
+	        </div>
+	        <div class="card-detail">
+	            <p>供应商管理是一个高可用性和高可靠性的存储服务，支持弹性扩容，服务7x24小时在线，按需收费，最大化节省存储成本</p>
+	        </div>
+	        <div class="card-footer">
+	            <button type="button" class="btn btn-primary button-margin " id="search-btn">查看详情</button>
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="col-sm-3">
+	<div class="card-box">
+	    <div class="col-sm-12 card-container">
+	        <div class="card-header">
+	            <img src="${ctxPath}/static/img/HomePage/mobile-phone.png" alt="">
+	        </div>
+	        <div class="card-body">
+	            <p>产品管理</p>
+	        </div>
+	        <div class="card-detail">
+	            <p>产品管理是一个高可用性和高可靠性的存储服务，支持弹性扩容，服务7x24小时在线，按需收费，最大化节省存储成本</p>
+	        </div>
+	        <div class="card-footer">
+	            <button type="button" class="btn btn-primary button-margin " id="search-btn">查看详情</button>
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="col-sm-3">
+	<div class="card-box">
+	    <div class="col-sm-12 card-container">
+	        <div class="card-header">
+	            <img src="${ctxPath}/static/img/HomePage/strategy.png" alt="">
+	        </div>
+	        <div class="card-body">
+	            <p>订单查询</p>
+	        </div>
+	        <div class="card-detail">
+	            <p>订单查询是一个高可用性和高可靠性的存储服务，支持弹性扩容，服务7x24小时在线，按需收费，最大化节省存储成本</p>
+	        </div>
+	        <div class="card-footer">
+	            <button type="button" class="btn btn-primary button-margin " id="search-btn">查看详情</button>
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="col-sm-3">
+	<div class="card-box">
+	    <div class="col-sm-12 card-container">
+	        <div class="card-header">
+	            <img src="${ctxPath}/static/img/HomePage/handshake.png" alt="">
+	        </div>
+	        <div class="card-body">
+	            <p>合作伙伴管理</p>
+	        </div>
+	        <div class="card-detail">
+	            <p>合作伙伴管理是一个高可用性和高可靠性的存储服务，支持弹性扩容，服务7x24小时在线，按需收费，最大化节省存储成本</p>
+	        </div>
+	        <div class="card-footer">
+	            <button type="button" class="btn btn-primary button-margin " id="search-btn">查看详情</button>
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="col-sm-3">
+	<div class="card-box">
+	    <div class="col-sm-12 card-container">
+	        <div class="card-header">
+	            <img src="${ctxPath}/static/img/HomePage/hierarchical-structure.png" alt="">
+	        </div>
+	        <div class="card-body">
+	            <p>客户管理</p>
+	        </div>
+	        <div class="card-detail">
+	            <p>客户管理是一个高可用性和高可靠性的存储服务，支持弹性扩容，服务7x24小时在线，按需收费，最大化节省存储成本</p>
+	        </div>
+	        <div class="card-footer">
+	            <button type="button" class="btn btn-primary button-margin " id="search-btn">查看详情</button>
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="col-sm-3">
+	<div class="card-box">
+	    <div class="col-sm-12 card-container">
+	        <div class="card-header">
+	            <img src="${ctxPath}/static/img/HomePage/startup.png" alt="">
+	        </div>
+	        <div class="card-body">
+	            <p>账单/报表统计</p>
+	        </div>
+	        <div class="card-detail">
+	            <p>账单/报表统计是一个高可用性和高可靠性的存储服务，支持弹性扩容，服务7x24小时在线，按需收费，最大化节省存储成本</p>
+	        </div>
+	        <div class="card-footer">
+	            <button type="button" class="btn btn-primary button-margin " id="search-btn">查看详情</button>
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="col-sm-3">
+	<div class="card-box">
+	    <div class="col-sm-12 card-container">
+	        <div class="card-header">
+	            <img src="${ctxPath}/static/img/HomePage/hierarchical-structure (1).png" alt="">
+	        </div>
+	        <div class="card-body">
+	            <p>系统管理</p>
+	        </div>
+	        <div class="card-detail">
+	            <p>系统管理是一个高可用性和高可靠性的存储服务，支持弹性扩容，服务7x24小时在线，按需收费，最大化节省存储成本</p>
+	        </div>
+	        <div class="card-footer">
+	            <button type="button" class="btn btn-primary button-margin " id="search-btn">查看详情</button>
+	        </div>
+	    </div>
+	</div>
+</div>
+<!-- <div class="wellcome-box">
+    <div class="ibox float-e-margins">
+        <div class="ibox-content container-box">
+            <div class="row row-lg">
+                <div class="col-sm-12 user">
+                	<div class="user-avator">
+                    	<img id="newAvator" alt="${user.name}" src="${ctxPath}/mgr/getAvator" onerror="loadDefaultUserAvator(event);"/>
+                    </div>
+                    <div class="user-name">
+                    	${user.name}
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+            <br/><br/>
+            <div class="row row-lg">
+                <div class="col-sm-12 wellcome-txt">
+                	<span id="tip-txt"></span><br/>
+                	<span id="date"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<script type="text/javascript">
+
+	var tips = [
+		{
+			tip : "午夜好！请注意休息",
+			startTime:0,
+			endTime: 1 * 3600
+		},
+		{
+			tip : "凌晨好！请注意休息",
+			startTime:1 * 3600,
+			endTime: 5 * 3600
+		},
+		{
+			tip : "早上好！记得吃早餐哟",
+			startTime:5 * 3600,
+			endTime: 8 * 3600
+		},
+		{
+			tip : "上午好！",
+			startTime:8 * 3600,
+			endTime: 12 * 3600
+		},
+		{
+			tip : "中午好！午饭后小憩一下",
+			startTime:12 * 3600,
+			endTime: 13 * 3600 + 30 * 60
+		},
+		{
+			tip : "下午好！",
+			startTime:13 * 3600 + 30 * 60,
+			endTime: 16 * 3600
+		},
+		{
+			tip : "下午好！来杯下午茶吧",
+			startTime:16 * 3600,
+			endTime: 16 * 3600 + 30 * 60
+		},
+		{
+			tip : "下午好！",
+			startTime:16 * 3600 + 30 * 60,
+			endTime: 18 * 3600 + 30 * 60
+		},
+		{
+			tip : "晚上好！记得吃晚饭",
+			startTime:18 * 3600 + 30 * 60,
+			endTime: 20 * 3600
+		},
+		{
+			tip : "晚上好！",
+			startTime:20 * 3600,
+			endTime: 21 * 3600 + 30 * 60
+		},
+		{
+			tip : "晚上好！早点休息",
+			startTime:21 * 3600 + 30 * 60,
+			endTime: 24 * 3600
+		}
+	];
+	
+	var weeks = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+
+	Date.prototype.Format = function (fmt) { 
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "H+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+
+	var date = new Date();
+
+	$("#date").text("今天是" + date.Format("yyyy年MM月dd日") + "  " + weeks[(new Date().getDay())]);
+	
+	var time = date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds();
+	for(index in tips) {
+		if ( time >= tips[index].startTime && time < tips[index].endTime ) {
+			$("#tip-txt").text(tips[index].tip);
+			break;
+		}
+	}
+	
+</script>
+@}
