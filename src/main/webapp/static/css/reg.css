@@ -39,7 +39,7 @@ body,html{
 .reg-con .reg-info .reg-det{position: absolute;right:-70px;top:160px;background-color: #fff;width: 27rem;margin: 0 auto;padding-top: 2.4rem;padding-bottom: 1rem;border-radius: 5px;-webkit-border-radius: 5px;-moz-border-radius: 5px;}
 .reg-info .reg-det input{display: block;color: #506470;font-size: 1.4rem;width: 100%;height: 44px;line-height: 44px;outline: none; padding: 0 38px 0 12px; border:1px #ccc solid;box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;}
 .reg-info .reg-det input.half-w{float: left;display: inline-block;width: 60%;margin-right: 8%;}
-.reg-info .reg-det input:focus{ border-color: #67B83D;}
+.reg-info .reg-det input:focus{ border-color: #2ea967;}
 .reg-info .reg-det img{float: right;width: 30%;display: block;position: relative;top: 2px;}
 .reg-con .reg-info .reg-det .flag{padding: 4px 15px;color: #fff;position: absolute;top: -15px;left: 50%;background-color: #ff5f4e;transform: translateX(-50%);-webkit-transform: translateX(-50%);-moz-transform: translateX(-50%);}
 .reg-info .reg-det .group{position: relative;width: 80%;margin: 0 auto 1.8rem auto;box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;}

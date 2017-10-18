@@ -148,7 +148,7 @@ $(function () {
             },function (){
                 clearTimeout(timer);
                 that.next('span').hide();  
-            });
+            }); 
         })
     }
 })  

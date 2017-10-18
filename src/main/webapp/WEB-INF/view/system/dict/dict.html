@@ -21,7 +21,7 @@
                                 <#button name="添加" icon="fa-plus" clickFun="Dict.openAddDict()"/>
                             @}
                             @if(shiro.hasPermission("/dict/update")){
-                                <#button name="修改" icon="fa-plus" clickFun="Dict.openDictDetail()" space="true"/>
+                                <#button name="修改" icon="fa-edit" clickFun="Dict.openDictDetail()" space="true"/>
                             @}
                             @if(shiro.hasPermission("/dict/delete")){
                                 <#button name="删除" icon="fa-trash-o" clickFun="Dict.delete()" space="true"/>
