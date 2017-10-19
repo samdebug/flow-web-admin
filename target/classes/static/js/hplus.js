@@ -105,7 +105,7 @@ $(document).ready(function () {
 });
 
 $(window).bind("load resize", function () {
-    if ($(this).width() < 769) {
+    if ($(this).width() < 769 ) {
         $('body').addClass('mini-navbar');
         $('.navbar-static-side').fadeIn();
         $("#side-menu").find(".mini-dropdown-menu").fadeIn();
@@ -124,9 +124,17 @@ $(window).bind("load resize", function () {
 function NavToggle(index,e) {
     var element = $("#side-menu").children("li")[index];
     $("#side-menu").find(".mini-dropdown-menu").remove();
+    $("#side-menu").find(".mini-tag").remove();
+    
+    //menu element
     var ul = $("<ul class=\"mini-dropdown-menu\">").css({ "top": e.pageY - 15 }).appendTo(element);
     var sub_menu = $($(element).find(".nav")).children("li");
     sub_menu.clone(true).appendTo(ul);
+
+    //new tag element
+    /*var tag = $("<a class=\"mini-tag\">").css({"top": e.pageY -83}).appendTo(element);
+    var icon = $(element).find(".item_icon");
+    icon.clone(true).appendTo(tag);*/
 }
 
 function SmoothlyMenu() {

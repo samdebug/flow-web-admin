@@ -112,7 +112,7 @@ $(function () {
         var $itemActive = $menu.find('.active'); // 选中项
         var mainTitle = $.trim($itemActive.find('a').children(".nav-label").text());
         var subTitle = $.trim($(this).text());
-
+        
         var dataUrl = $(this).attr('href'),
             dataIndex = $(this).data('index'),
             flag = true;
@@ -144,15 +144,14 @@ $(function () {
         	//删除之前的
         	$('.J_menuTabs .page-tabs-content').children().remove();       
             $("#side-menu").find(".mini-dropdown-menu").remove();
-            
             if (subTitle == "首页" || subTitle == "修改密码" || subTitle == "更换头像"){
                 $("#side-menu").children("li").removeClass("active");
                 $($("#side-menu").children("li")).children("ul").removeClass("in");
                 var str = '<a href="javascript:;" class="active J_menuTab" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166" data-id="' + dataUrl + '">' + subTitle + '</a>';
-            }else{
+            }else{  
                 var str = '<a href="javascript:;" class="active J_menuTab" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166" data-id="' + dataUrl + '">' + mainTitle + '</a>' + '<i class="fa fa-angle-right" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166">' + '</i>' + '<span style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166;padding-left: 10px;">' + subTitle + '</span>';
             }
-            
+
             $('.J_menuTab').removeClass('active');
 
             // 添加选项卡对应的iframe

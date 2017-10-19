@@ -32,7 +32,7 @@ body,html{
 }
 /*注册*/
 .reg-wrap{background-color: #e9ecf0;width:100%;height: 100%;}
-.reg-con{background: #e9ecf0 url(../img/logo_bg.png) center bottom no-repeat;position: absolute;top: 0px;bottom: 0;left: 0;right: 0;z-index: 1;}
+.reg-con{background: #e9ecf0 url(../img/logo_bg.png) center bottom no-repeat;position: absolute;top: 0px;bottom: 0;left: 0;right: 0;z-index: 1;background-size: cover !important;}
 .reg-con .reg-info{margin: 0 auto;padding-top: 4.4rem;padding-bottom: 3.5rem;max-width:1000px;position:relative;height:100%;}
 .reg-con .reg-info .reg-logo{text-align: left;}
 .reg-con .reg-info h1{font-size: 2.4rem;text-align: center;padding: 0rem 0 3rem;}
@@ -42,7 +42,7 @@ body,html{
 .reg-info .reg-det input:focus{ border-color: #2ea967;}
 .reg-info .reg-det img{float: right;width: 30%;display: block;position: relative;top: 2px;}
 .reg-con .reg-info .reg-det .flag{padding: 4px 15px;color: #fff;position: absolute;top: -15px;left: 50%;background-color: #ff5f4e;transform: translateX(-50%);-webkit-transform: translateX(-50%);-moz-transform: translateX(-50%);}
-.reg-info .reg-det .group{position: relative;width: 80%;margin: 0 auto 1.8rem auto;box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;}
+.reg-info .reg-det .group{position: relative;width: 80%;margin: 0 auto 1.0rem auto;box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;}
 .reg-info .reg-det .group.last{margin-bottom: 10px;}
 .reg-info .reg-det .group .mark{display: inline-block;width: 30px;height: 30px;position: absolute;left: 0px;top: 10px;background: url(../img/reg-icon.png) 8px 5px no-repeat;}
 .reg-info .reg-det .mark.pas{background-position: 8px -30px;}
@@ -98,7 +98,7 @@ input:-webkit-autofill{
 	.reg-con .reg-info .reg-det{position:relative;top:50px;right:0px;}
 	.reg-con .reg-info .reg-logo{text-align:center;}
 }
-@media screen and (max-width:440px) {
+/*@media screen and (max-width:440px) {
 	.footerMsg{display:none}
 .reg-con .reg-info{width: 420px;padding-top: 2.4rem;padding-bottom: 2.5rem;}
 html{font-size: 8px;}
@@ -117,8 +117,8 @@ html{font-size: 8px;}
 .reg-info.reg-suc h1{padding-bottom: 0.2rem;}
 .reg-info .reg-det .success{background-position: 126px -45px;}
 .reg-con .reg-info .reg-det{position:relative;top:20px;}
-}
-@media screen and (max-width:420px) {
+}*/
+/*@media screen and (max-width:420px) {
 	.footerMsg{display:none}
 .reg-con .reg-info{width: 400px;padding-top: 2rem;padding-bottom: 2rem;}
 .reg-con .reg-info .reg-det{width: 360px;}
@@ -137,7 +137,7 @@ html{font-size: 8px;}
 	.footerMsg{display:none}
 .reg-con .reg-info{width: 360px;}
 .reg-con .reg-info .reg-det{width: 320px;}
-}
+}*/
 @media screen and (max-width:360px) {
 	.footerMsg{display:none}
 .reg-con .reg-info{width: 340px;}

@@ -54,7 +54,7 @@ function formatActionButtons(cellvalue, rowObject, options) {
     // 需求变更：管理员和合作伙伴都可以改变订单状态 end
     
     if (rowObject.status != 2) {
-        btnHtml += '&nbsp;<button onclick=\"OrderInfo.openOrderInfoDetail(\'' + rowObject['orderIdStr'] + '\', '+ rowObject['orderType'] +')\" class=\"btn btn-xs btn-info\" permCheck=\"auth_order_manager_list,modify,hidden\" data-rel=\"tooltip\" title=\"修改\" ><i class=\"ace-icon fa fa-pencil bigger-120\"></i></button>';
+        btnHtml += '&nbsp;<button onclick=\"OrderInfo.openOrderInfoDetail(\'' + rowObject['orderIdStr'] + '\', '+ rowObject['orderType'] +')\" class=\"btn btn-xs\" permCheck=\"auth_order_manager_list,modify,hidden\" data-rel=\"tooltip\" title=\"修改\" ><i class=\"ace-icon fa fa-pencil bigger-120\"></i></button>';
     }
     // TODO 
     btnHtml += '&nbsp;<button onclick=\"OrderInfo.exportHandler(\'' + rowObject['orderIdStr'] + '\')\" class=\"btn btn-xs btn-primary\" permCheck=\"auth_order_manager_list,exportById,hidden\" data-rel=\"tooltip\" title=\"导出\" ><i class=\"ace-icon fa fa-share-square-o bigger-120\"></i></button>';

@@ -41,6 +41,16 @@
         color: red;
         display: none;
     }
+    .ibox-content .widget-box{
+    border: 1px solid rgb(229, 230, 231);
+    padding: 20px;
+    margin-bottom:20px;
+    }
+
+    .ibox-content .widget-box input{
+        display: inline;
+        margin: 5px;
+    }
 </style>
 <div class="row">
     <div class="col-sm-12">
@@ -176,18 +186,18 @@
 				                <div id="job"> 
 									<div class="widget-box">
 										<div class="widget-header widget-header-flat search_tj_bar_tit">
-											<h5 class="widget-title">定时任务</h5>
+											<h3 class="widget-title">定时任务</h3>
 										</div>
 										<div class="row search_tj_bar">
 											<form id="jcForm">
 											<div class="col-xs-12">
-											<label>每5分钟将 </label> <input name="inHours" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="inHours">
-											<label>(可配置值，默认48)小时内，已发订单数大于</label><input name="stuckRows" style="width:50px"  type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="stuckRows">
+											<label>每5分钟将 </label> <input class="form-control" name="inHours" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="inHours">
+											<label>(可配置值，默认48)小时内，已发订单数大于</label><input class="form-control" name="stuckRows" style="width:50px"  type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="stuckRows">
 											<label>（可配置值，默认2000）的通道，将其失效</label>
 											</div>
 											</form>
 											<div class="bs_btn" style="padding-right:3%" align="right">
-												<button id="setBtn" class="btn btn-sm btn-success" >
+												<button id="setBtn" class="btn btn-sm btn-success button-margin" >
 													<i class="ace-icon fa fa-hand-o-right bigger-120"></i>保存设置
 												</button>
 											</div>
@@ -196,23 +206,23 @@
 								</div>
 								<div class="widget-box">
 									<div class="widget-header widget-header-flat search_tj_bar_tit">
-										<h5 class="widget-title">通道预警配置</h5>
+										<h3 class="widget-title">通道预警配置</h3>
 									</div>
 									<div class="row search_tj_bar">
 										<form id="alarm_form">
 										<div class="col-xs-12" style="margin:2px 0;">
-											<label>当单条通道订单连续失败超过阈值</label> <input name="emailAlarmNum" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="emailAlarmNum"/>
-											<label>单，发送<strong style="color:red">邮件</strong>告知运营人员,发送邮件间隔时间</label><input name="emailAlarmInterval" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="emailAlarmInterval"><label>秒</label>
-											<label>，邮件接收人</label><input name="emailAlarmRecivers" style="width:280px" type="text"  onkeyup="AccessChannelInfo.checkText(this)" id="emailAlarmRecivers"><label>(多个以;隔开隔开)</label><br>
+											<label>当单条通道订单连续失败超过阈值</label> <input class="form-control" name="emailAlarmNum" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="emailAlarmNum"/>
+											<label>单，发送<strong style="color:red">邮件</strong>告知运营人员,发送邮件间隔时间</label><input class="form-control" name="emailAlarmInterval" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="emailAlarmInterval"><label>秒</label>
+											<label>，邮件接收人</label><input class="form-control" name="emailAlarmRecivers" style="width:280px" type="text"  onkeyup="AccessChannelInfo.checkText(this)" id="emailAlarmRecivers"><label>(多个以;隔开隔开)</label><br>
 										</div>
 										<div class="col-xs-12" style="margin:2px">
-											<label>当单条通道订单连续失败超过阈值</label><input name="smsAlarmNum" style="width:50px"  type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="smsAlarmNum"/>
-											<label>单，发送<strong style="color:red">短信</strong>告知运营人员,发送短信间隔时间</label><input name="smsAlarmInterval" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="smsAlarmInterval"><label>秒</label>
-											<label>，短信接收人</label><input name="smsAlarmRecivers" style="width:280px" type="text"  onkeyup="AccessChannelInfo.checkText(this)" id="smsAlarmRecivers"><label>(多个以;隔开隔开)</label><br>
+											<label>当单条通道订单连续失败超过阈值</label><input class="form-control" name="smsAlarmNum" style="width:50px"  type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="smsAlarmNum"/>
+											<label>单，发送<strong style="color:red">短信</strong>告知运营人员,发送短信间隔时间</label><input class="form-control" name="smsAlarmInterval" style="width:50px" type="text"  onkeyup="AccessChannelInfo.checkNum(this)" id="smsAlarmInterval"><label>秒</label>
+											<label>，短信接收人</label><input class="form-control" name="smsAlarmRecivers" style="width:280px" type="text"  onkeyup="AccessChannelInfo.checkText(this)" id="smsAlarmRecivers"><label>(多个以;隔开隔开)</label><br>
 										</div>
 										</form>
 										<div class="bs_btn" style="padding-right:3%" align="right">
-											<button id="setAlarmBtn" class="btn btn-sm btn-success">
+											<button id="setAlarmBtn" class="btn btn-sm btn-success button-margin">
 												<i class="ace-icon fa fa-hand-o-right bigger-120"></i>保存设置
 											</button>
 										</div>

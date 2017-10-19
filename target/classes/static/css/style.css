@@ -2308,6 +2308,7 @@ table.dataTable thead .sorting:after {
     width: 100%;
     font-size: 14px;
     height: 35px;
+    border-radius: 0px !important;
 }
 
 .form-control:focus,
@@ -7764,9 +7765,13 @@ body.skin-3 {
         text-align: right;
         display: block;
     }
-    .content-tabs {
+    /*.content-tabs {
+        display: none;
+    }*/
+    #user-info-box{
         display: none;
     }
+
     #content-main {
         height: calc(100% - 100px);
     }
@@ -7795,6 +7800,9 @@ body.skin-3 {
 @media (max-width: 350px) {
     body.fixed-sidebar.mini-navbar .navbar-static-side {
         width: 0;
+    }
+    .page-tabs-content {
+        display: none;
     }
     .nav-close {
         display: block;
@@ -8366,4 +8374,35 @@ body.skin-3 {
     line-height: 30px !important;
     padding: 5px 25px 5px 25px !important;
     color: #fff;
+}
+
+.mini-tag {
+    background-color: rgb(46, 169, 103);
+    width: 70px;
+    height: 30px;
+    position: relative !important;
+    left: : 0;
+}
+
+.mini-tag i{
+    margin-top: -61px;
+}
+
+
+.reset{
+    float: right;
+}
+
+.reset button{
+    float: right;
+}
+
+.ibox-content .newLabel{
+    color: #999;
+    font-size: 15px;
+    padding: 20px;
+}
+
+.ibox-content .newLabel span{
+    color: #2ea967;
 }

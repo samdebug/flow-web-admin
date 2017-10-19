@@ -84,14 +84,14 @@ $(document).ready(function () {
         height: '100%'
     });
 
-    $('#side-menu>li').click(function () {
+    $('#side-menu>li').click(function (event) {
         if ($('body').hasClass('mini-navbar')) {
-            NavToggle();
+            NavToggle($(this).index(),event);
         }
     });
     $('#side-menu>li li a').click(function () {
         if ($(window).width() < 769) {
-            NavToggle();
+            NavToggle($(this).index(),event);
         }
     });
 
@@ -105,14 +105,36 @@ $(document).ready(function () {
 });
 
 $(window).bind("load resize", function () {
-    if ($(this).width() < 769) {
+    if ($(this).width() < 769 ) {
         $('body').addClass('mini-navbar');
         $('.navbar-static-side').fadeIn();
+        $("#side-menu").find(".mini-dropdown-menu").fadeIn();
+        if (!$(".logo_mod").find("#mini-logo").length){
+            $(".logo_mod").find("img").hide();
+            $("<img id=\"mini-logo\" src=\"/static/img/logo-mini.png\">").css({ "width": "30px" ,"margin-left": "7px"}).appendTo($(".logo_mod").children("a"));
+        }
+    }else{
+        $('body').removeClass('mini-navbar');
+        $("#side-menu").find(".mini-dropdown-menu").fadeOut();
+        $(".logo_mod").find("#mini-logo").remove();
+        $(".logo_mod").find("img").show();
     }
 });
 
-function NavToggle() {
-    $('.navbar-minimalize').trigger('click');
+function NavToggle(index,e) {
+    var element = $("#side-menu").children("li")[index];
+    $("#side-menu").find(".mini-dropdown-menu").remove();
+    $("#side-menu").find(".mini-tag").remove();
+    
+    //menu element
+    var ul = $("<ul class=\"mini-dropdown-menu\">").css({ "top": e.pageY - 15 }).appendTo(element);
+    var sub_menu = $($(element).find(".nav")).children("li");
+    sub_menu.clone(true).appendTo(ul);
+
+    //new tag element
+    /*var tag = $("<a class=\"mini-tag\">").css({"top": e.pageY -83}).appendTo(element);
+    var icon = $(element).find(".item_icon");
+    icon.clone(true).appendTo(tag);*/
 }
 
 function SmoothlyMenu() {

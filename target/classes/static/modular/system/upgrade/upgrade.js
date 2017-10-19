@@ -107,4 +107,5 @@ $(function () {
 //    table.setPaginationType("client");
     Upgrade.table = table.init();
     $(".hidden-xs").children().removeClass("button-margin");
+    $(".bootstrap-table").attr("style","border:none !important;padding:0px");
 });

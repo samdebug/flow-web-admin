@@ -151,4 +151,10 @@ $(function () {
             }); 
         })
     }
+
+    //添加查询边框
+    var searchbox = $($(".row-lg").children()).children().get(0);
+    if ($(searchbox).attr("class") != "bootstrap-table"){
+        $($($(".row-lg").children()).children().get(0)).css({"border":"1px solid #e5e6e7","padding":"20px 20px 10px 0px"});
+    }
 })  
