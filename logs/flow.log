@@ -7782,3 +7782,631 @@ Init tempRootDirPath:/E:/eclipseworkspace/portal/portal/flow-web/flow-web-admin/
 2017-10-18 15:05:38.157  INFO 11632 --- [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 59 ms
 2017-10-18 15:05:38.214  WARN 11632 --- [http-nio-80-exec-2] com.yzx.flow.core.cache.EhcacheFactory   : 无法找到缓存 [menu]的配置, 使用默认配置.
 2017-10-18 15:06:07.878  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:14:48.584  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:15:09.908  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:15:34.505  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 15:15:39.455  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:15:51.909  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:16:07.520  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:25:34.507  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 15:25:44.358  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:27:51.013  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:30:41.037  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:32:18.178  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:33:50.310  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:35:34.508  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 15:37:59.897  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:38:07.647  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:38:35.000  INFO 11632 --- [http-nio-80-exec-4] c.y.f.m.f.C.FlowOrderInfoController      : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={createStartTime=2017-10-18 00:00:00, createEndTime=2017-10-18 23:59:59}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 15:38:35.734  INFO 11632 --- [http-nio-80-exec-7] f.m.f.C.FlowOrderInfoExceptionController : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 15:43:31.618  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:43:54.031  WARN 11632 --- [http-nio-80-exec-9] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:44:16.314  WARN 11632 --- [http-nio-80-exec-7] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:45:34.508  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 15:46:20.663  INFO 11632 --- [main-EventThread] com.yzx.flow.core.util.zk.ZookeeperUtil  : 数据变更前licencesecret:Ou/imO77zQURSqF3Ne2yU03jhJKkpZOxC/NDbEgoIwxyABxhPz9jF5QRsyfSB3LMFdJNViY0cO/4TuNfqG19jDfiSodi2QROkRD6b1uvYBuNgjBSy49zQ6/85Cfg0ytGdBvntVAFkAPVoKbkVZ66sJsK0GReglsdxqmEcyFFoWkAQQcSt0rIymTFm7oRsmhz7P6+W3l4D1GRzoJW9zRzebPoEKMXepKbWCmX2vqCNK4RljRfCFX9/Ixb/IOQl5hBehGrigMfI1zMjuBidzDMWha/0qonBHeb7tbL9Hg6q3z6eUTPis+M+KemWh19bdZr/vAAspvvvEvmjMQ+lqwWhzZUCtGt3ndtIki7zxjIk2n921rqQy8A7Td69jAyPZOae9zZoMYTZoMw/+3cxxy3Cxbrh735mz8r253uiSxxjL/Pv0jtU6mxt9Z4Xr1CxYod9wIKgVU8cWohmsEAXtFokL7FowbB3sf5oc+00CEz4NbQ6R9q0dtKhAVwU587tJRi~eyJjdXN0b21lck5hbWUiOiLmtYvor5UiLCJlbmRUaW1lIjoiMjAxOC0wOC0wOSAxMjoxNzozNyIsInN0YXJ0VGltZSI6IjIwMTctMTAtMTMgMTI6MTc6MzciLCJ2YWxpZGl0eSI6IjMwMCIsInZlcnNpb24iOiLmoIflh4bniYgifQ==,2017-10-17
+2017-10-18 15:46:20.663  INFO 11632 --- [main-EventThread] com.yzx.flow.core.util.zk.ZookeeperUtil  : 数据变更后licencesecret:Ou/imO77zQURSqF3Ne2yU03jhJKkpZOxC/NDbEgoIwxyABxhPz9jF5QRsyfSB3LMFdJNViY0cO/4TuNfqG19jDfiSodi2QROkRD6b1uvYBuNgjBSy49zQ6/85Cfg0ytGdBvntVAFkAPVoKbkVZ66sJsK0GReglsdxqmEcyFFoWkAQQcSt0rIymTFm7oRsmhz7P6+W3l4D1GRzoJW9zRzebPoEKMXepKbWCmX2vqCNK4RljRfCFX9/Ixb/IOQl5hBehGrigMfI1zMjuBidzDMWha/0qonBHeb7tbL9Hg6q3z6eUTPis+M+KemWh19bdZr/vAAspvvvEvmjMQ+lqwWhzZUCtGt3ndtIki7zxjIk2n921rqQy8A7Td69jAyPZOae9zZoMYTZoMw/+3cxxy3Cxbrh735mz8r253uiSxxjL/Pv0jtU6mxt9Z4Xr1CxYod9wIKgVU8cWohmsEAXtFokL7FowbB3sf5oc+00CEz4NbQ6R9q0dtKhAVwU587tJRi~eyJjdXN0b21lck5hbWUiOiLmtYvor5UiLCJlbmRUaW1lIjoiMjAxOC0wOC0wOSAxMjoxNzozNyIsInN0YXJ0VGltZSI6IjIwMTctMTAtMTMgMTI6MTc6MzciLCJ2YWxpZGl0eSI6IjMwMCIsInZlcnNpb24iOiLmoIflh4bniYgifQ==,2017-10-18
+2017-10-18 15:46:20.674 ERROR 11632 --- [main-EventThread] com.yzx.flow.core.util.zk.ZookeeperUtil  : dataWatcher:
+
+java.lang.NullPointerException: null
+	at com.yzx.flow.core.util.zk.ZookeeperUtil$1.process(ZookeeperUtil.java:90) ~[classes/:na]
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:519) [zookeeper-3.4.5.jar:3.4.5-1392090]
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:495) [zookeeper-3.4.5.jar:3.4.5-1392090]
+
+2017-10-18 15:47:12.164  WARN 11632 --- [http-nio-80-exec-9] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:47:25.305  INFO 11632 --- [http-nio-80-exec-3] c.y.f.m.f.C.FlowOrderInfoController      : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={createStartTime=2017-10-18 00:00:00, createEndTime=2017-10-18 23:59:59}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 15:47:26.317  INFO 11632 --- [http-nio-80-exec-4] f.m.f.C.FlowOrderInfoExceptionController : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 15:55:26.044  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 15:55:34.511  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 16:02:18.968  WARN 11632 --- [http-nio-80-exec-7] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:02:26.657  WARN 11632 --- [http-nio-80-exec-7] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:02:35.835  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:03:36.821  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:03:51.380  WARN 11632 --- [http-nio-80-exec-7] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:05:34.512  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 16:05:45.401  WARN 11632 --- [http-nio-80-exec-8] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:06:07.745  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:06:54.582  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:07:05.686  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:07:36.052  WARN 11632 --- [http-nio-80-exec-3] net.sf.jxls.tag.ForEachTag               : Collection list is empty
+2017-10-18 16:07:38.393  INFO 11632 --- [http-nio-80-exec-4] f.m.c.c.ChannelCompanyRechargeController : 分页查询充值记录,params={}
+2017-10-18 16:07:38.403  INFO 11632 --- [http-nio-80-exec-4] .c.s.i.ChannelCompanyRechargeServiceImpl : 分页查询充值记录,params={companyId=201}
+2017-10-18 16:09:06.351  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:15:34.514  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 16:18:45.865  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:24:07.519  WARN 11632 --- [http-nio-80-exec-7] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:25:34.514  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 16:27:09.727  WARN 11632 --- [http-nio-80-exec-8] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:35:34.516  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 16:35:58.584  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:36:22.626  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:36:31.194  WARN 11632 --- [http-nio-80-exec-8] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:39:37.262  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:40:12.337  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:40:18.359  WARN 11632 --- [http-nio-80-exec-9] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:41:00.873  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:44:35.183  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:44:43.773  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:44:56.580  WARN 11632 --- [http-nio-80-exec-9] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:45:11.651  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:45:27.187  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:45:34.516  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 16:46:07.745  INFO 11632 --- [http-nio-80-exec-2] .m.c.c.ChannelSupplierRechargeController : 分页查询充值记录,params={}
+2017-10-18 16:46:07.753  INFO 11632 --- [http-nio-80-exec-2] c.s.i.ChannelSupplierRechargeServiceImpl : 分页查询充值记录,params={supplierCode=1613}
+2017-10-18 16:48:43.800  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:50:11.812  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:50:18.178  INFO 11632 --- [http-nio-80-exec-6] c.y.f.m.f.C.FlowOrderInfoController      : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={createStartTime=2017-10-18 00:00:00, createEndTime=2017-10-18 23:59:59}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 16:51:00.393  INFO 11632 --- [http-nio-80-exec-1] c.y.f.m.c.c.AccessChannelGroupController : 获取可引用的通道组信息,params={isQuote=null, groupText=null, channelGroupIds=[Ljava.lang.Long;@24147973}
+2017-10-18 16:51:18.091  INFO 11632 --- [http-nio-80-exec-8] c.y.f.m.c.c.AccessChannelGroupController : 获取可引用的通道组信息,params={isQuote=null, groupText=null, channelGroupIds=[Ljava.lang.Long;@4c3cf086}
+2017-10-18 16:51:21.044  INFO 11632 --- [http-nio-80-exec-3] net.sf.json.JSONObject                   : Property 'channelTypeDesc' of class com.yzx.flow.common.persistence.model.AccessChannelInfo has no write method. SKIPPED.
+2017-10-18 16:51:21.062  INFO 11632 --- [http-nio-80-exec-3] net.sf.json.JSONObject                   : Property 'operatorCodeDesc' of class com.yzx.flow.common.persistence.model.AccessChannelInfo has no write method. SKIPPED.
+2017-10-18 16:51:21.062  INFO 11632 --- [http-nio-80-exec-3] net.sf.json.JSONObject                   : Property 'isSmsNoticeDesc' of class com.yzx.flow.common.persistence.model.AccessChannelInfo has no write method. SKIPPED.
+2017-10-18 16:51:21.077  INFO 11632 --- [http-nio-80-exec-3] net.sf.json.JSONObject                   : Property 'isValidDesc' of class com.yzx.flow.common.persistence.model.AccessChannelInfo has no write method. SKIPPED.
+2017-10-18 16:51:21.078  INFO 11632 --- [http-nio-80-exec-3] net.sf.json.JSONObject                   : Property 'zoneDesc' of class com.yzx.flow.common.persistence.model.AccessChannelInfo has no write method. SKIPPED.
+2017-10-18 16:51:21.078  INFO 11632 --- [http-nio-80-exec-3] net.sf.json.JSONObject                   : Property 'isAllowSaleDesc' of class com.yzx.flow.common.persistence.model.AccessChannelInfo has no write method. SKIPPED.
+2017-10-18 16:51:21.079  INFO 11632 --- [http-nio-80-exec-3] net.sf.json.JSONObject                   : Property 'timezoneOffset' of class java.util.Date has no write method. SKIPPED.
+2017-10-18 16:51:21.079  INFO 11632 --- [http-nio-80-exec-3] net.sf.json.JSONObject                   : Property 'day' of class java.util.Date has no write method. SKIPPED.
+2017-10-18 16:51:21.079  INFO 11632 --- [http-nio-80-exec-3] net.sf.json.JSONObject                   : Property 'timezoneOffset' of class java.util.Date has no write method. SKIPPED.
+2017-10-18 16:51:21.079  INFO 11632 --- [http-nio-80-exec-3] net.sf.json.JSONObject                   : Property 'day' of class java.util.Date has no write method. SKIPPED.
+2017-10-18 16:51:23.021 ERROR 11632 --- [http-nio-80-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is javax.naming.NoPermissionException: 无访问权限！] with root cause
+
+javax.naming.NoPermissionException: 无访问权限！
+	at com.yzx.flow.core.aop.PermissionAop.doPermission(PermissionAop.java:81) ~[classes/:na]
+	at sun.reflect.GeneratedMethodAccessor161.invoke(Unknown Source) ~[na:na]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_144]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_144]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:629) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:618) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:673) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at com.yzx.flow.modular.channel.controller.AccessChannelInfoController$$EnhancerBySpringCGLIB$$a2d2af32.export(<generated>) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_144]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_144]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_144]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_144]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) ~[spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133) ~[spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97) ~[spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827) ~[spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738) ~[spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85) ~[spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:897) ~[spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970) ~[spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861) ~[spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:635) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846) ~[spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) ~[tomcat-embed-websocket-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61) ~[shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108) ~[shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137) ~[shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66) ~[shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449) ~[shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365) ~[shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362) ~[shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at com.yzx.flow.common.inputSafe.web.XssFilter.doFilter(XssFilter.java:68) ~[classes/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:105) ~[spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81) ~[spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197) ~[spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198) ~[tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:478) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:80) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:799) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1455) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [na:1.8.0_144]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [na:1.8.0_144]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at java.lang.Thread.run(Unknown Source) [na:1.8.0_144]
+
+2017-10-18 16:55:34.517  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 16:59:00.865  WARN 11632 --- [http-nio-80-exec-7] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 16:59:25.698  INFO 11632 --- [http-nio-80-exec-9] f.m.f.C.FlowOrderInfoExceptionController : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 16:59:26.750  INFO 11632 --- [http-nio-80-exec-3] c.y.f.m.f.C.FlowOrderInfoController      : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={createStartTime=2017-10-18 00:00:00, createEndTime=2017-10-18 23:59:59}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 16:59:59.673  INFO 11632 --- [http-nio-80-exec-1] c.y.f.m.s.c.OrderAnalysisController      : 记录分页查询:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 16:59:59.680  INFO 11632 --- [http-nio-80-exec-1] c.y.f.m.s.s.i.OrderAnalysisServiceImpl   : 【进入订单分析报表】
+2017-10-18 16:59:59.877  INFO 11632 --- [http-nio-80-exec-6] c.y.f.m.s.c.OrderAnalysisController      : 【获取总金额】,totalPrice={}8660582
+2017-10-18 17:00:00.057  INFO 11632 --- [http-nio-80-exec-4] c.y.f.m.s.c.OrderAnalysisController      : 记录分页查询:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={endCheckTime=, partnerName=, channelName=, operatorCode=, beginCheckTime=, customerName=}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 17:00:00.059  INFO 11632 --- [http-nio-80-exec-4] c.y.f.m.s.s.i.OrderAnalysisServiceImpl   : 【进入订单分析报表】
+2017-10-18 17:00:06.252  INFO 11632 --- [http-nio-80-exec-2] f.m.s.c.CustomerAccountAnalyseController : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 17:00:10.470  WARN 11632 --- [http-nio-80-exec-9] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/customerWallet] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:00:33.490  WARN 11632 --- [http-nio-80-exec-7] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:00:39.558  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/customerWallet] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:01:09.655  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:01:12.615  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/customerWallet] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:05:10.503  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:05:18.108  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/customerWallet] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:05:34.518  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 17:06:42.985  WARN 11632 --- [http-nio-80-exec-8] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:06:47.572  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/customerWallet] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:09:59.565  INFO 11632 --- [http-nio-80-exec-6] c.y.f.m.f.C.FlowOrderInfoController      : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={createStartTime=2017-10-18 00:00:00, createEndTime=2017-10-18 23:59:59}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 17:12:48.533  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:15:34.519  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 17:15:52.950  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:18:19.867 ERROR 11632 --- [http-nio-80-exec-4] c.y.f.m.s.controller.LoginController     : 账号或密码错误！
+
+org.apache.shiro.authc.IncorrectCredentialsException: Submitted credentials for token [org.apache.shiro.authc.UsernamePasswordToken - admin, rememberMe=false] did not match the expected credentials.
+	at org.apache.shiro.realm.AuthenticatingRealm.assertCredentialsMatch(AuthenticatingRealm.java:603) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.realm.AuthenticatingRealm.getAuthenticationInfo(AuthenticatingRealm.java:581) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.authc.pam.ModularRealmAuthenticator.doSingleRealmAuthentication(ModularRealmAuthenticator.java:180) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.authc.pam.ModularRealmAuthenticator.doAuthenticate(ModularRealmAuthenticator.java:267) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.authc.AbstractAuthenticator.authenticate(AbstractAuthenticator.java:198) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.mgt.AuthenticatingSecurityManager.authenticate(AuthenticatingSecurityManager.java:106) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.mgt.DefaultSecurityManager.login(DefaultSecurityManager.java:274) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.subject.support.DelegatingSubject.login(DelegatingSubject.java:260) [shiro-core-1.4.0.jar:1.4.0]
+	at com.yzx.flow.modular.system.controller.LoginController.loginVali(LoginController.java:175) ~[classes/:na]
+	at com.yzx.flow.modular.system.controller.LoginController$$FastClassBySpringCGLIB$$5902acd2.invoke(<generated>) [classes/:na]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204) [spring-core-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:738) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at com.yzx.flow.core.intercept.SessionInterceptor.sessionKit(SessionInterceptor.java:31) [classes/:na]
+	at sun.reflect.GeneratedMethodAccessor162.invoke(Unknown Source) ~[na:na]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_144]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_144]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:629) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:618) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at com.yzx.flow.core.aop.PermissionAop.doPermission(PermissionAop.java:85) [classes/:na]
+	at sun.reflect.GeneratedMethodAccessor161.invoke(Unknown Source) ~[na:na]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_144]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_144]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:629) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:618) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:673) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at com.yzx.flow.modular.system.controller.LoginController$$EnhancerBySpringCGLIB$$98bcc182.loginVali(<generated>) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_144]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_144]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_144]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_144]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:897) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:872) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) [tomcat-embed-websocket-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90) [shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83) [shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387) [shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at com.yzx.flow.common.inputSafe.web.XssFilter.doFilter(XssFilter.java:68) [classes/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:105) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:478) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:80) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:799) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1455) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [na:1.8.0_144]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [na:1.8.0_144]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at java.lang.Thread.run(Unknown Source) [na:1.8.0_144]
+
+2017-10-18 17:18:42.642  INFO 11632 --- [http-nio-80-exec-7] c.y.f.m.s.controller.LoginController     : 页面传入的验证码：nmf2
+2017-10-18 17:18:42.643  INFO 11632 --- [http-nio-80-exec-7] c.y.f.m.s.controller.LoginController     : 服务端验证码：nmf2
+2017-10-18 17:18:44.721  WARN 11632 --- [http-nio-80-exec-8] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:19:17.233 ERROR 11632 --- [http-nio-80-exec-4] c.y.f.m.s.controller.LoginController     : 账号或密码错误！
+
+org.apache.shiro.authc.IncorrectCredentialsException: Submitted credentials for token [org.apache.shiro.authc.UsernamePasswordToken - admin, rememberMe=false] did not match the expected credentials.
+	at org.apache.shiro.realm.AuthenticatingRealm.assertCredentialsMatch(AuthenticatingRealm.java:603) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.realm.AuthenticatingRealm.getAuthenticationInfo(AuthenticatingRealm.java:581) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.authc.pam.ModularRealmAuthenticator.doSingleRealmAuthentication(ModularRealmAuthenticator.java:180) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.authc.pam.ModularRealmAuthenticator.doAuthenticate(ModularRealmAuthenticator.java:267) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.authc.AbstractAuthenticator.authenticate(AbstractAuthenticator.java:198) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.mgt.AuthenticatingSecurityManager.authenticate(AuthenticatingSecurityManager.java:106) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.mgt.DefaultSecurityManager.login(DefaultSecurityManager.java:274) ~[shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.subject.support.DelegatingSubject.login(DelegatingSubject.java:260) [shiro-core-1.4.0.jar:1.4.0]
+	at com.yzx.flow.modular.system.controller.LoginController.loginVali(LoginController.java:175) ~[classes/:na]
+	at com.yzx.flow.modular.system.controller.LoginController$$FastClassBySpringCGLIB$$5902acd2.invoke(<generated>) [classes/:na]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204) [spring-core-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:738) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at com.yzx.flow.core.intercept.SessionInterceptor.sessionKit(SessionInterceptor.java:31) [classes/:na]
+	at sun.reflect.GeneratedMethodAccessor162.invoke(Unknown Source) ~[na:na]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_144]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_144]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:629) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:618) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:85) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at com.yzx.flow.core.aop.PermissionAop.doPermission(PermissionAop.java:85) [classes/:na]
+	at sun.reflect.GeneratedMethodAccessor161.invoke(Unknown Source) ~[na:na]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_144]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_144]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:629) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:618) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:673) [spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at com.yzx.flow.modular.system.controller.LoginController$$EnhancerBySpringCGLIB$$98bcc182.loginVali(<generated>) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_144]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_144]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_144]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[na:1.8.0_144]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:897) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:872) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846) [spring-webmvc-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) [tomcat-embed-websocket-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90) [shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83) [shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387) [shiro-core-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) [shiro-web-1.4.0.jar:1.4.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at com.yzx.flow.common.inputSafe.web.XssFilter.doFilter(XssFilter.java:68) [classes/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:105) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:478) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:80) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:799) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1455) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [na:1.8.0_144]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [na:1.8.0_144]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-8.5.14.jar:8.5.14]
+	at java.lang.Thread.run(Unknown Source) [na:1.8.0_144]
+
+2017-10-18 17:20:11.716  WARN 11632 --- [http-nio-80-exec-8] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:20:50.689  INFO 11632 --- [http-nio-80-exec-2] c.y.f.m.f.C.FlowOrderInfoController      : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={createStartTime=2017-10-18 00:00:00, createEndTime=2017-10-18 23:59:59}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-18 17:25:34.520  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 17:26:20.693  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:27:59.928  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:28:35.047  WARN 11632 --- [http-nio-80-exec-8] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:35:34.524  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 17:41:01.056  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:45:34.526  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 17:48:10.240  WARN 11632 --- [http-nio-80-exec-7] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:51:03.390  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:52:35.170  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:54:02.590  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:55:19.528  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:55:34.528  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 17:55:47.155  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 17:56:30.630  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 18:01:20.839  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 18:01:32.513  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 18:01:47.915  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 18:05:34.529  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 18:06:55.071  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 18:15:34.530  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 18:25:34.531  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 18:35:34.532  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 18:45:34.534  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 18:55:34.535  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 19:05:34.536  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 19:15:34.536  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 19:25:34.537  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 19:35:34.539  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 19:45:34.541  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 19:55:34.542  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 20:05:34.543  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 20:15:34.545  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 20:25:34.546  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 20:35:34.548  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 20:45:34.549  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 20:49:12.333  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-18 20:55:34.550  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 21:05:34.551  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 21:15:34.553  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 21:25:34.553  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 21:35:34.555  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 21:45:34.558  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 21:55:34.559  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 22:05:34.561  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 22:15:34.563  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 22:25:34.564  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 22:35:34.565  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 22:45:34.568  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 22:55:34.569  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 23:05:34.570  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 23:15:34.572  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 23:25:34.573  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 23:35:34.574  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 23:45:34.575  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-18 23:55:34.576  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 00:05:34.578  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 00:15:34.579  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 00:25:34.581  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 00:35:34.582  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 00:45:34.583  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 00:55:34.584  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 01:05:34.585  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 01:15:34.587  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 01:25:34.589  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 01:35:34.590  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 01:45:34.591  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 01:55:34.592  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 02:05:34.593  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 02:15:34.595  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 02:25:34.595  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 02:35:34.596  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 02:45:34.597  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 02:55:34.598  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 03:05:34.599  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 03:15:34.600  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 03:25:34.601  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 03:35:34.603  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 03:45:34.605  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 03:55:34.605  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 04:05:34.606  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 04:15:34.608  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 04:25:34.610  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 04:35:34.611  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 04:45:34.613  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 04:55:34.614  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 05:05:34.616  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 05:15:34.617  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 05:25:34.618  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 05:35:34.621  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 05:45:34.621  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 05:55:34.623  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 06:05:34.624  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 06:15:34.625  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 06:25:34.626  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 06:35:34.628  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 06:45:34.629  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 06:55:34.630  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 07:05:34.632  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 07:15:34.633  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 07:25:34.634  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 07:35:34.636  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 07:45:34.637  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 07:55:34.638  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 08:05:34.639  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 08:15:34.641  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 08:25:34.642  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 08:35:34.642  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 08:45:34.643  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 08:55:34.644  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 09:05:34.645  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 09:15:34.646  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 09:21:03.338  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 09:22:17.835  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 09:22:37.799  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 09:23:39.008  INFO 11632 --- [http-nio-80-exec-9] c.y.f.m.f.C.FlowOrderInfoController      : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={createStartTime=2017-10-19 00:00:00, createEndTime=2017-10-19 23:59:59}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-19 09:25:34.648  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 09:35:34.649  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 09:45:34.650  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 09:54:12.376  WARN 11632 --- [http-nio-80-exec-9] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 09:55:34.651  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 09:55:43.289  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:00:51.995  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:02:12.855  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:04:51.388  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:05:34.668  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 10:05:34.669  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:05:47.067  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:06:18.433  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:07:39.569  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:08:14.111  WARN 11632 --- [http-nio-80-exec-8] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:13:14.672  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:13:44.666  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:14:24.181  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:15:34.670  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 10:17:01.451  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:17:18.360  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:17:58.066  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:18:17.731  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:20:55.529  WARN 11632 --- [http-nio-80-exec-7] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:25:34.671  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 10:33:18.445  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:33:59.822  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:35:34.671  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 10:36:11.928  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:38:37.554  WARN 11632 --- [http-nio-80-exec-9] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:39:42.911  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:40:19.004  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 10:45:34.673  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 10:55:34.673  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 10:55:47.648  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:01:03.882  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:04:03.812  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:05:34.674  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 11:09:49.406  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:11:03.820  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:11:12.709  INFO 11632 --- [http-nio-80-exec-2] c.y.f.m.f.C.FlowOrderInfoController      : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={createStartTime=2017-10-19 00:00:00, createEndTime=2017-10-19 23:59:59}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-19 11:12:36.889  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:15:34.676  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 11:17:21.176  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:20:50.465  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:22:19.976  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:22:46.357  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:25:34.677  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 11:25:42.335  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:33:32.948  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:33:50.174  WARN 11632 --- [http-nio-80-exec-1] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:35:34.678  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 11:38:00.708  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:38:38.510  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:39:09.389  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:39:21.650  INFO 11632 --- [http-nio-80-exec-6] c.y.f.m.f.C.FlowOrderInfoController      : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={createStartTime=2017-10-19 00:00:00, createEndTime=2017-10-19 23:59:59}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-19 11:40:10.737  WARN 11632 --- [http-nio-80-exec-3] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 11:40:24.214  INFO 11632 --- [http-nio-80-exec-2] f.m.f.C.FlowOrderInfoExceptionController : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-19 11:45:34.681  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 11:55:34.681  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 12:05:34.684  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 12:09:38.525  WARN 11632 --- [http-nio-80-exec-7] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:15:34.684  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 12:16:17.400  WARN 11632 --- [http-nio-80-exec-8] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:17:10.649  WARN 11632 --- [http-nio-80-exec-10] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:17:25.550  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:18:33.618  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:19:35.962  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:19:49.228  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:20:57.879  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:22:29.005  WARN 11632 --- [http-nio-80-exec-5] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:22:41.409  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:23:35.658  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:25:34.686  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 12:26:31.380  WARN 11632 --- [http-nio-80-exec-4] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:26:39.282  INFO 11632 --- [http-nio-80-exec-7] c.y.f.m.f.C.FlowOrderInfoController      : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={createStartTime=2017-10-19 00:00:00, createEndTime=2017-10-19 23:59:59}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-19 12:26:44.545  WARN 11632 --- [http-nio-80-exec-7] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:29:01.879  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:29:05.747  INFO 11632 --- [http-nio-80-exec-3] c.y.f.m.f.C.FlowOrderInfoController      : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={createStartTime=2017-10-19 00:00:00, createEndTime=2017-10-19 23:59:59}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-19 12:29:06.979  INFO 11632 --- [http-nio-80-exec-9] f.m.f.C.FlowOrderInfoExceptionController : 分页查询流量分发记录:Page [pageNo=1, pageSize=10, start=0, limit=14, page=1, rows=10, total=0, totalPage=0, datas=null, params={}, sortName=null, order=desc, sort=null, dir=null, assembleOrderBy=null]
+2017-10-19 12:30:43.486  WARN 11632 --- [http-nio-80-exec-6] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:31:44.314  WARN 11632 --- [http-nio-80-exec-2] o.s.web.servlet.PageNotFound             : No mapping found for HTTP request with URI [/WEB-INF/viewmgr/getAvator] in DispatcherServlet with name 'dispatcherServlet'
+2017-10-19 12:35:34.689  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 12:45:34.689  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 12:55:34.690  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 13:05:34.691  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 13:15:34.692  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 13:25:34.695  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 13:35:34.696  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 13:45:34.698  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.
+2017-10-19 13:55:34.699  INFO 11632 --- [pool-4-thread-1] c.y.flow.modular.open.myTask.HeartData   : 无用户信息.

@@ -143,9 +143,9 @@ $(function () {
         if (flag) {
         	//删除之前的
         	$('.J_menuTabs .page-tabs-content').children().remove();       
-
+            $("#side-menu").find(".mini-dropdown-menu").remove();
+            
             if (subTitle == "首页" || subTitle == "修改密码" || subTitle == "更换头像"){
-                console.log(123);
                 $("#side-menu").children("li").removeClass("active");
                 $($("#side-menu").children("li")).children("ul").removeClass("in");
                 var str = '<a href="javascript:;" class="active J_menuTab" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166" data-id="' + dataUrl + '">' + subTitle + '</a>';
