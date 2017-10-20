@@ -104,20 +104,26 @@ $(function () {
             $(this).attr('data-index', index);
         }
     });
-
+         
     function menuItem() {
         // 获取标识数据
 
         var $menu = $('#side-menu');
         var $itemActive = $menu.find('.active'); // 选中项
-        var mainTitle = $.trim($itemActive.find('a').children(".nav-label").text());
         var subTitle = $.trim($(this).text());
-        
         var dataUrl = $(this).attr('href'),
             dataIndex = $(this).data('index'),
             flag = true;
 
-        var menuName = mainTitle + '   >             ' + subTitle;
+        if (subTitle != "首页"){
+            if (!$(this).parents("ul").siblings("a").length){
+                var mainTitle = $(this).parents("ul").find(".nav-label").text();
+            }else{
+                var mainTitle = $(this).parents("ul").siblings("a").find(".nav-label").text();
+            }
+        }
+        
+
         if (dataUrl == undefined || $.trim(dataUrl).length == 0)return false;
 
         // 选项卡菜单已存在
@@ -138,18 +144,19 @@ $(function () {
                 return false;
             }
         });
-
+        $("#side-menu").find(".mini-dropdown-menu").remove();
         // 选项卡菜单不存在
         if (flag) {
         	//删除之前的
+            console.log(123);
         	$('.J_menuTabs .page-tabs-content').children().remove();       
-            $("#side-menu").find(".mini-dropdown-menu").remove();
+
             if (subTitle == "首页" || subTitle == "修改密码" || subTitle == "更换头像"){
                 $("#side-menu").children("li").removeClass("active");
                 $($("#side-menu").children("li")).children("ul").removeClass("in");
                 var str = '<a href="javascript:;" class="active J_menuTab" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166" data-id="' + dataUrl + '">' + subTitle + '</a>';
             }else{  
-                var str = '<a href="javascript:;" class="active J_menuTab" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166" data-id="' + dataUrl + '">' + mainTitle + '</a>' + '<i class="fa fa-angle-right" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166">' + '</i>' + '<span style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166;padding-left: 10px;">' + subTitle + '</span>';
+                var str = '<a href="javascript:;" class="active J_menuTab mainTitle" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166" data-id="' + dataUrl + '">' + mainTitle + '</a>' + '<i class="fa fa-angle-right titleArrow" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166">' + '</i>' + '<span style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166;padding-left: 10px;">' + subTitle + '</span>';
             }
 
             $('.J_menuTab').removeClass('active');
@@ -168,8 +175,20 @@ $(function () {
             // 添加选项卡
             $('.J_menuTabs .page-tabs-content').append(str);
             scrollToTab($('.J_menuTab.active'));
+            iframClick();
         }
         return false;
+    }
+
+    //iframe 点击事件
+    function iframClick() {
+        $(".J_iframe").load(function(e){
+            $(".J_iframe").contents().find("body").bind("click", function () {
+                if (e.target.className.indexOf("item_icon") == -1){
+                    $("#side-menu").find(".mini-dropdown-menu").remove();
+                };
+            });
+        });  
     }
 
     $('.J_menuItem').on('click', menuItem);

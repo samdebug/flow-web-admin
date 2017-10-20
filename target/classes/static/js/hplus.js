@@ -121,6 +121,12 @@ $(window).bind("load resize", function () {
     }
 });
 
+$(window).bind("click", function (e) {
+    if (e.target.className.indexOf("item_icon") == -1){
+        $("#side-menu").find(".mini-dropdown-menu").remove();
+    };
+});
+
 function NavToggle(index,e) {
     var element = $("#side-menu").children("li")[index];
     $("#side-menu").find(".mini-dropdown-menu").remove();
@@ -130,6 +136,7 @@ function NavToggle(index,e) {
     var ul = $("<ul class=\"mini-dropdown-menu\">").css({ "top": e.pageY - 15 }).appendTo(element);
     var sub_menu = $($(element).find(".nav")).children("li");
     sub_menu.clone(true).appendTo(ul);
+    $(element).find(".nav-label").clone(true).appendTo(ul);
 
     //new tag element
     /*var tag = $("<a class=\"mini-tag\">").css({"top": e.pageY -83}).appendTo(element);

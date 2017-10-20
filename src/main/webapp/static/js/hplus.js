@@ -121,6 +121,12 @@ $(window).bind("load resize", function () {
     }
 });
 
+$(window).bind("click", function (e) {
+    if (e.target.className.indexOf("item_icon") == -1){
+        $("#side-menu").find(".mini-dropdown-menu").remove();
+    };
+});
+
 function NavToggle(index,e) {
     var element = $("#side-menu").children("li")[index];
     $("#side-menu").find(".mini-dropdown-menu").remove();

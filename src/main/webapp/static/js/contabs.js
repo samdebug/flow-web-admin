@@ -104,7 +104,7 @@ $(function () {
             $(this).attr('data-index', index);
         }
     });
-
+         
     function menuItem() {
         // 获取标识数据
 
@@ -144,6 +144,7 @@ $(function () {
         	//删除之前的
         	$('.J_menuTabs .page-tabs-content').children().remove();       
             $("#side-menu").find(".mini-dropdown-menu").remove();
+
             if (subTitle == "首页" || subTitle == "修改密码" || subTitle == "更换头像"){
                 $("#side-menu").children("li").removeClass("active");
                 $($("#side-menu").children("li")).children("ul").removeClass("in");
@@ -168,8 +169,20 @@ $(function () {
             // 添加选项卡
             $('.J_menuTabs .page-tabs-content').append(str);
             scrollToTab($('.J_menuTab.active'));
+            iframClick();
         }
         return false;
+    }
+
+    //iframe 点击事件
+    function iframClick() {
+        $(".J_iframe").load(function(e){
+            $(".J_iframe").contents().find("body").bind("click", function () {
+                if (e.target.className.indexOf("item_icon") == -1){
+                    $("#side-menu").find(".mini-dropdown-menu").remove();
+                };
+            });
+        });  
     }
 
     $('.J_menuItem').on('click', menuItem);
