@@ -8228,7 +8228,7 @@ body.skin-3 {
 .card-box {
     border: 1px solid #e6e9f0;
     text-align: center;
-    height: 280px;;
+    height: 305px;;
     min-width:170px;
     color: #5e6166;
     margin-bottom: 25px;
@@ -8236,13 +8236,18 @@ body.skin-3 {
 }
 
 .card-box .card-container{
-    height: 145px;
+    height: 160px;
 }
 
 .card-box .card-body{
     font-size: 16px;
 }
-    
+
+.card-box .card-detail{
+    font-size: 12px;
+    line-height: 24px;
+}
+
 .card-box .card-header img {
     display: block;
     width: 40px;
@@ -8447,7 +8452,7 @@ body.skin-3 {
   bottom: 0;
   left: -60px;
   right: 0;
-  animation: noise 2s linear infinite;
+  /*animation: noise 2s linear infinite;*/
   overflow: default;
 }
 
@@ -8468,7 +8473,7 @@ body.skin-3 {
   right: 0;
   opacity: 0;
   color: blue;
-  animation: noise-1 .2s linear infinite;
+  /*animation: noise-1 .2s linear infinite;*/
 }
 
 .info {
@@ -8486,7 +8491,7 @@ body.skin-3 {
   bottom: 0;
   left: 0;
   right: 0;
-  animation: noise-3 1s linear infinite;
+  /*animation: noise-3 1s linear infinite;*/
 }
 
 .error:before {
@@ -8506,7 +8511,7 @@ body.skin-3 {
   right: 0;
   opacity: 0;
   color: red;
-  animation: noise-2 .2s linear infinite;
+  /*animation: noise-2 .2s linear infinite;*/
 }
 
 @keyframes noise-1 {

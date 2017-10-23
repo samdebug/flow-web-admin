@@ -70,11 +70,11 @@ function formatMobileHome(cellvalue, rowObject,index) {
 
 function formatStateDesc(cellvalue, rowObject,index) {
 	if(cellvalue=='成功'){
-		return '<div style=\"background:#008000;color:#ffffff;display:inline-block !important;display:inline;\">'+cellvalue+'</div>';
+		return '<div style=\"background:#2ea967;color:#ffffff;padding: 5px;border-radius: 5px;display:inline-block !important;display:inline;\">'+cellvalue+'</div>';
 	}else if(cellvalue=='失败'){
-		return '<div style=\"background:#FF0000;color:#ffffff;display:inline-block !important;display:inline;\">'+cellvalue+'</div>';
+		return '<div style=\"background:#F44336;color:#ffffff;padding: 5px;border-radius: 5px;display:inline-block !important;display:inline;\">'+cellvalue+'</div>';
 	}else {
-		return cellvalue;
+		return '<div style=\"background:#9E9E9E;color:#ffffff;padding: 5px;border-radius: 5px;display:inline-block !important;display:inline;\">'+cellvalue+'</div>';
 	}
 }
 

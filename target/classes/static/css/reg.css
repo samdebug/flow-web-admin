@@ -36,7 +36,7 @@ body,html{
 .reg-con .reg-info{margin: 0 auto;padding-top: 4.4rem;padding-bottom: 3.5rem;max-width:1000px;position:relative;height:100%;}
 .reg-con .reg-info .reg-logo{text-align: left;}
 .reg-con .reg-info h1{font-size: 2.4rem;text-align: center;padding: 0rem 0 3rem;}
-.reg-con .reg-info .reg-det{position: absolute;right:-70px;top:160px;background-color: #fff;width: 27rem;margin: 0 auto;padding-top: 2.4rem;padding-bottom: 1rem;border-radius: 5px;-webkit-border-radius: 5px;-moz-border-radius: 5px;}
+.reg-con .reg-info .reg-det{position: absolute;right:-70px;top:160px;background-color: #fff;width: 25rem;margin: 0 auto;padding-top: 3.4rem;padding-bottom: 3rem;border-radius: 5px;-webkit-border-radius: 5px;-moz-border-radius: 5px;}
 .reg-info .reg-det input{display: block;color: #506470;font-size: 1.4rem;width: 100%;height: 44px;line-height: 44px;outline: none; padding: 0 38px 0 12px; border:1px #ccc solid;box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;}
 .reg-info .reg-det input.half-w{float: left;display: inline-block;width: 60%;margin-right: 8%;}
 .reg-info .reg-det input:focus{ border-color: #2ea967;}
@@ -219,4 +219,11 @@ html{font-size: 8px;}
   width: 100%;
   height: 100%;
   background-color: #888888;
+}
+
+
+/*去除默认黄色背景*/
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;  
+  border: 1px solid #CCC!important;
 }

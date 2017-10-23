@@ -148,7 +148,6 @@ $(function () {
         // 选项卡菜单不存在
         if (flag) {
         	//删除之前的
-            console.log(123);
         	$('.J_menuTabs .page-tabs-content').children().remove();       
 
             if (subTitle == "首页" || subTitle == "修改密码" || subTitle == "更换头像"){
