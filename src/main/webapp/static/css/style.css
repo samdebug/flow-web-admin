@@ -850,6 +850,12 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
         display: block;
         float: none;
     }
+    .mainTitle {
+        display: none !important;
+    }
+    .titleArrow{
+        display: none;
+    }
 }
 
 .menu-visible-lg,

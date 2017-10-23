@@ -68,7 +68,7 @@ function formatActionButtons(cellvalue, rowObject, options) {
  */
 OrderInfo.orderTypeBtnClickHandler = function(status, orderId) {
 	var ajax = new $ax(Feng.ctxPath + '/orderInfo/changeStatus?status=' + status + '&orderId=' + orderId, function(data){
-    	if ( data && data.code && data.code == 200 ) {
+    	if ( data && data.code && data.code == 200 ) { 
     		Feng.success("操作成功！");
     		OrderInfo.table.refresh();
     	} else {

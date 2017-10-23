@@ -31,8 +31,8 @@ body,html{
 	position:relative;
 }
 /*注册*/
-.reg-wrap{background-color: #e9ecf0;width:100%;height: 100%;}
-.reg-con{background: #e9ecf0 url(../img/logo_bg.png) center bottom no-repeat;position: absolute;top: 0px;bottom: 0;left: 0;right: 0;z-index: 1;background-size: cover !important;}
+.reg-wrap{background-color: #e9ecf0;width:100%;height: 0%;}
+.reg-con{/*background: #e9ecf0 url(../img/bg-new.jpg) center bottom no-repeat;*/position: absolute;top: 0px;bottom: 0;left: 0;right: 0;z-index: 1;background-size: cover !important;}
 .reg-con .reg-info{margin: 0 auto;padding-top: 4.4rem;padding-bottom: 3.5rem;max-width:1000px;position:relative;height:100%;}
 .reg-con .reg-info .reg-logo{text-align: left;}
 .reg-con .reg-info h1{font-size: 2.4rem;text-align: center;padding: 0rem 0 3rem;}
@@ -93,7 +93,7 @@ input:-webkit-autofill{
 	.footerMsg{display:none}
 	.reg-wrap,.reg-con{overflow: hidden;}
 	.reg-con .reg-info{max-width: 780px;}
-	.reg-con{background: #e9ecf0 url(../img/logo_bg.png) center bottom no-repeat;}
+	.reg-con{/*background: #e9ecf0 url(../img/bg-new.jpg) center bottom no-repeat;*/}
 	.description{display:none;}
 	.reg-con .reg-info .reg-det{position:relative;top:50px;right:0px;}
 	.reg-con .reg-info .reg-logo{text-align:center;}

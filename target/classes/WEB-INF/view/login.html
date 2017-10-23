@@ -6,6 +6,8 @@
 	<link rel="shortcut icon" href="${headLogo}">
 	<title>${serverTitle}流量分发平台</title>
 	<link rel="stylesheet" type="text/css" href="${ctxPath}/static/css/reg.css">
+    <link rel="stylesheet" type="text/css" href="${ctxPath}/static/js/plugins/stars/component.css">
+
 	<script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>
 	<script type="text/javascript">
 		if ( window.self != window.top ) {
@@ -14,6 +16,13 @@
 	</script>
 </head>
 <body>
+    <div class="container demo-1">
+        <div class="content">
+            <div id="large-header" class="large-header">
+                <canvas id="demo-canvas"></canvas>
+            </div>
+        </div>
+    </div>
 	<div class="reg-wrap">
 		<div class="reg-con">
 			<div id="mydiv"></div>
@@ -66,11 +75,16 @@
 			</div>
 		</div>
 	</div>
-    <div id="particles-js">
+    <!-- <div id="particles-js"> -->
 </div> 
-<script src="${ctxPath}/static/js/plugins/particles/particles.js?v=2.1.4"></script>
+<!-- <script src="${ctxPath}/static/js/plugins/particles/particles.js?v=2.1.4"></script> -->
+<script src="${ctxPath}/static/js/plugins/stars/TweenLite.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/stars/EasePack.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/stars/rAF.js"></script>
+<script src="${ctxPath}/static/js/plugins/stars/demo-1.js"></script>
+
 <script>
-    $("#particles-js").hide();
+    /*$("#particles-js").hide();*/
 	var flag = true;
 	
     function submit(){

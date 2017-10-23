@@ -136,6 +136,7 @@ function NavToggle(index,e) {
     var ul = $("<ul class=\"mini-dropdown-menu\">").css({ "top": e.pageY - 15 }).appendTo(element);
     var sub_menu = $($(element).find(".nav")).children("li");
     sub_menu.clone(true).appendTo(ul);
+    $(element).find(".nav-label").clone(true).appendTo(ul);
 
     //new tag element
     /*var tag = $("<a class=\"mini-tag\">").css({"top": e.pageY -83}).appendTo(element);

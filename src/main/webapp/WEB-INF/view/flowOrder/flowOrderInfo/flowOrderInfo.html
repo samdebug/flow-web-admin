@@ -8,16 +8,16 @@
                         <form id="queryForm">
 								<div class="widget-box">
 									<div class="row search_tj_bar">
-										<div class="col-xs-12">
+										<div class="col-sm-12">
 											<div class="center">
 												<div class="row accessChannelInfo">
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<#NameCon name="分发订单号：" id="params['orderId']" />
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 													     <#NameCon name="手机号：" id="params['usedMobile']" />
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 																<#SelectCon name="订单状态：" id="params['status']">	
 																	<option value="">全部</option>
 																	<option value="1">待发</option>
@@ -28,7 +28,7 @@
 																	<option value="5">风控</option>
 																</#SelectCon>
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 																<#SelectCon name="回调状态："  id="params['dealFlag']">
 																	<option value="">全部</option>
 																	<option value="0">运营商处理中</option>
@@ -39,7 +39,7 @@
 													</div>
 												</div>
 												<div class="row accessChannelInfo">
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<div class="input-group">
 														    <div class="input-group-btn">
 														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
@@ -49,7 +49,7 @@
 														    <input type="hidden" class="form-control" id="partner_select" name="params['partnerId']" placeholder="${placeholder!}" />
 														</div>
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<div class="input-group">
 														    <div class="input-group-btn">
 														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
@@ -59,7 +59,7 @@
 														    <input type="hidden" class="form-control" id="customer_select" name="params['customerId']" placeholder="${placeholder!}" />
 														</div>
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 																<#SelectCon id="params['mobileOperator']" name="运营商："
 																	class="form-control search-query">
 																	<option value="">全部</option>
@@ -68,12 +68,12 @@
 																	<option value="LT">联通</option>
 																</#SelectCon>
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<#NameCon id="params['mobileHome']" name="归属地：" />
 													</div>
 												</div>
 												<div class="row accessChannelInfo">
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<div class="input-group">
 														    <div class="input-group-btn">
 														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
@@ -83,15 +83,15 @@
 														    <input type="hidden" class="form-control" id="channelName_select" name="params['channelId']" placeholder="${placeholder!}" />
 														</div>
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<#TimeBetweenCon name="发送时间:" isTime="true" pattern="YYYY-MM-DD hh:mm:ss"  startValue="${nowStartTime}"
 															startId="params['createStartTime']" endId="params['createEndTime']" endValue="${nowEndTime}" />
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<#TimeBetweenCon name="回调时间:" isTime="true" pattern="YYYY-MM-DD hh:mm:ss"  
 															startId="params['checkStartTime']" endId="params['checkEndTime']" />
 													</div>
-													<!-- <div class="col-xs-3" >
+													<!-- <div class="col-sm-3" >
 														<div class="input-group">
 															<div class="input-group-btn">
 														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">
@@ -103,7 +103,7 @@
 														    </select>
 													    </div>
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<div class="input-group">
 															<div class="input-group-btn">
 														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">
@@ -115,14 +115,14 @@
 														    </select>
 													    </div>
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 															<div class="input-group">
 														      <label class="col-sm">45天外的数据：</label>
 														      <input type="hidden" name="params['dataType']" id="id-his-value">
 															  <input class="ace" type="checkbox" id="id-his" onchange="inputHis();">
 													    	</div>
 													    </div> -->
-													 <div class="col-xs-3 reset">
+													 <div class="col-sm-3 reset">
 															 <#button name="查询" icon="fa-search" clickFun="FlowOrderInfo.search()" space="true"/>
                             								 <#button name="重置" icon="fa fa-undo" clickFun="FlowOrderInfo.reset()" space="true"/>													 
 													 </div>   
