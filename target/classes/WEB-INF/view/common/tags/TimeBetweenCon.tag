@@ -18,7 +18,7 @@
     	@if(isNotEmpty(startValue)){
             	value="${startValue}"
         @}
-    	onclick="laydate({istime: ${isTime}, format: '${pattern}'})" id="${startId}" name="${startId}" />
+    	onclick="laydate.render({elem: '#${startId}', istime: ${isTime} ,type: 'datetime'})" id="${startId}" name="${startId}" />
     
     <span class="input-group-addon input-group-btn"><i class="fa fa-exchange"></i></span>
     
@@ -26,6 +26,6 @@
 		    	@if(isNotEmpty(endValue)){
 		            	value="${endValue}"
 		        @}
-           onclick="laydate({istime: ${isTime}, format: '${pattern}'})" id="${endId}" name="${endId}"/>
+           onclick="laydate.render({elem: '#${endId}', istime: ${isTime},type: 'datetime'})" id="${endId}" name="${endId}"/>
           
 </div>

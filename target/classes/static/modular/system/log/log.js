@@ -69,7 +69,7 @@ OptLog.delLog = function () {
  */
 OptLog.search = function () {
     var queryData = {};
-
+    console.log($("#beginTime").val());
     queryData['logName'] = $("#logName").val();
     queryData['beginTime'] = $("#beginTime").val();
     queryData['endTime'] = $("#endTime").val();

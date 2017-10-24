@@ -13,5 +13,5 @@
         </button>
     </div>
     <input type="text" class="form-control layer-date"
-           onclick="laydate({istime: ${isTime}, format: '${pattern}'})" id="${id}" name="${id}"/>
+           onclick="laydate.render({elem: '#${id}', istime: ${isTime}})" id="${id}" name="${id}"/>
 </div>

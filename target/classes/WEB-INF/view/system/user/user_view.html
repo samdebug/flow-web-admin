@@ -36,7 +36,7 @@
 
                                             <#input id="birthday" name="出生日期" underline="true" type="date"
                                                     value="${user.birthday}"
-                                                    clickFun="laydate({istime: false, format: 'YYYY-MM-DD'})"/>
+                                                    clickFun="laydate.render({elem: '#birthday', istime: ${isTime}})"/>
 
                                             <#input id="citySel" name="部门" underline="true" readonly="readonly" value="${deptName}"
                                                     hidden="deptid" hiddenValue="${user.deptid}"

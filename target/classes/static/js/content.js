@@ -163,4 +163,8 @@ $(function () {
         }
         $(searchbox).css({"border":"1px solid #e5e6e7","padding":"20px 20px 10px 0px"});
     }
+
+    $(".layer-date").click();
+
+    console.log();
 })  

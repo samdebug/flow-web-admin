@@ -10,7 +10,7 @@
     <label class="col-sm-3 control-label">${name}</label>
      <div class="col-sm-9">
     	<input type="text" class="${class}"
-           onclick="laydate({istime: ${isTime}, format: '${pattern}'})" id="${id}" name="${id}"    
+           onclick="laydate.render({elem: '#${id}', istime: ${isTime}})" id="${id}" name="${id}"    
            		@if(isNotEmpty(value)){
                     value="${tool.dateType(value)}"
                @}
