@@ -206,6 +206,11 @@ public class AccessChannelInfoController extends BaseController {
 		setBaseEntity(accessChannelInfo, staff,
 				accessChannelInfo.getChannelSeqId());
 		accessChannelInfo.setIp(CommonUtil.getIp(request));
+		if ("00".equals(accessChannelInfo.getZone())) {
+			accessChannelInfo.setChannelRange(0);
+		}else {
+			accessChannelInfo.setChannelRange(1);
+		}
 		accessChannelInfoService.saveAndUpdate(accessChannelInfo, staff);
 		return super.SUCCESS_TIP;
 	}

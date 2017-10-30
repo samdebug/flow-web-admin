@@ -222,7 +222,7 @@ Partner.viewTreade = function() {
 	var id = Partner.seItem.partnerId;
 	var index = layer.open({
 		type: 2,
-		title: '',
+		title: '充值',
 		area: ['800px', '500px'], //宽高
 		fix: false, //不固定
 		//maxmin: true,

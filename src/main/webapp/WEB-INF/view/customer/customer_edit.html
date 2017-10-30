@@ -1,95 +1,252 @@
 @layout("/common/_container.html"){
+<style>
+	table tr th, table tr td {
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+    /*fix bug 新增订单时，按照产品名称排序*/
+/*     .product-table tr th { */
+/*         color: white !important; */
+/*         background-color: #32a3ce; */
+/*     } */
+    .radio {
+        padding-left: 0 !important;
+    }
+    .product-list-title {
+        /*background-color: #0066FF;*/
+        text-align: center;
+        color: white;
+    }
+    .col-sm-3 label, .col-sm-9 label {
+        vertical-align: middle;
+        vertical-align: -webkit-baseline-middle;
+        vertical-align: -moz-middle-with-baseline;
+    }
+    #prod-detail-dialog .form-horizontal {
+        padding: 10px 20px;
+    }
+    .prod-detail-title {
+        font-size: medium;
+        font-weight: bold;
+    }
+    #partner-prod-dialog table tr th:first-child {
+        width: 25%;
+        max-width: 25%;
+    }
+    #product-order-table, #product-combo-order-table {
+         width: 100% !important;
+         max-width: 100% !important;
+    }
+    #prod-directcharge-table {
+         width: 100% !important;
+         max-width: 100% !important;
+    }
+    .flow-plus-picker {
+        width: 40%;
+        float: left;
+    }
+    #poia-flow-type {
+        float: left;
+        cursor: text;
+    }
+    #poia-prod-origin, #poia-prod-final {
+        width: 200px;
+        float: left;
+    }
+    #poia-prod-origin select, #poia-prod-final select {
+        width: 100%;
+        height: 230px;
+    }
+    #poia-btn-group {
+        width: 120px;
+        float: left;
+        margin-top: 30px;
+    }
+    #poia-btn-group .btn-info {
+        display: block;
+        margin: 10px auto;
+        width: 80px;
+        padding: 0;
+    }
+    #pdOperatorCode {
+        margin-left: 15px;
+    }
+    .flow-plus-show, 
+    .flowPlusAndBillTypeIssued,
+    .directChargeDisplay,
+    .flowplus-tbl-container {
+        display: none;
+    }
+    .model-error-msg {
+        padding-right: 180px;
+        color: red;
+        display: none;
+    }
+    .batch-tips-word {
+        font-weight: bold;
+        font-size: 15px;
+    }
+    #batch-error-span, #sale-error-span {
+        padding-right: 100px;
+    }
+    #batch-setprice-title, #batch-saleprice-title {
+	    font-size: 20px;
+	    font-weight: bold;
+    }
+	.many-selected {
+		background-color: burlywood;
+	}
+    .section-title {
+		display: block;
+	    font-size: 16px;
+	    margin-bottom: 12px;
+	}
+	.section-title span {
+		padding-bottom: 6px;
+		padding-right: 25px;
+		border-bottom: 1px solid #dcdcdc;
+	}
+</style>
 <div class="ibox float-e-margins">
     <div class="ibox-content">
         <div class="form-horizontal">
 		<form id="customerEditForm" action="#" >
             <input type="hidden" id="customerId" name="customerId" value="${customer.customerId}">
 			
-			<div class="row">
-                <div class="col-sm-6 b-r">
-					<#select id="partnerId" name="*合作伙伴" underline="true" disabled="disabled" >
-						<option value="${customer.partnerInfo.partnerId}">${customer.partnerInfo.partnerName}</option>
-					</#select>
-                </div>
-            </div>
-            
-            <div class="page-header"><h1><small>客户基本信息 </small></h1></div>
+            <div class="section-title">
+				<span>基础信息</span>
+			</div><br/>
             <div class="row">
+                <div class="col-sm-6 b-r">
+                	<#input id="customerName" name="*客户名称" value="${customer.customerName}" disabled="disabled" />
+                </div>
                 <div class="col-sm-6 b-r">
 					<#input id="account" name="*客户账号" disabled="disabled" value="${customer.account}" />
                 </div>
-                <div class="col-sm-6 b-r">
-					<#input id="customerName" name="*客户名称" value="${customer.customerName}" disabled="disabled" />
-                </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 b-r">
-					<#input id="companyName" name="*公司名称" value="${customer.companyName}" />
+					<#select id="customerLevel" name="*客户等级" >
+						<option value="1" 
+						@if(customer.customerLevel==1){
+							selected="selected" 
+						@}
+						>普通客户</option>
+                        <option value="3" 
+                        @if(customer.customerLevel==3){
+							selected="selected" 
+						@}
+                        >重要客户</option>
+					</#select>
                 </div>
                 <div class="col-sm-6 b-r">
-					<#input id="companyMobile" name="*公司电话" value="${customer.companyMobile}" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 b-r">
-					<#input id="customerLinkman" name="*客户联系人" value="${customer.customerLinkman}" />
-                </div>
-                <div class="col-sm-6 b-r">
-                	<#input id="linkmanQq" name="联系人QQ" value="${customer.linkmanQq}"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 b-r">
-					<#input id="linkmanEmail" name="*联系人邮箱" value="${customer.linkmanEmail}" />
-                </div>
-                <div class="col-sm-6 b-r">
-					<#select id="isSend" name="发送对账邮件" >
-						<option value="" >否</option>
-                        <option value="1" 
-                        @if(customer.isSend==1){
-                        	selected="selected" 
-                        @}
-                        >是</option>
+					<#select id="balanceLackConfigure" name="*余额不足是否收单" >
+						<option value="0" 
+						@if(customer.balanceLackConfigure==0){
+							selected="selected" 
+						@}
+						>不收单</option>
+						<option value="1" 
+						@if(customer.balanceLackConfigure==1){
+							selected="selected" 
+						@}
+						>收单</option>
 					</#select>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 b-r">
-					<#input id="shorterName" name="*客户简称" value="${customer.shorterName}" />
+					<#select id="partnerId" name="合作伙伴" underline="true" disabled="disabled">
+						<option value="${customer.partnerInfo.partnerId!}">${customer.partnerInfo.partnerName!}</option>
+					</#select>
                 </div>
                 <div class="col-sm-6 b-r">
-					<#input id="address" name="地址" value="${customer.address}" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 b-r">
-					<#input id="linkmanMobile" name="*客户手机号" underline="true" value="${customer.linkmanMobile}"/>
-                </div>
-                <div class="col-sm-6 b-r">
-					<#select id="balanceLackConfigure" name="余额不足是否收单" underline="true" >
-						<option value="1" 
-						@if(customer.balanceLackConfigure==1){
-                        	selected="selected" 
-                        @}
-						>收单</option>
-                        <option value="0" 
-                        @if(customer.balanceLackConfigure==0){
-                        	selected="selected" 
-                        @}
-                        >不收单</option>
+					<#select id="status" name="*状态" underline="true" >
+						<option value="2" 
+						@if(customer.status==2 || customer.status==0){
+							selected="selected" 
+						@}
+						>失效</option>
+                        <option value="1" 
+                        @if(customer.status==1){
+							selected="selected" 
+						@}
+						>有效</option>
 					</#select>
                 </div>
             </div>
             
-            <div class="page-header"><h1><small>客户账户信息 </small></h1></div>
+            <div class="section-title">
+				<span>联系人信息</span>
+			</div><br/>
             <div class="row">
                 <div class="col-sm-6 b-r">
-					<#input id="creditAmount" name="*授信额度" value="${customer.creditAmount}" disabled="disabled" underline="true" />
+					<#input id="linkmanName" name="联系人" value="${customer.linkmanName!}" />
                 </div>
                 <div class="col-sm-6 b-r">
-					<#input id="balance" name="账户余额" value="${customer.balance}" disabled="disabled" underline="true"/>
+                	<#input id="linkmanMobile" name="电话" value="${customer.linkmanMobile!}"/>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="linkmanEmail" name="邮箱" value="${customer.linkmanEmail!}" />
+                </div>
+                <div class="col-sm-6 b-r">
+					<#input id="address" name="地址" value="${customer.address!}" />
+                </div>
+            </div>
+            
+            <div class="section-title">
+				<span>产品信息</span>
+			</div><br/>
+			<div class="row">
+				<input id="orderId" name="orderId" value="" type="hidden"/>
+				<div class=" col-xs-12">
+					<div class="btnWrapper">
+	                    <#button name="" icon="fa-plus" clickFun="toOpenDialog('-2')" style="width:98px"/>
+	                    <span class="btnTips">添加产品</span>
+	                </div>
+	                <div class="btnWrapper">
+	                    <#button name="" icon="fa-trash-o" clickFun="deleteProducts()" style="width:98px"/>
+	                    <span class="btnTips">删除产品</span>
+	                </div>
+	                <div class="btnWrapper">
+	                    <#button name="" icon="fa-edit" clickFun="setPriceByBatch()" style="width:98px"/>
+	                    <span class="btnTips">批量定价</span>
+	                </div>
+                </div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<table id="sample-table-1"
+						class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+							    <th><label><input type='checkbox' id="checkAll" class='ace allSelect'><span class='lbl'></span></label></th>
+								<th>产品名称</th>
+								<th>产品代码</th>
+								<th>运营商</th>
+								<th>区域</th>
+								<th>产品定价(元)</th>
+								<th>结算价格(元)</th>
+								<th>折扣(%)</th>
+							</tr>
+						</thead>
+						<tbody id="showProduct">
+						</tbody>
+					</table>
+				</div>
+			</div>
+            
+<!--             <div class="page-header"><h1><small>客户账户信息 </small></h1></div> -->
+<!--             <div class="row"> -->
+<!--                 <div class="col-sm-6 b-r"> -->
+<!-- 					<#input id="creditAmount" name="*授信额度" value="${customer.creditAmount}" disabled="disabled" underline="true" /> -->
+<!--                 </div> -->
+<!--                 <div class="col-sm-6 b-r"> -->
+<!-- 					<#input id="balance" name="账户余额" value="${customer.balance}" disabled="disabled" underline="true"/> -->
+<!--                 </div> -->
+<!--             </div> -->
             
             <div class="row btn-group-m-t">
                 <div class="col-sm-10">
@@ -102,5 +259,73 @@
 
     </div>
 </div>
+
+
+<!-- 批量设置结算价格 -->
+<div id="batch-saleprice-modal" class="modal fade" style="margin-top: 60px;" tabindex="-1" role="dialog" aria-labelledby="batch-saleprice-title">
+	<div class="modal-dialog">
+	   <div class="modal-content">
+		   <div class="modal-header">
+			   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				   <span aria-hidden="true">&times;</span>
+			   </button>
+			   <h4 class="modal-title center" id="batch-saleprice-title">销售价格批量定价</h4>
+		   </div>
+		   <div class="modal-body">
+			   <div class="bootbox-body center batch-tips-word">按照产品定价的&nbsp;&nbsp;&nbsp;
+				 <input class="numberNoPointFormat" id="sale-price-discount" style="width: 50px;" maxLength="5"/>%&nbsp;&nbsp;&nbsp;批量设置销售价格
+			   </div>
+		   </div>
+		   <div class="modal-footer">
+			   <span id="sale-error-span" class="model-error-msg"></span>
+			   <button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
+			   <button id="batch-saleprice-btn" type="button" class="btn btn-primary">提交</button>
+		   </div>
+	   </div>
+	</div>
+</div>
+
+
+<!-- 流量产品模态对话框 -->
+<div class="modal fade" id="partner-prod-dialog" tabindex="-1" role="dialog" aria-labelledby="partner-prod-title">
+	<div class="modal-dialog" style="width:700px;">
+		<div class="modal-content">
+			 <div class="modal-header">
+				 <button type="button" class="close" data-dismiss="modal"
+					 aria-label="Close">
+					 <span aria-hidden="true">&times;</span>
+				 </button>
+				 <h4 class="modal-title" id="partner-prod-title">选择产品</h4>
+			 </div>
+			 <div class="modal-body" style="position: relative;padding: 20px;">
+				 <div style="width: 477px;margin-left:129px;display:none" id="searchInput">
+				<input type="hidden" value="" id="operatorCode" />
+				<input type="text" id="text" name="text" style="width:200px;height:25px">
+			 </div>
+				<div id="poia-flow-type" class="btn btn-info"></div>
+			 <div id="poia-prod-origin">
+				<select id="dltSource" name="dltSource" size="10" multiple="multiple"></select>
+			 </div>
+			 <div id="poia-btn-group">
+			 	<br />
+<!-- 				<input type="button" value="全部 &gt;&gt;" class="btn btn-info" onclick="FlowProductDialog.AddAll($('#dltSource'),$('#dltTarget'))" /> -->
+				<input type="button" value="&gt;&gt;" id="toRight" class="btn btn-info" />
+				<input type="button" value="&lt;&lt;" id="toLeft" class="btn btn-info" />
+<!-- 				<input type="button" value="&lt;&lt; 全部" class="btn btn-info" onclick="FlowProductDialog.AddAll($('#dltTarget'),$('#dltSource'))" /> -->
+			 </div>
+			 <div id="poia-prod-final">
+				<select id="dltTarget" name="dltTarget" size="10" multiple="multiple"></select>
+			 </div>
+			 </div>
+			 <div class="modal-footer" style="padding-top: 208px;margin-top: 15px">
+				 <span id="product-error-span" class="model-error-msg">请选择产品</span>
+				 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				 <button type="button" class="btn btn-primary" onclick="FlowProductDialog.okClickHandler();">添加</button>
+			 </div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script src="${ctxPath}/static/modular/customer/customer_info.js"></script>
+<script src="${ctxPath}/static/modular/customer/customerProducts.js"></script>
 @}

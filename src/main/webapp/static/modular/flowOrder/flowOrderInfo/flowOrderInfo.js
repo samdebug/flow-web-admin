@@ -495,12 +495,6 @@ $(function () {
 	IsSHowChannelName();
     var defaultColunms = FlowOrderInfo.initColumn();
     var table = new BSTable(FlowOrderInfo.id, "/flowOrderInfo/list", defaultColunms);
-    var exportOptions = {};
-    exportOptions.ignoreColumn="[0]";
-    exportOptions.fileName="订单列表";
-    exportOptions.tableName="订单列表";
-    exportOptions.worksheetName="订单列表";
-    table.setExport(false,"['excel']","all",exportOptions);
     FlowOrderInfo.table = table.init();
     initDownLoadByDay();
     initDownLoadByMonth();

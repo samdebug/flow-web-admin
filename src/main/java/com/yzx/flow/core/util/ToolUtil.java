@@ -24,6 +24,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -113,6 +114,30 @@ public class ToolUtil {
         String afterShuffle = buffer.toString();
         String result = afterShuffle.substring(3, 9);
         return result;
+    }
+    
+    
+    private static final String RUNDOM_BASE = "aAbBcCdDeEfFgGhHjJkKLmMnNpPqQrRsStTuUvVwWxXyYzZ0123456789";
+    
+    /**
+     * 生成指定长度的随机字符串 - 不包含iI、l、oO
+     * @param length
+     * @return
+     */
+    public static String generateRundomStr(int length) {
+    	if ( length < 1 )
+    		throw new IllegalArgumentException("length must gt 1");
+    	
+    	int base = RUNDOM_BASE.length();
+    	StringBuilder temp = new StringBuilder(length);
+    	Random random = ThreadLocalRandom.current();
+    	for (int i=0; i<=length; i++) {
+    		temp.append(RUNDOM_BASE.charAt(random.nextInt(base)));
+    	}
+    	String res = temp.toString();
+    	temp.setLength(0);
+    	temp = null;
+    	return res;
     }
 
     /**

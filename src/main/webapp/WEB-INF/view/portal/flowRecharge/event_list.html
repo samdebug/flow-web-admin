@@ -6,22 +6,23 @@
                 <div class="row row-lg">
                 	<br/>
                     <div class="col-sm-12">
-                    	<input type="hidden" id="customerId" name="params['customerId']" value="${custoerId!}"/>
                     	<form id="queryForm" action="#">
                         <div class="row">
                         	<div class="col-sm-3">
                                 <#NameCon name="事件名称" id="params['eventName']" />
                             </div>
 							<div class="col-sm-4">
-                                <#TimeBetweenCon name="充值日期" isTime="false" pattern="YYYY-MM-DD" 
-										startId="params['createStartTime']" endId="params['createEndTime']" />
+                                <#TimeBetweenCon name="充值日期" isTime="false" pattern="yyyy-MM-dd" 
+										startId="params['createStartTime']" endId="params['createEndTime']" 
+                                        dateStartId="createStartTime" dateEndId="createEndTime"/>
                             </div>
-                            <div class="col-sm-3">
-                                <#button name="查询" icon="fa-search" clickFun="RechargeEvent.search();"/>
-                                <#button name="重置" icon="fa-undo" clickFun="RechargeEvent.reset();"/>
+                            <div class="col-sm-3 reset">
+                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="RechargeEvent.search();"/>
+                                <#button name="重置" class="button-margin" icon="fa-undo" clickFun="RechargeEvent.reset();"/>
                             </div>
                         </div>
                         </form>
+                        <input type="hidden" id="customerId" name="params['customerId']" value="${custoerId!}"/>
                         
                         <div class="hidden-xs" id="RechargeEventTableToolbar" role="group">
                         	<div class="btnWrapper">

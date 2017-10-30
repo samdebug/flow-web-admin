@@ -39,8 +39,9 @@
                                 </#SelectCon>
                             </div>
                             <div class="col-sm-4">
-								<#TimeBetweenCon name="创建时间" isTime="true" pattern="YYYY-MM-DD hh:mm:ss" 
-									startId="params['createStartTime']" endId="params['createEndTime']" />
+								<#TimeBetweenCon name="创建时间" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" 
+									startId="params['createStartTime']" endId="params['createEndTime']" 
+                                    dateStartId="createStartTime" dateEndId="createEndTime"/>
 							</div>
                         	<div class="col-sm-4 reset">
                                 <#button name="查询" class="button-margin" icon="fa-search" clickFun="OrderInfo.search()"/>
@@ -52,7 +53,7 @@
                             @if(shiro.hasPermission("/orderInfo/add")){
                             <div class="btnWrapper">
                                 <#button name="" icon="fa-plus" clickFun="OrderInfo.openAddOrderInfo()" style="width:98px"/>
-                                <span class="btnTips">添加</span>
+                                <span class="btnTips">新增</span>
                             </div>
                             @}
                             @if(shiro.hasPermission("/orderInfo/delete")){

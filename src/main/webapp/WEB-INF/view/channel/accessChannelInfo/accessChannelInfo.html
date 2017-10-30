@@ -106,14 +106,14 @@
                             @if(shiro.hasPermission("/accessChannelInfo/add")){
                             	<div class="btnWrapper">
                             		<#button name="" icon="fa-plus" clickFun="AccessChannelInfo.openAddAccessChannelInfo()"/>
-                            		<span class="btnTips">添加</span>
+                            		<span class="btnTips">新增</span>
                             	</div> 
                                
                             @}
                             @if(shiro.hasPermission("/accessChannelInfo/update")){
                             	<div class="btnWrapper">
                             		<#button name="" icon="fa-pencil-square-o " clickFun="AccessChannelInfo.openAccessChannelInfoDetail()"/>
-                            		<span class="btnTips">修改</span>
+                            		<span class="btnTips">编辑</span>
                             	</div>    
                             @}
                             @if(shiro.hasPermission("/accessChannelInfo/delete")){
@@ -178,7 +178,7 @@
 		                                        <div class="modal-footer" style="padding-top: 208px">
 		                                            <span class="model-error-msg">选择维护区域</span>
 		                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-		                                            <button type="button" class="btn btn-primary" onclick="areaAddBtnClickEvent();">添加</button>
+		                                            <button type="button" class="btn btn-primary" onclick="areaAddBtnClickEvent();">新增</button>
 		                                        </div>
 		                                    </div><!-- /.modal-content -->
 		                                </div><!-- /.modal-dialog -->

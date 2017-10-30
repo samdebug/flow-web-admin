@@ -299,11 +299,6 @@ $(function () {
             body.addClass('boxed-layout');
         }
     }
-    
-    //自适应table高度
-    /*console.log($(".fixed-table-body").height());*/
-    //去掉重置按钮
-    /*console.log(123);*/
 });
 
 //判断浏览器是否支持html5本地存储

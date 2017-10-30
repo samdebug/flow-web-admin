@@ -180,7 +180,7 @@ li:hover {
 		<div class="table-responsive">
 			<div class="section-title">
 				<span> 基本信息 </span>
-			</div>
+			</div><br/>
 			<form class="form-horizontal" role="form" id="add-form" onsubmit="return false;" style="overflow-x: hidden;">
 				<input type="hidden" name="partnerId" id="partnerId" /> <input
 					type="hidden" name="updId" id="updId" />
@@ -237,7 +237,7 @@ li:hover {
 				<br/>
 				<div class="section-title">
 					<span> 联系人信息 </span>
-				</div>
+				</div><br/>
 				<div class="row">
 					<div class="col-xs-6">
 						<div class="form-group">
@@ -284,7 +284,7 @@ li:hover {
 				<br/>
 				<div class="section-title">
 					<span> 产品信息 </span>
-				</div>
+				</div><br/>
 				<div class="container">
 					<div class="row " style="margin-bottom: 15px;">
 						<div class=" col-xs-12">
@@ -353,17 +353,17 @@ li:hover {
 				</div>
 
 				<br/>
-				<div class="clearfix form-actions">
+				<div class="clearfix form-actions btn-group-m-t">
 					<div class="center" style="float: right;">
 						<button class="btn btn-info" type="submit" id="submitButton" >
-							<i class="ace-icon fa fa-check bigger-110"></i> 保 存
+							<i class="ace-icon fa fa-check bigger-110"></i>提交
 						</button>
 						<!-- <button class="btn" type="button" id="resetBtn">
-							<i class="ace-icon fa fa-undo bigger-110"></i> 重 置
+							<i class="ace-icon fa fa-undo bigger-110"></i>重置
 						</button> -->
 						<button class="btn btn-danger" type="button"
 							onclick="parent.layer.close(window.parent.Partner.layerIndex);">
-							<i class="ace-icon fa fa-arrow-left"></i> 返 回
+							<i class="ace-icon fa fa-arrow-left"></i>返回
 						</button>
 					</div>
 					<br/>
@@ -523,11 +523,13 @@ li:hover {
 							rules : {
 								'partnerName' : {
 									required : true,
+									checkPartnerName: true,
 									maxlength : 256
 								},
 								'loginName' : {
 									required : true,
-									maxlength : 20,
+									maxlength : 30,
+									checkAccount: true,
 									soloAccount:true
 								},
 								'realName' : {

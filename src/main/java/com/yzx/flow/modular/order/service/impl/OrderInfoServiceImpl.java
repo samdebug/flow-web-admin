@@ -14,7 +14,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.yzx.flow.common.constant.tips.ErrorTip;
+import com.yzx.flow.common.exception.BizExceptionEnum;
+import com.yzx.flow.common.exception.BussinessException;
 import com.yzx.flow.common.exception.MyException;
 import com.yzx.flow.common.page.Page;
 import com.yzx.flow.common.persistence.model.CustomerInfo;
@@ -25,6 +29,7 @@ import com.yzx.flow.common.persistence.model.FlowProductInfo;
 import com.yzx.flow.common.persistence.model.OrderDealRecordWithBLOBs;
 import com.yzx.flow.common.persistence.model.OrderDetail;
 import com.yzx.flow.common.persistence.model.OrderInfo;
+import com.yzx.flow.common.persistence.model.PartnerInfo;
 import com.yzx.flow.common.persistence.model.PartnerProduct;
 import com.yzx.flow.common.util.Constant;
 import com.yzx.flow.common.util.DateUtil;
@@ -32,7 +37,9 @@ import com.yzx.flow.common.util.RedisHttpUtil;
 import com.yzx.flow.common.util.URLConstants;
 import com.yzx.flow.core.aop.dbrouting.DataSource;
 import com.yzx.flow.core.aop.dbrouting.DataSourceType;
+import com.yzx.flow.core.shiro.ShiroKit;
 import com.yzx.flow.core.shiro.ShiroUser;
+import com.yzx.flow.modular.flow.service.IFlowProductInfoService;
 import com.yzx.flow.modular.order.service.IOrderInfoService;
 import com.yzx.flow.modular.partner.service.IPartnerService;
 import com.yzx.flow.modular.system.dao.CustomerInfoDao;
@@ -84,6 +91,9 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
 
 	@Autowired
 	private FlowProductInfoDao flowProductInfoDao;
+	
+	@Autowired
+	private IFlowProductInfoService flowProductInfoService;
 
 	@Autowired
 	private OrderDealRecordDao orderDealRecordDao;
@@ -468,7 +478,7 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
 		FlowAppInfo flowAppInfo = new FlowAppInfo();
 		flowAppInfo.setCustomerId(orderInfo.getCustomerId());
 		flowAppInfo.setOrderId(orderInfo.getOrderId());
-		flowAppInfo.setAppId(orderInfo.getOrderId().toString());
+		// flowAppInfo.setAppId(orderInfo.getOrderId().toString());
 		flowAppInfo.setAppKey(genAppkey());
 		flowAppInfo.setStartDate(new Date());
 		// 结束日期：两年后
@@ -482,7 +492,9 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
 		} else {
 			flowAppInfo.setAppName(customerInfo.getAccount() + "流量包APP");
 		}
-		// TODO 
+		// 以客户账号当做接入应用ID
+		flowAppInfo.setAppId(customerInfo.getAccount());
+		// 
 //		String callbackUrl = SystemConfig.getInstance().getFlowAppCallbackUrl();
 		String callbackUrl = "";
 		if (null == callbackUrl) {
@@ -499,7 +511,8 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
 			flowAppInfo.setIpAddress(ipAddress);
 		}
 		// 默认不需要短信
-		flowAppInfo.setNeedSms(FLOWAPPNOTNEEDSMS);
+		flowAppInfo.setNeedSms(FlowAppInfo.SMS_UNNEED);
+		flowAppInfo.setFailNeedSms(FlowAppInfo.ISRESEND_NO);
 		flowAppInfo.setSmsContent("");
 		flowAppInfo.setAllowPackages("");
 		flowAppInfo.setDispatchChannel("");
@@ -652,5 +665,194 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
 					+ orderDetail.getOrderDetailId());
 		}
 	}
+	
+	
+	public void saveOrderAndOrderDetail(OrderInfo orderInfo, Long updId) {
+	    
+		ShiroUser staff = ShiroKit.getUser();
+	    try {
+	    	// 合法性校验及参数构造
+		    authenticationChcekAndCreateParams(orderInfo, staff);
+		    
+		    // 【订单提交】基础校验和业务逻辑校验
+	        paramCheck(orderInfo, updId);
+	        
+	        // 新增操作
+	        if (updId == null) {
+	            orderInfo.setStatus(Constant.ORDER_STATUS_EFFECTIVE);
+	            orderInfo.setCreator(staff.getAccount());
+	            orderInfo.setCreateTime(new Date());
+	        } else {
+	            orderInfo.setStatus(Constant.ORDER_STATUS_EFFECTIVE);// 更新直接改成生效 - 2017.10.19 需求如此
+	            orderInfo.setUpdator(staff.getAccount());
+	            orderInfo.setUpdateTime(new Date());
+	        }
+	        addOrUpdateOrderInfo(orderInfo, staff, updId);
+	    } catch (BussinessException be) {
+	    	throw be;
+	    } catch (Exception e) {
+	    	throw e;// 后续的异常日志处理
+	    }
+	}
+	
+	/**
+	 *  合法性校验及参数构造
+	 *  
+	 * @param customerId 当前订单所属客户的ID
+	 * @return
+	 */
+    private void authenticationChcekAndCreateParams(OrderInfo orderInfo, ShiroUser staff) {
+        if (null == orderInfo.getCustomerId()) {
+        	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "请选择客户名称");
+        }
+        CustomerInfo customerInfo = customerInfoDao.getCustomerInfoByCustomerId(orderInfo.getCustomerId());
+        
+        // 客户及合作伙伴身份合法性校验
+        authenticationChcek(customerInfo);
+        // 参数构造
+        createParams(customerInfo, orderInfo, staff);
+    }
+    
+    /**
+	 * 构造订单所属的【合作伙伴】参数
+	 * 
+	 * @param customerInfo 当前订单所属客户
+	 * @return
+	 */
+	private void createParams(CustomerInfo customerInfo, OrderInfo orderInfo, ShiroUser staff) {
+		// TODO 
+//        if (isAdmin()) {
+            orderInfo.setPartnerId(customerInfo.getPartnerId());
+//        } else {
+//            // 合作伙伴ID
+//            PartnerInfo pInfo = partnerInfoService.getByAccount(staff.getLoginName());
+//            if (pInfo == null) {
+//                return super.fail("合作伙伴不存在");
+//            }
+//            orderInfo.setPartnerId(pInfo.getPartnerId());
+//        }
+//        return super.success("构造参数成功");
+	}
+    
+    /**
+     * 订单类型  2:流量+卡   1: 流量包
+     */
+    public static final Integer ORDERTYPEFLOWPACKAGE = 1;
+    
+    /**
+     * 合作伙伴状态  1: 商用
+     */
+    public static final String PARTNERSTATUS = "1";
+    
+    /**
+     * 客户状态  1: 商用
+     */
+    public static final Integer CUSTOMERSTATUS = 1;
+	
+	/**
+	 * 客户及合作伙伴身份合法性校验
+	 * 
+	 * @param customerId 当前订单所属客户
+	 */
+	private void authenticationChcek(CustomerInfo customerInfo) {
+        if (null == customerInfo) {
+            throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "非法客户");
+        }
+        if (customerInfo.getStatus() != CUSTOMERSTATUS) {
+        	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "当前客户是非商用状态，不能提交订单。");
+        }
+        PartnerInfo pi = partnerService.get(customerInfo.getPartnerId());
+        if (pi != null && !PARTNERSTATUS.equals(pi.getStatus())) {
+        	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "当前客户所属合作伙伴是非商用状态，不能提交订单。");
+        }
+	}
+	
+	/**
+	 * 【订单提交】基础校验和业务逻辑校验
+	 * 
+	 * @param orderInfo 订单对象
+	 * @return
+	 */
+    private void paramCheck(OrderInfo orderInfo, Long updId) {
+        // 关联产品为空校验
+        if (orderInfo.getFlowProductInfoList() == null) {
+        	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "请选择要订购的产品");
+        }
+        // 订单中产品的基础校验和业务逻辑校验
+        productBaseAndBusinessCheck(orderInfo);
+        // 最小日期校验
+        if (ORDERTYPEFLOWPACKAGE != orderInfo.getOrderType() && orderInfo.getDeliveryTime() != null && orderInfo.getDeliveryTime().getTime() < new Date().getTime()) {
+        	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "不能选择今天之前的日期");
+        }
+        // 流量包订单不可重复提交校验
+        packageOrderResubmitCheck(orderInfo, updId);
+    }
+    
+    /**
+     * 订单中产品的基础校验和业务逻辑校验
+     * 
+     * @param orderInfo 当前订单
+     * @return
+     */
+    private void productBaseAndBusinessCheck(OrderInfo orderInfo) {
+        for (FlowProductInfo fpi : orderInfo.getFlowProductInfoList()) {
+            if (null == fpi.getProductId()) {
+                continue;
+            }
+            if (fpi.getSettlementAmount() == null) {
+            	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "请输入结算价格");
+            }
+            if (!fpi.getSettlementAmount().toString().matches("^[0-9]+(\\.[0-9]*)?$")) {
+            	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "请输入合法的价格");
+            }
+            if (!String.valueOf(fpi.getProductCount()).matches("^[0-9]+(\\.[0-9]*)?$")) {
+            	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "请输入合法的数量");
+            }
+            //流量加做判断
+            if (2 == orderInfo.getOrderType() && !String.valueOf(fpi.getProductCount()).matches("^[1-9]\\d*$")) {
+            	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "订购数量必须为大于0的整数，请重新输入。");
+            }
+            // 校验价格是否倒挂
+            // 客户订单优化处理-客户订单产品价格不能低于合作伙伴订单价格
+            if ( orderInfo.getPartnerId() != null && orderInfo.getPartnerId() > 0L ) {
+            	List<FlowProductInfo> listAll = flowProductInfoService.getByPartnerInfoType(orderInfo.getPartnerId(), null, null,null,null);
+                for (FlowProductInfo fpiDB : listAll) {
+                    if (fpi.getProductId().longValue() == fpiDB.getProductId().longValue() && fpi.getSettlementAmount().compareTo(fpiDB.getSettlementAmount()) == -1) {
+                    	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "产品名称为【" + fpi.getProductName() + "】的结算价格(" + fpi.getSettlementAmount() + "元)小于当前合作伙伴的结算价格("+ fpiDB.getSettlementAmount() +"元), 请重新输入。");
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * 流量包订单不可重复提交校验
+     * 
+     * @param orderInfo 当前订单信息
+     * @param updId 更新操作标识符
+     * @return
+     */
+    private void packageOrderResubmitCheck(OrderInfo orderInfo, Long updId) {
+        // 订单新增操作
+        if (updId == null) {
+        	CustomerInfo customer = customerInfoDao.getCustomerInfoByCustomerId(orderInfo.getCustomerId());
+        	if ( customer == null )
+        		throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "暂无客户信息");
+        	
+            // 渠道直充合作伙伴
+            if (customer.getPartnerType() == PartnerInfo.PARTNER_TYPE_CHANNEL) {
+                List<OrderInfo> infos = getByPartnerIdAndCustomerId(orderInfo.getPartnerId() != null ? orderInfo.getPartnerId() : null, orderInfo.getCustomerId());
+                if (!infos.isEmpty()) {
+                    throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "该客户已有订单，不可重复提交");
+                }
+            }
+            if (ORDERTYPEFLOWPACKAGE == orderInfo.getOrderType()) {
+                List<OrderInfo> orderInfos = getByCustomerIdAndOrderType(orderInfo.getCustomerId(), ORDERTYPEFLOWPACKAGE);
+                if (!orderInfos.isEmpty()) {
+                	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "该客户已有流量包订单，不可重复提交");
+                }
+            }
+        }
+    }
 
 }

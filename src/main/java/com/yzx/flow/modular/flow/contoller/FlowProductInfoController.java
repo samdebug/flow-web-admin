@@ -300,11 +300,10 @@ public class FlowProductInfoController extends BaseController {
 			@RequestParam(value = "operatorCode", required = false) String operatorCode,
 			@RequestParam(value = "text", required = false) String text) {
 //		if (isAdmin()) {
-			CustomerInfo customerInfo = customerInfoDao.getCustomerInfoByCustomerId(customerId);
-			if (customerInfo != null) {
-			    partnerInfoId = customerInfo.getPartnerId();
-			} else {
-			    partnerInfoId = null;			    
+			if ( customerId != null && customerId > 0 ) {
+				CustomerInfo customerInfo = customerInfoDao.getCustomerInfoByCustomerId(customerId);
+				if (customerInfo != null) 
+				    partnerInfoId = customerInfo.getPartnerId();
 			}
 //		} else {
 //			PartnerInfo parentInfo = getParentInfo();

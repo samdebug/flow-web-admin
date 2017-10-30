@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yzx.flow.common.constant.tips.ErrorTip;
 import com.yzx.flow.common.excel.TemplateExcel;
 import com.yzx.flow.common.excel.TemplateExcelManager;
+import com.yzx.flow.common.exception.BizExceptionEnum;
+import com.yzx.flow.common.exception.BussinessException;
 import com.yzx.flow.common.page.Page;
 import com.yzx.flow.common.page.PageInfoBT;
 import com.yzx.flow.common.persistence.model.AccessChannelGroup;
@@ -95,6 +98,8 @@ public class FlowAppInfoController extends com.yzx.flow.common.controller.BaseCo
 	@RequestMapping(value = "/query")
 	@ResponseBody
 	public PageInfoBT<FlowAppInfo> pageQuery(Page<FlowAppInfo> page) {
+		if ( StringUtils.isBlank(page.getSort()) )
+			page.setSort("flow_app_id");
 		PageInfoBT<FlowAppInfo> respage = flowAppInfoService.pageQuery(page);
 		return respage;
 	}
@@ -102,8 +107,15 @@ public class FlowAppInfoController extends com.yzx.flow.common.controller.BaseCo
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
 	public Object add(@ModelAttribute("flowAppInfo") FlowAppInfo data) {
-		flowAppInfoService.saveAndUpdate(data);
-		return SUCCESS_TIP;
+		try {
+			flowAppInfoService.saveAndUpdate(data);
+			return SUCCESS_TIP;
+		} catch(BussinessException e) {
+			return ErrorTip.buildErrorTip(e.getMessage());
+		} catch (Exception e) {
+			LOG.error("保存接入信息异常", e);
+		}
+		return ErrorTip.buildErrorTip(BizExceptionEnum.SERVER_ERROR);
 	}
 
 	@RequestMapping(value = "/delete")

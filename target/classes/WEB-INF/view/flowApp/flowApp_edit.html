@@ -5,255 +5,98 @@ select.input-sm{
 	line-height: 32px;
 }
 </style>
-<link rel="stylesheet" href="${ctxPath}/static/js/common/my97/skin/WdatePicker.css" />
 <div class="ibox float-e-margins">
     <div class="ibox-content">
-		<form class="form-horizontal" role="form" id="add-form" onsubmit="return false;">
+        <div class="form-horizontal">
+		<form id="add-form" role="form" onsubmit="return false;">
 			<input type="hidden" name="flowAppId" id="flowAppId" /> 
 			<input type="hidden" name="updId" id="updId" />
-			<br/>
-			<div class="row">
+			
+			<div class="col-sm-6 b-r">
+				<div class="form-group">
+				    <label class="col-sm-3 control-label">*客户名称</label>
+				    <div class="col-sm-9">
+						<input type="hidden"  name="orderIdStr" id="orderId" class="form-control">
+				    </div>
+               	</div>
+			
+				<#input id="callbackUrl" name="客户回调URL" />
 				
-				<div class="col-xs-1"></div>
-				<div class="col-xs-5">
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="appId"> <span class="red">*</span> 应用ID:
-						</label>
-						<div class="col-sm-7">
-							<input type="text" name="appId" id="appId" class="form-control input-sm" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="orderId"> <span class="red">*</span>订单ID号: </label>
-						<div class="col-sm-7">
-							<input type="hidden"  name="orderIdStr" id="orderId" class="form-control input-sm">
-						</div>
-					</div>
+				<#select id="callbackMethod" name="*回调方法" >
+					<option value="POST" >POST</option>
+                    <option value="GET">GET</option>
+				</#select>
 				
-					
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="startDate"> <span class="red">*</span> 开始日期:
-						</label>
-						<div class="col-sm-7">
-							<input type="text" name="startDate" id="startDate" autocomplete="off" onFocus="WdatePicker({startDate: '%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
-								class="form-control input-sm" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="callbackUrl"> 网关回调URL:
-						</label>
-						<div class="col-sm-7">
-							<input type="text" name="callbackUrl" id="callbackUrl"
-								class="form-control input-sm" />
-						</div>
-					</div>
-					<div class="form-group">
-                           <label class="col-sm-5 control-label no-padding-right text-right"
-                               for="callbackMethod"> <span class="red">*</span> 回调方法
-                           </label>
-                           <div class="col-sm-7">
-                                <select name="callbackMethod" id="callbackMethod" class="form-control input-sm">
-                                   <option value="POST">POST</option>
-                                   <option value="GET">GET</option>
-                                </select>
-                           </div>
-                       </div>
-					<div class="form-group">
-                           <label class="col-sm-5 control-label no-padding-right text-right"
-                               for="status"> <span class="red">*</span> 状态
-                           </label>
-                           <div class="col-sm-7">
-                                <select name="status" id="status" class="form-control input-sm">
-                                   <option value="1">有效</option>
-                                   <option value="2">暂停</option>
-                                   <option value="3">无效</option>
-                                </select>
-                           </div>
-                       </div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="needSms"> <span class="red">*</span> 是否需要支持短信
-						</label>
-						<div class="col-sm-7">
-							 <select name="needSms" id="needSms" class="form-control input-sm">
-							 	<option value="0">不需要</option>
-							 	<option value="1">需要</option>
-							 </select>
-						</div>
-					</div>
-					<div class="form-group" style="display:none" id="smsChannelIdDiv">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="smsChannelId"> <span class="red">*</span>短信通道: </label>
-						<div class="col-sm-7">
-							<select name="smsChannelId" id="smsChannelId"
-								class="form-control input-sm">
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="failNeedSms"> <span class="red">*</span> 失败是否发短信
-						</label>
-						<div class="col-sm-7">
-							 <select name="failNeedSms" id="failNeedSms" class="form-control input-sm">
-							 	<option value="0">不需要</option>
-							 	<option value="1">需要</option>
-							 </select>
-						</div>
-					</div>
-					<div class="form-group" style="display:none" id="failSmsChannelIdDiv">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="failSmsChannelId"> <span class="red">*</span>失败短信通道: </label>
-						<div class="col-sm-7">
-							<select name="failSmsChannelId" id="failSmsChannelId"
-								class="form-control input-sm">
-							</select>
-						</div>
-					</div>
-
-				</div>
-				<div class="col-xs-5">
-					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right text-right"
-							for="appName"> <span class="red">*</span> APP名称:
-						</label>
-						<div class="col-sm-7">
-							<input type="text" name="appName" id="appName"
-								class="form-control input-sm" />
-						</div>
-					</div>
-					<div class="form-group" style="display:none;" id="appKeyDiv">
-						<label class="col-sm-4 control-label no-padding-right text-right"
-							for="appKey"> <span class="red">*</span>应用Key: </label>
-						<div class="col-sm-7">
-							<input type="text"  name="appKey" id="appKey" class="form-control input-sm">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right text-right"
-							for="ipAddress">  签权IP地址:
-							<br/>多个以;隔开
-						</label>
-						<div class="col-sm-7">
-							<input type="text" name="ipAddress" id="ipAddress"
-								class="form-control input-sm" />
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right text-right"
-							for="endDate"> <span class="red">*</span> 结束日期:
-						</label>
-						<div class="col-sm-7">
-							<input type="text" name="endDate" id="endDate"autocomplete="off" onFocus="WdatePicker({startDate: '%y-%M-%d 23:59:59',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
-								class="form-control input-sm" cmpDate="startDate"/>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right text-right"
-							for="exchangeCbUrl"> 兑换回调URL:
-						</label>
-						<div class="col-sm-7">
-							<input type="text" name="exchangeCbUrl" id="exchangeCbUrl"
-								class="form-control input-sm" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-4 control-label no-padding-right text-right"
-							for="isResend"> <span class="red">*</span> 是否需要重发
-						</label>
-						<div class="col-sm-7">
-							 <select name="isResend" id="isResend" class="form-control input-sm" onchange="resendChange()">
-							 	<option value="0">否</option>
-							 	<option value="1">是</option>
-							 </select>
-						</div>
-					</div>
-					<div class="form-group" id="form-group-times" style="display: none;">
-						<label class="col-sm-4 control-label no-padding-right text-right"
-							for="exchangeCbUrl"> 重发次数
-						</label>
-						<div class="col-sm-7">
-							<input type="text" name="resendTimes" id="resendTimes"
-								class="form-control input-sm" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" />
-						</div>
-					</div>
-					<div class="form-group">
-                           <label class="col-sm-4 control-label no-padding-right text-right"
-                               for="dispatchChannel">流量下发通道: </label>
-                           <div class="col-sm-7">
-                               <input type="hidden"  name="dispatchChannel" id="dispatchChannel" class="form-control input-sm">
-                           </div>
-                       </div>
-					<div class="form-group" style="display:none" id="smsContentDiv">
-						<label class="col-sm-4 control-label no-padding-right text-right"
-							for="smsContent">短信内容:
-						</label>
-						<div class="col-sm-7">
-							<input type="text" name="smsContent" id="smsContent"
-								class="form-control input-sm" />
-						</div>
-					</div>
-					
-					<div class="form-group" style="display:none" id="failSmsContentDiv">
-						<label class="col-sm-4 control-label no-padding-right text-right"
-							for="failSmsContent">失败短信内容:
-						</label>
-						<div class="col-sm-7">
-							<input type="text" name="failSmsContent" id="failSmsContent"
-								class="form-control input-sm" />
-						</div>
-					</div>
-				</div>
-
-
+				<#select id="status" name="*状态" >
+                     <option value="1">有效</option>
+                     <option value="3">无效</option>
+				</#select>
+				
+				<#time id="startDate" name="*开始时间" class="form-control layer-date" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" />
+				
+				<#time id="endDate" name="*结束时间" class="form-control layer-date" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" />
 			</div>
+			
+			<div class="col-sm-6 b-r">
+			
+<!-- 				<div id="appIdDiv"> -->
+<!-- 					<#input id="appId" name="*应用ID" maxlength="50" disabled="disabled" /> -->
+<!-- 				</div> -->
+				<#input id="appName" name="*接入名称" maxlength="50" disabled="disabled" />
+				
+				<#input id="ipAddress" name="鉴权ip地址" placeholder="多个ip以英文分号(;)分隔" />
+				
+               	<div class="form-group">
+				    <label class="col-sm-3 control-label">流量下发通道</label>
+				    <div class="col-sm-9">
+						<input type="hidden"  name="dispatchChannel" id="dispatchChannel" class="form-control">
+				    </div>
+               	</div>
+               	
+				<#select id="isResend" name="*失败重发" >
+					<option value="0" >否</option>
+                    <option value="1">是</option>
+				</#select>
+				
+				<div id="resendTimesDiv">
+					<#input id="resendTimes" name="*尝试重发次数" maxlength="1" />
+				</div>
+				
+			</div>
+			
+            
 			<br/>
-			<div class="clearfix form-actions">
-				<div class="center" style="text-align: center;">
-					<button class="btn btn-info" type="submit" id="submitButton">
-						<i class="ace-icon fa fa-check bigger-110"></i> 保 存
+			<div class="row btn-group-m-t">
+                <div class="col-sm-10">
+	                <button type="submit" class="btn btn-info" id="submitButton">
+					    <i class="fa fa-check"></i>&nbsp;提交
 					</button>
-					&nbsp; &nbsp;
-					<button class="btn" type="button" id="resetBtn" style="display:none;">
-						<i class="ace-icon fa fa-undo bigger-110"></i> 重 置
-					</button>
-					&nbsp; &nbsp;
-					<button class="btn" type="button" onclick="parent.layer.close(window.parent.FlowApp.layerIndex)">
-						<i class="ace-icon fa fa-arrow-left"></i> 返 回
-					</button>
-				</div>
-			</div>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="closeThisWin()"/>
+                </div>
+            </div>
 		</form>
 	</div>
 </div>
+</div>
 
-<script src="${ctxPath}/static/js/common/my97/WdatePicker.js"></script>
 <script type="text/javascript">
-
-	var update_url = Feng.ctxPath + '/flowAppInfo/add';
 	var view_url = Feng.ctxPath + '/flowAppInfo/get';
-	var query_sms_channel = Feng.ctxPath + '/smsChannelInfo/query';
-	
 	var pkId = getP('flowAppId');
 	
-	function initSmsChannelSelect2(){
-		$("#smsChannelId").ajaxRender(query_sms_channel,{
-			root:"rows",firstOption:{text:'请选择短信通道',value:''},keyValue:{text:'gwUser',value:'smsChannelId'}});
+	// 是否是编辑模式
+	var editModel = pkId && /^\d+$/.test(pkId);
+	
+	function closeThisWin() {
+		parent.layer.close(window.parent.FlowApp.layerIndex);
 	}
-	function initFailSmsChannelSelect2(){
-		$("#failSmsChannelId").ajaxRender(query_sms_channel,{
-			root:"rows",firstOption:{text:'请选择短信通道',value:''},keyValue:{text:'gwUser',value:'smsChannelId'}});
-	}
-	function initOrderInfo(){
-		$("#orderId").removeClass().css("width","240px").select2({
+	
+	//  新增模式才执行此操作
+	function initOrderInfoSelect(){
+		$("#orderId").removeClass().css("width","100%").select2({
 			placeholder : "请输入客户名称关键字",
 			minimumInputLength : 1,
 			allowClear: true,
+			formatNoMatches: "暂无客户或客户未配置产品信息",
 			ajax : {
 				url : Feng.ctxPath + '/orderInfo/queryOrderInfoByCustomer',
 				dataType : 'json',
@@ -271,7 +114,7 @@ select.input-sm{
 					for (var i = 0; i < rtnArr.length; i++) {
 						var o = {
 							id : rtnArr[i].orderIdStr,
-							text : '【' + rtnArr[i].customerName + '】' + rtnArr[i].orderIdStr
+							text : rtnArr[i].customerName
 						};
 						arr.push(o);
 					}
@@ -282,8 +125,9 @@ select.input-sm{
 			}
 		});
 	}
+	
 	function initDispatchChannelSelect2(){
-		$("#dispatchChannel").removeClass().css("width","240px").select2({
+		$("#dispatchChannel").removeClass().css("width","100%").select2({
 			placeholder : "请输入流量下发通道关键字",
 			minimumInputLength : 1,
 			allowClear: true,
@@ -312,163 +156,147 @@ select.input-sm{
 			}
 		});
 	}
+
+	
+	function initResendChangeHandler() {
+		$("#isResend").on("change", function() {
+			autoResendTimeIsShow();
+		});
+		autoResendTimeIsShow();
+	}
+	function autoResendTimeIsShow() {
+		var _v = $("#isResend").val();
+		if( _v == "1" ) {
+			$("#resendTimes").prop("disabled", false)
+			$("#resendTimes").show();
+			$("#resendTimesDiv").show();
+			$("#resendTimes").val("");
+		} else {
+			$("#resendTimes").val("1");
+			$("#resendTimesDiv").hide();
+			$("#resendTimes").hide();
+			$("#resendTimes").prop("disabled", true)
+		}
+	}
+	
+	
+	function initData() {
+		// 费编辑模式
+		if ( !pkId || !/^\d+$/.test(pkId)) {
+			Feng.error("参数错误");
+			return;
+		}
+		$('#updId').val(pkId);
+		$.ajaxSubmit(view_url, {
+			'flowAppId' : pkId
+		}, function(data) {
+			loadData(data);
+		});
+	}
+	
+	function loadData(data) {
+		if ( !data || (data.code && data.code != 200) ) {
+			Feng.error( dada && data.message ? data.message : "获取数据失败！");
+			return;
+		}
+		$('#add-form').json2Form2(data);
+		autoResendTimeIsShow();
+		if ( data.isResend == "1" ){
+			$("#resendTimes").val(data.resendTimes);
+		}
+		
+		var customerOjb = {id: data.orderIdStr,text: data.customerInfo.customerName};
+		$("#orderId").select2("data", customerOjb);
+		
+		if ( editModel ) {// 编辑模式不允许修改订单相关信息
+			$("#orderId").attr("type","text").attr("disabled","disabled");
+		}
+		
+		if ( data.dispatchChannel && data.dispatchChannel != '' ) {
+			var obj = {};
+			obj["id"] = data.dispatchChannel;
+			obj["text"] = data.dispatchChannel;
+			$("#dispatchChannel").select2("data", obj);
+		}
+	}
+	
+	
 	$(function() {
-		initSmsChannelSelect2();
-		initFailSmsChannelSelect2();
+		
+		if ( !editModel ) {// 非编辑模式
+			//$("#appIdDiv").remove();
+			initOrderInfoSelect();
+			$("#appName").prop("disabled", false);
+		}
+		
 		initDispatchChannelSelect2();
-		$("#needSms").on("change",function(){
-			var v = $(this).val();
-			if (v === "0"){
-				$("#smsChannelIdDiv,#smsContentDiv").hide();
-				$("#smsContent").val("");
-				$("#smsChannelId").get(0).selectedIndex = 0;
-				$("#smsChannelId").rules("remove");
-			}else{
-				//$("#smsChannelId").rules("add",{required : true});
-				$("#smsChannelIdDiv,#smsContentDiv").show();
-			}
-		});
-		$("#failNeedSms").on("change",function(){
-			var v = $(this).val();
-			if (v === "0"){
-				$("#failSmsChannelIdDiv,#failSmsContentDiv").hide();
-				$("#failSmsContent").val("");
-				$("#failSmsChannelId").get(0).selectedIndex = 0;
-				$("#failSmsChannelId").rules("remove");
-			}else{
-				$("#failSmsChannelId").rules("add",{required : true});
-				$("#failSmsChannelIdDiv,#failSmsContentDiv").show();
-			}
-		});
+		initResendChangeHandler();
+		
+		if ( editModel ) {
+			initData();
+		}
 		
 		var add_validator = $('#add-form')
-				.validate(
-						{
-							rules : {
-								'orderId' : {
-									maxlength : 20,
-									required : true
-								},
-								'smsChannelId' : {
-									maxlength : 20
-								},
-								'appId' : {
-									required : true,
-									isNotCn:true,
-									maxlength : 64
-								},
-								'startDate' : {
-									required : true
-								},
-								'endDate' : {
-									required : true,
-									endDateTimeValid:true
-								},
-								'appName' : {
-									required : true,
-									maxlength : 128
-								},
-								'callbackUrl' : {
-									required : false,
-									maxlength : 255
-								},
-								'exchangeCbUrl' : {
-									required : false,
-									maxlength : 255
-								},
-								'ipAddress' : {
-									required : false,
-									maxlength : 512
-								},
-                                'status' : {
-                                    required : true
-                                },
-								'needSms' : {
-									required : true,
-									maxlength : 11
-								},
-								'isResend' : {
-									required : true
-								},
-								'smsContent' : {
-									required : false,
-									maxlength : 512
-								},
-								'resendTimes':{
-									required : false,
-									resendTimes:true
-								}
-							},
-							messages: {
-							    'orderId' : {
-							        required : "不能为空"
-							    }
-							},
-							submitHandler : function(form) {
-								$.ajaxSubmit(
-										Feng.ctxPath + '/flowAppInfo/add.ajax',
-										$(form).serializeJson(),
-										function(data) {
-											if ( data && data.code && data.code != 200 ) {
-												Feng.error(data && data.message? data.message : "操作失败");
-												return;
-											}
-											Feng.success('新增/修改成功');
-											parent.FlowApp.table.refresh();
-											parent.layer.close(window.parent.FlowApp.layerIndex);
-										}, $("#submitButton"));
-								return false;
-							}
-						});
+		.validate(
+				{
+					rules : {
+						'orderId' : {
+							maxlength : 20,
+							required : true
+						},
+						'startDate' : {
+							required : true
+						},
+						'endDate' : {
+							required : true,
+							//endDateTimeValid:true
+						},
+						'callbackUrl' : {
+							required : false,
+							maxlength : 255
+						},
+						'ipAddress' : {
+							required : false,
+							maxlength : 512
+						},
+                        'status' : {
+                            required : true
+                        },
+						'isResend' : {
+							required : true
+						},
+						'resendTimes':{
+							required : false,
+							resendTimes:true
+						}
+					},
+					messages: {
+					    'orderId' : {
+					        required : "不能为空"
+					    }
+					},
+					submitHandler : function(form) {
+						$.ajaxSubmit(
+								Feng.ctxPath + '/flowAppInfo/add.ajax',
+								$(form).serializeJson(),
+								function(data) {
+									if ( data && data.code && data.code != 200 ) {
+										Feng.error(data && data.message? data.message : "操作失败");
+										return;
+									}
+									Feng.success('修改成功');
+									parent.FlowApp.table.refresh();
+									parent.layer.close(window.parent.FlowApp.layerIndex);
+								}, $("#submitButton"));
+						return false;
+					}
+				});
 		
 		
-		$('#resetBtn').on('click', function() {
-			//重置form,添加validator样式清除
-			document.getElementById("add-form").reset();
-			add_validator.resetForm();
-			$('#add-form').find('.form-group').removeClass('has-error');
-		});
 		
-		
-		//重置form,添加validator样式清除
-		
-		if (pkId) {
-			$('#updId').val(pkId);
-			$("#orderId").attr("type","text").attr("readonly","readonly");
-			$("#appKeyDiv").show();
-			$.ajaxSubmit(view_url, {
-				'flowAppId' : pkId
-			}, function(data) {
-				if ( !data || (data.code && data.code != 200) ) {
-					Feng.error( dada && data.message ? data.message : "获取数据失败！");
-					return;
-				}
-				$('#add-form').json2Form2(data);
-				resendChange();
-				var obj = {};
-				obj["id"] = data.dispatchChannel;
-				obj["text"] = data.dispatchChannel;
-				$("#dispatchChannel").select2("data", obj);
-			});
-		}else{
-			//$("#appId").removeAttr("readonly");
-			$("#resetBtn").show();
-			initOrderInfo();
-		}
+		$("#endDate").attr("cmpDate", "startDate");
 	});
-	
-	function resendChange(){
-		 var resendTimes=$("#resendTimes").val();
-       	 if(resendTimes==0){
-       		 $("#resendTimes").val(1);
-       	 }
-		 var isResend=$("#isResend").val();
-            if(isResend==1){
-           	 $("#form-group-times").css("display","block");
-            }else{
-           	 $("#form-group-times").css("display","none");
-            }
-	}
+
 	
 </script>
 

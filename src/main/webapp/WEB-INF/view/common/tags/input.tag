@@ -11,7 +11,7 @@
 <div class="form-group">
     <label class="col-sm-3 control-label">${name}</label>
     <div class="col-sm-9">
-        <input class="form-control" id="${id}" name="${id}"
+        <input class="form-control" id="${id}" name="${id}" placeholder="${placeholder!}" maxlength="${maxlength!}" 
                @if(isNotEmpty(value)){
                     value="${tool.dateType(value)}"
                @}

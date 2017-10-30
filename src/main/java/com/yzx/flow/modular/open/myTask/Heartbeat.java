@@ -59,6 +59,12 @@ public class Heartbeat {
 				return;
 			}
 			if(zookeeperUtil==null || zookeeperUtil.getLicence()==null){
+				if(zookeeperUtil==null){
+					logger.info("zookeeperUtil为null");
+				}
+				if(zookeeperUtil.getLicence()==null){
+					logger.info("licence为null");
+				}
 				logger.debug("无用户信息.");
 				return;
 			}

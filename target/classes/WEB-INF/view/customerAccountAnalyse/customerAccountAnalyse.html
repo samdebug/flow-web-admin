@@ -19,10 +19,10 @@
                                 <#NameCon id="partnerName" name="合作伙伴：" />
                             </div>
                            <div class="col-sm-3">
-                                <#TimeCon type="text" name="结算开始时间：" id="createStartTime" isTime="false" pattern="YYYY-MM-DD" />
+                                <#TimeCon type="text" name="结算开始时间：" id="createStartTime" isTime="false" pattern="yyyy-MM-dd" />
                             </div>
                             <div class="col-sm-3">
-                                <#TimeCon type="text" name="结算结束时间：" id="createEndTime" isTime="false" pattern="YYYY-MM-DD" />
+                                <#TimeCon type="text" name="结算结束时间：" id="createEndTime" isTime="false" pattern="yyyy-MM-dd" />
                             </div>
                             <div class="col-sm-3 reset">
                                 <#button name="查询" class="button-margin" icon="fa-search" clickFun="CustomerAccountAnalyse.search()"/>
@@ -30,10 +30,10 @@
                         </div>
                         <div class="hidden-xs" id="CustomerAccountAnalyseTableToolbar" role="group">
                             @if(shiro.hasPermission("/customerAccountAnalyse/add")){
-                                <#button name="添加" icon="fa-plus" clickFun="CustomerAccountAnalyse.openAddCustomerAccountAnalyse()"/>
+                                <#button name="新增" icon="fa-plus" clickFun="CustomerAccountAnalyse.openAddCustomerAccountAnalyse()"/>
                             @}
                             @if(shiro.hasPermission("/customerAccountAnalyse/update")){
-                                <#button name="修改" icon="fa-plus" clickFun="CustomerAccountAnalyse.openCustomerAccountAnalyseDetail()" space="true"/>
+                                <#button name="编辑" icon="fa-plus" clickFun="CustomerAccountAnalyse.openCustomerAccountAnalyseDetail()" space="true"/>
                             @}
                             @if(shiro.hasPermission("/customerAccountAnalyse/delete")){
                                 <#button name="删除" icon="fa-plus" clickFun="CustomerAccountAnalyse.delete()" space="true"/>

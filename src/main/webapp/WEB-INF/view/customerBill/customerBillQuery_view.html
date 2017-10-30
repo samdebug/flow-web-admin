@@ -19,8 +19,9 @@
 								</div>
                             </div>
                             <div class="col-sm-4">
-                                <#TimeBetweenCon name="账单日期" isTime="false" pattern="YYYY-MM-DD" 
-										startId="params['inputStartTime']" endId="params['inputEndTime']" />
+                                <#TimeBetweenCon name="账单日期" isTime="false" pattern="yyyy-MM-dd" 
+										startId="params['inputStartTime']" endId="params['inputEndTime']" 
+                                        dateStartId="inputStartTime" dateEndId="inputEndTime"/>
                             </div>
                             <div class="col-sm-3 reset">
                                 <#button name="查询" class="button-margin" icon="fa-search" clickFun="CustomerBillQuery.search()"/>

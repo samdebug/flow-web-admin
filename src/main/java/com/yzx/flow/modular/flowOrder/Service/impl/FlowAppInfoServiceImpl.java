@@ -3,17 +3,22 @@ package com.yzx.flow.modular.flowOrder.Service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yzx.flow.common.exception.BizExceptionEnum;
+import com.yzx.flow.common.exception.BussinessException;
 import com.yzx.flow.common.exception.MyException;
 import com.yzx.flow.common.page.Page;
 import com.yzx.flow.common.page.PageInfoBT;
 import com.yzx.flow.common.persistence.model.AccessChannelGroup;
+import com.yzx.flow.common.persistence.model.CustomerInfo;
 import com.yzx.flow.common.persistence.model.ExportAppInfo;
 import com.yzx.flow.common.persistence.model.FlowAppInfo;
 import com.yzx.flow.common.persistence.model.FlowOrderInfo;
@@ -22,6 +27,8 @@ import com.yzx.flow.common.util.RedisHttpUtil;
 import com.yzx.flow.common.util.URLConstants;
 import com.yzx.flow.core.aop.dbrouting.DataSource;
 import com.yzx.flow.core.aop.dbrouting.DataSourceType;
+import com.yzx.flow.core.util.ToolUtil;
+import com.yzx.flow.modular.customer.service.ICustomerInfoService;
 import com.yzx.flow.modular.flowOrder.Service.IFlowAppInfoService;
 import com.yzx.flow.modular.system.dao.AccessChannelGroupDao;
 import com.yzx.flow.modular.system.dao.EXportAppInfoDao;
@@ -57,6 +64,8 @@ public class FlowAppInfoServiceImpl implements IFlowAppInfoService {
 
     @Autowired
     private AccessChannelGroupDao accessChannelGroupDao;
+    @Autowired
+    private ICustomerInfoService customerService;
 
     /* (non-Javadoc)
 	 * @see com.yzx.flow.modular.flowOrder.Service.impl.IFlowAppInfoService#pageQuery(com.yzx.flow.common.page.Page)
@@ -90,22 +99,42 @@ public class FlowAppInfoServiceImpl implements IFlowAppInfoService {
 	@Transactional(rollbackFor = Exception.class)
     public void saveAndUpdate(FlowAppInfo data) {
     	if(StringUtils.isEmpty(data.getOrderIdStr())){
-    		throw new MyException("订单ID不能为空！");
+    		throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR,"订单ID不能为空！");
 		}
         Long orderId = Long.valueOf(data.getOrderIdStr());
         data.setOrderId(orderId);
         OrderInfo orderInfo = orderInfoDao.selectByPrimaryKey(orderId);
         if (null == orderInfo) {
-            throw new MyException("订单ID[" + orderId + "]对应的订单记录不存在!");
+            throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "订单ID[" + orderId + "]对应的订单记录不存在!");
         }
         if (null != data.getFlowAppId()) {// 判断有没有传主键，如果传了为更新，否则为新增
             this.update(data);
         } else {
-            if (null != flowAppInfoDao.getFlowAppInfoByAppId(data.getAppId())) {
-                throw new MyException("应用ID[" + data.getAppId() + "]不能重复!");
+        	data.setCustomerId(orderInfo.getCustomerId());
+        	
+        	List<FlowAppInfo> temps = flowAppInfoDao.getFlowAppInfoByOrderIdAndCustomerId(data);
+        	if ( temps != null && !temps.isEmpty() ) {
+        		temps.clear();
+        		throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "该客户已有接入信息，请不要重复添加");
+        	}
+        	
+        	CustomerInfo customer = customerService.get(orderInfo.getCustomerId());
+        	if ( customer == null )
+        		throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "未查询到客户信息");
+        	
+        	// 自动生成appId
+//        	data.setAppId(genAppId());
+        	data.setAppId(customer.getAccount());
+        	// check appId
+            if (flowAppInfoDao.getFlowAppInfoByAppId(data.getAppId()) != null) {
+                throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "应用ID[" + data.getAppId() + "]不能重复!");
             }
-            data.setCustomerId(orderInfo.getCustomerId());
             data.setAppKey(genAppkey());
+            // 不需要短信支持
+            data.setNeedSms(FlowAppInfo.SMS_UNNEED);
+            data.setFailNeedSms(FlowAppInfo.ISRESEND_NO);
+            data.setSmsContent("");
+            data.setAllowPackages("");
             this.insert(data);
         }
     }
@@ -113,6 +142,23 @@ public class FlowAppInfoServiceImpl implements IFlowAppInfoService {
     private String genAppkey() {
         return UUID.randomUUID().toString().replace("-", "");
     }
+    
+    private String genAppId() {
+    	StringBuilder buff = new StringBuilder(18);
+    	buff.append(String.valueOf(System.currentTimeMillis()));
+    	String randomStr = ToolUtil.generateRundomStr(buff.capacity()-buff.length());
+    	
+    	Random random = ThreadLocalRandom.current();
+        int length = buff.length();
+        for ( int i = length, n = 0; i < buff.capacity(); i++, n++, length++ ) {
+            buff.insert(random.nextInt(length), randomStr.charAt(n));
+        }
+    	String res = buff.toString();
+    	buff.setLength(0);
+    	buff = null;
+    	return res;
+    }
+    
 
     /* (non-Javadoc)
 	 * @see com.yzx.flow.modular.flowOrder.Service.impl.IFlowAppInfoService#update(com.yzx.flow.common.persistence.model.FlowAppInfo)

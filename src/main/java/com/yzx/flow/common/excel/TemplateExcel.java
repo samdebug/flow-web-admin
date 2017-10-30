@@ -124,6 +124,14 @@ public enum TemplateExcel implements ITemplateExcel {
 			return "客户流量结算单.xls";
 		}}, "CustomerBalanceMonth-template.xls"),
 	
+	/**
+	 * 资金流水明细.xls
+	 */
+	ACCOUNT_DETAIL(new ITemplateExcel.INameBuilder() {
+		@Override
+		public String getName() {
+			return "资金流水明细表" + DateUtil.format(new Date(), "yyyyMMdd") + ".xls";
+		}}, "AccountDetail-template.xls"),
 	
 	/**
 	 * 合作伙伴流量结算单.xls
@@ -168,6 +176,15 @@ public enum TemplateExcel implements ITemplateExcel {
 				public String getName() {
 				return "异常订单记录.xls";
 		}}, "FlowOrderInfo-template.xls"),
+	
+	/**
+	 * 客户、合作伙伴充值记录模板
+	 */
+	PARTNER_CUSTOMER_RECHARGE_TEMPLATE(new ITemplateExcel.INameBuilder() {
+		@Override
+		public String getName() {
+			return "充值记录.xls";
+		}}, "p-c-recharge-template.xls"),
 ;	
 	
 	

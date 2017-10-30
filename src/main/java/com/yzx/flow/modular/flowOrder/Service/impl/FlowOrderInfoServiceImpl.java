@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -76,6 +77,9 @@ public class FlowOrderInfoServiceImpl implements IFlowOrderInfoService {
     @Autowired
     private IFlowAppInfoService flowAppInfoService;
     
+    @Value("${flow_ordertable_startFlage}")
+    private String flow_ordertable_startFlage; //分表后流量订单表标志起始位
+    
     @DataSource(DataSourceType.READ)
 	/* (non-Javadoc)
 	 * @see com.yzx.flow.modular.flowOrder.Service.impl.IFlowOrderInfoService#pageQuery(com.yzx.flow.common.page.Page)
@@ -83,20 +87,27 @@ public class FlowOrderInfoServiceImpl implements IFlowOrderInfoService {
 	@Override
 	@Transactional(readOnly=true)
     public PageInfoBT<FlowOrderInfo> pageQuery(Page<FlowOrderInfo> page){
-        /*if (!StaffUtil.isAdmin()) {
-            page.getParams().put("loginName", StaffUtil.getLoginName());
-        }*/
-       /* Object startTime = page.getParams().get("createStartTime");
-    	if (null == startTime || StringUtils.isBlank(startTime.toString())){
-    		page.getParams().put("createStartTime",DateUtil.getMonth(-3));//默认取3个月前
-    	}*/
+    	//根据查询的起始时间判定
+        Object startTime = page.getParams().get("createStartTime");
+        Object endTime = page.getParams().get("createEndTime");
+    	if (null == startTime || StringUtils.isEmpty(startTime.toString())){
+    		page.getParams().put("createStartTime",DateUtil.dateToDateString(new Date(), "yyyy-MM-dd 00:00:00"));//开始时间默认取今天0点
+    	}
+    	if (null == endTime || StringUtils.isEmpty(endTime.toString())){
+    		page.getParams().put("createStartTime",DateUtil.dateToDateString(new Date(), "yyyy-MM-dd 59:59:59"));//结束默认取今天最后结束时间
+    	}
+    	String startTemp = DateUtil.stringToDateString(startTime.toString(), "yyyy-MM-dd hh:mm:ss", "yyyyMM");
+    	String endTemp = DateUtil.stringToDateString(endTime.toString(), "yyyy-MM-dd hh:mm:ss", "yyyyMM");
+    	if (!startTemp.equals(endTemp)) {
+			throw new MyException("跨月查询暂不支持");
+		}
+    	//判断查询的表是否存在
+    	if(Integer.parseInt(flow_ordertable_startFlage)>Integer.parseInt(startTemp)){
+    		throw new MyException("查询的表不存在!");
+    	}
         page.setAutoCountTotal(false);
-        String dataType = (String) page.getParams().get("dataType");
-        String tableName = "flow_order_info";
-        if(dataType!=null&&"on".equalsIgnoreCase(dataType))
-        	tableName = "flow_order_info_his";
-        page.getParams().put("tableName", tableName);
-        
+    	//设置查询的表名
+    	page.getParams().put("tableName", "flow_order_info_"+startTemp);
         page.setTotal(flowOrderInfoDao.countForPageNew(page.getParams()));
         List<FlowOrderInfo> list = flowOrderInfoDao.pageQueryNew(page);
        /* //合计

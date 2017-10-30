@@ -17,6 +17,7 @@ project_Filename='flow-web-admin'
 bak_project_Filename='flow-web-admin'
 project_warName='flow-web-admin.war'
 bak_project_warName='flow-web-admin-bak.war'
+serviceUrl="http://localhost:8280/${project_Filename}/checkServiceStatus"
 basepath=$(cd `dirname $0`; pwd)
 Id=""
 httpUrl=""
@@ -49,8 +50,6 @@ update()
 		echo "Backup ${project_Filename} is succeed."
 	fi
 	
-	cp -f ${temporary_Filename} ${destination_Dir}
-	cd ${destination_Dir}
 	unzip -o ${temporary_Filename} -d ${project_Filename}
 	cd ${destination_Dir}
 	if [ -d ${project_Filename} ]; then
@@ -65,9 +64,12 @@ update()
 	
 	cd ${config_Dir} && ./web.sh start
 	 echo 'tomcat重启状态为:'$?
+	 sleep 120
+	 httpOK=`curl --connect-timeout 10 -m 60 --head --silent $serviceUrl | awk 'NR==1{print $2}'`;
+	 echo "httpOK=$httpOK"
      echo "id=$Id"  
-     echo "httpUrl=$httpUrl"  
-	 if test $? -eq 0;then
+     echo "httpUrl=$httpUrl" 
+	if test $httpOK -eq 200;then
      echo 'tomcat重启成功啦！！！！！'
 	 echo -e $project_Filename $project_Filename
 	 echo -e $project_Filename $project_Filename
@@ -78,11 +80,10 @@ update()
 	 cd ${destination_Dir}
      [ -n "${project_warName}" ] && rm -f ${project_warName}
 	 cd ${package_Name}
-	
 	 curl -l -H "Content-type: application/json" -X POST -d '{"id":'$Id',"status":"2"}' ${httpUrl//'\:'/':'}
 	 else 
       curl -l -H "Content-type: application/json" -X POST -d '{"id":'$Id',"status":"3"}' ${httpUrl//'\:'/':'}
-	  rollback
+      cd ${config_Dir} && ./rollback.sh
 	 fi
 }
 rollback(){

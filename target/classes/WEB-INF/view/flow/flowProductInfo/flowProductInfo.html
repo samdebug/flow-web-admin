@@ -32,13 +32,13 @@
                             @if(shiro.hasPermission("/flowProductInfo/add")){
                                 <div class="btnWrapper">
                             		<#button name="" icon="fa-plus" clickFun="FlowProductInfo.openAddFlowProductInfo()" style="width:98px"/>
-                            		<span class="btnTips">添加</span>
+                            		<span class="btnTips">新增</span>
                             	</div>  
                             @}
                             @if(shiro.hasPermission("/flowProductInfo/update")){
                                  <div class="btnWrapper">
                             		<#button name="" icon="fa-pencil-square-o" clickFun="FlowProductInfo.openFlowProductInfoUpdate()" style="width:98px"/>
-                            		<span class="btnTips">修改</span>
+                            		<span class="btnTips">编辑</span>
                             	</div>  
                             @}
                             @if(shiro.hasPermission("/flowProductInfo/delete")){

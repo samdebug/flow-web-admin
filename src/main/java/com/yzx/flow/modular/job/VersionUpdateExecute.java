@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
+import javax.management.RuntimeErrorException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,9 +74,27 @@ public class VersionUpdateExecute {
 			logger.info("更新flow-web-admin版本信息开始");
 			SystemVersion systemVersion = versionUpdateService.getSystemUpdateingVersionInfo(COMPONENT);
 			if(systemVersion !=null){
-				FileDownloadUtil.downloadWarFile(systemVersion.getComponentUrl(), publickey, war_download_url, 
-						"flow-web-admin.war", "/opt/flow/download/flow-web-admin/flow-web-admin.war",customerName,
-						password);
+				/**
+				 * 多次请求下载war包资源，以求下载信息完整
+				 */
+				int count = 5;
+				//间隔请求下载时间10s
+				long millis = 30 * 1000;
+				for(int i = 0 ; i < count ; i++) {
+					//下载文件
+					FileDownloadUtil.downloadWarFile(systemVersion.getComponentUrl(), publickey, war_download_url, 
+							"flow-web-admin.war", "/opt/flow/download/flow-web-admin/flow-web-admin.war",customerName,
+							password);
+					//校验文件完整性
+					File file = new File("/opt/flow/download/flow-web-admin/flow-web-admin.war");
+					if(file.exists() && file.length() == systemVersion.getComponentSize()) {
+						break;
+					} else if(i == 4){
+						throw new Exception("文件下载失败");
+					}
+					Thread.sleep(millis);
+				}
+				
 				String basePath =VersionUpdateJob.class.getClassLoader().getResource("/").getPath();
 				 InputStream in = new BufferedInputStream(new FileInputStream(  
 		                    new File(basePath+"param.properties")));  

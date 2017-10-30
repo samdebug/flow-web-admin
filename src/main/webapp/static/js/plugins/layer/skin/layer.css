@@ -94,7 +94,7 @@ to{opacity:1}
 .layui-layer-btn a{height:28px;line-height:28px;margin:0 6px;padding:0 15px;border:1px solid #dedede;background-color:#f1f1f1;color:#333;border-radius:2px;font-weight:400;cursor:pointer;text-decoration:none}
 .layui-layer-btn a:hover{opacity:.9;text-decoration:none}
 .layui-layer-btn a:active{opacity:.7}
-.layui-layer-btn .layui-layer-btn0{border-color:#4898d5;background-color:#2e8ded;color:#fff}
+.layui-layer-btn .layui-layer-btn0{border-color:#2ea967;background-color:#2ea967;color:#fff}
 .layui-layer-dialog{min-width:260px}
 .layui-layer-dialog .layui-layer-content{position:relative;padding:20px;line-height:24px;word-break:break-all;font-size:14px;overflow:auto}
 .layui-layer-dialog .layui-layer-content .layui-layer-ico{position:absolute;top:1pc;left:15px;width:30px;height:30px}

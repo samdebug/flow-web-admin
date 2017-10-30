@@ -10,21 +10,21 @@
                     <div class="col-sm-12">
                     <form id="queryForm" action="#">
                         <div class="row">
-                            <div class="col-sm-3">
-                                <#NameCon id="params['appId']" name="应用ID"  />
-                            </div>
-                            <div class="col-sm-3">
-                                <#NameCon id="params['orderId']" name="订单ID"  />
-                            </div>
-                            <div class="col-sm-3">
-                                <#NameCon id="params['appName']" name="APP名称"  />
-                            </div>
+<!--                             <div class="col-sm-3"> -->
+<!--                                 <#NameCon id="params['appId']" name="应用ID"  /> -->
+<!--                             </div> -->
+<!--                             <div class="col-sm-3"> -->
+<!--                                 <#NameCon id="params['orderId']" name="订单ID"  /> -->
+<!--                             </div> -->
+<!--                             <div class="col-sm-3"> -->
+<!--                                 <#NameCon id="params['appName']" name="APP名称"  /> -->
+<!--                             </div> -->
                             <div class="col-sm-3">
                                 <#NameCon id="params['customerName']" name="客户名称"  />
                             </div>
                             <div class="col-sm-3 reset">
-                                <#button name="重置" icon="fa-undo" class="pull-right" space="true" clickFun="FlowApp.reset()"/>
-                                <#button name="查询" icon="fa-search" class="pull-right" space="true" clickFun="FlowApp.search()"/>
+                                <#button name="重置" icon="fa-undo" class="" space="true" clickFun="FlowApp.reset()"/>
+                                <#button name="查询" icon="fa-search" class="" space="true" clickFun="FlowApp.search()"/>
                             </div>
                         </div>
                         </form>
@@ -32,13 +32,13 @@
                             @if(shiro.hasPermission("/flowAppInfo/add")){
                             <div class="btnWrapper">
                                 <#button name="" icon="fa-plus" clickFun="FlowApp.openAddFlowApp()" style="width:98px"/>
-                                <span class="btnTips">添加</span>
+                                <span class="btnTips">新增</span>
                             </div>
                             @}
                             @if(shiro.hasPermission("/flowAppInfo/edit")){
                             <div class="btnWrapper">
                                 <#button name="" icon="fa-edit" clickFun="FlowApp.openEditFlowApp()" style="width:98px"/>
-                                <span class="btnTips">修改</span>
+                                <span class="btnTips">编辑</span>
                             </div>
                             @}
                             @if(shiro.hasPermission("/flowAppInfo/delete")){

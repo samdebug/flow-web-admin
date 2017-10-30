@@ -38,10 +38,9 @@ $(function(){
 	}, "只能数字和字母组合");
 	
 	$.validator.addMethod("checkCustomerName", function(value, element) {
-		value = value.replaceAll("-","");
-		var reg = /^[\u2E80-\u9FFF]+$/;
+		var reg = /^[\u2E80-\u9FFFa-zA-z0-9_]+$/;
 		return this.optional(element) || (reg.test(value));
-	}, "只能汉字和-组合");
+	}, "只能包含中文、英文、数字和_的组合");
 	
 	//验证多个邮箱格式
 	$.validator.addMethod("multipleEmailValid", function(value, element) {
@@ -50,7 +49,15 @@ $(function(){
 		return this.optional(element) || (reg.test(value));
 	}, "请输入正确的邮箱格式");
 	
+	$.validator.addMethod("checkPartnerName", function(value, element) {
+		var reg = /^[\u2E80-\u9FFFa-zA-z0-9_]+$/;
+		return this.optional(element) || (reg.test(value));
+	}, "只能包含中文、英文、数字和_的组合");
 	
+	$.validator.addMethod("checkAccount", function(value, element) {
+		var reg = /^[a-zA-z0-9_]+$/;
+		return this.optional(element) || (reg.test(value));
+	}, "只能包含英文、数字和_的组合");
 	
 	jQuery.validator.addMethod("resendTimes", function(value, element) {
 		var isResend=$("#isResend").val();

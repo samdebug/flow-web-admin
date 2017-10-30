@@ -181,12 +181,12 @@ public class FlowProductRemodelController extends BaseController{
 			@RequestParam(value = "customerId", required = false) Long customerId,
 			@RequestParam(value = "operatorCode", required = false) String operatorCode,
 			@RequestParam(value = "text", required = false) String text) {
+		
+		if ( customerId != null && customerId > 0L ) {
 			CustomerInfo customerInfo = customerInfoDao.getCustomerInfoByCustomerId(customerId);
-			if (customerInfo != null) {
+			if (customerInfo != null) 
 			    partnerInfoId = customerInfo.getPartnerId();
-			} else {
-			    partnerInfoId = null;			    
-			}
+		}
 		List<FlowProductRemodel> list = this.flowProductRemodelService.getByPartnerInfoType(partnerInfoId, productType,
 				productIds,operatorCode,text);
 		return list;

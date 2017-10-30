@@ -23,10 +23,10 @@
                         </div>
                         <div class="hidden-xs" id="ChannelAnalyseTableToolbar" role="group">
                             @if(shiro.hasPermission("/channelAnalyse/add")){
-                                <#button name="添加" icon="fa-plus" clickFun="ChannelAnalyse.openAddChannelAnalyse()"/>
+                                <#button name="新增" icon="fa-plus" clickFun="ChannelAnalyse.openAddChannelAnalyse()"/>
                             @}
                             @if(shiro.hasPermission("/channelAnalyse/update")){
-                                <#button name="修改" icon="fa-plus" clickFun="ChannelAnalyse.openChannelAnalyseDetail()" space="true"/>
+                                <#button name="编辑" icon="fa-plus" clickFun="ChannelAnalyse.openChannelAnalyseDetail()" space="true"/>
                             @}
                             @if(shiro.hasPermission("/channelAnalyse/delete")){
                                 <#button name="删除" icon="fa-plus" clickFun="ChannelAnalyse.delete()" space="true"/>

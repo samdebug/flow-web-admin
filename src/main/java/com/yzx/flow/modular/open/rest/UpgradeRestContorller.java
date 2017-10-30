@@ -88,7 +88,8 @@ public class UpgradeRestContorller {
 						if(rollback!=null && rollback==1){//回滚成功
 							//回滚成功更新回滚顺序
 							String data = zookeeperUtil.getDate(VersionUpdateExecute.parentNode+VersionUpdateExecute.rollbackOrderNode);
-							data = data.replace(systemVersion.getComponent()+",", "");
+							data = data.replace(systemVersion.getComponent(), "");
+							data = data.replace(",", "");
 							zookeeperUtil.setDate(VersionUpdateExecute.parentNode+VersionUpdateExecute.rollbackOrderNode, data,true);
 							
 						}else{//正常更新成功

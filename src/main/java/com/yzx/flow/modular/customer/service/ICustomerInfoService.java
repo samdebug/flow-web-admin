@@ -2,9 +2,11 @@ package com.yzx.flow.modular.customer.service;
 
 import java.util.List;
 
+import com.yzx.flow.common.exception.BussinessException;
 import com.yzx.flow.common.page.Page;
 import com.yzx.flow.common.persistence.model.AreaCode;
 import com.yzx.flow.common.persistence.model.CustomerInfo;
+import com.yzx.flow.common.persistence.model.OrderInfo;
 
 public interface ICustomerInfoService {
 
@@ -15,9 +17,10 @@ public interface ICustomerInfoService {
 	CustomerInfo get(Long customerId);
 
 	/**
+	 * 保存客户及客户产品配置信息
 	 * @param data
 	 */
-	void saveAndUpdate(CustomerInfo data);
+	void saveAndUpdate(CustomerInfo data, OrderInfo updateOrder);
 
 	void update(CustomerInfo data);
 
@@ -52,5 +55,11 @@ public interface ICustomerInfoService {
 	 * @return
 	 */
 	List<AreaCode> selectALL();
+	
+	/**
+	 * 重置密码 - 
+	 * @param data
+	 */
+	void resetPasswd(Long customerId) throws BussinessException;
 
 }

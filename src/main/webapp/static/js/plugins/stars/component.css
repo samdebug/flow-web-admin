@@ -10,8 +10,7 @@
 }
 
 .demo-1 .large-header {
-	background-image: url('/static/img/bg-new.jpg');
-	/*background-image: url('/static/img/logo_bg.png');*/
+	background: #e9ecf0 url(../../../img/bg-new.jpg) center bottom no-repeat;
 }
 
 .demo-2 .large-header {

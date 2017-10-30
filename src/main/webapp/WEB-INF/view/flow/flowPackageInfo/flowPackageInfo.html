@@ -37,13 +37,13 @@
                             @if(shiro.hasPermission("/flowPackageInfo/add")){
                                   <div class="btnWrapper">
                             		<#button name="" icon="fa-plus" clickFun="FlowPackageInfo.openAddFlowPackageInfo()" style="width:98px"/>
-                            		<span class="btnTips">添加</span>
+                            		<span class="btnTips">新增</span>
                             	</div>  
                             @}
                             @if(shiro.hasPermission("/flowPackageInfo/update")){
                                  <div class="btnWrapper">
                             		<#button name="" icon="fa-pencil-square-o" clickFun="FlowPackageInfo.openFlowPackageInfoUpdate()" style="width:98px"/>
-                            		<span class="btnTips">修改</span>
+                            		<span class="btnTips">编辑</span>
                             	</div>  
                             @}
                             @if(shiro.hasPermission("/flowPackageInfo/delete")){

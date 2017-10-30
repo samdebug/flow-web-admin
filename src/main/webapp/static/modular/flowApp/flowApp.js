@@ -16,22 +16,28 @@ FlowApp.initColumn = function () {
     return [
     	{field: 'selectItem', radio: true},
         {title: '接入ID号', field: 'flowAppId', visible: false, align: 'center', valign: 'middle'},
-        {title: '应用ID', field: 'appId', align: 'center', valign: 'middle', sortable: true, sortName: 'app_id', formatter: formatName},
-        {title: 'APP名称', field: 'appName', align: 'center', valign: 'middle', sortable: true, sortName: 'app_name'},
         {title: '客户名称', field: 'customerId', align: 'center', valign: 'middle', formatter: formatCustomerName},
-        {title: '订单ID号', field: 'orderIdStr', align: 'center', valign: 'middle', sortable: true, sortName: 'order_id'},
-        {title: '应用Key', field: 'appKey', align: 'center', valign: 'middle' },
-        {title: '网关回调URL', field: 'callbackUrl', align: 'center', valign: 'middle' },
-        {title: '签权IP地址', field: 'ipAddress', align: 'center', valign: 'middle' },
+        //{title: '应用ID', field: 'appId', align: 'center', valign: 'middle', formatter: formatName},
+        {title: '接入名称', field: 'appName', align: 'center', valign: 'middle', sortable: true, sortName: 'app_name', formatter: formatName},
+        //{title: '订单ID号', field: 'orderIdStr', align: 'center', valign: 'middle', sortable: true, sortName: 'order_id'},
+        {title: '接入密钥', field: 'appKey', align: 'center', valign: 'middle' },
+        {title: '客户回调URL', field: 'callbackUrl', align: 'center', valign: 'middle', formatter: formatterUrl},
+        {title: '签权IP地址', field: 'ipAddress', align: 'center', valign: 'middle', formatter: formatterIps },
         {title: '状态', field: 'statusDesc', align: 'center', valign: 'middle', sortable: true, sortName: 'status'},
         {title: '是否重发', field: 'isResendDesc', align: 'center', valign: 'middle', sortable: true, sortName: 'is_resend' },
-        {title: '是否需要短信', field: 'needSmsDesc', align: 'center', valign: 'middle' },
-        {title: '通道组名称', field: 'dispatchChannelName', align: 'center', valign: 'middle' },
+        //{title: '是否需要短信', field: 'needSmsDesc', align: 'center', valign: 'middle' },
+        {title: '通道组', field: 'dispatchChannelName', align: 'center', valign: 'middle' }
 //        {title: '操作', field: 'myac', align: 'center', valign: 'middle', formatter: actionButtons}
     ];
 };
 
+function formatterUrl(cellvalue, rowObject, options) {
+	return "<div style=\"max-width:320px;word-wrap:break-word;\">"+ cellvalue +"</div>";
+}
 
+function formatterIps(cellvalue, rowObject, options) {
+	return "<div style=\"max-width:220px;word-wrap:break-word;\">"+ cellvalue +"</div>";
+}
 
 function formatName(cellvalue, rowObject, options) {
 	return '<a href="javascript:;" onclick="FlowApp.openDetailView(\''
@@ -135,13 +141,13 @@ FlowApp.openDetailView = function(flowAppId) {
 	var index = layer.open({
         type: 2,
         title: '接入详情',
-        area: ['860px', '520px'], //宽高
+        area: ['860px', '420px'], //宽高
         fix: false, //不固定
         maxmin: true,
         content: Feng.ctxPath + '/flowAppInfo/detail?flowAppId=' + flowAppId
     });
     this.layerIndex = index;
-    layer.full(index);// 全屏
+//    layer.full(index);// 全屏
 }
 
 /**
@@ -150,14 +156,14 @@ FlowApp.openDetailView = function(flowAppId) {
 FlowApp.openAddFlowApp = function() {
 	var index = layer.open({
         type: 2,
-        title: '接入详情',
-        area: ['860px', '520px'], //宽高
+        title: '新增接入',
+        area: ['860px', '550px'], //宽高
         fix: false, //不固定
         maxmin: true,
         content: Feng.ctxPath + '/flowAppInfo/add'
     });
     this.layerIndex = index;
-    layer.full(index);// 全屏
+//    layer.full(index);// 全屏
 }
 
 
@@ -171,13 +177,13 @@ FlowApp.openEditFlowApp = function() {
 	var index = layer.open({
         type: 2,
         title: '接入详情',
-        area: ['860px', '520px'], //宽高
+        area: ['860px', '550px'], //宽高
         fix: false, //不固定
         maxmin: true,
         content: Feng.ctxPath + '/flowAppInfo/edit?flowAppId=' + FlowApp.seItem.flowAppId
     });
     this.layerIndex = index;
-    layer.full(index);// 全屏
+//    layer.full(index);// 全屏
 }
 
 

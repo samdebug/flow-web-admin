@@ -2,6 +2,7 @@ package com.yzx.flow.modular.customer.service.impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yzx.flow.common.constant.state.ManagerStatus;
 import com.yzx.flow.common.constant.state.UserType;
+import com.yzx.flow.common.constant.tips.ErrorTip;
 import com.yzx.flow.common.exception.BizExceptionEnum;
 import com.yzx.flow.common.exception.BussinessException;
 import com.yzx.flow.common.exception.MyException;
@@ -27,12 +29,15 @@ import com.yzx.flow.common.persistence.dao.AreaCodeMapper;
 import com.yzx.flow.common.persistence.dao.UserMapper;
 import com.yzx.flow.common.persistence.model.AreaCode;
 import com.yzx.flow.common.persistence.model.CustomerInfo;
+import com.yzx.flow.common.persistence.model.OrderInfo;
 import com.yzx.flow.common.persistence.model.User;
 import com.yzx.flow.common.util.Constant;
+import com.yzx.flow.common.util.OrderSeqGen;
 import com.yzx.flow.common.util.RedisHttpUtil;
 import com.yzx.flow.common.util.URLConstants;
 import com.yzx.flow.core.shiro.ShiroKit;
 import com.yzx.flow.modular.customer.service.ICustomerInfoService;
+import com.yzx.flow.modular.order.service.IOrderInfoService;
 import com.yzx.flow.modular.system.dao.CustomerInfoDao;
 import com.yzx.flow.modular.system.dao.UserMgrDao;
 
@@ -61,6 +66,9 @@ public class CustomerInfoServiceImpl implements ICustomerInfoService {
 
     @Resource
     private UserMapper userMapper;
+    
+    @Resource
+    private IOrderInfoService orderInfoService;
     
     /**
      * 默认角色ID
@@ -104,12 +112,32 @@ public class CustomerInfoServiceImpl implements ICustomerInfoService {
 	}
 	
 	
+	/**
+	 * 重置密码 - 
+	 * @param data
+	 */
+	public void resetPasswd(Long customerId) throws BussinessException{
+		
+		if ( customerId == null || customerId.compareTo(0L) <= 0 )
+			throw new BussinessException(BizExceptionEnum.CUSTOMER_NOT_EXIST);
+		
+		CustomerInfo customer = get(customerId);
+		if ( customer == null )
+			throw new BussinessException(BizExceptionEnum.CUSTOMER_NOT_EXIST);
+		
+		User user = managerDao.getByAccount(customer.getAccount());
+		if ( user == null ) 
+			throw new BussinessException(BizExceptionEnum.NO_THIS_USER);
+		
+		//  直接更新密码
+		managerDao.changePwd(user.getId(), internalInitPassword(user));
+	}
 	
 
 	private void saveCustomer2Portal(CustomerInfo data) {
 		
 		if ( data.getCustomerId() == null || data.getCustomerId().compareTo(0L) <= 0 
-				|| StringUtils.isBlank(data.getLinkmanMobile()) ) {
+				|| StringUtils.isBlank(data.getAccount()) ) {
 			throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
 		}
 		
@@ -133,7 +161,7 @@ public class CustomerInfoServiceImpl implements ICustomerInfoService {
             // 完善账号信息
             user.setSalt(ShiroKit.getRandomSalt(5));
             // 默认手机号码后六位
-            user.setPassword(ShiroKit.md5(String.format("%s888888", data.getAccount()), user.getSalt()));
+            user.setPassword(internalInitPassword(user));
             user.setCreatetime(new Date());
             user.setRoleid(portalCustomerRoleId);
             registed = false;
@@ -157,17 +185,32 @@ public class CustomerInfoServiceImpl implements ICustomerInfoService {
         	this.userMapper.updateById(user);
         }
 	}
+	
+	/**
+	 * 根据用户信息 返回 初始密码
+	 * @param user
+	 * @return
+	 */
+	private String internalInitPassword(User user) {
+		return internalBuildPassword(String.format("%s888888", user.getAccount()), user.getSalt());
+	}
+	
+	private String internalBuildPassword(String password, String salt) {
+		return ShiroKit.md5(password, salt);
+	}
 
 	/* (non-Javadoc)
 	 * @see com.yzx.flow.modular.customer.service.ICustomerInfoService#saveAndUpdate(com.yzx.flow.common.persistence.model.CustomerInfo)
 	 */
 	@Override
 	@Transactional
-	public void saveAndUpdate(CustomerInfo data) {
+	public void saveAndUpdate(CustomerInfo data, OrderInfo updateOrder) {
+		boolean addModel = false;// 是否是 添加模式
 		if (null != data.getCustomerId()) {// 判断有没有传主键，如果传了为更新，否则为新增
 			saveCustomer2Portal(data);
 			this.update(data);
 		} else {
+			addModel = true;
 //			String passwd = SystemConfig.getInstance().getCustomerPassWd();
 //			String payPasswd = SystemConfig.getInstance().getCustomerPayPassWd();
 			data.setIsFirstLogin(0);
@@ -190,33 +233,34 @@ public class CustomerInfoServiceImpl implements ICustomerInfoService {
 			
 			this.insert(data);
 			saveCustomer2Portal(data);
-			// TODO send msg
-//			//插入客户扩展表
-//			data.getCustomerInfoExt().setCustomerId(data.getCustomerId());
-//			customerInfoExtService.saveAndUpdate(data.getCustomerInfoExt());
-//			
-//			if (data.getPartnerType() == 2) {
-//				String msg = "您的初始密码为[" + passwd + "],支付初始密码为[" + payPasswd + "],请尽快登陆修改密码";
-//				BCloudSMSClient sms = new BCloudSMSClient();
-//				try {
-//					String smsUrl = SystemConfig.getInstance().getSmsUrl();
-//					if (StringUtils.isNotBlank(smsUrl)) {
-//						sms.setGwUrl(smsUrl);
-//					}
-//					String smsUser = SystemConfig.getInstance().getSmsUser();
-//					if (StringUtils.isNotBlank(smsUser)) {
-//						sms.setGwUser(smsUser);
-//					}
-//					String smsPwd = SystemConfig.getInstance().getSmsPwd();
-//					if (StringUtils.isNotBlank(smsPwd)) {
-//						sms.setGwPwd(smsPwd);
-//					}
-//					sms.sendSMS(data.getLinkmanMobile(), msg);
-//				} catch (FOSSException e) {
-//					LOG.debug(e.getMessage(), e);
-//					e.printStackTrace();
-//				}
-//			}
+		}
+		if ( updateOrder != null ) {
+			// 如果是添加模式下  但是没有配置产品信息  则直接返回  不执行后续操作 - 避免报错
+			if ( addModel && ( updateOrder.getFlowProductInfoList() == null || updateOrder.getFlowProductInfoList().isEmpty()) )
+				return;
+			
+			// 编辑模式下 如果当前没有配置产品信息， 且客户以前也没有配置过产品（无产品订单）  则直接返回 ，不执行后续操作，避免报错
+			if ( !addModel && ( updateOrder.getFlowProductInfoList() == null || updateOrder.getFlowProductInfoList().isEmpty() )) {// 编辑模式
+				List<OrderInfo> orders = orderInfoService.getByCustomerIdAndOrderType(data.getCustomerId(), Constant.ORDER_TYPE_PACKAGE);
+				if ( orders == null || orders.isEmpty() )
+					return;
+			}
+			
+			// save or update customer's product
+			boolean idAdd = false;
+			if ( updateOrder.getOrderId() == null) {
+				// set default value
+				idAdd = true;
+				updateOrder.setPartnerType(data.getPartnerType());
+				updateOrder.setStatus(Constant.ORDER_STATUS_INIT);// 生效
+				updateOrder.setOrderId(Long.valueOf(OrderSeqGen.createApplyId()));
+			}
+			updateOrder.setCustomerId(data.getCustomerId());
+			updateOrder.setPartnerId(data.getPartnerId());
+			// 目前只支持 基础流量包 -- 2017.10.19  
+			updateOrder.setOrderType(Constant.ORDER_TYPE_PACKAGE);
+			updateOrder.setBillingType(Constant.BILLING_TYPE_ISSUED);
+			orderInfoService.saveOrderAndOrderDetail(updateOrder, idAdd ? null : updateOrder.getOrderId());
 		}
 	}
 

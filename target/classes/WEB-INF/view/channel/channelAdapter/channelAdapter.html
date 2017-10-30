@@ -24,13 +24,13 @@
                             @if(shiro.hasPermission("/channelAdapter/add")){
                             	<div class="btnWrapper">	
                                 <#button name="" icon="fa-plus" clickFun="ChannelAdapter.openAddChannelAdapter()"/>
-                                <span class="btnTips">添加</span>
+                                <span class="btnTips">新增</span>
                             	</div>     
                             @}
                             @if(shiro.hasPermission("/channelAdapter/update")){
                             	<div class="btnWrapper">	
                                 <#button name="" icon="fa-pencil-square-o" clickFun="ChannelAdapter.openChannelAdapterDetail()"/>
-                                <span class="btnTips">修改</span>
+                                <span class="btnTips">编辑</span>
                             	</div>
                                 
                             @}

@@ -10,9 +10,10 @@
                     <div class="col-sm-12">
                     	<form id="queryForm" action="#">
 	                        <div class="row">
-	                            <div class="col-sm-4">
-									<#TimeBetweenCon name="时间：" isTime="true" pattern="YYYY-MM-DD hh:mm:ss" 
-										startId="startTime" endId="endTime" />
+	                            <div class="col-sm-5">
+									<#TimeBetweenCon name="时间：" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" 
+										startId="params['startTime']" endId="params['endTime']" 
+                                        dateStartId="startTime" dateEndId="endTime"/>
 								</div>
 	                            <div class="col-sm-4 reset">
 	                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="CustomerSupplier.search()"/>

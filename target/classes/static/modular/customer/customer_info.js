@@ -69,11 +69,12 @@ CustomerInfoDlg.addSubmit = function() {
 
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/customer/add", function(data){
-    	if ( data && data.customerId && data.customerId > 0 ) {
-    		CustomerInfoDlg.persistentData = data;
+    	if ( data && data.code == 200 ) {
+    		//CustomerInfoDlg.persistentData = data;
     		Feng.success("添加成功!");
-    		openCreateOrder();
+    		//openCreateOrder();
     		window.parent.Customer.table.refresh();
+    		CustomerInfoDlg.close();
     	} else {
     		if (data && data.message) {
     			Feng.error("添加失败!" + data.message + "!");
@@ -89,31 +90,31 @@ CustomerInfoDlg.addSubmit = function() {
 }
 
 
-/**
- * 是否创建订单
- * @returns
- */
-function openCreateOrder() {
-	$("#order-confirm-modal").modal({
-        backdrop: "static",
-        keyboard: false
-    }).on("shown.bs.modal", function (e) {
-        $("#cancel-btn").click(function() {
-            $("#order-confirm-modal").modal("hide");
-            CustomerInfoDlg.close();
-        });
-        $("#confirm-btn").click(function() {
-            $("#order-confirm-modal").modal("hide");
-            // 跳转到新增订单页面
-            redirectToOrderAddPage();
-        });
-    });
-}
+///**
+// * 是否创建订单
+// * @returns
+// */
+//function openCreateOrder() {
+//	$("#order-confirm-modal").modal({
+//        backdrop: "static",
+//        keyboard: false
+//    }).on("shown.bs.modal", function (e) {
+//        $("#cancel-btn").click(function() {
+//            $("#order-confirm-modal").modal("hide");
+//            CustomerInfoDlg.close();
+//        });
+//        $("#confirm-btn").click(function() {
+//            $("#order-confirm-modal").modal("hide");
+//            // 跳转到新增订单页面
+//            redirectToOrderAddPage();
+//        });
+//    });
+//}
 
 //跳转到新增订单页面
-function redirectToOrderAddPage() {
-    location.href = Feng.ctxPath + '/orderInfo/add?orderType=1&customerId=' + CustomerInfoDlg.persistentData.customerId;
-}
+//function redirectToOrderAddPage() {
+//    location.href = Feng.ctxPath + '/orderInfo/add?orderType=1&customerId=' + CustomerInfoDlg.persistentData.customerId;
+//}
 
 
 /**
@@ -156,7 +157,7 @@ function initPartners() {
 	
 	var ajax = new $ax(Feng.ctxPath + "/customer/queryPartners", function(data){
 		if ( data && data.length > 0 ) {
-    		var html = '';
+    		var html = '<option value="" partnerType="1">----- 请选择 -----</option>';
     		$.each(data, function(){
     			html += '<option value="' + this.value + '" partnerType="' + this.partnerType + '">' + this.displayName + "</option>";
     		});
@@ -252,48 +253,34 @@ $(function() {
 		.validate(
 			{
 				rules : {
-					'partnerId' : {
-						required : true
-					},
 					'account' : {
 						required : true,
 						maxlength : 20,
-						soloAccount : true,
+						checkAccount: true,
+						soloAccount : true
 					},
 					'customerName' : {
 						required : true,
 						checkCustomerName:true,
 						maxlength : 128
 					},
-					'shorterName' : {
-						required : true,
-						maxlength : 64
+					'linkmanName' : {
+						required : false,
+						maxlength : 20
 					},
 					'linkmanMobile' : {
-						required : true,
+						required : false,
 						maxlength : 32,
 						mobile : true
 					},
 					'linkmanEmail' : {
-						required : true,
+						required : false,
 						maxlength : 128,
 						multipleEmailValid : true
 					},
 					'address' : {
 						required : false,
 						maxlength : 256
-					},
-					'companyName' : {
-						required : true,
-						maxlength : 128
-					},
-					'companyMobile' : {
-						required : true,
-						maxlength : 11
-					},
-					'customerLinkman' : {
-						required : true,
-						maxlength : 32
 					}
 				},
 				submitHandler : function(form) {

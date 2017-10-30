@@ -107,4 +107,6 @@ $(function () {
 //    table.setPaginationType("client");
     Upgrade.table = table.init();
     $(".hidden-xs").children().removeClass("button-margin");
+    $(".layer-date").attr("onclick","laydate.render({elem: '#reserveTime', min: min,istime: true})");
+    $(".layer-date").click();
 });

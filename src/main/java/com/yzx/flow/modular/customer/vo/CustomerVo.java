@@ -1,6 +1,7 @@
 package com.yzx.flow.modular.customer.vo;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class CustomerVo {
 	
@@ -36,6 +37,9 @@ public class CustomerVo {
 	private String linkmanEmail = "";// 联系人邮箱
 	
 	private String linkmanMobile = "";// 联系人电话
+	
+	private String account;
+	private Date createTime;
 
 	/**
 	 * @return the customerId
@@ -243,5 +247,20 @@ public class CustomerVo {
 		this.linkmanMobile = linkmanMobile;
 	}
 
+	public String getAccount() {
+		return account == null ? "" : account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
 }

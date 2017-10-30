@@ -8349,16 +8349,6 @@ body.skin-3 {
     border-color: #2fa968 !important;
 }
 
-/*modal footer*/
-/*.btn-group-m-t{
-    background: #f3f3f3;
-    padding: 15px;
-    position: absolute;
-    bottom: -83px;
-    width: 96%;
-}*/
-
-
 /*dropdown menu*/
 .mini-dropdown-menu {
     background: #2f4050;
@@ -8422,6 +8412,7 @@ body.skin-3 {
 }
 
 
+
 /*404 css*/
 /*@import url(https://fonts.googleapis.com/css?family=Gilda+Display);*/
 .static {
@@ -8437,7 +8428,7 @@ body.skin-3 {
   user-drag: none;
 }
 
-.error {
+.error404 {
   text-align: center;
   font-family: 'Microsoft YaHei', serif;
   font-size: 95px;
@@ -8456,7 +8447,7 @@ body.skin-3 {
   overflow: default;
 }
 
-.error:after {
+.error404:after {
   content: '404';
   font-family: 'Microsoft YaHei', serif;
   font-size: 100px;
@@ -8476,7 +8467,7 @@ body.skin-3 {
   /*animation: noise-1 .2s linear infinite;*/
 }
 
-.info {
+.info404 {
   text-align: center;
   font-family: 'Microsoft YaHei', serif;
   font-size: 15px;
@@ -8494,7 +8485,7 @@ body.skin-3 {
   /*animation: noise-3 1s linear infinite;*/
 }
 
-.error:before {
+.error404:before {
   content: '404';
   font-family: 'Microsoft YaHei', serif;
   font-size: 100px;
@@ -8540,4 +8531,69 @@ body.skin-3 {
   0%,3%,5%,42%,44%,100% {opacity: 1; transform: scaleY(1);}
   4.3% {opacity: 1; transform: scaleY(4);}
   43% {opacity: 1; transform: scaleX(10) rotate(60deg);}
+}
+
+
+/*modal footer*/
+.modal-footer{
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+    background: #fff;
+}
+
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.modal-footer .btn+.btn {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+.modal-footer .btn-confirm{
+    color: rgb(255, 255, 255) !important;
+    background: #2ea967 !important;
+    width: 65px;
+}
+
+.modal-footer .btn-confirm:hover{
+    background: #289a5d !important;
+}
+
+
+.modal-footer .btn-cancel{
+    color: #333 !important;
+    background-color: #e6e6e6 !important;
+    width: 65px;
+}
+
+.modal-footer .btn-cancel:hover{
+    background-color: #e2e1e1 !important;
+}
+
+.btn-table:hover {
+    background: #fff !important;
+}
+
+
+
+.btn-confirm-sam {
+    color: rgb(255, 255, 255) !important;
+    background: #2ea967 !important;
+}
+
+.btn-confirm-sam:hover{
+    background: #289a5d !important;
+}
+
+.btn-cancel-sam{
+    color: #333 !important;
+    background-color: #e6e6e6 !important;
+}
+
+.btn-cancel-sam:hover{
+    background-color: #e2e1e1 !important;
 }

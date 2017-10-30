@@ -2,6 +2,7 @@ package com.yzx.flow.modular.order.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yzx.flow.common.constant.tips.ErrorTip;
+import com.yzx.flow.common.constant.tips.Tip;
 import com.yzx.flow.common.controller.BaseController;
 import com.yzx.flow.common.excel.TemplateExcel;
 import com.yzx.flow.common.excel.TemplateExcelManager;
@@ -185,26 +187,8 @@ public class OrderInfoController extends BaseController {
 	@RequestMapping(value = "/add.ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public Object add(OrderInfo orderInfo, @RequestParam(value = "updId", required = false) Long updId) {
-	    
-		ShiroUser staff = ShiroKit.getUser();
 	    try {
-	    	// 合法性校验及参数构造
-		    authenticationChcekAndCreateParams(orderInfo, staff);
-		    
-		    // 【订单提交】基础校验和业务逻辑校验
-	        paramCheck(orderInfo, updId);
-	        
-	        // 新增操作
-	        if (updId == null) {
-	            orderInfo.setStatus(Constant.ORDER_STATUS_EFFECTIVE);
-	            orderInfo.setCreator(staff.getAccount());
-	            orderInfo.setCreateTime(new Date());
-	        } else {
-	            orderInfo.setStatus(Constant.ORDER_STATUS_INIT);
-	            orderInfo.setUpdator(staff.getAccount());
-	            orderInfo.setUpdateTime(new Date());
-	        }
-	        orderInfoService.addOrUpdateOrderInfo(orderInfo, staff, updId);
+	        orderInfoService.saveOrderAndOrderDetail(orderInfo, updId);
 	    } catch (BussinessException be) {
 	    	return ErrorTip.buildErrorTip(be.getMessage());
 	    } catch (Exception e) {
@@ -213,146 +197,6 @@ public class OrderInfoController extends BaseController {
 		return SUCCESS_TIP;
 	}
 	
-	/**
-	 *  合法性校验及参数构造
-	 *  
-	 * @param customerId 当前订单所属客户的ID
-	 * @return
-	 */
-    private void authenticationChcekAndCreateParams(OrderInfo orderInfo, ShiroUser staff) {
-        if (null == orderInfo.getCustomerId()) {
-        	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "请选择客户名称");
-        }
-        CustomerInfo customerInfo = customerInfoDao.getCustomerInfoByCustomerId(orderInfo.getCustomerId());
-        
-        // 客户及合作伙伴身份合法性校验
-        authenticationChcek(customerInfo);
-        // 参数构造
-        createParams(customerInfo, orderInfo, staff);
-    }
-	
-	/**
-	 * 客户及合作伙伴身份合法性校验
-	 * 
-	 * @param customerId 当前订单所属客户
-	 */
-	private void authenticationChcek(CustomerInfo customerInfo) {
-        if (null == customerInfo) {
-            throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "非法客户");
-        }
-        if (customerInfo.getStatus() != CUSTOMERSTATUS) {
-        	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "当前客户是非商用状态，不能提交订单。");
-        }
-        PartnerInfo pi = partnerService.get(customerInfo.getPartnerId());
-        if (pi != null && !PARTNERSTATUS.equals(pi.getStatus())) {
-        	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "当前客户所属合作伙伴是非商用状态，不能提交订单。");
-        }
-	}
-	
-	/**
-	 * 构造订单所属的【合作伙伴】参数
-	 * 
-	 * @param customerInfo 当前订单所属客户
-	 * @return
-	 */
-	private void createParams(CustomerInfo customerInfo, OrderInfo orderInfo, ShiroUser staff) {
-		// TODO 
-//        if (isAdmin()) {
-            orderInfo.setPartnerId(customerInfo.getPartnerId());
-//        } else {
-//            // 合作伙伴ID
-//            PartnerInfo pInfo = partnerInfoService.getByAccount(staff.getLoginName());
-//            if (pInfo == null) {
-//                return super.fail("合作伙伴不存在");
-//            }
-//            orderInfo.setPartnerId(pInfo.getPartnerId());
-//        }
-//        return super.success("构造参数成功");
-	}
-	
-	/**
-	 * 【订单提交】基础校验和业务逻辑校验
-	 * 
-	 * @param orderInfo 订单对象
-	 * @return
-	 */
-    private void paramCheck(OrderInfo orderInfo, Long updId) {
-        // 关联产品为空校验
-        if (orderInfo.getFlowProductInfoList() == null) {
-        	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "请选择要订购的产品");
-        }
-        // 订单中产品的基础校验和业务逻辑校验
-        productBaseAndBusinessCheck(orderInfo);
-        // 最小日期校验
-        if (ORDERTYPEFLOWPACKAGE != orderInfo.getOrderType() && orderInfo.getDeliveryTime() != null && orderInfo.getDeliveryTime().getTime() < new Date().getTime()) {
-        	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "不能选择今天之前的日期");
-        }
-        // 流量包订单不可重复提交校验
-        packageOrderResubmitCheck(orderInfo, updId);
-    }
-    
-    /**
-     * 订单中产品的基础校验和业务逻辑校验
-     * 
-     * @param orderInfo 当前订单
-     * @return
-     */
-    private void productBaseAndBusinessCheck(OrderInfo orderInfo) {
-        for (FlowProductInfo fpi : orderInfo.getFlowProductInfoList()) {
-            if (null == fpi.getProductId()) {
-                continue;
-            }
-            if (fpi.getSettlementAmount() == null) {
-            	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "请输入结算价格");
-            }
-            if (!fpi.getSettlementAmount().toString().matches("^[0-9]+(\\.[0-9]*)?$")) {
-            	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "请输入合法的价格");
-            }
-            if (!String.valueOf(fpi.getProductCount()).matches("^[0-9]+(\\.[0-9]*)?$")) {
-            	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "请输入合法的数量");
-            }
-            //流量加做判断
-            if (2 == orderInfo.getOrderType() && !String.valueOf(fpi.getProductCount()).matches("^[1-9]\\d*$")) {
-            	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "订购数量必须为大于0的整数，请重新输入。");
-            }
-            // 校验价格是否倒挂
-            // 客户订单优化处理-客户订单产品价格不能低于合作伙伴订单价格
-            List<FlowProductInfo> listAll = flowProductInfoService.getByPartnerInfoType(orderInfo.getPartnerId(), null, null,null,null);
-            for (FlowProductInfo fpiDB : listAll) {
-                if (fpi.getProductId().longValue() == fpiDB.getProductId().longValue() && fpi.getSettlementAmount().compareTo(fpiDB.getSettlementAmount()) == -1) {
-                	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "产品名称为【" + fpi.getProductName() + "】的结算价格(" + fpi.getSettlementAmount() + "元)小于当前合作伙伴的结算价格("+ fpiDB.getSettlementAmount() +"元), 请重新输入。");
-                }
-            }
-        }
-    }
-    
-    /**
-     * 流量包订单不可重复提交校验
-     * 
-     * @param orderInfo 当前订单信息
-     * @param updId 更新操作标识符
-     * @return
-     */
-    private void packageOrderResubmitCheck(OrderInfo orderInfo, Long updId) {
-        // 订单新增操作
-        if (updId == null) {
-            PartnerInfo partnerInfo = partnerService.get(orderInfo.getPartnerId());
-            // 渠道直充合作伙伴
-            if (partnerInfo.getPartnerType() == PartnerInfo.PARTNER_TYPE_CHANNEL) {
-                List<OrderInfo> infos = orderInfoService.getByPartnerIdAndCustomerId(orderInfo.getPartnerId(), orderInfo.getCustomerId());
-                if (!infos.isEmpty()) {
-                    throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "该客户已有订单，不可重复提交");
-                }
-            }
-            if (ORDERTYPEFLOWPACKAGE == orderInfo.getOrderType()) {
-                List<OrderInfo> orderInfos = orderInfoService.getByCustomerIdAndOrderType(orderInfo.getCustomerId(), ORDERTYPEFLOWPACKAGE);
-                if (!orderInfos.isEmpty()) {
-                	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "该客户已有流量包订单，不可重复提交");
-                }
-            }
-        }
-    }
-    
 	@RequestMapping(value = "/delete")
 	@ResponseBody
 	public Object delete(Long orderId) {
@@ -381,6 +225,33 @@ public class OrderInfoController extends BaseController {
 		data.setOrderDetailList(orderDetailList);
 		return data;
 	}
+	
+	/**
+	 * 获取指定客户的 流量包订单
+	 * @param customerId
+	 * @return
+	 */
+	@RequestMapping(value = "/getByCustomer")
+	@ResponseBody
+	public Object getOrderInfoByCustomer(Long customerId) {
+		if ( customerId == null || customerId <= 0 )
+			return ErrorTip.buildErrorTip(BizExceptionEnum.CUSTOMER_NOT_EXIST);
+		
+		// 只查询流量包类型
+		List<OrderInfo> infos = orderInfoService.getByCustomerIdAndOrderType(customerId, Constant.ORDER_TYPE_PACKAGE);
+		if ( infos == null || infos.isEmpty() )
+			return SUCCESS_TIP; // no data
+		
+		OrderInfo data = infos.get(0);
+		List<OrderDetail> orderDetailList = orderInfoService.getOrderDetailByOrderId(data.getOrderId());
+		data.setOrderDetailList(orderDetailList == null ? Collections.<OrderDetail>emptyList() : orderDetailList);
+		
+		Map<String, Object> res = new HashMap<String, Object>();
+		res.put("data", data);
+		res.put("code", Tip.CODE_SUCCESS);
+		return res;
+	}
+	
 
 	/**
 	 * 更新的时候需额外传递updId,值跟主键值一样,被@ModelAttribute注释的方法会在此controller每个方法执行前被执行，

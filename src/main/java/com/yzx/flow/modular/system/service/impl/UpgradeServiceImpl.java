@@ -13,6 +13,7 @@ import com.xiaoleilu.hutool.util.NetUtil;
 import com.yzx.flow.common.page.Page;
 import com.yzx.flow.common.persistence.model.SystemVersion;
 import com.yzx.flow.common.util.DateUtil;
+import com.yzx.flow.modular.job.VersionUpdateExecute;
 import com.yzx.flow.modular.system.dao.SystemVersionDao;
 import com.yzx.flow.modular.system.service.IUpgradeService;
 
@@ -48,7 +49,7 @@ public class UpgradeServiceImpl implements IUpgradeService {
 			StringBuffer sBuffer = new StringBuffer() ;
 			for(SystemVersion sVersion : systemVersions) {
 				//获取客户端部署的ip地址，格式为：http：//内网ip:port/项目访问名/升级成功访问的接口路径
-				sVersion.setDeploymentUrl("http://"+NetUtil.getLocalhostStr()+":"+port+"/"+sVersion.getComponent()+"/openUpgrade/1.0.0/updateStatus");
+				sVersion.setDeploymentUrl("http://"+NetUtil.getLocalhostStr()+":"+port+"/"+VersionUpdateExecute.COMPONENT+"/openUpgrade/1.0.0/updateStatus");
 				sVersion.setParentId(1);
 				systemVersionDao.insert(sVersion);
 				total += sVersion.getComponentSize();

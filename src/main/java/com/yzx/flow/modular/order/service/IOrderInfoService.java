@@ -139,5 +139,12 @@ public interface IOrderInfoService {
 	 *            当前订单详情
 	 */
 	void deleteOrderDetails(OrderDetail orderDetail);
+	
+	/**
+	 * 保存来自前端新增或编辑的订单 - controller直接入口
+	 * @param orderInfo
+	 * @param updId
+	 */
+	void saveOrderAndOrderDetail(OrderInfo orderInfo, Long updId);
 
 }

@@ -8,22 +8,22 @@
             <div class="ibox-content">
                 <div class="row row-lg">
                     <div class="col-sm-12">
-                        <form id="queryForm">
+                        <form id="queryForm" style="border: 1px solid rgb(229, 230, 231);padding: 20px 20px 10px 0px;">
 								<div class="widget-box">
-									<div class="widget-header widget-header-flat search_tj_bar_tit">
+									<!-- <div class="widget-header widget-header-flat search_tj_bar_tit">
 										<h5 class="widget-title">查询条件</h5>
-									</div>
+									</div> -->
 									<div class="row search_tj_bar">
-										<div class="col-xs-12">
+										<div class="col-sm-12">
 											<div class="center">
 												<div class="row accessChannelInfo">
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<#NameCon name="订单号：" id="params['orderId']" />
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 													     <#NameCon name="手机号：" id="params['usedMobile']" />
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 																<#SelectCon name="订单状态：" id="params['status']">	
 																	<option value="">全部</option>
 																	<option value="1">待发</option>
@@ -34,7 +34,7 @@
 																	<option value="5">风控</option>
 																</#SelectCon>
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 																<#SelectCon name="回调状态："  id="params['dealFlag']">
 																	<option value="">全部</option>
 																	<option value="0">运营商处理中</option>
@@ -47,13 +47,13 @@
 												<br/>
 												
 												<div class="row accessChannelInfo">
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<#NameCon name="CP订单号：" id="params['extorderId']" />
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<#NameCon id="params['mobileHome']" name="归属地：" />
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 														<div class="input-group">
 														    <div class="input-group-btn">
 														        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
@@ -63,7 +63,7 @@
 														    <input type="hidden" class="form-control" id="app_select" name="params['flowAppId']" placeholder="${placeholder!}" />
 														</div>
 													</div>
-													<div class="col-xs-3">
+													<div class="col-sm-3">
 																<#SelectCon id="params['mobileOperator']" name="运营商："
 																	class="form-control search-query">
 																	<option value="">全部</option>
@@ -76,17 +76,19 @@
 												<br/>
 												
 												<div class="row accessChannelInfo">
-													<div class="col-xs-5">
-														<#TimeBetweenCon name="发送时间:" isTime="true" pattern="YYYY-MM-DD hh:mm:ss"  startValue="${nowStartTime}"
-															startId="params['createStartTime']" endId="params['createEndTime']" endValue="${nowEndTime}" />
+													<div class="col-sm-5">
+														<#TimeBetweenCon name="发送时间:" isTime="true" pattern="yyyy-MM-dd HH:mm:ss"  startValue="${nowStartTime}"
+															startId="params['createStartTime']" endId="params['createEndTime']" 
+															dateStartId="createStartTime" dateEndId="createEndTime" endValue="${nowEndTime}" />
 													</div>
-													<div class="col-xs-5">
-														<#TimeBetweenCon name="回调时间:" isTime="true" pattern="YYYY-MM-DD hh:mm:ss"  
-															startId="params['checkStartTime']" endId="params['checkEndTime']" />
+													<div class="col-sm-5">
+														<#TimeBetweenCon name="回调时间:" isTime="true" pattern="yyyy-MM-dd HH:mm:ss"  
+															startId="params['checkStartTime']" endId="params['checkEndTime']" 
+															dateStartId="checkStartTime" dateEndId="checkEndTime"/>
 													</div>
-													<div class="col-xs-2">
-														<#button name="查询" icon="fa-search" clickFun="FlowOrderInfo.search()" space="true"/>
-                     									<#button name="重置" icon="fa fa-undo" clickFun="FlowOrderInfo.reset()" space="true"/>
+													<div class="col-sm-3 reset">
+														<#button name="查询" class="" icon="fa-search" clickFun="FlowOrderInfo.search()" space="true"/>
+                     									<!-- <#button name="重置" class="" icon="fa fa-undo" clickFun="FlowOrderInfo.reset()" space="true"/> -->
 													</div>
 												</div>
 												<br/>

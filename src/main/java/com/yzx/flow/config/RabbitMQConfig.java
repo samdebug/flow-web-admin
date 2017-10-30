@@ -57,6 +57,7 @@ public class RabbitMQConfig {
 //	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public RabbitTemplate rabbitTemplate() {  
 	    RabbitTemplate template = new RabbitTemplate(connectionFactory());  
+	    template.setExchange(rabbitMQProperties.getExchange());
 	    return template;  
 	}
 	

@@ -4,7 +4,7 @@
         <div class="form-horizontal">
 	 			@if(shiro.hasPermission("/upgrade/changeStatus") && systemVersion.status == 0){
               	<div class="col-sm-6">
-              		<#TimeCon name="预定升级时间" id="reserveTime" isTime="true" pattern="YYYY-MM-DD hh:mm"/>
+              		<#TimeCon name="预定升级时间" id="reserveTime" isTime="true" pattern="yyyy-MM-dd HH:mm"/>
              	</div>
              	<div class="col-sm-6">
                   	<#button name="升级" icon="fa-thumbs-up" clickFun="Upgrade.openChangeStatus()"/>

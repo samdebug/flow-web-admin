@@ -1,6 +1,7 @@
 package com.yzx.flow.modular.customer.controller;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,7 @@ import com.yzx.flow.common.exception.BussinessException;
 import com.yzx.flow.common.page.Page;
 import com.yzx.flow.common.page.PageInfoBT;
 import com.yzx.flow.common.persistence.model.CustomerInfo;
+import com.yzx.flow.common.persistence.model.OrderDetail;
 import com.yzx.flow.common.persistence.model.OrderInfo;
 import com.yzx.flow.common.persistence.model.PartnerInfo;
 import com.yzx.flow.common.transformers.TransformerManager;
@@ -38,6 +40,7 @@ import com.yzx.flow.modular.customer.service.ICustomerBalanceDayService;
 import com.yzx.flow.modular.customer.service.ICustomerInfoService;
 import com.yzx.flow.modular.customer.transformer.CustomerVoTransformer;
 import com.yzx.flow.modular.customer.transformer.PartnerNameValuePairTransformer;
+import com.yzx.flow.modular.customer.vo.CustomerProductsBo;
 import com.yzx.flow.modular.customer.vo.CustomerVo;
 import com.yzx.flow.modular.order.service.IOrderInfoService;
 import com.yzx.flow.modular.partner.service.IPartnerService;
@@ -119,13 +122,17 @@ public class CustomerController extends BaseController {
      */
     @RequestMapping(value = "/add")
     @ResponseBody
-    public Object add(CustomerInfo data) {
+    public Object add(CustomerProductsBo bo) {
     	
+    	CustomerInfo data = bo.buildCustomerInfo();
     	data.setCreditAmount(BigDecimal.ZERO);
-    	data.setLinkmanName(data.getShorterName());
     	
-    	saveAndUpdate(data);
-        return data;
+    	try {
+    		saveAndUpdate(data, bo.buildOrderInfo());
+    	} catch(BussinessException be) {
+    		return ErrorTip.buildErrorTip(be.getMessage());
+    	}
+        return SUCCESS_TIP;
     }
 
     /**
@@ -162,28 +169,29 @@ public class CustomerController extends BaseController {
      */
     @RequestMapping(value = "/update")
     @ResponseBody
-    public Object update(CustomerInfo data) {
+    public Object update(CustomerProductsBo data) {
     	
     	CustomerInfo customer = customerInfoService.get(data.getCustomerId());
 		if(customer == null)
 			return new ErrorTip(BizExceptionEnum.CUSTOMER_NOT_EXIST);
 		
-		customer.setShorterName(data.getShorterName());
-		customer.setLinkmanName(data.getShorterName());
+		customer.setLinkmanName(data.getLinkmanName());
 		customer.setAddress(data.getAddress());
 		customer.setLinkmanEmail(data.getLinkmanEmail());
-		customer.setIsSend(data.getIsSend());
 		customer.setBalanceLackConfigure(data.getBalanceLackConfigure());
-		customer.setCustomerLinkman(data.getCustomerLinkman());
-		customer.setCompanyName(data.getCompanyName());
-		customer.setCompanyMobile(data.getCompanyMobile());
-		customer.setLinkmanQq(data.getLinkmanQq());
-//		customer.setAdviserType(data.getAdviserType());
-		if(customer.getPartnerType()==1){
-			customer.setLinkmanMobile(data.getLinkmanMobile());
-		}
+		customer.setLinkmanMobile(data.getLinkmanMobile());
 		
-		saveAndUpdate(customer);
+		customer.setCustomerLevel(data.getCustomerLevel());
+		customer.setStatus(data.getStatus());
+//		if(customer.getPartnerType()==1){
+//			customer.setLinkmanMobile(data.getLinkmanMobile());
+//		}
+		
+		try {
+			saveAndUpdate(customer, data.buildOrderInfo());
+		} catch(BussinessException be) {
+    		return ErrorTip.buildErrorTip(be.getMessage());
+    	}
         return super.SUCCESS_TIP;
     }
 
@@ -195,6 +203,17 @@ public class CustomerController extends BaseController {
     	CustomerInfo customer = customerInfoService.get(customerId);
     	model.addAttribute("customer", customer);
     	model.addAttribute("flag", customer != null);// 标志是否有数据
+    	model.addAttribute("products", Collections.emptyList());
+    	
+    	if ( customer != null ) {
+    		// 只查询流量包类型
+    		List<OrderInfo> infos = orderInfoService.getByCustomerIdAndOrderType(customerId, com.yzx.flow.common.util.Constant.ORDER_TYPE_PACKAGE);
+    		if (infos != null && !infos.isEmpty()) {
+        		List<OrderDetail> orderDetailList = orderInfoService.getOrderDetailByOrderId(infos.get(0).getOrderId());
+        		if ( orderDetailList != null && !orderDetailList.isEmpty() )
+        			model.addAttribute("products", orderDetailList);
+    		}
+    	}
     	return PREFIX + "customer_view.html";
     }
     
@@ -235,32 +254,23 @@ public class CustomerController extends BaseController {
     
     
     
-    private void saveAndUpdate(CustomerInfo customer) {
+    private void saveAndUpdate(CustomerInfo customer, OrderInfo updateOrder) {
     	
     	PartnerInfo partner = null;
-		if ( customer.getPartnerId() == null || customer.getPartnerId().compareTo(0L) <= 0 
-    			|| (partner = partnerService.get(customer.getPartnerId())) == null)
+		if ( customer.getPartnerId() != null && customer.getPartnerId().compareTo(0L) > 0 
+				&& (partner = partnerService.get(customer.getPartnerId())) == null) {
 			throw new BussinessException(BizExceptionEnum.PARTNER_NOT_EXIST);
+		}
 		
-		if ( customer.getPartnerId() == null || customer.getPartnerId().compareTo(0L) <= 0 
-    			|| (partner = partnerService.get(customer.getPartnerId())) == null)
-			throw new BussinessException(BizExceptionEnum.PARTNER_NOT_EXIST);
-    	
-    	if (!PartnerInfo.STATUS_OK.equals(partner.getStatus())) 
+    	if (partner != null && !PartnerInfo.STATUS_OK.equals(partner.getStatus())) 
     		throw new BussinessException(BizExceptionEnum.PARTNER_NOT_USE);
 		
-		if (StringUtils.isBlank(customer.getLinkmanMobile())) 
-			throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
-		
-		if (partner.getPartnerType() == 2) {
-			customer.setAccount(customer.getLinkmanMobile());
-		} 
 		if (StringUtils.isBlank(customer.getAccount())) {
 			throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
 		}
 		
-		customer.setPartnerId(partner.getPartnerId());
-		customer.setPartnerType(partner.getPartnerType());
+		customer.setPartnerId(partner == null ? null : partner.getPartnerId());
+		customer.setPartnerType(partner == null ? PartnerInfo.PARTNER_TYPE_FLOW : partner.getPartnerType());
     	
 		ShiroUser current = ShiroKit.getUser();
 		
@@ -268,12 +278,18 @@ public class CustomerController extends BaseController {
 			customer.setCreator(current.getAccount());
 			customer.setCreateTime(new Date());
 			customer.setUpdator("");
+			// dufault value;
+			customer.setCompanyMobile("");
+			customer.setCompanyName("");
+			customer.setIsSend(CustomerInfo.IS_SEND_OFF);
+			customer.setCustomerLinkman("");
+			customer.setShorterName("");
 		} else {
 			customer.setUpdator(current.getAccount());
 			customer.setUpdateTime(new Date());
 		}
     	
-		customerInfoService.saveAndUpdate(customer);
+		customerInfoService.saveAndUpdate(customer, updateOrder);
     }
     
     
@@ -319,8 +335,24 @@ public class CustomerController extends BaseController {
 //			return fail("非法操作");
 //		}
 		data.setStatus(status);
-		customerInfoService.saveAndUpdate(data);
+		customerInfoService.saveAndUpdate(data, null);
 		return SUCCESS_TIP;
+	}
+	
+	
+	/**
+	 * 重置密码接口
+	 * @return
+	 */
+	@RequestMapping(value = "/resetPw")
+	@ResponseBody
+	public Object resetpassword(Long customerId) {
+		try {
+			customerInfoService.resetPasswd(customerId);
+			return SUCCESS_TIP;
+		} catch (BussinessException e) {
+			return ErrorTip.buildErrorTip(e.getMessage());
+		}
 	}
     
 	

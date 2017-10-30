@@ -81,7 +81,7 @@ body,html{
 .reg-info .checkbox_label{}
 .reg-info .checkbox_label input{float:left;width:16px;height:16px !important;margin-top:3px;margin-right:4px;}
 .group.item{margin-bottom: 20px;}
-.identifyImg{display: inline-block;width: 21px;height: 21px;position: absolute;top: 12px;left: 125px;}
+.identifyImg{display: inline-block;width: 21px;height: 21px;position: absolute;top: 12px;left: 115px;}
 .wrongImg{background: url(../img/wrong.png) no-repeat;display: none;}
 .rightImg{background: url(../img/right.png) no-repeat;display: none;}
 input:-webkit-autofill{

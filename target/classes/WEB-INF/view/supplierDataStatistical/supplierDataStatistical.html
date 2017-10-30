@@ -10,10 +10,10 @@
                     <div class="col-sm-12">
                         <div class="row">
                             <div class="col-sm-3">
-                                <#TimeCon type="text" name="统计开始时间:" id="startTime" isTime="false" pattern="YYYY-MM-DD" />
+                                <#TimeCon type="text" name="统计开始时间:" id="startTime" isTime="false" pattern="yyyy-MM-dd" />
                             </div>
                             <div class="col-sm-3">
-                                <#TimeCon type="text" name="统计结束时间:" id="endTime" isTime="false" pattern="YYYY-MM-DD" />
+                                <#TimeCon type="text" name="统计结束时间:" id="endTime" isTime="false" pattern="yyyy-MM-dd" />
                             </div>
                             <div class="col-sm-3">
                                 <#NameCon id="companyName" name="供应商名称：" />
@@ -24,10 +24,10 @@
                         </div>
                         <div class="hidden-xs" id="SupplierDataStatisticalTableToolbar" role="group">
                             @if(shiro.hasPermission("/supplierDataStatistical/add")){
-                                <#button name="添加" icon="fa-plus" clickFun="SupplierDataStatistical.openAddSupplierDataStatistical()"/>
+                                <#button name="新增" icon="fa-plus" clickFun="SupplierDataStatistical.openAddSupplierDataStatistical()"/>
                             @}
                             @if(shiro.hasPermission("/supplierDataStatistical/update")){
-                                <#button name="修改" icon="fa-plus" clickFun="SupplierDataStatistical.openSupplierDataStatisticalDetail()" space="true"/>
+                                <#button name="编辑" icon="fa-plus" clickFun="SupplierDataStatistical.openSupplierDataStatisticalDetail()" space="true"/>
                             @}
                             @if(shiro.hasPermission("/supplierDataStatistical/delete")){
                                 <#button name="删除" icon="fa-plus" clickFun="SupplierDataStatistical.delete()" space="true"/>

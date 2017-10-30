@@ -118,7 +118,7 @@ public class PortalController extends BaseController {
 		current.setLinkmanMobile(mobile);
 		current.setLinkmanEmail(email);
 		
-		customerInfoService.saveAndUpdate(current);
+		customerInfoService.saveAndUpdate(current, null);
 		return SUCCESS_TIP;
 	}
 	

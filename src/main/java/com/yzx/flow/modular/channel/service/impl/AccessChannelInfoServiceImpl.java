@@ -99,6 +99,8 @@ public class AccessChannelInfoServiceImpl implements IAccessChannelInfoService {
     public void saveAndUpdate(AccessChannelInfo data,Staff staff) {
         // 判断有没有传主键，如果传了为更新，否则为新增
         if (data.getChannelSeqId() == null) {
+        	//TODO 由于前段页面将通道id去除 为此将通道名称的值赋予通道id
+        	data.setChannelId(data.getChannelName());
             this.insert(data);
             // 通道产品信息表
             for (FlowPackageInfo fpi : data.getFlowPackageInfoList()) {
@@ -106,8 +108,8 @@ public class AccessChannelInfoServiceImpl implements IAccessChannelInfoService {
                     continue;
                 }
                 // 唯一性校验 (2015/11/30 去掉通道产品ID和Name的唯一性校验)
-//                checkUniqueChannelProduct(fpi, Constant.TYPE_CHANNEL_ID);
-//                checkUniqueChannelProduct(fpi, Constant.TYPE_CHANNEL_NAME);
+                // checkUniqueChannelProduct(fpi, Constant.TYPE_CHANNEL_ID);
+                // checkUniqueChannelProduct(fpi, Constant.TYPE_CHANNEL_NAME);
                 // 新增通道产品信息
                 ChannelProductInfo info = new ChannelProductInfo();
                 info.setChannelSeqId(data.getChannelSeqId());

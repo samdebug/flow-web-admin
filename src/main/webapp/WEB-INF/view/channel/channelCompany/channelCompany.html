@@ -37,13 +37,13 @@
                             @if(shiro.hasPermission("/channelCompany/add")){
                                <div class="btnWrapper">
                                 	<#button name="" icon="fa-plus" clickFun="ChannelCompany.openAddChannelCompany()"/>
-                           		<span class="btnTips">添加</span>
+                           		<span class="btnTips">新增</span>
                             	</div>  
                             @}
                             @if(shiro.hasPermission("/channelCompany/update")){
 	                            <div class="btnWrapper">
 	                                <#button name="" icon="fa-pencil-square-o" clickFun="ChannelCompany.openChannelCompanyDetail()" />
-	                            	<span class="btnTips">修改</span>
+	                            	<span class="btnTips">编辑</span>
 	                            </div> 
                             @}
                             @if(shiro.hasPermission("/channelCompany/delete")){

@@ -198,9 +198,10 @@ public class CustomerTradeFlowServiceImpl implements ICustomerTradeFlowService {
         
         // 新增交易流水记录
         CustomerInfo ci = customerInfoDao.selectByPrimaryKey(data.getCustomerId());
-        if (data.getTradeType() == TRADETYPE_CREDIT) {
-            data.setTradeAmount(new BigDecimal(0));
-        }
+//        TODO 合作伙伴在授信时写入了操作金额，所以注释掉这个代码
+//        if (data.getTradeType() == TRADETYPE_CREDIT) {
+//            data.setTradeAmount(new BigDecimal(0));
+//        }
         data.setTradeTime(new Date());
         data.setBalance(ci.getBalance());
         data.setCreditAmount(ci.getCreditAmount());

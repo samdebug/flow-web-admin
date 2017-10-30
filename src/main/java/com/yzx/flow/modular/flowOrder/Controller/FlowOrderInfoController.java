@@ -87,8 +87,12 @@ public class FlowOrderInfoController extends BaseController {
     		page.getParams().put("createEndTime", DateUtil.dateToDateString(new Date(), "yyyy-MM-dd 23:59:59"));
     	}
 		LOG.info("分页查询流量分发记录:" + page.toString());
-		PageInfoBT<FlowOrderInfo> resPage = flowOrderInfoService.pageQuery(page);
-		return resPage;
+		try {
+			PageInfoBT<FlowOrderInfo> resPage = flowOrderInfoService.pageQuery(page);
+			return resPage;
+		} catch (Exception e) {
+			throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, e.getMessage());
+		}
 	}
     
     @RequestMapping(value="/refundPage")
@@ -228,8 +232,7 @@ public class FlowOrderInfoController extends BaseController {
 			// 生成Excel
 			Map<String, Object> beanMap = new HashMap<String, Object>();
 			page.setRows(65530);
-			page = flowOrderInfoService.export(page);
-			beanMap.put("list", page.getDatas());
+			beanMap.put("list", flowOrderInfoService.pageQuery(page).getRows());
 			TemplateExcelManager.getInstance().createExcelFileAndDownload(TemplateExcel.FLOWORDERINFO_TEMPLATE, beanMap);
 		} catch (IOException e) {
 			LOG.error("导出报表出错！！！", e);

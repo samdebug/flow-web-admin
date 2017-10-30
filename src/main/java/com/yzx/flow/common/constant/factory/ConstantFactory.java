@@ -123,8 +123,8 @@ public class ConstantFactory {
     @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.DEPT_NAME + "'+#deptId")
     public String getDeptName(Integer deptId) {
         Dept dept = deptMapper.selectById(deptId);
-        if (ToolUtil.isNotEmpty(dept) && ToolUtil.isNotEmpty(dept.getFullname())) {
-            return dept.getFullname();
+        if (ToolUtil.isNotEmpty(dept) && ToolUtil.isNotEmpty(dept.getSimplename())) {
+            return dept.getSimplename();
         }
         return "";
     }

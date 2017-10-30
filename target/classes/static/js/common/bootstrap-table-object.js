@@ -78,6 +78,15 @@
                         params_.order = params.order;
                     	return params_;
                     },
+                    onLoadError: function (data, res) { 
+                    	if(res.responseJSON.message!=""){
+                    		Feng.error(res.responseJSON.message);
+                    		 $('#' + tableId).bootstrapTable('removeAll');  
+                    		return;
+                    	}
+                    	Feng.error("系统异常请联系客服");
+                    	return false;
+                      }
                 });
             return this;
         },

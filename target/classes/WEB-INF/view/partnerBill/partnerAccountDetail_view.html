@@ -72,7 +72,11 @@
              		<div class="panel-body">
     					<div class="row ">
 							<div class="col-sm-12">
-								<div class="hidden-xs" id="PartnerAccountDetailToolbar" role="group">
+								<div class="hidden-xs" id="PartnerAccountDetailTableToolbar" role="group">
+									<div class="btnWrapper">
+		                            	<#button name="" icon="fa fa-download" clickFun="PartnerAccountDetail.export()" style="width:98px"/>
+		                            	<span class="btnTips">导出</span>
+		                            </div>
 			                    </div>
 								<#table id="PartnerAccountDetailTable"/>
 							</div>
@@ -171,6 +175,16 @@ function pADVRechargeBtnClickHandler() {
     }
     // 账户充值
     savePartnerTradeFlow(rechargeBalance, rechargeRemark, type);
+}
+
+
+PartnerAccountDetail.export = function(){
+	if ( !pkId || pkId <= 0 ) {
+		Feng.error("数据错误...");
+		return;
+	}
+	location.href = Feng.ctxPath + "/partnerTradeFlow/export?partnerId=" + pkId;
+	
 }
 
 

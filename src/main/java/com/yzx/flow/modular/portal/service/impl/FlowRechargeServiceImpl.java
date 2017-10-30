@@ -98,9 +98,11 @@ public class FlowRechargeServiceImpl implements IFlowRechargeService {
 		if( !Constant.CUSTOMER_STATUS_ON.equals(customer.getStatus()) )		//客户为商用状态
 			throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "客户状态不可用");
 		
-		PartnerInfo partnerInfo = partnerService.get(customer.getPartnerId());
-		if( partnerInfo == null || !PartnerInfo.STATUS_OK.equals(partnerInfo.getStatus()) )
-            throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "合作伙伴不存在或状态无效");
+		if ( customer.getPartnerId() != null && customer.getPartnerId() > 0L ) {
+			PartnerInfo partnerInfo = partnerService.get(customer.getPartnerId());
+			if( partnerInfo == null || !PartnerInfo.STATUS_OK.equals(partnerInfo.getStatus()) )
+	            throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "合作伙伴不存在或状态无效");
+		}
 		
 		//根据合作伙伴ID查询产品列表
 		List<FlowPackage> flowPackage = getFlowProductList(userMobile,customer.getCustomerId(), code, isCombo);
@@ -392,9 +394,11 @@ public class FlowRechargeServiceImpl implements IFlowRechargeService {
             throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "客户不存在或状态不可用");
         }
         
-        PartnerInfo partnerInfo = partnerService.get(customer.getPartnerId());
-        if ( partnerInfo == null || !PartnerInfo.STATUS_OK.equals(partnerInfo.getStatus()) ) 
-        	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "合作伙伴不存在或状态不可用");
+        if ( customer.getPartnerId() != null && customer.getPartnerId() > 0L ) {
+        	PartnerInfo partnerInfo = partnerService.get(customer.getPartnerId());
+            if ( partnerInfo == null || !PartnerInfo.STATUS_OK.equals(partnerInfo.getStatus()) ) 
+            	throw new BussinessException(BizExceptionEnum.CUSTOMER_FORMAT_ERROR, "合作伙伴不存在或状态不可用");
+        }
         
         //根据合作伙伴ID查询产品列表
         List<FlowPackage> flowPackage = getBatchFlowProductList(operator, packageType, customer.getCustomerId());

@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yzx.flow.common.controller.BaseController;
+import com.yzx.flow.common.excel.ITemplateExcel;
+import com.yzx.flow.common.excel.NameFileExcelFileTemplate;
 import com.yzx.flow.common.excel.TemplateExcel;
 import com.yzx.flow.common.excel.TemplateExcelManager;
 import com.yzx.flow.common.page.Page;
 import com.yzx.flow.common.page.PageInfoBT;
+import com.yzx.flow.common.persistence.model.CustomerInfo;
 import com.yzx.flow.common.persistence.model.CustomerTradeFlow;
 import com.yzx.flow.common.persistence.model.Staff;
 import com.yzx.flow.core.portal.PortalParamSetter;
@@ -28,6 +31,7 @@ import com.yzx.flow.core.portal.annotation.AutoSetPortalCustomer;
 import com.yzx.flow.core.portal.annotation.PortalParamMeta;
 import com.yzx.flow.core.shiro.ShiroKit;
 import com.yzx.flow.modular.customer.service.ICustomerBalanceDayService;
+import com.yzx.flow.modular.customer.service.ICustomerInfoService;
 import com.yzx.flow.modular.customer.service.ICustomerTradeFlowService;
 
 /**
@@ -50,6 +54,9 @@ public class CustomerTradeFlowController extends BaseController {
 	@Autowired
 	@Qualifier("customerBalanceDayService")
 	private ICustomerBalanceDayService customerBalanceDayService;
+	
+	@Autowired
+	private ICustomerInfoService customerInfoService;
 	
 	/**
      * 交易类型 1：结算   2：充值   3：授信
@@ -143,36 +150,31 @@ public class CustomerTradeFlowController extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/export")
-	public void export(Page<CustomerTradeFlow> page,int pkId,
-			@RequestParam(value = "tradeTypes[]", required = false) Integer[] tradeTypes) throws Exception {
+	public String export(Page<CustomerTradeFlow> page, Long customerId) throws Exception {
 		try {
+			
+			CustomerInfo customer = customerInfoService.get(customerId);
+			if ( customer == null ) {
+				return "/error";
+			}
 			// 生成Excel
 			Map<String, Object> beanMap = new HashMap<String, Object>();
-			page.setRows(65530);
+			page.setLimit(5000);// 5000
+			page.getParams().put("customerId", customerId);
+			page.setSort("input_time");
+			page.setOrder("desc");
 			
-			//查询数据
-			List<Integer> tradeTypeList = null;
-			if (tradeTypes != null) {
-				tradeTypeList = new ArrayList<>();
-				for (Integer tradeType : tradeTypes) {
-					if (tradeType == 0) {
-						tradeTypeList = null;
-						break;
-					}
-					tradeTypeList.add(tradeType);
-				}
-			}
-			page.getParams().put("customerId", pkId);
-			page.getParams().put("tradeTypeList", tradeTypeList);
-			page.setAssembleOrderBy("trade_flow_id");
 			List<CustomerTradeFlow> list = customerTradeFlowService.pageQuery(page).getRows();
 			
 			beanMap.put("list", list);
-			beanMap.put("startDate", page.getParams().get("createStartTime"));
-			beanMap.put("endDate", page.getParams().get("createEndTime"));
-			TemplateExcelManager.getInstance().createExcelFileAndDownload(TemplateExcel.CUSTOMER_RECHARGE_DETAIL, beanMap);
+			beanMap.put("name", customer.getCustomerName());
+			TemplateExcelManager.getInstance().createExcelFileAndDownload(
+					new NameFileExcelFileTemplate(customer.getCustomerName(), TemplateExcel.PARTNER_CUSTOMER_RECHARGE_TEMPLATE), beanMap);
 		} catch (Exception e) {
 			LOG.error("导出报表出错！！！", e);
 		}
+		return null;
 	}
+	
+
 }

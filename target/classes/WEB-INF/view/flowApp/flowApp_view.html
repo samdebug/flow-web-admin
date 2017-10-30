@@ -1,207 +1,145 @@
 @layout("/common/_container.html"){
+<style>
+select.input-sm{
+	height: 32px;
+	line-height: 32px;
+}
+</style>
 <div class="ibox float-e-margins">
     <div class="ibox-content">
-		<form class="form-horizontal" role="form" id="add-form" onsubmit="return false;">
+        <div class="form-horizontal">
+		<form id="add-form" role="form" onsubmit="return false;">
+			<input type="hidden" name="flowAppId" id="flowAppId" /> 
+			<input type="hidden" name="updId" id="updId" />
+			
 			<div class="row">
-
-				<div class="col-xs-6">
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="appId"> 应用ID: </label>
-						<div class="col-sm-7">
-							<p name="appId" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="orderId"> 订单ID号: </label>
-						<div class="col-sm-7">
-							<p name="orderIdStr" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="customerId"> 客户名称: </label>
-						<div class="col-sm-7">
-							<p name="customerInfo.customerName" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="startDate"> 开始日期: </label>
-						<div class="col-sm-7">
-							<p name="startDate" class="form-control-static"></p>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="callbackUrl"> 网关回调URL: </label>
-						<div class="col-sm-7">
-							<p name="callbackUrl" class="form-control-static"></p>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="needSms"> 是否需要支持短信: </label>
-						<div class="col-sm-7">
-							<p name="needSmsDesc" class="form-control-static"></p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="smsChannelId"> 短信通道ID: </label>
-						<div class="col-sm-7">
-							<p name="smsChannelId" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="failNeedSmsDesc"> 失败是否发短信: </label>
-						<div class="col-sm-7">
-							<p name="failNeedSmsDesc" class="form-control-static"></p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="failSmsChannelId"> 失败短信通道ID: </label>
-						<div class="col-sm-7">
-							<p name="failSmsChannelId" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="isResendDesc"> 是否重发: </label>
-						<div class="col-sm-7">
-							<p name="isResendDesc" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group" id="form-group-times">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="resendTimes"> 重发次数
-						</label>
-						<div class="col-sm-7">
-						<p name="resendTimes" class="form-control-static"></p>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-xs-6">
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="appName"> APP名称: </label>
-						<div class="col-sm-7">
-							<p name="appName" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="appKey"> 应用Key: </label>
-						<div class="col-sm-7">
-							<p name="appKey" class="form-control-static"></p>
-						</div>
-					</div>
-					
-					
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="status"> 状态: </label>
-						<div class="col-sm-7">
-							<p name="statusDesc" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="endDate"> 结束日期: </label>
-						<div class="col-sm-7">
-							<p name="endDate" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="exchangeCbUrl"> 兑换回调URL: </label>
-						<div class="col-sm-7">
-							<p name="exchangeCbUrl" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="ipAddress"> 签权IP地址: </label>
-						<div class="col-sm-7">
-							<p name="ipAddress" class="form-control-static"></p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="dispatchChannel"> 流量下发通道: </label>
-						<div class="col-sm-7">
-							<p name="dispatchChannel" class="form-control-static"></p>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="smsContent"> 短信内容: </label>
-						<div class="col-sm-7">
-							<p name="smsContent" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="failSmsContent"> 失败短信内容: </label>
-						<div class="col-sm-7">
-							<p name="failSmsContent" class="form-control-static"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label no-padding-right text-right"
-							for="dispatchChannelName"> 通道组名称: </label>
-						<div class="col-sm-7">
-							<p name="dispatchChannelName" class="form-control-static"></p>
-						</div>
-					</div>
-				</div>
-
-
-			</div>
-			<div class="clearfix form-actions">
-				<div class="center">
-					<button class="btn" type="button" onclick="parent.layer.close(window.parent.FlowApp.layerIndex)">
-						<i class="ace-icon fa fa-undo bigger-110"></i> 返 回
-					</button>
-				</div>
-			</div>
+            	<div class="col-sm-6 b-r">
+					<#input id="customerName" name="*客户名称" disabled="disabled" />
+                </div>
+                <div class="col-sm-6 b-r">
+<!--                 	<#input id="appId" name="*应用ID" maxlength="50" disabled="disabled" /> -->
+					<#input id="appName" name="*接入名称" maxlength="50" disabled="disabled" />
+                </div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-6 b-r">
+					<#input id="callbackUrl" name="客户回调URL" disabled="disabled"/>
+                </div>
+                <div class="col-sm-6 b-r">
+                	<#input id="ipAddress" name="鉴权ip地址" disabled="disabled"/>
+                </div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-6 b-r">
+					<#select id="callbackMethod" name="*回调方法" disabled="disabled">
+						<option value="POST" >POST</option>
+                        <option value="GET">GET</option>
+					</#select>
+                </div>
+                <div class="col-sm-6 b-r">
+                	<div class="form-group">
+					    <label class="col-sm-3 control-label">流量下发通道</label>
+					    <div class="col-sm-9">
+							<input type="hidden"  name="dispatchChannel" id="dispatchChannel" class="form-control">
+					    </div>
+                	</div>
+                </div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-6 b-r">
+					<#select id="status" name="*状态" disabled="disabled">
+                        <option value="1">有效</option>
+                        <option value="3">无效</option>
+					</#select>
+                </div>
+                <div class="col-sm-6 b-r">
+                	<#select id="isResend" name="*失败重发" disabled="disabled">
+						<option value="0" >否</option>
+                        <option value="1">是</option>
+					</#select>
+                </div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-6 b-r">
+					<#time id="startDate" name="*开始时间" class="form-control" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" disabled="disabled"/>
+                </div>
+                <div class="col-sm-6 b-r" id="resendTimesDiv" style="display: none;" >
+					<#input id="resendTimes" name="*尝试重发次数" maxlength="1" disabled="disabled"/>
+                </div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-6 b-r">
+					<#time id="endDate" name="*结束时间" class="form-control" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" disabled="disabled"/>
+                </div>
+                
+            </div>
 		</form>
-		<br/>
 	</div>
+</div>
 </div>
 
 <script type="text/javascript">
 	var view_url = Feng.ctxPath + '/flowAppInfo/get';
 	var pkId = getP('flowAppId');
-	$(function() {
-		if (pkId) {
-			$.ajaxSubmit(view_url, 
-				{'flowAppId' : pkId}, 
-				function(data) {
-					if ( data && data.code && data.code != 200 ) {
-						Feng.error(data.message ? data.message : "获取数据失败！")
-						return;
-					}
-					$.dataInput($('.form-control-static'), data);
-					if(data.isResend==0){
-						$("#form-group-times").css("display","none");
-					}
-				}
-			);
+	
+	function closeThisWin() {
+		parent.layer.close(window.parent.FlowApp.layerIndex);
+	}
+	
+	function autoResendTimeIsShow() {
+		var _v = $("#isResend").val();
+		if( _v == "1" ) {
+			$("#resendTimes").prop("disabled", false)
+			$("#resendTimes").show();
+			$("#resendTimesDiv").show();
+			$("#resendTimes").val("");
 		} else {
-			Feng.error('参数错误');
+			$("#resendTimes").val("1");
+			$("#resendTimesDiv").hide();
+			$("#resendTimes").hide();
+			$("#resendTimes").prop("disabled", true)
 		}
+	}
+	
+	
+	function initData() {
+		if ( !pkId || !/^\d+$/.test(pkId)) {
+			Feng.error("参数错误");
+			return;
+		}
+		$('#updId').val(pkId);
+		$.ajaxSubmit(view_url, {
+			'flowAppId' : pkId
+		}, function(data) {
+			if ( !data || (data.code && data.code != 200) ) {
+				Feng.error( dada && data.message ? data.message : "获取数据失败！");
+				return;
+			}
+			$('#add-form').json2Form2(data);
+			autoResendTimeIsShow();
+			if ( data.isResend == "1" ){
+				$("#resendTimes").val(data.resendTimes);
+			}
+			$("#resendTimes").prop("disabled", true);
+			$("#customerName").val(data.customerInfo.customerName);
+			
+			if ( data.dispatchChannel && data.dispatchChannel != '' ) {
+				var obj = {};
+				obj["id"] = data.dispatchChannel;
+				obj["text"] = data.dispatchChannel;
+				$("#dispatchChannel").select2("data", obj);
+			}
+			$("#dispatchChannel").attr("type","text").attr("disabled","disabled");
+		});
+	}
+	
+	
+	$(function() {
 		
-	})
+		initData();
+	});
+
+	
 </script>
+
 @}

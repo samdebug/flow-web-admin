@@ -21,10 +21,10 @@
                         </div>
                         <div class="hidden-xs" id="ChannelErrorLogTableToolbar" role="group">
                             @if(shiro.hasPermission("/channelErrorLog/add")){
-                                <#button name="添加" icon="fa-plus" clickFun="ChannelErrorLog.openAddChannelErrorLog()"/>
+                                <#button name="新增" icon="fa-plus" clickFun="ChannelErrorLog.openAddChannelErrorLog()"/>
                             @}
                             @if(shiro.hasPermission("/channelErrorLog/update")){
-                                <#button name="修改" icon="fa-plus" clickFun="ChannelErrorLog.openChannelErrorLogDetail()" space="true"/>
+                                <#button name="编辑" icon="fa-plus" clickFun="ChannelErrorLog.openChannelErrorLogDetail()" space="true"/>
                             @}
                             @if(shiro.hasPermission("/channelErrorLog/delete")){
                                 <#button name="删除" icon="fa-plus" clickFun="ChannelErrorLog.delete()" space="true"/>

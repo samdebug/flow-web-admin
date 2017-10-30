@@ -150,13 +150,15 @@ $(function () {
         	//删除之前的
         	$('.J_menuTabs .page-tabs-content').children().remove();       
 
-            if (subTitle == "首页" || subTitle == "修改密码" || subTitle == "更换头像"){
+            var str = '<a href="javascript:;" class="active J_menuTab" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166" data-id="' + dataUrl + '">' + subTitle + '</a>';
+            //太多bug
+            /*if (subTitle == "首页" || subTitle == "修改密码" || subTitle == "更换头像"){
                 $("#side-menu").children("li").removeClass("active");
                 $($("#side-menu").children("li")).children("ul").removeClass("in");
                 var str = '<a href="javascript:;" class="active J_menuTab" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166" data-id="' + dataUrl + '">' + subTitle + '</a>';
             }else{  
                 var str = '<a href="javascript:;" class="active J_menuTab mainTitle" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166" data-id="' + dataUrl + '">' + mainTitle + '</a>' + '<i class="fa fa-angle-right titleArrow" style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166">' + '</i>' + '<span style="border:none;background-color: #fff;font-size: 18px;font-weight:700;color: #5e6166;padding-left: 10px;">' + subTitle + '</span>';
-            }
+            }*/
 
             $('.J_menuTab').removeClass('active');
 

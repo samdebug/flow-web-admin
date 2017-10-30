@@ -7,6 +7,7 @@ destination_Dir='/opt/flow/flow-admin-tomcat-8.5.20-8280/webapps/'
 bak_dir='/opt/flow/flow-admin-tomcat-8.5.20-8280/'
 project_Filename='flow-web-admin'
 bak_project_Filename='flow-web-admin'
+serviceUrl="http://localhost:8280/${project_Filename}/checkServiceStatus"
 Id=""
 httpUrl=""
   if [ -f "$config_Dir/param.properties" ];then
@@ -33,10 +34,14 @@ httpUrl=""
 	cd ${config_Dir}
 	chmod 744 *.sh
 	cd ${config_Dir} && ./web.sh start
-	 echo 'tomcat重启状态为:'$?
-     echo "id=$Id"  
-     echo "httpUrl=$httpUrl"  
-	 if test $? -eq 0;then
+	echo 'tomcat重启状态为:'$?
+	
+	sleep 120
+	httpOK=`curl --connect-timeout 10 -m 60 --head --silent $serviceUrl | awk 'NR==1{print $2}'`;
+	echo "httpOK=$httpOK"
+    echo "id=$Id"  
+    echo "httpUrl=$httpUrl"  
+	 if test $httpOK -eq 200;then
      echo 'tomcat重启成功啦！！！！！'
 	 echo -e $project_Filename $project_Filename
 	 echo -e $project_Filename $project_Filename
@@ -48,7 +53,6 @@ httpUrl=""
       curl -l -H "Content-type: application/json" -X POST -d '{"id":'$Id',"status":"3","rollback":"1"}' ${httpUrl//'\:'/':'}
 	 fi
 }
-
 
 main()
 {

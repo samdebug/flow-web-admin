@@ -19,22 +19,22 @@
             <div class="ibox-content">
                 <div class="row row-lg">
                     <div class="col-sm-12">
-                    	<input type="hidden" id="customerId" name="params['customerId']" value="${customerId!}"/>
                     	<form id="queryForm" action="#">
                         <div class="row">
                             <div class="col-sm-3">
-                                <#TimeBetweenCon name="月份" isTime="false" pattern="YYYY-MM" 
-										startId="params['startMonth']" endId="params['endMonth']" />
+                                <#TimeBetweenCon name="月份" isTime="false" pattern="yyyy-MM" 
+										startId="params['startMonth']" endId="params['endMonth']" 
+                                        dateStartId="startMonth" dateEndId="endMonth"/>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 reset">
                             	&nbsp;&nbsp;
-                                <#button name="查询" icon="fa-search" clickFun="CustomerBillMonth.search()"/>
-                                <#button name="重置" icon="fa-undo" clickFun="CustomerBillMonth.reset()"/>
+                                <#button name="查询" class="button-margin" icon="fa-search" clickFun="CustomerBillMonth.search()"/>
+                                <#button name="重置" class="button-margin" icon="fa-undo" clickFun="CustomerBillMonth.reset()"/>
                             </div>
                         </div>
                         
                         </form>
-                        
+                        <input type="hidden" id="customerId" name="params['customerId']" value="${customerId!}"/>
                         <div class="hidden-xs" id="CustomerBillMonthTableToolbar" role="group">
                         	<div class="btnWrapper">
                             	<#button name="" icon="fa fa-share-square-o" clickFun="CustomerBillMonth.export()" style="width:98px"/>

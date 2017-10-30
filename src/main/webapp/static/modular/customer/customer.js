@@ -15,23 +15,31 @@ Customer.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
         {title: 'id', field: 'customerId', visible: false, align: 'center', valign: 'middle'},
-        {title: '客户简称', field: 'shorterName', align: 'center', valign: 'middle', formatter: formatShortName, sortable:true, sortName:'shorter_name'},
-        {title: '客户名称', field: 'customerName', align: 'center', valign: 'middle', sortable:true, sortName:'customer_name'},
-        {title: '合作伙伴', field: 'partnerName', align: 'center', valign: 'middle'},
+        //{title: '客户简称', field: 'shorterName', align: 'center', valign: 'middle', formatter: formatShortName, sortable:true, sortName:'shorter_name'},
+        {title: '客户名称', field: 'customerName', align: 'center', valign: 'middle', sortable:true, sortName:'customer_name', formatter: formatShortName},
+        {title: '登陆账号', field: 'account', align: 'center', valign: 'middle'},
         //{title: '客户类型', field: 'adviserTypeDesc', align: 'center', valign: 'middle'},
-        {title: '客户等级', field: 'customerLevel', align: 'center', valign: 'middle', sortable:true, sortName:'customer_level'},
+        {title: '客户等级', field: 'customerLevel', align: 'center', valign: 'middle', sortable:true, sortName:'customer_level', formatter: formatLevel},
         {title: '状态', field: 'status', align: 'center', valign: 'middle', formatter: formatStatus},
-        {title: '累计存款', field: 'rechargeAmount', align: 'center', valign: 'middle', sortable:true, sortName:'recharge_amount'},
+        {title: '合作伙伴', field: 'partnerName', align: 'center', valign: 'middle'},
+        //{title: '累计存款', field: 'rechargeAmount', align: 'center', valign: 'middle', sortable:true, sortName:'recharge_amount'},
         {title: '账号余额(元)', field: 'balance', align: 'center', valign: 'middle', sortable:true, sortName:'balance'},
-        {title: '未确认金额', field: 'currentAmount', align: 'center', valign: 'middle', sortable:true, sortName:'current_amount'},
-        {title: '授信额度', field: 'creditAmount', align: 'center', valign: 'middle', sortable:true, sortName:'credit_amount'},
-        {title: '可用额度', field: 'availableCredit', align: 'center', valign: 'middle', sortable:true, sortName:'available_credit'},
-        {title: '单笔亏损(%)', field: 'orderRiskSetting', align: 'center', valign: 'middle', sortable:true, sortName:'order_risk_setting'},
+        //{title: '未确认金额', field: 'currentAmount', align: 'center', valign: 'middle', sortable:true, sortName:'current_amount'},
+        {title: '授信额度(元)', field: 'creditAmount', align: 'center', valign: 'middle', sortable:true, sortName:'credit_amount'},
+        //{title: '可用额度', field: 'availableCredit', align: 'center', valign: 'middle', sortable:true, sortName:'available_credit'},
+        {title: '创建时间', field: 'createTime', align: 'center', valign: 'middle', sortable:true, sortName:'create_time'}
+        //{title: '单笔亏损(%)', field: 'orderRiskSetting', align: 'center', valign: 'middle', sortable:true, sortName:'order_risk_setting'},
 //        {title: '操作', field: 'myac', align: 'center', valign: 'middle', formatter: actionButtons}
     ];
 };
 
 
+function formatLevel(cellValue) {
+	if (cellValue == 3) {
+		return "重要客户";
+	}
+	return "普通客户"
+}
 
 /**
  * 格式化状态字段
@@ -44,7 +52,7 @@ function formatStatus(cellValue) {
 		return "保存";
 		break;
 	case 1:
-		return "商用";
+		return "有效";
 		break;
 	case 2:
 		return "失效";
@@ -63,7 +71,7 @@ function formatStatus(cellValue) {
  * @returns
  */
 function formatShortName(cellValue, rowObject, option) {
-	return "<a href='javascript:;' onclick='Customer.openViewCustomer("+rowObject.customerId+")' >" + cellValue + "</a>";
+	return "<a href='javascript:;' onclick='Customer.openViewCustomer("+rowObject.customerId+",\""+ rowObject.customerName +"\")' >" + cellValue + "</a>";
 }
 
 function actionButtons(cellvalue, rowObject, options) {
@@ -125,14 +133,14 @@ Customer.check = function () {
 Customer.openAddCustomer = function () {
     var index = layer.open({
         type: 2,
-        title: '添加客户管理',
-        area: ['860px', '520px'], //宽高
+        title: '添加客户',
+        area: ['900px', '620px'], //宽高
         fix: false, //不固定
-        maxmin: true,
+//        maxmin: true,
         content: Feng.ctxPath + '/customer/customer_add'
     });
     this.layerIndex = index;
-    layer.full(index);// 全屏
+//    layer.full(index);// 全屏
 };
 
 /**
@@ -142,21 +150,22 @@ Customer.openCustomerDetail = function () {
     if (this.check()) {
         var index = layer.open({
             type: 2,
-            title: '客户管理详情',
-            area: ['860px', '520px'], //宽高
+            title: '编辑客户',
+            area: ['900px', '620px'], //宽高
             fix: false, //不固定
-            maxmin: true,
+            //maxmin: true,
             content: Feng.ctxPath + '/customer/customer_update/' + Customer.seItem.customerId
         });
         this.layerIndex = index;
-        layer.full(index);// 全屏
+        //layer.full(index);// 全屏   
     }
 };
 
+var tempObj = {};
 /**
  * view info
  */
-Customer.openViewCustomer = function(_customerId) {
+Customer.openViewCustomer = function(_customerId, _customerName) {
 	if (!_customerId || _customerId <= 0)
 		return;
 	
@@ -165,11 +174,59 @@ Customer.openViewCustomer = function(_customerId) {
         title: '客户详情',
         area: ['860px', '520px'], //宽高
         fix: false, //不固定
-        maxmin: true,
+        //maxmin: true,
         content: Feng.ctxPath + '/customer/detail?id=' + _customerId
     });
+	tempObj = {customerId: _customerId, customerName: _customerName};
     this.layerIndex = index;
-    layer.full(index);// 全屏
+    //layer.full(index);// 全屏
+    
+    if (!$("#lockBtn").length){
+        var element = $(".layui-layer-setwin");
+        element.prepend('<a onclick="Customer.changePassword()" title="重设密码" style="color: #2f2e3d;" id="lockBtn" href="javascript:;"><i style="font-size: 15px;" class="fa fa-icon fa-unlock-alt"></i></a>');
+    }
+}
+
+
+/**
+ * 重置密码
+ */
+Customer.changePassword = function() {
+	
+	layer.confirm('是否确认将【'+ tempObj.customerName +'】的登录密码重置为初始密码？', function(index){
+		layer.close(index);
+		var ajax = new $ax(Feng.ctxPath + "/customer/resetPw", function (data) {
+			if ( !data || !data.code || data.code != 200 ) {
+				Feng.error(data && data.message ? data.message : "操作失败");
+				return;
+			}
+	        Feng.success("已重置为初始密码!");
+	    }, function (data) {
+	        Feng.error("操作出错!");
+	    });
+	    ajax.set("customerId", tempObj.customerId);
+	    ajax.start();
+	});
+}
+
+/**
+ * 充值、充值记录
+ */
+Customer.viewTreade = function() {
+	if (!this.check()) {
+		return;
+	}
+	var id = Customer.seItem.customerId;
+	var index = layer.open({
+		type: 2,
+		title: '充值',
+		area: ['800px', '500px'], //宽高
+		fix: false, //不固定
+		//maxmin: true,
+		content: Feng.ctxPath + '/customerCharge/customerChargeView?customerId='+id
+	});
+	this.layerIndex = index;
+	//layer.full(index);// 全屏
 }
 
 /**
