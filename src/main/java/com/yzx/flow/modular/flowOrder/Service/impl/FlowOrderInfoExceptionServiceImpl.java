@@ -1,7 +1,9 @@
 package com.yzx.flow.modular.flowOrder.Service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,21 +75,26 @@ public class FlowOrderInfoExceptionServiceImpl implements IFlowOrderInfoExceptio
     @Override
 	public boolean reFailBack(String orderIds) {
     	//批量置失败删除异常订单表数据，订单表状态置失败
-    	List<String> list=new ArrayList<String>();
     	List<Long> orderIdList = new ArrayList<Long>();
     	String[] orderidItems=orderIds.split(",");
     	for(String id:orderidItems){
-    		list.add(id);
     		if(!StringUtils.isEmpty(id)){
     			orderIdList.add(Long.valueOf(id));
     		}
     	}
-    	if (list.size() > 0) {
-    		flowOrderInfoDao.reFailBackList(list);
-    		flowOrderInfoExceptionDao.reFailBack(list);
+    	if (orderIdList.size() > 0) {
+    		//更新原表
+    		flowOrderInfoDao.reFailBackList(getFlowOrderOldParams(orderIdList));
+    		//更新分表后的表.
+    		//根据订单id获取订单入库时间戳
+			String orderTime = orderIdList.get(0).toString().substring(0,13);
+    		flowOrderInfoDao.reFailBackList(getFlowOrderNewParams(orderTime, orderIdList ));
+    		//修改异常订单
+    		flowOrderInfoExceptionDao.reFailBack(orderIdList);
     		
     		//异常订单置失败需要写入MQ或者call_back_info回调
-    		List<FlowOrderInfo> foiList = flowOrderInfoDao.queryByOrderIds(orderIdList);
+    		List<FlowOrderInfo> foiList = flowOrderInfoDao.queryByOrderIds(getFlowOrderOldParams(orderIdList));
+    		List<FlowOrderInfo> foiList_new = flowOrderInfoDao.queryByOrderIds_new(getFlowOrderNewParams(orderTime, orderIdList ));
 			for (FlowOrderInfo flowOrderInfo : foiList) {
 				String flowAppId = String.valueOf(flowOrderInfo.getFlowAppId());
 				String flag = "false";
@@ -116,4 +123,31 @@ public class FlowOrderInfoExceptionServiceImpl implements IFlowOrderInfoExceptio
 			return false;
 		}
     }
+    
+	/**
+	 * 获取分表后更新数据参数
+	 * @param recordTime 订单入库时间戳
+	 * @param list 需要变更状态的订单id集合
+	 * @return
+	 */
+	private Map<String, Object> getFlowOrderNewParams(String recordTime,List list){
+	  Map<String, Object> paramsNew=new	HashMap<String,Object>();
+		//将时间戳转换为时间
+		String recordDate = DateUtil.getDateStr(new Long(recordTime), "yyyyMM");
+		paramsNew.put("tableName", "flow_order_info_"+recordDate);
+		paramsNew.put("list", list);
+		return paramsNew;
+	}
+	
+	/**
+	 * 获取订单原始表更新参数
+	 * @param list 需要变更状态的订单id集合
+	 * @return
+	 */
+	private Map<String, Object> getFlowOrderOldParams(List list){
+		 Map<String, Object> paramsOld=new	HashMap<String,Object>();
+		paramsOld.put("tableName", "flow_order_info");
+		paramsOld.put("list", list);
+		return paramsOld;
+	}
 }

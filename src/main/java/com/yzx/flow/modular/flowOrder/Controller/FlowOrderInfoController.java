@@ -1,4 +1,4 @@
-package com.yzx.flow.modular.flowOrder.Controller;
+ package com.yzx.flow.modular.flowOrder.Controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -107,6 +107,7 @@ public class FlowOrderInfoController extends BaseController {
 	public PageInfoBT<FlowOrderInfo> queryForRefund(Page<FlowOrderInfo> page) throws Exception {
 		return  flowOrderInfoService.pageQueryForRefund(page);
 	}
+    
 	@RequestMapping(value = "/getTotalPrice")
 	@ResponseBody
 	public Map<String, Object> getTotalPrice(Page<FlowOrderInfo> page) throws Exception {

@@ -23,9 +23,8 @@
                             <div class="col-sm-3">
                                 <#SelectCon id="params['status']" name="合作伙伴状态">
                                     <option value="">全部</option>
-                                    <option value="0">待提交</option>
-                                    <option value="1">有效</option>
                                     <option value="2">无效</option>
+                                    <option value="1">有效</option>
                                 </#SelectCon>
                             </div>
                             <div class="col-sm-3 reset">
@@ -58,10 +57,10 @@
 <!--                                    <span class="btnTips">重置 密码</span> -->
 <!--                                 </div> -->
                             @}
-                            <div class="btnWrapper">
-                                <#button name="" icon="fa fa-bolt" clickFun="modifyLevelEvent()" style="width:98px"/>
-                                <span class="btnTips">编辑 等级</span>
-                            </div>
+<!--                             <div class="btnWrapper"> -->
+<!--                                 <#button name="" icon="fa fa-bolt" clickFun="modifyLevelEvent()" style="width:98px"/> -->
+<!--                                 <span class="btnTips">编辑 等级</span> -->
+<!--                             </div> -->
                             <div class="btnWrapper">
                                 <#button name="" icon="fa fa-flag" clickFun="changeStatus()" style="width:98px"/>
                                 <span class="btnTips">有效/无效</span>

@@ -1,5 +1,6 @@
 package com.yzx.flow.modular.channel.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,17 +24,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.yzx.flow.common.constant.tips.ErrorTip;
 import com.yzx.flow.common.controller.BaseController;
+import com.yzx.flow.common.excel.TemplateExcel;
+import com.yzx.flow.common.excel.TemplateExcelManager;
 import com.yzx.flow.common.exception.BizExceptionEnum;
 import com.yzx.flow.common.exception.BussinessException;
 import com.yzx.flow.common.exception.MyException;
 import com.yzx.flow.common.page.Page;
 import com.yzx.flow.common.page.PageInfoBT;
 import com.yzx.flow.common.persistence.model.ChannelAdapter;
-import com.yzx.flow.common.persistence.model.ChannelCompanyRecharge;
 import com.yzx.flow.common.persistence.model.ChannelSupplier;
+import com.yzx.flow.common.persistence.model.ChannelSupplierRecharge;
 import com.yzx.flow.common.persistence.model.Staff;
 import com.yzx.flow.core.shiro.ShiroKit;
 import com.yzx.flow.core.shiro.ShiroUser;
@@ -64,7 +66,7 @@ public class ChannelSupplierController extends BaseController {
      * 跳转到通道供应商首页
      */
     @RequestMapping("")
-    public String index() {
+    public String index(Model model) {
         return PREFIX + "channelSupplier.html";
     }
 
@@ -297,5 +299,26 @@ public class ChannelSupplierController extends BaseController {
         channelSupplierService.batchUpdate(list);
         return SUCCESS_TIP;
     }
+	
+	
+	/**
+	 * 报表导出
+	 * @param response
+	 * @param page
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/export")
+	public void export(Page<ChannelSupplier> page) throws Exception {
+		try {
+			// 生成Excel
+			Map<String, Object> beanMap = new HashMap<String, Object>();
+			page.setRows(10000);
+			beanMap.put("list", channelSupplierService.pageQuery(page).getRows());
+			TemplateExcelManager.getInstance().createExcelFileAndDownload(TemplateExcel.CHANNEL_SUPPLIER, beanMap);
+		} catch (IOException e) {
+			LOG.error("导出报表出错！！！", e);
+		}
+	}
+	
 	
 }

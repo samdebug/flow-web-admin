@@ -20,7 +20,7 @@
         @}
     	onclick="laydate.render({elem: '#${dateStartId}', format:'${pattern}' ,istime: ${isTime} ,type: 'datetime'})" id="${dateStartId}" name="${startId}" />
     
-    <span class="input-group-addon input-group-btn"><i class="fa fa-exchange"></i></span>
+    <span class="input-group-addon input-group-btn"><i class="fa fa-minus"></i></span>
     
     <input type="text" class="form-control layer-date" 
 		    	@if(isNotEmpty(endValue)){

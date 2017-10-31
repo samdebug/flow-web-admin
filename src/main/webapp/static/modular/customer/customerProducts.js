@@ -12,7 +12,7 @@ var FlowProductDialog = {
 	currentType : 'ALL',
 	leftSel : $("#dltSource"),
 	rightSel : $("#dltTarget"),
-	url: '/flowProductRemodel/flowProductRemodel?productType=1&partnerInfoId='
+	url: Feng.ctxPath + '/flowProductRemodel/flowProductRemodel?productType=1&partnerInfoId='
 };
 
 FlowProductDialog.showDialog = function() {

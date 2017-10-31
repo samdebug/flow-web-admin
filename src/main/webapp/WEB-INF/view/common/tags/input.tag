@@ -7,11 +7,16 @@
     readonly : readonly属性
     clickFun : 点击事件的方法名
     style : 附加的css属性
+    requiredTag : 是否需要在label签添加*标注
 @*/
 <div class="form-group">
-    <label class="col-sm-3 control-label">${name}</label>
+    <label class="col-sm-3 control-label">
+    @if(isNotEmpty(requiredTag) && requiredTag=="true"){
+    	<span style="color: red">*</span>
+    @}
+    ${name}</label>
     <div class="col-sm-9">
-        <input class="form-control" id="${id}" name="${id}" placeholder="${placeholder!}" maxlength="${maxlength!}" 
+        <input autocomplete="off" class="form-control" id="${id}" name="${id}" placeholder="${placeholder!}" maxlength="${maxlength!}" 
                @if(isNotEmpty(value)){
                     value="${tool.dateType(value)}"
                @}
@@ -37,7 +42,7 @@
                @}
         >
         @if(isNotEmpty(hidden)){
-            <input class="form-control" type="hidden" id="${hidden}" value="${hiddenValue!}">
+            <input class="form-control" type="hidden" id="${hidden}" value="${hiddenValue!}" autocomplete="off">
         @}
 
         @if(isNotEmpty(selectFlag)){

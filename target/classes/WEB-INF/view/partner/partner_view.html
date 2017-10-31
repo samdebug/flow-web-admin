@@ -31,15 +31,15 @@
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-					<#input id="partnerName" name="伙伴名称" value="${partner.partnerName!}" disabled="disabled" />
+					<#input id="partnerName" name="合作伙伴名称" value="${partner.partnerName!}" disabled="disabled" />
                 </div>
                 <div class="col-sm-6">
-					<#input id="loginName" name="伙伴账号" value="${partner.loginName!}" disabled="disabled" />
+					<#input id="loginName" name="登录账号" value="${partner.loginName!}" disabled="disabled" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 b-r">
-					<#select id="partnerLevel" name="伙伴等级" disabled="disabled">
+					<#select id="partnerLevel" name="合作伙伴等级" disabled="disabled">
 						<option value="1" 
 						@if(flag && partner.partnerLevel==1){
 							selected="selected" 

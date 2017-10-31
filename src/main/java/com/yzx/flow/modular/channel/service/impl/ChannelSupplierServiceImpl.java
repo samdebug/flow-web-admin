@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
+
 import com.yzx.flow.common.exception.MyException;
 import com.yzx.flow.common.page.Page;
 import com.yzx.flow.common.page.PageInfoBT;
@@ -35,6 +36,7 @@ import com.yzx.flow.common.persistence.model.ChannelSupplier;
 import com.yzx.flow.common.persistence.model.Staff;
 import com.yzx.flow.common.util.RedisHttpUtil;
 import com.yzx.flow.common.util.URLConstants;
+import com.yzx.flow.core.util.ToolUtil;
 import com.yzx.flow.modular.channel.service.IChannelSupplierService;
 import com.yzx.flow.modular.system.dao.AccessChannelInfoDao;
 import com.yzx.flow.modular.system.dao.ChannelAdapterDao;
@@ -112,6 +114,10 @@ public class ChannelSupplierServiceImpl implements IChannelSupplierService {
 		if (null == channelAdapter) {
 			throw new MyException("根据adapterId=" + data.getAdapterId()
 					+ "找不到对应的接入通道适配器");
+		}
+		//TODO 页面未传入银行利率 默认为6.00
+		if(ToolUtil.isEmpty(data.getBankRate())){
+			data.setBankRate("6.00");
 		}
 		data.setAdapterName(channelAdapter.getClazzName());
 		if (StringUtils.isNotEmpty(updaId)) {// 判断有没有传主键，如果传了为更新，否则为新增

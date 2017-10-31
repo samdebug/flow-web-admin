@@ -85,6 +85,15 @@ public enum TemplateExcel implements ITemplateExcel {
 		}}, "CustomerRecharge-template.xls"),
 	
 	
+		/**
+		 * 通道供应商充值记录
+		 */
+		CHANNEL_SUPPLIER(new ITemplateExcel.INameBuilder() {
+			@Override
+			public String getName() {
+				return "通道供应供应商记录.xls";
+			}}, "Supplier-template.xls"),	
+		
 	/**
 	 * 通道供应商充值记录
 	 */

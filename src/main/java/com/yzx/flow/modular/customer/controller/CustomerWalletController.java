@@ -64,6 +64,12 @@ public class CustomerWalletController extends BaseController {
 	@ResponseBody
 	@AutoSetPortalCustomer(@PortalParamMeta(setter=PortalParamSetter.PAGE))
     public PageInfoBT<CustomerWallet> list(Page<CustomerWallet> page) {
+    	if(page.getParams().get("createStartTime")==null){
+    		page.getParams().put("createStartTime", DateUtil.dateToDateString(new Date(), "yyyy-MM-dd 00:00:00"));
+    	}
+    	if(page.getParams().get("createEndTime")==null){
+    		page.getParams().put("createEndTime", DateUtil.dateToDateString(new Date(), "yyyy-MM-dd 23:59:59"));
+    	}
 		LOG.info("分页查询资金流水明细记录:" + page.toString());
 		PageInfoBT<CustomerWallet> resPage = customerWalletService.pageQuery(page);
 		return resPage;

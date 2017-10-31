@@ -224,21 +224,21 @@ $(function () {
         var buttonHtml = ""
         layerButton.each(function(){
             if (!$(this).attr("id")){
-                if ($.trim($(this).text()) == "提交"){
-                    $(this).attr("id","submit");
+                if ($.trim($(this).text()) == "提交" || $.trim($(this).text()) == "保存"){
+                    $(this).attr("id","submitFooterBtn");
                 }else{
-                    $(this).attr("id","cancel");
+                    $(this).attr("id","cancelFooterBtn");
                 }
             }
             var cloneBtn = $(this).clone(true);
             cloneBtn.children("i").remove();
-            if ($.trim(cloneBtn.text()) == "提交"){
+            if ($.trim(cloneBtn.text()) == "提交" || $.trim($(this).text()) == "保存"){
                 cloneBtn.attr("class","btn btn-confirm");
+                cloneBtn.text($.trim("提交"));
             }else{
-                //cloneBtn.text("关闭");
                 cloneBtn.attr("class","btn btn-cancel");
+                cloneBtn.text($.trim(cloneBtn.text()));
             }
-            cloneBtn.text($.trim(cloneBtn.text()));
             buttonHtml = buttonHtml + cloneBtn[0].outerHTML;
         });
         var footer = '<div class="modal-footer" style="display: block;"><div class="bootstrap-dialog-footer"><div class="bootstrap-dialog-footer-buttons">' + buttonHtml + '</div></div></div>'
@@ -249,7 +249,7 @@ $(function () {
         layerIframe.last().find(".modal-footer").find("button").each(function(){
             $(this).attr("onclick","");
             $(this).click(function(){
-                $($(".layui-layer-iframe", window.parent.document).children(".layui-layer-content").children().contents().find('#' + $(this).attr("id"))).click();
+                $($(".layui-layer-iframe", window.parent.document).children(".layui-layer-content").children().contents().find(".btn-group-m-t").find('#' + $(this).attr("id"))).click();
             })
         })
     }

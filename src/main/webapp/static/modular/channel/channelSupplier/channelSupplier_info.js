@@ -151,4 +151,19 @@ ChannelSupplierInfoDlg.initModifyViewStatus = function () {
 $(function() {
 	ChannelSupplierInfoDlg.initSelect2("company-select");
 	ChannelSupplierInfoDlg.initModifyViewStatus();
+    $("#editBtn", window.parent.document).attr("id","channelSupplierEditBtn");
+
+    function initButton(){
+        var supplierCode = $("#supplierCode").text();
+        if (window.parent.document != null){
+           $(".layui-layer", window.parent.document).last().click(function(e){
+                if (e.target.parentElement.id == "channelSupplierEditBtn"){
+                    $(".layui-layer-shade", window.parent.document).hide();
+                    $(".layui-layer", window.parent.document).hide();
+                     window.parent.ChannelSupplier.editEvent(supplierCode);
+                }
+            })
+        }
+    }
+    initButton();
 });

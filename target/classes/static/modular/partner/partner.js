@@ -15,14 +15,14 @@ Partner.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
         {title: 'id', field: 'partnerId', visible: false, align: 'center', valign: 'middle'},
-        {title: '伙伴名称', field: 'partnerName', align: 'center', valign: 'middle', sortable: true, sortName: 'partner_name', formatter: formatName},
+        {title: '合作伙伴名称', field: 'partnerName', align: 'center', valign: 'middle', sortable: true, sortName: 'partner_name', formatter: formatName},
         //{title: '伙伴编号', field: 'partnerNo', align: 'center', valign: 'middle', sortable: true, sortName: 'partner_no'},
-        {title: '伙伴帐号', field: 'loginName', align: 'center', valign: 'middle'},
+        {title: '登录帐号', field: 'loginName', align: 'center', valign: 'middle'},
         //{title: '伙伴姓名', field: 'realName', align: 'center', valign: 'middle'},
         //{title: '伙伴类型', field: 'partnerType', align: 'center', valign: 'middle', formatter: formatType},
-        {title: '伙伴等级', field: 'partnerLevel', align: 'center', valign: 'middle', sortable: true, sortName: 'partner_level', formatter: formatLevel},
-        {title: '伙伴状态', field: 'status', align: 'center', valign: 'middle', sortable: true, formatter: formatStatus},
-        {title: '当前余额(元)', field: 'balance', align: 'center', valign: 'middle'},
+        {title: '合作伙伴等级', field: 'partnerLevel', align: 'center', valign: 'middle', sortable: true, sortName: 'partner_level', formatter: formatLevel},
+        {title: '状态', field: 'status', align: 'center', valign: 'middle', sortable: true, formatter: formatStatus},
+        {title: '账户余额(元)', field: 'balance', align: 'center', valign: 'middle'},
         {title: '授信额度(元)', field: 'creditAmount', align: 'center', valign: 'middle'},
         //{title: '结算折扣(%)', field: 'settlementDiscount', align: 'center', valign: 'middle'},
         //{title: '创建者', field: 'creator', align: 'center', valign: 'middle'},
@@ -65,7 +65,7 @@ function formatType(val) {
 function formatStatus(val) {
     switch (val) {
         case '0':
-            return "待提交";
+            return "无效";
             break;
         case '1':
             return "有效";

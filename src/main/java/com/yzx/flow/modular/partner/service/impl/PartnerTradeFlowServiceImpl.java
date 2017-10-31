@@ -2,7 +2,9 @@ package com.yzx.flow.modular.partner.service.impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yzx.flow.common.exception.MyException;
 import com.yzx.flow.common.page.Page;
+import com.yzx.flow.common.persistence.model.CustomerWallet;
 import com.yzx.flow.common.persistence.model.PartnerInfo;
 import com.yzx.flow.common.persistence.model.PartnerTradeFlow;
 import com.yzx.flow.common.util.Constant;
+import com.yzx.flow.common.util.DateUtil;
+import com.yzx.flow.common.util.OrderIdUtils;
 import com.yzx.flow.common.util.RedisHttpUtil;
 import com.yzx.flow.common.util.URLConstants;
 import com.yzx.flow.core.shiro.ShiroUser;
@@ -201,5 +206,23 @@ public class PartnerTradeFlowServiceImpl implements IPartnerTradeFlowService {
 		data.setOperatorName(staff.getName());
 		data.setInputTime(new Date());
 		partnerTradeFlowDao.insert(data);
+		// 插入资金流水明细
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tradeNo", OrderIdUtils.getTimeStampSequence());
+		map.put("customerId", data.getPartnerId());
+		map.put("partnerId", null);
+		map.put("tradeType", "2");
+		map.put("price", data.getTradeAmount());
+		map.put("balance", pi.getBalance());
+		// 备注
+		String remark = "账户充值" + data.getTradeAmount() + "元";// 备注
+		map.put("remark", remark);
+		map.put("applyDate", DateUtil.dateToDateString(new Date()));
+		String tableName="customer_wallet"+DateUtil.dateToDateString(new Date(), "yyyyMM");
+		CustomerWallet customerWallet=new CustomerWallet();
+	    customerWallet.setTableName(tableName);
+	    map.put("tableName", tableName);
+	    map.put("isPartner", 1);
+	    partnerTradeFlowDao.insertAccountDetail(map);
 	}
 }

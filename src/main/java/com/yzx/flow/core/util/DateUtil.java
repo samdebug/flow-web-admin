@@ -326,6 +326,17 @@ public class DateUtil {
 //		}
 //	}
 	
+	/**
+	 * @param time 时间戳
+	 * @param datePattern 转换时间格式  
+	 * @return
+	 */
+	public static String getDateStr(long time,String datePattern){
+		SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+		Date temp = new Date(time);
+		return formatter.format(temp);
+	}
+	
 	public static void main(String[] args) {
 		System.out.println(getTime(new Date()));
 		System.out.println(getAfterDayWeek("3"));

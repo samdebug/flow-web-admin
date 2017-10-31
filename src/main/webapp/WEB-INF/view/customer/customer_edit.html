@@ -58,9 +58,8 @@
         height: 230px;
     }
     #poia-btn-group {
-        width: 120px;
         float: left;
-        margin-top: 30px;
+        margin-top: 70px;
     }
     #poia-btn-group .btn-info {
         display: block;
@@ -94,7 +93,8 @@
 	    font-weight: bold;
     }
 	.many-selected {
-		background-color: burlywood;
+		background-color: #2fa968;
+		color: #fff;
 	}
     .section-title {
 		display: block;
@@ -118,15 +118,15 @@
 			</div><br/>
             <div class="row">
                 <div class="col-sm-6 b-r">
-                	<#input id="customerName" name="*客户名称" value="${customer.customerName}" disabled="disabled" />
+                	<#input id="customerName" name="客户名称" requiredTag="true" value="${customer.customerName}" disabled="disabled" />
                 </div>
                 <div class="col-sm-6 b-r">
-					<#input id="account" name="*客户账号" disabled="disabled" value="${customer.account}" />
+					<#input id="account" name="客户账号" requiredTag="true" disabled="disabled" value="${customer.account}" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 b-r">
-					<#select id="customerLevel" name="*客户等级" >
+					<#select id="customerLevel" name="客户等级" requiredTag="true" >
 						<option value="1" 
 						@if(customer.customerLevel==1){
 							selected="selected" 
@@ -140,7 +140,7 @@
 					</#select>
                 </div>
                 <div class="col-sm-6 b-r">
-					<#select id="balanceLackConfigure" name="*余额不足是否收单" >
+					<#select id="balanceLackConfigure" name="余额不足是否收单" requiredTag="true" >
 						<option value="0" 
 						@if(customer.balanceLackConfigure==0){
 							selected="selected" 
@@ -161,7 +161,7 @@
 					</#select>
                 </div>
                 <div class="col-sm-6 b-r">
-					<#select id="status" name="*状态" underline="true" >
+					<#select id="status" name="状态" requiredTag="true" underline="true" >
 						<option value="2" 
 						@if(customer.status==2 || customer.status==0){
 							selected="selected" 
@@ -211,7 +211,7 @@
 	                    <span class="btnTips">删除产品</span>
 	                </div>
 	                <div class="btnWrapper">
-	                    <#button name="" icon="fa-edit" clickFun="setPriceByBatch()" style="width:98px"/>
+	                    <#button name="" icon="fa-percent-sam" clickFun="setPriceByBatch()" style="width:98px"/>
 	                    <span class="btnTips">批量定价</span>
 	                </div>
                 </div>
@@ -297,30 +297,43 @@
 				 </button>
 				 <h4 class="modal-title" id="partner-prod-title">选择产品</h4>
 			 </div>
-			 <div class="modal-body" style="position: relative;padding: 20px;">
-				 <div style="width: 477px;margin-left:129px;display:none" id="searchInput">
-				<input type="hidden" value="" id="operatorCode" />
-				<input type="text" id="text" name="text" style="width:200px;height:25px">
+			 <div class="modal-body clearfix">
+			 	<div style="display:none" id="searchInput">
+					<input type="hidden" value="" id="operatorCode" />
+					<input type="text" id="text" name="text" style="width:200px;height:25px;display: none">
+				</div>
+			 	<div class="col-sm-2" style="padding-left: 0px">
+					<div id="poia-flow-type" class="btn"></div>
+				</div>
+				<div class="col-sm-4">
+					<div id="poia-prod-origin">
+						<select id="dltSource" name="dltSource" size="10" multiple="multiple"></select>
+					</div>
+				</div>
+				
+				<div class="col-sm-1">
+					<div id="poia-btn-group">
+						<!-- <input type="button" value="全部 &gt;&gt;" class="btn btn-info" onclick="FlowProductDialog.AddAll($('#dltSource'),$('#dltTarget'))" /> -->
+						<div class="selectBtn">
+							<input type="button" value="&gt;" id="toRight" class="btn" />
+						</div>
+						<div class="selectBtn">
+							<input type="button" value="&lt;" id="toLeft" class="btn" />
+						</div>
+						<!-- <input type="button" value="&lt;&lt; 全部" class="btn btn-info" onclick="FlowProductDialog.AddAll($('#dltTarget'),$('#dltSource'))" /> -->
+					</div>
+				</div>
+				
+				<div class="col-sm-5">
+					<div id="poia-prod-final">
+						<select id="dltTarget" name="dltTarget" size="10" multiple="multiple"></select>
+					</div>
+				</div>
 			 </div>
-				<div id="poia-flow-type" class="btn btn-info"></div>
-			 <div id="poia-prod-origin">
-				<select id="dltSource" name="dltSource" size="10" multiple="multiple"></select>
-			 </div>
-			 <div id="poia-btn-group">
-			 	<br />
-<!-- 				<input type="button" value="全部 &gt;&gt;" class="btn btn-info" onclick="FlowProductDialog.AddAll($('#dltSource'),$('#dltTarget'))" /> -->
-				<input type="button" value="&gt;&gt;" id="toRight" class="btn btn-info" />
-				<input type="button" value="&lt;&lt;" id="toLeft" class="btn btn-info" />
-<!-- 				<input type="button" value="&lt;&lt; 全部" class="btn btn-info" onclick="FlowProductDialog.AddAll($('#dltTarget'),$('#dltSource'))" /> -->
-			 </div>
-			 <div id="poia-prod-final">
-				<select id="dltTarget" name="dltTarget" size="10" multiple="multiple"></select>
-			 </div>
-			 </div>
-			 <div class="modal-footer" style="padding-top: 208px;margin-top: 15px">
+			 <div class="modal-footer" style="">
 				 <span id="product-error-span" class="model-error-msg">请选择产品</span>
-				 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				 <button type="button" class="btn btn-primary" onclick="FlowProductDialog.okClickHandler();">添加</button>
+				 <button type="button" class="btn btn-cancel-sam" data-dismiss="modal">取消</button>
+				 <button type="button" class="btn btn-confirm-sam" onclick="FlowProductDialog.okClickHandler();">添加</button>
 			 </div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

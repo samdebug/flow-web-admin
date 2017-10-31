@@ -5,10 +5,15 @@
     id : 查询内容的input框id
     isTime : 日期是否带有小时和分钟(true/false)
     pattern : 日期的正则表达式(例如:"yyyy-MM-dd")
+    requiredTag : 是否需要在label前添加*标记
 @*/
 
 <div class="form-group">
-    <label class="col-sm-3 control-label">${name}</label>
+    <label class="col-sm-3 control-label">
+    @if(isNotEmpty(requiredTag) && requiredTag=="true"){
+    	<span style="color: red">*</span>
+    @}
+    ${name}</label>
      <div class="col-sm-9">
     	<input type="text" class="${class!}"
            onclick="laydate.render({elem: '#${id}', format:'${pattern}',istime: ${isTime},type:'datetime'})" id="${id}" name="${id}"    

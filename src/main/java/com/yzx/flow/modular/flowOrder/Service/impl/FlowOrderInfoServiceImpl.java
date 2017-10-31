@@ -179,7 +179,14 @@ public class FlowOrderInfoServiceImpl implements IFlowOrderInfoService {
 	@Override
 	@Transactional(readOnly=true)
     public FlowOrderInfo get(Long orderId) {
-		FlowOrderInfo flowOrderInfo =  flowOrderInfoDao.selectByPrimaryKey(orderId);
+		//获取订单入库时间戳
+		String recordTime = orderId.toString().substring(0, 13);
+		//入库时间
+		String recordDate = DateUtil.getDateStr(new Long(recordTime), "yyyyMM");
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tableName", "flow_order_info_"+recordDate);
+		params.put("orderId", orderId);
+		FlowOrderInfo flowOrderInfo =  flowOrderInfoDao.selectByPrimaryKey(params);
 		if(flowOrderInfo==null)
 			flowOrderInfo = flowOrderInfoDao.selectByPrimaryKeyInHis(orderId);
 		return flowOrderInfo;
@@ -251,7 +258,7 @@ public class FlowOrderInfoServiceImpl implements IFlowOrderInfoService {
 	 */
 	@Override
 	public void reCallBack(String orderIds) {
-		if(orderIds==null)
+		if(orderIds==null&&"".equals(orderIds))
 			return;
 		String[] ids = orderIds.split(",");
 		List<Long> orderIdList = new ArrayList<>(); 
@@ -261,9 +268,21 @@ public class FlowOrderInfoServiceImpl implements IFlowOrderInfoService {
 			Long orderId = Long.valueOf(id);
 			orderIdList.add(orderId);
 		}
+		//根据订单id获取订单入库时间戳
+		String orderTime = orderIdList.get(0).toString().substring(0,13);
+		//更新or 查询原始表参数
+		Map<String, Object> paramsOld = getFlowOrderOldParams(orderIdList);
+		//更新or 查询分表参数
+		Map<String, Object> paramsNew =  getFlowOrderNewParams(orderTime,orderIdList);;
 		
-		flowOrderInfoDao.reCallBack(orderIdList);
-		List<FlowOrderInfo> foiList  = flowOrderInfoDao.queryByOrderIds(orderIdList);
+		//更新原表
+		flowOrderInfoDao.reCallBack(paramsOld);
+		//TODO 分表后订单修改
+		flowOrderInfoDao.reCallBack(paramsNew);
+		//查询原始表
+		List<FlowOrderInfo> foiList  = flowOrderInfoDao.queryByOrderIds(paramsNew);
+		//分表后数据查询
+		List<FlowOrderInfo> foiList_new  = flowOrderInfoDao.queryByOrderIds_new(paramsNew);
 		for(FlowOrderInfo flowOrderInfo:foiList){
 			String flowAppId = String.valueOf(flowOrderInfo.getFlowAppId());
 			String flag = "6".equals(flowOrderInfo.getStatus())? "true":"false";
@@ -284,7 +303,15 @@ public class FlowOrderInfoServiceImpl implements IFlowOrderInfoService {
 							outTradeNo);
 				}
 			} catch (Exception e) {
-				flowOrderInfoDao.unReCallBack(flowOrderInfo.getOrderId());
+				Map<String, Object> params =new HashMap<String, Object>();
+				//更新原始表
+				params.put("tableName", "flow_order_info");
+				params.put("orderId", flowOrderInfo.getOrderId());
+				flowOrderInfoDao.unReCallBack(params);
+				//更新分表后的
+				String  recordTime= flowOrderInfo.getOrderId().toString().substring(0,13);
+				params.put("tableName", "flow_order_info_"+DateUtil.getDateStr(new Long(recordTime), "yyyyMM"));
+				flowOrderInfoDao.unReCallBack(params);
 				logger.error("发送OrderId="+flowOrderInfo.getOrderId()+"的回调信息到MQ失败", e);
 			}
 		}
@@ -295,34 +322,35 @@ public class FlowOrderInfoServiceImpl implements IFlowOrderInfoService {
 	 */
 	@Override
 	public void reFailBack(String orderIds) {
-		// flowOrderInfoDao.reFailBack(orderIds);
-		List<String> list = new ArrayList<String>();
+		
+		if(orderIds==null&&"".equals(orderIds))
+			return;
 		List<Long> orderIdList = new ArrayList<Long>();
 		String[] orderidItems = orderIds.split(",");
 		for (String id : orderidItems) {
-			list.add(id);
 			if(!StringUtils.isEmpty(id))
 				orderIdList.add(Long.valueOf(id));
 		}
 		int rows = 0;
-		if (list.size() > 0) {
-			rows = flowOrderInfoDao.reFailBackList(list);
-			flowOrderInfoExceptionDao.reFailBack(list);
+		//根据订单id获取订单入库时间戳
+		String orderTime = orderIdList.get(0).toString().substring(0,13);
+		//更新or 查询原始表参数
+		Map<String, Object> paramsOld = getFlowOrderOldParams(orderIdList);
+		//更新or 查询分表参数
+		Map<String, Object> paramsNew = getFlowOrderNewParams(orderTime,orderIdList);
+		if (orderIdList.size() > 0) {
+			//更新原始表
+			rows = flowOrderInfoDao.reFailBackList(paramsOld);
+			//更新分表后的数据
+			flowOrderInfoDao.reFailBackList(paramsNew);
+			//更新异常订单表
+			flowOrderInfoExceptionDao.reFailBack(orderIdList);
 		}
-		//		if (rows > 0) {
-//			for (String orderId : orderidItems) {
-//				if (StringUtils.isEmpty(orderId))
-//					continue;
-//				Long id = Long.valueOf(orderId);
-//				if (callBackOrderInfoDao.existCount(Long.valueOf(id)) == 0) {
-//					FlowOrderInfo record = flowOrderInfoDao.selectByPrimaryKey(id);
-//					callBackOrderInfoDao.insert(record);
-//				}
-//			}
-//		}
-
 		if (rows > 0) {
-			List<FlowOrderInfo> foiList = flowOrderInfoDao.queryByOrderIds(orderIdList);
+			//原表查询
+			List<FlowOrderInfo> foiList = flowOrderInfoDao.queryByOrderIds(paramsOld);
+			//分表后查询
+			List<FlowOrderInfo> foiList_new = flowOrderInfoDao.queryByOrderIds_new(paramsNew);
 			for (FlowOrderInfo flowOrderInfo : foiList) {
 				String flowAppId = String.valueOf(flowOrderInfo.getFlowAppId());
 				String flag = "false";
@@ -357,34 +385,33 @@ public class FlowOrderInfoServiceImpl implements IFlowOrderInfoService {
 	 */
 	@Override
 	public void reSuccessBack(String orderIds) {
-		List<String> list = new ArrayList<String>();
+		if(orderIds==null&&"".equals(orderIds))
+			return;
 		List<Long> orderIdList  = new ArrayList<>();
 		String[] orderidItems = orderIds.split(",");
 		for (String id : orderidItems) {
-			list.add(id);
 			if(!StringUtils.isEmpty(id))
 				orderIdList.add(Long.valueOf(id));
 		}
 		int rows = 0;
-		if (list.size() > 0) {
-			rows = flowOrderInfoDao.reSuccessBack(list);
-			flowOrderInfoExceptionDao.reFailBack(list);
+		//根据订单id获取订单入库时间戳
+		String orderTime = orderIdList.get(0).toString().substring(0,13);
+		//更新or 查询原始表参数
+		Map<String, Object> paramsOld = getFlowOrderOldParams(orderIdList);
+		//更新or 查询分表参数
+		Map<String, Object> paramsNew = getFlowOrderNewParams(orderTime,orderIdList);
+		if (orderIdList.size() > 0) {
+			//更新订单原表数据
+			rows = flowOrderInfoDao.reSuccessBack(paramsOld);
+			//更新分表后订单数据
+			rows = flowOrderInfoDao.reSuccessBack(paramsNew);
+			flowOrderInfoExceptionDao.reFailBack(orderIdList);
 		}
-
-//		if (rows > 0) {
-//			for (String orderId : orderidItems) {
-//				if (StringUtils.isEmpty(orderId))
-//					continue;
-//				Long id = Long.valueOf(orderId);
-//				if (callBackOrderInfoDao.existCount(Long.valueOf(id)) == 0) {
-//					FlowOrderInfo record = flowOrderInfoDao.selectByPrimaryKey(id);
-//					callBackOrderInfoDao.insert(record);
-//				}
-//			}
-//		}
-
 		if (rows > 0) {
-			List<FlowOrderInfo> foiList  = flowOrderInfoDao.queryByOrderIds(orderIdList);
+			//原表数据查询
+			List<FlowOrderInfo> foiList  = flowOrderInfoDao.queryByOrderIds(paramsOld);
+			//分表后数据查询
+			List<FlowOrderInfo> foiList_new  = flowOrderInfoDao.queryByOrderIds(paramsOld);
 			for(FlowOrderInfo flowOrderInfo:foiList){
 				String flowAppId = String.valueOf(flowOrderInfo.getFlowAppId());
 				String flag = "true";
@@ -413,25 +440,37 @@ public class FlowOrderInfoServiceImpl implements IFlowOrderInfoService {
 	 * @see com.yzx.flow.modular.flowOrder.Service.impl.IFlowOrderInfoService#reSend(java.lang.String)
 	 */
     @Override
-	@Transactional
+    @Transactional
     public void reSend(String orderIds) {
-    	flowOrderInfoDao.reSend(orderIds);
     	Map<String, Object> params = new HashMap<String,Object>();
-    	params.put("sendCount", 1);
-    	params.put("orderIds", orderIds);
-    	mobileFlowDispatchRecDao.updateSendCountByOrderId(params);
+		String[] orderidItems = orderIds.split(",");
+		for (String orderId : orderidItems) {
+			if(!StringUtils.isEmpty(orderId)){
+				params.put("tableName", "flow_order_info");
+				params.put("orderIds", orderId);
+				//更新原表
+				int i = flowOrderInfoDao.reSend(params);
+				//更新分表后的数据
+				params.put("tableName", "flow_order_info_"+ DateUtil.getDateStr(new Long(orderId.substring(0, 13)), "yyyyMM"));
+				flowOrderInfoDao.reSend(params);
+				if (i > 0) {//可重发
+					//添加异常订单可重发
+					FlowOrderInfo flowOrderInfo = get(Long.valueOf(orderId));
+					flowOrderInfo.setGwErrorCode("");
+					flowOrderInfo.setGwStatus("风控订单待重发");
+					flowOrderInfo.setActiveDate(new Date());
+					flowOrderInfoExceptionDao.insert(flowOrderInfo);
+					params.clear();
+					//更新下发记录
+			    	params.put("sendCount", 1);
+			    	params.put("recId", orderId + "_1");
+			    	params.put("orderIds", orderId);
+			    	mobileFlowDispatchRecDao.updateSendCountByOrderId(params);
+				}
+			}
+		}
     }
-    /* (non-Javadoc)
-	 * @see com.yzx.flow.modular.flowOrder.Service.impl.IFlowOrderInfoService#delete(java.lang.Long)
-	 */
-    @Override
-	public int delete(Long orderId) {
-        int row= flowOrderInfoDao.deleteByPrimaryKey(orderId);
-        if(row==0)
-        	row = flowOrderInfoDao.deleteByPrimaryKeyInHis(orderId);
-        return row;
-    }
-    
+   
     /* (non-Javadoc)
 	 * @see com.yzx.flow.modular.flowOrder.Service.impl.IFlowOrderInfoService#selectByFlowAppId(java.lang.Long)
 	 */
@@ -499,5 +538,31 @@ public class FlowOrderInfoServiceImpl implements IFlowOrderInfoService {
         page.setRows(5000);
 		return flowOrderInfoDao.queryCustomerIds(page);
 	}
-    
+ 
+	/**
+	 * 获取分表后更新数据参数
+	 * @param recordTime 订单入库时间戳
+	 * @param list 需要变更状态的订单id集合
+	 * @return
+	 */
+	private Map<String, Object> getFlowOrderNewParams(String recordTime,List list){
+	  Map<String, Object> paramsNew=new	HashMap<String,Object>();
+		//将时间戳转换为时间
+		String recordDate = DateUtil.getDateStr(new Long(recordTime), "yyyyMM");
+		paramsNew.put("tableName", "flow_order_info_"+recordDate);
+		paramsNew.put("list", list);
+		return paramsNew;
+	}
+	
+	/**
+	 * 获取订单原始表更新参数
+	 * @param list 需要变更状态的订单id集合
+	 * @return
+	 */
+	private Map<String, Object> getFlowOrderOldParams(List list){
+		 Map<String, Object> paramsOld=new	HashMap<String,Object>();
+		paramsOld.put("tableName", "flow_order_info");
+		paramsOld.put("list", list);
+		return paramsOld;
+	}
 }

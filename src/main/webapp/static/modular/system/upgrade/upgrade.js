@@ -18,7 +18,7 @@ Upgrade.initColumn = function () {
         {title: '发布时间', field: 'createTime', align: 'center', valign: 'middle'},
         {title: '更新说明', field: 'versionNotes', align: 'center', valign: 'middle'},
         {title: '状态', field: 'statusName', align: 'center', valign: 'middle'},
-        {title: '更新包大小(M)', field: 'componentSize', align: 'center', valign: 'middle'},
+        {title: '更新包大小(M)', field: 'componentSizeM', align: 'center', valign: 'middle'},
         {title: '升级时间', field: 'reserveTime', align: 'center', valign: 'middle'},
     ];
 };

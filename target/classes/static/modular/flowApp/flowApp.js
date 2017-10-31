@@ -17,14 +17,14 @@ FlowApp.initColumn = function () {
     	{field: 'selectItem', radio: true},
         {title: '接入ID号', field: 'flowAppId', visible: false, align: 'center', valign: 'middle'},
         {title: '客户名称', field: 'customerId', align: 'center', valign: 'middle', formatter: formatCustomerName},
-        //{title: '应用ID', field: 'appId', align: 'center', valign: 'middle', formatter: formatName},
+        {title: '应用ID', field: 'appId', align: 'center', valign: 'middle'},
         {title: '接入名称', field: 'appName', align: 'center', valign: 'middle', sortable: true, sortName: 'app_name', formatter: formatName},
         //{title: '订单ID号', field: 'orderIdStr', align: 'center', valign: 'middle', sortable: true, sortName: 'order_id'},
         {title: '接入密钥', field: 'appKey', align: 'center', valign: 'middle' },
         {title: '客户回调URL', field: 'callbackUrl', align: 'center', valign: 'middle', formatter: formatterUrl},
         {title: '签权IP地址', field: 'ipAddress', align: 'center', valign: 'middle', formatter: formatterIps },
         {title: '状态', field: 'statusDesc', align: 'center', valign: 'middle', sortable: true, sortName: 'status'},
-        {title: '是否重发', field: 'isResendDesc', align: 'center', valign: 'middle', sortable: true, sortName: 'is_resend' },
+        {title: '失败是否重发', field: 'isResendDesc', align: 'center', valign: 'middle', sortable: true, sortName: 'is_resend' },
         //{title: '是否需要短信', field: 'needSmsDesc', align: 'center', valign: 'middle' },
         {title: '通道组', field: 'dispatchChannelName', align: 'center', valign: 'middle' }
 //        {title: '操作', field: 'myac', align: 'center', valign: 'middle', formatter: actionButtons}
@@ -32,11 +32,15 @@ FlowApp.initColumn = function () {
 };
 
 function formatterUrl(cellvalue, rowObject, options) {
-	return "<div style=\"max-width:320px;word-wrap:break-word;\">"+ cellvalue +"</div>";
+	return "<div style=\"max-width:300px;word-wrap:break-word;\">"+ cellvalue +"</div>";
 }
 
 function formatterIps(cellvalue, rowObject, options) {
-	return "<div style=\"max-width:220px;word-wrap:break-word;\">"+ cellvalue +"</div>";
+	console.log(cellvalue);
+	if ( cellvalue && cellvalue != "" && cellvalue.indexOf(";") > -1 ) {
+		return cellvalue.replace(/;+/g, ";").replace(/;+$/, "").replace(/;/g, ";<br/>");
+	}
+	return cellvalue;
 }
 
 function formatName(cellvalue, rowObject, options) {

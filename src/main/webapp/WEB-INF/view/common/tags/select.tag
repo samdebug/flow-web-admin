@@ -3,9 +3,14 @@
     name : select的名称
     id : select的id
     underline : 是否带分割线
+    requiredTag : 是否需要在label前添加*标记
 @*/
 <div class="form-group">
-    <label class="col-sm-3 control-label">${name}</label>
+    <label class="col-sm-3 control-label">
+    @if(isNotEmpty(requiredTag) && requiredTag=="true"){
+    	<span style="color: red">*</span>
+    @}
+    ${name}</label>
     <div class="col-sm-9">
         <select class="form-control" id="${id}" name="${id}" 
         	@if(isNotEmpty(disabled)){

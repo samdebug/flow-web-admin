@@ -4,6 +4,9 @@ select.input-sm{
 	height: 32px;
 	line-height: 32px;
 }
+.red{
+	color: red;
+}
 </style>
 <div class="ibox float-e-margins">
     <div class="ibox-content">
@@ -14,7 +17,7 @@ select.input-sm{
 			
 			<div class="col-sm-6 b-r">
 				<div class="form-group">
-				    <label class="col-sm-3 control-label">*客户名称</label>
+				    <label class="col-sm-3 control-label"><span class="red">*</span>客户名称</label>
 				    <div class="col-sm-9">
 						<input type="hidden"  name="orderIdStr" id="orderId" class="form-control">
 				    </div>
@@ -22,27 +25,28 @@ select.input-sm{
 			
 				<#input id="callbackUrl" name="客户回调URL" />
 				
-				<#select id="callbackMethod" name="*回调方法" >
+				<#select id="callbackMethod" name="回调方法" requiredTag="true" >
 					<option value="POST" >POST</option>
                     <option value="GET">GET</option>
 				</#select>
 				
-				<#select id="status" name="*状态" >
+				<#select id="status" name="状态" requiredTag="true" >
                      <option value="1">有效</option>
                      <option value="3">无效</option>
 				</#select>
 				
-				<#time id="startDate" name="*开始时间" class="form-control layer-date" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" />
+				<#time id="startDate" requiredTag="true" name="开始时间" class="form-control layer-date" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" />
 				
-				<#time id="endDate" name="*结束时间" class="form-control layer-date" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" />
+				<#time id="endDate" requiredTag="true" name="结束时间" class="form-control layer-date" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" />
 			</div>
 			
 			<div class="col-sm-6 b-r">
 			
-<!-- 				<div id="appIdDiv"> -->
-<!-- 					<#input id="appId" name="*应用ID" maxlength="50" disabled="disabled" /> -->
-<!-- 				</div> -->
-				<#input id="appName" name="*接入名称" maxlength="50" disabled="disabled" />
+				<div id="appIdDiv">
+					<#input id="appId" name="应用ID" maxlength="50" disabled="disabled" />
+				</div>
+				
+				<#input id="appName" name="接入名称" requiredTag="true" maxlength="50" disabled="disabled" />
 				
 				<#input id="ipAddress" name="鉴权ip地址" placeholder="多个ip以英文分号(;)分隔" />
 				
@@ -53,13 +57,13 @@ select.input-sm{
 				    </div>
                	</div>
                	
-				<#select id="isResend" name="*失败重发" >
+				<#select id="isResend" name="失败重发" requiredTag="true" >
 					<option value="0" >否</option>
                     <option value="1">是</option>
 				</#select>
 				
 				<div id="resendTimesDiv">
-					<#input id="resendTimes" name="*尝试重发次数" maxlength="1" />
+					<#input id="resendTimes" name="尝试重发次数" maxlength="1" requiredTag="true" />
 				</div>
 				
 			</div>
@@ -172,7 +176,7 @@ select.input-sm{
 			$("#resendTimesDiv").show();
 			$("#resendTimes").val("");
 		} else {
-			$("#resendTimes").val("1");
+			$("#resendTimes").val("");
 			$("#resendTimesDiv").hide();
 			$("#resendTimes").hide();
 			$("#resendTimes").prop("disabled", true)
@@ -224,7 +228,7 @@ select.input-sm{
 	$(function() {
 		
 		if ( !editModel ) {// 非编辑模式
-			//$("#appIdDiv").remove();
+			$("#appIdDiv").remove();
 			initOrderInfoSelect();
 			$("#appName").prop("disabled", false);
 		}

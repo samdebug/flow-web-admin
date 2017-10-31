@@ -17,7 +17,7 @@ Customer.initColumn = function () {
         {title: 'id', field: 'customerId', visible: false, align: 'center', valign: 'middle'},
         //{title: '客户简称', field: 'shorterName', align: 'center', valign: 'middle', formatter: formatShortName, sortable:true, sortName:'shorter_name'},
         {title: '客户名称', field: 'customerName', align: 'center', valign: 'middle', sortable:true, sortName:'customer_name', formatter: formatShortName},
-        {title: '登陆账号', field: 'account', align: 'center', valign: 'middle'},
+        {title: '登录账号', field: 'account', align: 'center', valign: 'middle'},
         //{title: '客户类型', field: 'adviserTypeDesc', align: 'center', valign: 'middle'},
         {title: '客户等级', field: 'customerLevel', align: 'center', valign: 'middle', sortable:true, sortName:'customer_level', formatter: formatLevel},
         {title: '状态', field: 'status', align: 'center', valign: 'middle', formatter: formatStatus},

@@ -2863,7 +2863,7 @@ label.error {
 }
 
 .form-control.error {
-    border: 1px dotted #cc5965;
+    border: 1px solid #cc5965;
 }
 
 
@@ -8596,4 +8596,34 @@ body.skin-3 {
 
 .btn-cancel-sam:hover{
     background-color: #e2e1e1 !important;
+}
+
+.selectBtn{
+    padding-bottom: 10px;
+}
+
+.selectBtn input {
+    background: #2fa968;
+    color: #fff;
+}
+
+.selectBtn input:hover {
+    background:#248450;
+    color: #fff;
+}
+
+.fa-percent-sam {
+    background: url(../img/percent.png) no-repeat;
+    width: 15px;
+    height: 15px;
+    background-size: 14px;
+    background-position: 0px 2px;
+}
+
+.fa-percent-sam:hover{
+    background: url(../img/percent-hover.png) no-repeat;
+    width: 15px;
+    height: 15px;
+    background-size: 14px;
+    background-position: 0px 2px;
 }

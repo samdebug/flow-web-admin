@@ -37,7 +37,6 @@
 }
 
 .many-ul li {
-	border-bottom: 1px solid #cccccc;
 	height: 35px;
 	line-height: 35px;
 	padding: 0 10px;
@@ -67,11 +66,11 @@
 	padding-top: 20px;
 }
 
-.selectDiv {
+/*.selectDiv {
 	border-top: 1px solid #cccccc;
 	border-left: 1px solid #cccccc;
 	width: 118px;
-}
+}*/
 
 .selectList {
 	border: 1px solid #cccccc;
@@ -115,11 +114,13 @@
 }
 
 .many-selected {
-	background-color: burlywood;
+	background-color: #2fa968;
+    color: #fff;
 }
 
 li:hover {
-	background-color: burlywood;
+	background-color: #2fa968;
+	color: #fff;
 }
 
 .button-style-2 {
@@ -173,6 +174,9 @@ li:hover {
 	padding-right: 25px;
 	border-bottom: 1px solid #dcdcdc;
 }
+.red {
+	color: red;
+}
 </style>
 
 	<div class="page-content white_bg">
@@ -211,7 +215,7 @@ li:hover {
 					<div class="col-xs-6">
 						<div class="form-group">
 							<label class="col-sm-4 control-label no-padding-right text-right"
-								for="loginName"> <span class="red">*</span> 合作伙伴帐号:
+								for="loginName"> <span class="red">*</span> 登录账号:
 							</label>
 							<div class="col-sm-6">
 								<input type="text" name="loginName" id="loginName"
@@ -220,14 +224,13 @@ li:hover {
 						</div>
 						<div class="form-group">
 							<label class="col-sm-4 control-label no-padding-right text-right"
-								for="status"> <span class="red">*</span> 合作伙伴状态:
+								for="status"> <span class="red">*</span> 状态:
 							</label>
 							<div class="col-sm-6">
 								<select name="status" id="status"
 									class="form-control input-sm">
-									<option value="0">无效</option>
-									<option value="1">有效</option>
 									<option value="2">无效</option>
+									<option value="1">有效</option>
 								</select>
 							</div>
 						</div>
@@ -298,7 +301,7 @@ li:hover {
 	                                <span class="btnTips">删除产品</span>
                                 </div>
                                 <div class="btnWrapper">
-	                                <#button id="batch-set-price" name="" icon="fa fa-edit" clickFun="" style="width:98px"/>
+	                                <#button id="batch-set-price" name="" icon="fa fa-percent-sam" clickFun="" style="width:98px"/>
 	                                <span class="btnTips">批量定价</span>
                                 </div>
 							</div>
@@ -319,8 +322,8 @@ li:hover {
 	                                    </div>
 	                                    <div class="modal-footer">
 	                                        <span id="batch-error-span" class="model-error-msg"></span>
-	                                        <button data-dismiss="modal" type="button" class="btn btn-default">取消</button>
-	                                        <button id="batch-setprice-btn" type="button" class="btn btn-primary">提交</button>
+	                                        <button data-dismiss="modal" type="button" class="btn btn-cancel-sam">取消</button>
+	                                        <button id="batch-setprice-btn" type="button" class="btn btn-confirm-sam">提交</button>
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -339,7 +342,7 @@ li:hover {
 										<th>产品名称</th>
 										<th>产品代码</th>
 										<th>运营商</th>
-										<th>区域</th>
+										<th>适用区域</th>
 										<th>产品定价(元)</th>
 										<th>结算价格(元)</th>
 										<th>折扣(%)</th>
@@ -374,12 +377,12 @@ li:hover {
 						<input type="hidden" value="" id="productType" />
 						<input type="hidden" value="" id="operatorCode" />
 						<div style="width: 477px;">
-							<input type="text" id="text" name="text" style="width:240px;height:27px">
+							<input type="text" id="text" name="text" style="width:240px;height:27px;margin-left: -12px;">
 						</div>
 						<div class="selectDiv float-left">
 							<ul class="many-ul">
 								<li class=" many-select" onclick="getProduct(1,this)">基础流量产品</li>
-								<ul class="sub_select" style="list-style-type:none;display:none">
+								<ul class="sub_select" style="list-style-type:none;display:block">
 									<li class="many-select" onclick="getProductByOperatorCode('YD',this)">中国移动</li>
 									<li class="many-select" onclick="getProductByOperatorCode('LT',this)">中国联通</li>
 									<li class="many-select" onclick="getProductByOperatorCode('DX',this)">中国电信</li>
@@ -670,16 +673,16 @@ li:hover {
 			$(obj).addClass("many-selected");
 		}
 		if(1 == type){//二级搜索框
-			if($(".sub_select").is(":hidden")){
+			/*if($(".sub_select").is(":hidden")){
 				$(".sub_select").show();
 			}else{
 				$(".sub_select").hide();
-			}
+			}*/
 			$("#text").show();
 		}else{
 			$("#text").val("");
 			$("#text").hide();
-			$(".sub_select").hide();
+			//$(".sub_select").hide();
 		}
 		$.ajax({
 			url : Feng.ctxPath

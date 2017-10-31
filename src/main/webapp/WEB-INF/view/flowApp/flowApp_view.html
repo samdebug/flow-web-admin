@@ -14,11 +14,10 @@ select.input-sm{
 			
 			<div class="row">
             	<div class="col-sm-6 b-r">
-					<#input id="customerName" name="*客户名称" disabled="disabled" />
+					<#input id="customerName" name="客户名称" disabled="disabled" />
                 </div>
                 <div class="col-sm-6 b-r">
-<!--                 	<#input id="appId" name="*应用ID" maxlength="50" disabled="disabled" /> -->
-					<#input id="appName" name="*接入名称" maxlength="50" disabled="disabled" />
+                	<#input id="appId" name="应用ID" maxlength="50" disabled="disabled" />
                 </div>
             </div>
             <div class="row">
@@ -26,14 +25,25 @@ select.input-sm{
 					<#input id="callbackUrl" name="客户回调URL" disabled="disabled"/>
                 </div>
                 <div class="col-sm-6 b-r">
+                	<#input id="appName" name="接入名称" maxlength="50" disabled="disabled" />
+                </div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-6 b-r">
+					<#select id="callbackMethod" name="回调方法" disabled="disabled">
+						<option value="POST" >POST</option>
+                        <option value="GET">GET</option>
+					</#select>
+                </div>
+                <div class="col-sm-6 b-r">
                 	<#input id="ipAddress" name="鉴权ip地址" disabled="disabled"/>
                 </div>
             </div>
             <div class="row">
             	<div class="col-sm-6 b-r">
-					<#select id="callbackMethod" name="*回调方法" disabled="disabled">
-						<option value="POST" >POST</option>
-                        <option value="GET">GET</option>
+					<#select id="status" name="状态" disabled="disabled">
+                        <option value="1">有效</option>
+                        <option value="3">无效</option>
 					</#select>
                 </div>
                 <div class="col-sm-6 b-r">
@@ -47,13 +57,10 @@ select.input-sm{
             </div>
             <div class="row">
             	<div class="col-sm-6 b-r">
-					<#select id="status" name="*状态" disabled="disabled">
-                        <option value="1">有效</option>
-                        <option value="3">无效</option>
-					</#select>
+					<#time id="startDate" name="开始时间" class="form-control" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" disabled="disabled"/>
                 </div>
                 <div class="col-sm-6 b-r">
-                	<#select id="isResend" name="*失败重发" disabled="disabled">
+                	<#select id="isResend" name="失败重发" disabled="disabled">
 						<option value="0" >否</option>
                         <option value="1">是</option>
 					</#select>
@@ -61,17 +68,11 @@ select.input-sm{
             </div>
             <div class="row">
             	<div class="col-sm-6 b-r">
-					<#time id="startDate" name="*开始时间" class="form-control" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" disabled="disabled"/>
+					<#time id="endDate" name="结束时间" class="form-control" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" disabled="disabled"/>
                 </div>
                 <div class="col-sm-6 b-r" id="resendTimesDiv" style="display: none;" >
-					<#input id="resendTimes" name="*尝试重发次数" maxlength="1" disabled="disabled"/>
+					<#input id="resendTimes" name="尝试重发次数" maxlength="1" disabled="disabled"/>
                 </div>
-            </div>
-            <div class="row">
-            	<div class="col-sm-6 b-r">
-					<#time id="endDate" name="*结束时间" class="form-control" isTime="true" pattern="yyyy-MM-dd HH:mm:ss" disabled="disabled"/>
-                </div>
-                
             </div>
 		</form>
 	</div>
@@ -94,7 +95,7 @@ select.input-sm{
 			$("#resendTimesDiv").show();
 			$("#resendTimes").val("");
 		} else {
-			$("#resendTimes").val("1");
+			$("#resendTimes").val("");
 			$("#resendTimesDiv").hide();
 			$("#resendTimes").hide();
 			$("#resendTimes").prop("disabled", true)

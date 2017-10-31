@@ -44,7 +44,6 @@ public interface IFlowOrderInfoService {
 
 	public abstract void reSend(String orderIds);
 
-	public abstract int delete(Long orderId);
 
 	public abstract List<FlowOrderInfo> selectByFlowAppId(Long flowAppId);
 

@@ -252,6 +252,7 @@ ChannelSupplier.openChannelSupplierDetail = function () {
     }
 };
 
+
 /**
  * 删除通道供应商
  */
@@ -292,12 +293,14 @@ ChannelSupplier.reSet = function(){
 	$("#supplierName").val("");
 	$("#isValid").val("");
 }
-
+//导出
+ChannelSupplier.export2Excel=function(){
+	location.href=encodeURI(Feng.ctxPath + "/channelSupplier/export?params['supplierName']=" + $("#supplierName").val());
+}
 
 $(function () {
     var defaultColunms = ChannelSupplier.initColumn();
     var table = new BSTable(ChannelSupplier.id, "/channelSupplier/list", defaultColunms);
-    //table.setPaginationType("client");
     ChannelSupplier.table = table.init();
 
     
