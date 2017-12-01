@@ -5,6 +5,18 @@
  *
 */
 
+
+
+/*
+ *
+ *   2017年12月1号
+ *   version 1.0
+ *   sam
+ *
+*/
+
+
+
 h1,
 h2,
 h3,
@@ -48,6 +60,7 @@ h5 {
 a:focus {
     outline: none;
 }
+
 
 .nav > li > a {
     font-size: 15px;
